@@ -60,6 +60,40 @@ asyncio.run(main())
 
 Functionality between the synchronous and asynchronous clients is otherwise identical.
 
+## Streaming responses
+
+We provide support for streaming responses using Server Side Events (SSE).
+
+```python
+from sambanova import Sambanova
+
+client = Sambanova(
+    bearer_token="My Bearer Token",
+)
+
+stream = client.chats.completions.create(
+    stream=True,
+)
+for completion in stream:
+    print(completion.id)
+```
+
+The async client uses the exact same interface.
+
+```python
+from sambanova import AsyncSambanova
+
+client = AsyncSambanova(
+    bearer_token="My Bearer Token",
+)
+
+stream = await client.chats.completions.create(
+    stream=True,
+)
+async for completion in stream:
+    print(completion.id)
+```
+
 ## Using types
 
 Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typing.html#typing.TypedDict). Responses are [Pydantic models](https://docs.pydantic.dev) which also provide helper methods for things like:
