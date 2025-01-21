@@ -1,11 +1,11 @@
 [project]
 name = "sambanova"
 version = "0.0.1-alpha.0"
-description = "The official Python library for the petstore API"
+description = "The official Python library for the sambanova API"
 dynamic = ["readme"]
 license = "Apache-2.0"
 authors = [
-{ name = "Petstore", email = "example@example.com" },
+{ name = "Sambanova", email = "info@sambanova.ai" },
 ]
 dependencies = [
     "httpx>=0.23.0, <1",

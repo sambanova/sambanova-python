@@ -20,11 +20,11 @@ import pytest
 from respx import MockRouter
 from pydantic import ValidationError
 
-from sambanova import Petstore, AsyncPetstore, APIResponseValidationError
+from sambanova import Sambanova, AsyncSambanova, APIResponseValidationError
 from sambanova._types import Omit
 from sambanova._models import BaseModel, FinalRequestOptions
 from sambanova._constants import RAW_RESPONSE_HEADER
-from sambanova._exceptions import PetstoreError, APIStatusError, APITimeoutError, APIResponseValidationError
+from sambanova._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
 from sambanova._base_client import (
     DEFAULT_TIMEOUT,
     HTTPX_DEFAULT_TIMEOUT,
@@ -35,7 +35,6 @@ from sambanova._base_client import (
 from .utils import update_env
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
-api_key = "My API Key"
 
 
 def _get_params(client: BaseClient[Any, Any]) -> dict[str, str]:
@@ -48,7 +47,7 @@ def _low_retry_timeout(*_args: Any, **_kwargs: Any) -> float:
     return 0.1
 
 
-def _get_open_connections(client: Petstore | AsyncPetstore) -> int:
+def _get_open_connections(client: Sambanova | AsyncSambanova) -> int:
     transport = client._client._transport
     assert isinstance(transport, httpx.HTTPTransport) or isinstance(transport, httpx.AsyncHTTPTransport)
 
@@ -56,8 +55,8 @@ def _get_open_connections(client: Petstore | AsyncPetstore) -> int:
     return len(pool._requests)
 
 
-class TestPetstore:
-    client = Petstore(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+class TestSambanova:
+    client = Sambanova(base_url=base_url, _strict_response_validation=True)
 
     @pytest.mark.respx(base_url=base_url)
     def test_raw_response(self, respx_mock: MockRouter) -> None:
@@ -83,10 +82,6 @@ class TestPetstore:
         copied = self.client.copy()
         assert id(copied) != id(self.client)
 
-        copied = self.client.copy(api_key="another My API Key")
-        assert copied.api_key == "another My API Key"
-        assert self.client.api_key == "My API Key"
-
     def test_copy_default_options(self) -> None:
         # options that have a default are overridden correctly
         copied = self.client.copy(max_retries=7)
@@ -104,9 +99,7 @@ class TestPetstore:
         assert isinstance(self.client.timeout, httpx.Timeout)
 
     def test_copy_default_headers(self) -> None:
-        client = Petstore(
-            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
-        )
+        client = Sambanova(base_url=base_url, _strict_response_validation=True, default_headers={"X-Foo": "bar"})
         assert client.default_headers["X-Foo"] == "bar"
 
         # does not override the already given value when not specified
@@ -138,9 +131,7 @@ class TestPetstore:
             client.copy(set_default_headers={}, default_headers={"X-Foo": "Bar"})
 
     def test_copy_default_query(self) -> None:
-        client = Petstore(
-            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"foo": "bar"}
-        )
+        client = Sambanova(base_url=base_url, _strict_response_validation=True, default_query={"foo": "bar"})
         assert _get_params(client)["foo"] == "bar"
 
         # does not override the already given value when not specified
@@ -263,9 +254,7 @@ class TestPetstore:
         assert timeout == httpx.Timeout(100.0)
 
     def test_client_timeout_option(self) -> None:
-        client = Petstore(
-            base_url=base_url, api_key=api_key, _strict_response_validation=True, timeout=httpx.Timeout(0)
-        )
+        client = Sambanova(base_url=base_url, _strict_response_validation=True, timeout=httpx.Timeout(0))
 
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         timeout = httpx.Timeout(**request.extensions["timeout"])  # type: ignore
@@ -274,9 +263,7 @@ class TestPetstore:
     def test_http_client_timeout_option(self) -> None:
         # custom timeout given to the httpx client should be used
         with httpx.Client(timeout=None) as http_client:
-            client = Petstore(
-                base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
-            )
+            client = Sambanova(base_url=base_url, _strict_response_validation=True, http_client=http_client)
 
             request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
             timeout = httpx.Timeout(**request.extensions["timeout"])  # type: ignore
@@ -284,9 +271,7 @@ class TestPetstore:
 
         # no timeout given to the httpx client should not use the httpx default
         with httpx.Client() as http_client:
-            client = Petstore(
-                base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
-            )
+            client = Sambanova(base_url=base_url, _strict_response_validation=True, http_client=http_client)
 
             request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
             timeout = httpx.Timeout(**request.extensions["timeout"])  # type: ignore
@@ -294,9 +279,7 @@ class TestPetstore:
 
         # explicitly passing the default timeout currently results in it being ignored
         with httpx.Client(timeout=HTTPX_DEFAULT_TIMEOUT) as http_client:
-            client = Petstore(
-                base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
-            )
+            client = Sambanova(base_url=base_url, _strict_response_validation=True, http_client=http_client)
 
             request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
             timeout = httpx.Timeout(**request.extensions["timeout"])  # type: ignore
@@ -305,24 +288,16 @@ class TestPetstore:
     async def test_invalid_http_client(self) -> None:
         with pytest.raises(TypeError, match="Invalid `http_client` arg"):
             async with httpx.AsyncClient() as http_client:
-                Petstore(
-                    base_url=base_url,
-                    api_key=api_key,
-                    _strict_response_validation=True,
-                    http_client=cast(Any, http_client),
-                )
+                Sambanova(base_url=base_url, _strict_response_validation=True, http_client=cast(Any, http_client))
 
     def test_default_headers_option(self) -> None:
-        client = Petstore(
-            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
-        )
+        client = Sambanova(base_url=base_url, _strict_response_validation=True, default_headers={"X-Foo": "bar"})
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "bar"
         assert request.headers.get("x-stainless-lang") == "python"
 
-        client2 = Petstore(
+        client2 = Sambanova(
             base_url=base_url,
-            api_key=api_key,
             _strict_response_validation=True,
             default_headers={
                 "X-Foo": "stainless",
@@ -333,20 +308,8 @@ class TestPetstore:
         assert request.headers.get("x-foo") == "stainless"
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
 
-    def test_validate_headers(self) -> None:
-        client = Petstore(base_url=base_url, api_key=api_key, _strict_response_validation=True)
-        request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
-        assert request.headers.get("api_key") == api_key
-
-        with pytest.raises(PetstoreError):
-            with update_env(**{"PETSTORE_API_KEY": Omit()}):
-                client2 = Petstore(base_url=base_url, api_key=None, _strict_response_validation=True)
-            _ = client2
-
     def test_default_query_option(self) -> None:
-        client = Petstore(
-            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"query_param": "bar"}
-        )
+        client = Sambanova(base_url=base_url, _strict_response_validation=True, default_query={"query_param": "bar"})
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         url = httpx.URL(request.url)
         assert dict(url.params) == {"query_param": "bar"}
@@ -458,7 +421,7 @@ class TestPetstore:
         params = dict(request.url.params)
         assert params == {"foo": "2"}
 
-    def test_multipart_repeating_array(self, client: Petstore) -> None:
+    def test_multipart_repeating_array(self, client: Sambanova) -> None:
         request = client._build_request(
             FinalRequestOptions.construct(
                 method="get",
@@ -545,7 +508,7 @@ class TestPetstore:
         assert response.foo == 2
 
     def test_base_url_setter(self) -> None:
-        client = Petstore(base_url="https://example.com/from_init", api_key=api_key, _strict_response_validation=True)
+        client = Sambanova(base_url="https://example.com/from_init", _strict_response_validation=True)
         assert client.base_url == "https://example.com/from_init/"
 
         client.base_url = "https://example.com/from_setter"  # type: ignore[assignment]
@@ -553,24 +516,23 @@ class TestPetstore:
         assert client.base_url == "https://example.com/from_setter/"
 
     def test_base_url_env(self) -> None:
-        with update_env(PETSTORE_BASE_URL="http://localhost:5000/from/env"):
-            client = Petstore(api_key=api_key, _strict_response_validation=True)
+        with update_env(SAMBANOVA_BASE_URL="http://localhost:5000/from/env"):
+            client = Sambanova(_strict_response_validation=True)
             assert client.base_url == "http://localhost:5000/from/env/"
 
     @pytest.mark.parametrize(
         "client",
         [
-            Petstore(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
-            Petstore(
+            Sambanova(base_url="http://localhost:5000/custom/path/", _strict_response_validation=True),
+            Sambanova(
                 base_url="http://localhost:5000/custom/path/",
-                api_key=api_key,
                 _strict_response_validation=True,
                 http_client=httpx.Client(),
             ),
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_trailing_slash(self, client: Petstore) -> None:
+    def test_base_url_trailing_slash(self, client: Sambanova) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -583,17 +545,16 @@ class TestPetstore:
     @pytest.mark.parametrize(
         "client",
         [
-            Petstore(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
-            Petstore(
+            Sambanova(base_url="http://localhost:5000/custom/path/", _strict_response_validation=True),
+            Sambanova(
                 base_url="http://localhost:5000/custom/path/",
-                api_key=api_key,
                 _strict_response_validation=True,
                 http_client=httpx.Client(),
             ),
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_no_trailing_slash(self, client: Petstore) -> None:
+    def test_base_url_no_trailing_slash(self, client: Sambanova) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -606,17 +567,16 @@ class TestPetstore:
     @pytest.mark.parametrize(
         "client",
         [
-            Petstore(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
-            Petstore(
+            Sambanova(base_url="http://localhost:5000/custom/path/", _strict_response_validation=True),
+            Sambanova(
                 base_url="http://localhost:5000/custom/path/",
-                api_key=api_key,
                 _strict_response_validation=True,
                 http_client=httpx.Client(),
             ),
         ],
         ids=["standard", "custom http client"],
     )
-    def test_absolute_request_url(self, client: Petstore) -> None:
+    def test_absolute_request_url(self, client: Sambanova) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -627,7 +587,7 @@ class TestPetstore:
         assert request.url == "https://myapi.com/foo"
 
     def test_copied_client_does_not_close_http(self) -> None:
-        client = Petstore(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = Sambanova(base_url=base_url, _strict_response_validation=True)
         assert not client.is_closed()
 
         copied = client.copy()
@@ -638,7 +598,7 @@ class TestPetstore:
         assert not client.is_closed()
 
     def test_client_context_manager(self) -> None:
-        client = Petstore(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = Sambanova(base_url=base_url, _strict_response_validation=True)
         with client as c2:
             assert c2 is client
             assert not c2.is_closed()
@@ -659,7 +619,7 @@ class TestPetstore:
 
     def test_client_max_retries_validation(self) -> None:
         with pytest.raises(TypeError, match=r"max_retries cannot be None"):
-            Petstore(base_url=base_url, api_key=api_key, _strict_response_validation=True, max_retries=cast(Any, None))
+            Sambanova(base_url=base_url, _strict_response_validation=True, max_retries=cast(Any, None))
 
     @pytest.mark.respx(base_url=base_url)
     def test_received_text_for_expected_json(self, respx_mock: MockRouter) -> None:
@@ -668,12 +628,12 @@ class TestPetstore:
 
         respx_mock.get("/foo").mock(return_value=httpx.Response(200, text="my-custom-format"))
 
-        strict_client = Petstore(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        strict_client = Sambanova(base_url=base_url, _strict_response_validation=True)
 
         with pytest.raises(APIResponseValidationError):
             strict_client.get("/foo", cast_to=Model)
 
-        client = Petstore(base_url=base_url, api_key=api_key, _strict_response_validation=False)
+        client = Sambanova(base_url=base_url, _strict_response_validation=False)
 
         response = client.get("/foo", cast_to=Model)
         assert isinstance(response, str)  # type: ignore[unreachable]
@@ -701,7 +661,7 @@ class TestPetstore:
     )
     @mock.patch("time.time", mock.MagicMock(return_value=1696004797))
     def test_parse_retry_after_header(self, remaining_retries: int, retry_after: str, timeout: float) -> None:
-        client = Petstore(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = Sambanova(base_url=base_url, _strict_response_validation=True)
 
         headers = httpx.Headers({"retry-after": retry_after})
         options = FinalRequestOptions(method="get", url="/foo", max_retries=3)
@@ -711,11 +671,14 @@ class TestPetstore:
     @mock.patch("sambanova._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
-        respx_mock.get("/store/inventory").mock(side_effect=httpx.TimeoutException("Test timeout error"))
+        respx_mock.post("/v1/chat/completions").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            self.client.get(
-                "/store/inventory", cast_to=httpx.Response, options={"headers": {RAW_RESPONSE_HEADER: "stream"}}
+            self.client.post(
+                "/v1/chat/completions",
+                body=cast(object, dict()),
+                cast_to=httpx.Response,
+                options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
 
         assert _get_open_connections(self.client) == 0
@@ -723,11 +686,14 @@ class TestPetstore:
     @mock.patch("sambanova._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
-        respx_mock.get("/store/inventory").mock(return_value=httpx.Response(500))
+        respx_mock.post("/v1/chat/completions").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            self.client.get(
-                "/store/inventory", cast_to=httpx.Response, options={"headers": {RAW_RESPONSE_HEADER: "stream"}}
+            self.client.post(
+                "/v1/chat/completions",
+                body=cast(object, dict()),
+                cast_to=httpx.Response,
+                options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
 
         assert _get_open_connections(self.client) == 0
@@ -738,7 +704,7 @@ class TestPetstore:
     @pytest.mark.parametrize("failure_mode", ["status", "exception"])
     def test_retries_taken(
         self,
-        client: Petstore,
+        client: Sambanova,
         failures_before_success: int,
         failure_mode: Literal["status", "exception"],
         respx_mock: MockRouter,
@@ -756,9 +722,9 @@ class TestPetstore:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.get("/store/inventory").mock(side_effect=retry_handler)
+        respx_mock.post("/v1/chat/completions").mock(side_effect=retry_handler)
 
-        response = client.store.with_raw_response.inventory()
+        response = client.chats.completions.with_raw_response.create()
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -767,7 +733,7 @@ class TestPetstore:
     @mock.patch("sambanova._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_omit_retry_count_header(
-        self, client: Petstore, failures_before_success: int, respx_mock: MockRouter
+        self, client: Sambanova, failures_before_success: int, respx_mock: MockRouter
     ) -> None:
         client = client.with_options(max_retries=4)
 
@@ -780,9 +746,9 @@ class TestPetstore:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.get("/store/inventory").mock(side_effect=retry_handler)
+        respx_mock.post("/v1/chat/completions").mock(side_effect=retry_handler)
 
-        response = client.store.with_raw_response.inventory(extra_headers={"x-stainless-retry-count": Omit()})
+        response = client.chats.completions.with_raw_response.create(extra_headers={"x-stainless-retry-count": Omit()})
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
@@ -790,7 +756,7 @@ class TestPetstore:
     @mock.patch("sambanova._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_overwrite_retry_count_header(
-        self, client: Petstore, failures_before_success: int, respx_mock: MockRouter
+        self, client: Sambanova, failures_before_success: int, respx_mock: MockRouter
     ) -> None:
         client = client.with_options(max_retries=4)
 
@@ -803,15 +769,15 @@ class TestPetstore:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.get("/store/inventory").mock(side_effect=retry_handler)
+        respx_mock.post("/v1/chat/completions").mock(side_effect=retry_handler)
 
-        response = client.store.with_raw_response.inventory(extra_headers={"x-stainless-retry-count": "42"})
+        response = client.chats.completions.with_raw_response.create(extra_headers={"x-stainless-retry-count": "42"})
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
 
 
-class TestAsyncPetstore:
-    client = AsyncPetstore(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+class TestAsyncSambanova:
+    client = AsyncSambanova(base_url=base_url, _strict_response_validation=True)
 
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
@@ -839,10 +805,6 @@ class TestAsyncPetstore:
         copied = self.client.copy()
         assert id(copied) != id(self.client)
 
-        copied = self.client.copy(api_key="another My API Key")
-        assert copied.api_key == "another My API Key"
-        assert self.client.api_key == "My API Key"
-
     def test_copy_default_options(self) -> None:
         # options that have a default are overridden correctly
         copied = self.client.copy(max_retries=7)
@@ -860,9 +822,7 @@ class TestAsyncPetstore:
         assert isinstance(self.client.timeout, httpx.Timeout)
 
     def test_copy_default_headers(self) -> None:
-        client = AsyncPetstore(
-            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
-        )
+        client = AsyncSambanova(base_url=base_url, _strict_response_validation=True, default_headers={"X-Foo": "bar"})
         assert client.default_headers["X-Foo"] == "bar"
 
         # does not override the already given value when not specified
@@ -894,9 +854,7 @@ class TestAsyncPetstore:
             client.copy(set_default_headers={}, default_headers={"X-Foo": "Bar"})
 
     def test_copy_default_query(self) -> None:
-        client = AsyncPetstore(
-            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"foo": "bar"}
-        )
+        client = AsyncSambanova(base_url=base_url, _strict_response_validation=True, default_query={"foo": "bar"})
         assert _get_params(client)["foo"] == "bar"
 
         # does not override the already given value when not specified
@@ -1019,9 +977,7 @@ class TestAsyncPetstore:
         assert timeout == httpx.Timeout(100.0)
 
     async def test_client_timeout_option(self) -> None:
-        client = AsyncPetstore(
-            base_url=base_url, api_key=api_key, _strict_response_validation=True, timeout=httpx.Timeout(0)
-        )
+        client = AsyncSambanova(base_url=base_url, _strict_response_validation=True, timeout=httpx.Timeout(0))
 
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         timeout = httpx.Timeout(**request.extensions["timeout"])  # type: ignore
@@ -1030,9 +986,7 @@ class TestAsyncPetstore:
     async def test_http_client_timeout_option(self) -> None:
         # custom timeout given to the httpx client should be used
         async with httpx.AsyncClient(timeout=None) as http_client:
-            client = AsyncPetstore(
-                base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
-            )
+            client = AsyncSambanova(base_url=base_url, _strict_response_validation=True, http_client=http_client)
 
             request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
             timeout = httpx.Timeout(**request.extensions["timeout"])  # type: ignore
@@ -1040,9 +994,7 @@ class TestAsyncPetstore:
 
         # no timeout given to the httpx client should not use the httpx default
         async with httpx.AsyncClient() as http_client:
-            client = AsyncPetstore(
-                base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
-            )
+            client = AsyncSambanova(base_url=base_url, _strict_response_validation=True, http_client=http_client)
 
             request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
             timeout = httpx.Timeout(**request.extensions["timeout"])  # type: ignore
@@ -1050,9 +1002,7 @@ class TestAsyncPetstore:
 
         # explicitly passing the default timeout currently results in it being ignored
         async with httpx.AsyncClient(timeout=HTTPX_DEFAULT_TIMEOUT) as http_client:
-            client = AsyncPetstore(
-                base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
-            )
+            client = AsyncSambanova(base_url=base_url, _strict_response_validation=True, http_client=http_client)
 
             request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
             timeout = httpx.Timeout(**request.extensions["timeout"])  # type: ignore
@@ -1061,24 +1011,16 @@ class TestAsyncPetstore:
     def test_invalid_http_client(self) -> None:
         with pytest.raises(TypeError, match="Invalid `http_client` arg"):
             with httpx.Client() as http_client:
-                AsyncPetstore(
-                    base_url=base_url,
-                    api_key=api_key,
-                    _strict_response_validation=True,
-                    http_client=cast(Any, http_client),
-                )
+                AsyncSambanova(base_url=base_url, _strict_response_validation=True, http_client=cast(Any, http_client))
 
     def test_default_headers_option(self) -> None:
-        client = AsyncPetstore(
-            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
-        )
+        client = AsyncSambanova(base_url=base_url, _strict_response_validation=True, default_headers={"X-Foo": "bar"})
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "bar"
         assert request.headers.get("x-stainless-lang") == "python"
 
-        client2 = AsyncPetstore(
+        client2 = AsyncSambanova(
             base_url=base_url,
-            api_key=api_key,
             _strict_response_validation=True,
             default_headers={
                 "X-Foo": "stainless",
@@ -1089,19 +1031,9 @@ class TestAsyncPetstore:
         assert request.headers.get("x-foo") == "stainless"
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
 
-    def test_validate_headers(self) -> None:
-        client = AsyncPetstore(base_url=base_url, api_key=api_key, _strict_response_validation=True)
-        request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
-        assert request.headers.get("api_key") == api_key
-
-        with pytest.raises(PetstoreError):
-            with update_env(**{"PETSTORE_API_KEY": Omit()}):
-                client2 = AsyncPetstore(base_url=base_url, api_key=None, _strict_response_validation=True)
-            _ = client2
-
     def test_default_query_option(self) -> None:
-        client = AsyncPetstore(
-            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"query_param": "bar"}
+        client = AsyncSambanova(
+            base_url=base_url, _strict_response_validation=True, default_query={"query_param": "bar"}
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         url = httpx.URL(request.url)
@@ -1214,7 +1146,7 @@ class TestAsyncPetstore:
         params = dict(request.url.params)
         assert params == {"foo": "2"}
 
-    def test_multipart_repeating_array(self, async_client: AsyncPetstore) -> None:
+    def test_multipart_repeating_array(self, async_client: AsyncSambanova) -> None:
         request = async_client._build_request(
             FinalRequestOptions.construct(
                 method="get",
@@ -1301,9 +1233,7 @@ class TestAsyncPetstore:
         assert response.foo == 2
 
     def test_base_url_setter(self) -> None:
-        client = AsyncPetstore(
-            base_url="https://example.com/from_init", api_key=api_key, _strict_response_validation=True
-        )
+        client = AsyncSambanova(base_url="https://example.com/from_init", _strict_response_validation=True)
         assert client.base_url == "https://example.com/from_init/"
 
         client.base_url = "https://example.com/from_setter"  # type: ignore[assignment]
@@ -1311,26 +1241,23 @@ class TestAsyncPetstore:
         assert client.base_url == "https://example.com/from_setter/"
 
     def test_base_url_env(self) -> None:
-        with update_env(PETSTORE_BASE_URL="http://localhost:5000/from/env"):
-            client = AsyncPetstore(api_key=api_key, _strict_response_validation=True)
+        with update_env(SAMBANOVA_BASE_URL="http://localhost:5000/from/env"):
+            client = AsyncSambanova(_strict_response_validation=True)
             assert client.base_url == "http://localhost:5000/from/env/"
 
     @pytest.mark.parametrize(
         "client",
         [
-            AsyncPetstore(
-                base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
-            ),
-            AsyncPetstore(
+            AsyncSambanova(base_url="http://localhost:5000/custom/path/", _strict_response_validation=True),
+            AsyncSambanova(
                 base_url="http://localhost:5000/custom/path/",
-                api_key=api_key,
                 _strict_response_validation=True,
                 http_client=httpx.AsyncClient(),
             ),
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_trailing_slash(self, client: AsyncPetstore) -> None:
+    def test_base_url_trailing_slash(self, client: AsyncSambanova) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -1343,19 +1270,16 @@ class TestAsyncPetstore:
     @pytest.mark.parametrize(
         "client",
         [
-            AsyncPetstore(
-                base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
-            ),
-            AsyncPetstore(
+            AsyncSambanova(base_url="http://localhost:5000/custom/path/", _strict_response_validation=True),
+            AsyncSambanova(
                 base_url="http://localhost:5000/custom/path/",
-                api_key=api_key,
                 _strict_response_validation=True,
                 http_client=httpx.AsyncClient(),
             ),
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_no_trailing_slash(self, client: AsyncPetstore) -> None:
+    def test_base_url_no_trailing_slash(self, client: AsyncSambanova) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -1368,19 +1292,16 @@ class TestAsyncPetstore:
     @pytest.mark.parametrize(
         "client",
         [
-            AsyncPetstore(
-                base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
-            ),
-            AsyncPetstore(
+            AsyncSambanova(base_url="http://localhost:5000/custom/path/", _strict_response_validation=True),
+            AsyncSambanova(
                 base_url="http://localhost:5000/custom/path/",
-                api_key=api_key,
                 _strict_response_validation=True,
                 http_client=httpx.AsyncClient(),
             ),
         ],
         ids=["standard", "custom http client"],
     )
-    def test_absolute_request_url(self, client: AsyncPetstore) -> None:
+    def test_absolute_request_url(self, client: AsyncSambanova) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -1391,7 +1312,7 @@ class TestAsyncPetstore:
         assert request.url == "https://myapi.com/foo"
 
     async def test_copied_client_does_not_close_http(self) -> None:
-        client = AsyncPetstore(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = AsyncSambanova(base_url=base_url, _strict_response_validation=True)
         assert not client.is_closed()
 
         copied = client.copy()
@@ -1403,7 +1324,7 @@ class TestAsyncPetstore:
         assert not client.is_closed()
 
     async def test_client_context_manager(self) -> None:
-        client = AsyncPetstore(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = AsyncSambanova(base_url=base_url, _strict_response_validation=True)
         async with client as c2:
             assert c2 is client
             assert not c2.is_closed()
@@ -1425,9 +1346,7 @@ class TestAsyncPetstore:
 
     async def test_client_max_retries_validation(self) -> None:
         with pytest.raises(TypeError, match=r"max_retries cannot be None"):
-            AsyncPetstore(
-                base_url=base_url, api_key=api_key, _strict_response_validation=True, max_retries=cast(Any, None)
-            )
+            AsyncSambanova(base_url=base_url, _strict_response_validation=True, max_retries=cast(Any, None))
 
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
@@ -1437,12 +1356,12 @@ class TestAsyncPetstore:
 
         respx_mock.get("/foo").mock(return_value=httpx.Response(200, text="my-custom-format"))
 
-        strict_client = AsyncPetstore(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        strict_client = AsyncSambanova(base_url=base_url, _strict_response_validation=True)
 
         with pytest.raises(APIResponseValidationError):
             await strict_client.get("/foo", cast_to=Model)
 
-        client = AsyncPetstore(base_url=base_url, api_key=api_key, _strict_response_validation=False)
+        client = AsyncSambanova(base_url=base_url, _strict_response_validation=False)
 
         response = await client.get("/foo", cast_to=Model)
         assert isinstance(response, str)  # type: ignore[unreachable]
@@ -1471,7 +1390,7 @@ class TestAsyncPetstore:
     @mock.patch("time.time", mock.MagicMock(return_value=1696004797))
     @pytest.mark.asyncio
     async def test_parse_retry_after_header(self, remaining_retries: int, retry_after: str, timeout: float) -> None:
-        client = AsyncPetstore(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = AsyncSambanova(base_url=base_url, _strict_response_validation=True)
 
         headers = httpx.Headers({"retry-after": retry_after})
         options = FinalRequestOptions(method="get", url="/foo", max_retries=3)
@@ -1481,11 +1400,14 @@ class TestAsyncPetstore:
     @mock.patch("sambanova._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
-        respx_mock.get("/store/inventory").mock(side_effect=httpx.TimeoutException("Test timeout error"))
+        respx_mock.post("/v1/chat/completions").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            await self.client.get(
-                "/store/inventory", cast_to=httpx.Response, options={"headers": {RAW_RESPONSE_HEADER: "stream"}}
+            await self.client.post(
+                "/v1/chat/completions",
+                body=cast(object, dict()),
+                cast_to=httpx.Response,
+                options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
 
         assert _get_open_connections(self.client) == 0
@@ -1493,11 +1415,14 @@ class TestAsyncPetstore:
     @mock.patch("sambanova._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
-        respx_mock.get("/store/inventory").mock(return_value=httpx.Response(500))
+        respx_mock.post("/v1/chat/completions").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            await self.client.get(
-                "/store/inventory", cast_to=httpx.Response, options={"headers": {RAW_RESPONSE_HEADER: "stream"}}
+            await self.client.post(
+                "/v1/chat/completions",
+                body=cast(object, dict()),
+                cast_to=httpx.Response,
+                options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
 
         assert _get_open_connections(self.client) == 0
@@ -1509,7 +1434,7 @@ class TestAsyncPetstore:
     @pytest.mark.parametrize("failure_mode", ["status", "exception"])
     async def test_retries_taken(
         self,
-        async_client: AsyncPetstore,
+        async_client: AsyncSambanova,
         failures_before_success: int,
         failure_mode: Literal["status", "exception"],
         respx_mock: MockRouter,
@@ -1527,9 +1452,9 @@ class TestAsyncPetstore:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.get("/store/inventory").mock(side_effect=retry_handler)
+        respx_mock.post("/v1/chat/completions").mock(side_effect=retry_handler)
 
-        response = await client.store.with_raw_response.inventory()
+        response = await client.chats.completions.with_raw_response.create()
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -1539,7 +1464,7 @@ class TestAsyncPetstore:
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
     async def test_omit_retry_count_header(
-        self, async_client: AsyncPetstore, failures_before_success: int, respx_mock: MockRouter
+        self, async_client: AsyncSambanova, failures_before_success: int, respx_mock: MockRouter
     ) -> None:
         client = async_client.with_options(max_retries=4)
 
@@ -1552,9 +1477,11 @@ class TestAsyncPetstore:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.get("/store/inventory").mock(side_effect=retry_handler)
+        respx_mock.post("/v1/chat/completions").mock(side_effect=retry_handler)
 
-        response = await client.store.with_raw_response.inventory(extra_headers={"x-stainless-retry-count": Omit()})
+        response = await client.chats.completions.with_raw_response.create(
+            extra_headers={"x-stainless-retry-count": Omit()}
+        )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
@@ -1563,7 +1490,7 @@ class TestAsyncPetstore:
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
     async def test_overwrite_retry_count_header(
-        self, async_client: AsyncPetstore, failures_before_success: int, respx_mock: MockRouter
+        self, async_client: AsyncSambanova, failures_before_success: int, respx_mock: MockRouter
     ) -> None:
         client = async_client.with_options(max_retries=4)
 
@@ -1576,9 +1503,11 @@ class TestAsyncPetstore:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.get("/store/inventory").mock(side_effect=retry_handler)
+        respx_mock.post("/v1/chat/completions").mock(side_effect=retry_handler)
 
-        response = await client.store.with_raw_response.inventory(extra_headers={"x-stainless-retry-count": "42"})
+        response = await client.chats.completions.with_raw_response.create(
+            extra_headers={"x-stainless-retry-count": "42"}
+        )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
 

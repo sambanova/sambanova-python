@@ -24,42 +24,37 @@ from ._utils import (
     get_async_library,
 )
 from ._version import __version__
-from .resources import pets, user
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
-from ._exceptions import PetstoreError, APIStatusError
+from ._exceptions import APIStatusError
 from ._base_client import (
     DEFAULT_MAX_RETRIES,
     SyncAPIClient,
     AsyncAPIClient,
 )
-from .resources.store import store
+from .resources.chats import chats
 
 __all__ = [
     "Timeout",
     "Transport",
     "ProxiesTypes",
     "RequestOptions",
-    "Petstore",
-    "AsyncPetstore",
+    "Sambanova",
+    "AsyncSambanova",
     "Client",
     "AsyncClient",
 ]
 
 
-class Petstore(SyncAPIClient):
-    pets: pets.PetsResource
-    store: store.StoreResource
-    user: user.UserResource
-    with_raw_response: PetstoreWithRawResponse
-    with_streaming_response: PetstoreWithStreamedResponse
+class Sambanova(SyncAPIClient):
+    chats: chats.ChatsResource
+    with_raw_response: SambanovaWithRawResponse
+    with_streaming_response: SambanovaWithStreamedResponse
 
     # client options
-    api_key: str
 
     def __init__(
         self,
         *,
-        api_key: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -79,20 +74,9 @@ class Petstore(SyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new synchronous petstore client instance.
-
-        This automatically infers the `api_key` argument from the `PETSTORE_API_KEY` environment variable if it is not provided.
-        """
-        if api_key is None:
-            api_key = os.environ.get("PETSTORE_API_KEY")
-        if api_key is None:
-            raise PetstoreError(
-                "The api_key client option must be set either by passing api_key to the client or by setting the PETSTORE_API_KEY environment variable"
-            )
-        self.api_key = api_key
-
+        """Construct a new synchronous sambanova client instance."""
         if base_url is None:
-            base_url = os.environ.get("PETSTORE_BASE_URL")
+            base_url = os.environ.get("SAMBANOVA_BASE_URL")
         if base_url is None:
             base_url = f"https://petstore3.swagger.io/api/v3"
 
@@ -107,22 +91,14 @@ class Petstore(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.pets = pets.PetsResource(self)
-        self.store = store.StoreResource(self)
-        self.user = user.UserResource(self)
-        self.with_raw_response = PetstoreWithRawResponse(self)
-        self.with_streaming_response = PetstoreWithStreamedResponse(self)
+        self.chats = chats.ChatsResource(self)
+        self.with_raw_response = SambanovaWithRawResponse(self)
+        self.with_streaming_response = SambanovaWithStreamedResponse(self)
 
     @property
     @override
     def qs(self) -> Querystring:
         return Querystring(array_format="comma")
-
-    @property
-    @override
-    def auth_headers(self) -> dict[str, str]:
-        api_key = self.api_key
-        return {"api_key": api_key}
 
     @property
     @override
@@ -136,7 +112,6 @@ class Petstore(SyncAPIClient):
     def copy(
         self,
         *,
-        api_key: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = NOT_GIVEN,
         http_client: httpx.Client | None = None,
@@ -170,7 +145,6 @@ class Petstore(SyncAPIClient):
 
         http_client = http_client or self._client
         return self.__class__(
-            api_key=api_key or self.api_key,
             base_url=base_url or self.base_url,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             http_client=http_client,
@@ -218,20 +192,16 @@ class Petstore(SyncAPIClient):
         return APIStatusError(err_msg, response=response, body=body)
 
 
-class AsyncPetstore(AsyncAPIClient):
-    pets: pets.AsyncPetsResource
-    store: store.AsyncStoreResource
-    user: user.AsyncUserResource
-    with_raw_response: AsyncPetstoreWithRawResponse
-    with_streaming_response: AsyncPetstoreWithStreamedResponse
+class AsyncSambanova(AsyncAPIClient):
+    chats: chats.AsyncChatsResource
+    with_raw_response: AsyncSambanovaWithRawResponse
+    with_streaming_response: AsyncSambanovaWithStreamedResponse
 
     # client options
-    api_key: str
 
     def __init__(
         self,
         *,
-        api_key: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -251,20 +221,9 @@ class AsyncPetstore(AsyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new async petstore client instance.
-
-        This automatically infers the `api_key` argument from the `PETSTORE_API_KEY` environment variable if it is not provided.
-        """
-        if api_key is None:
-            api_key = os.environ.get("PETSTORE_API_KEY")
-        if api_key is None:
-            raise PetstoreError(
-                "The api_key client option must be set either by passing api_key to the client or by setting the PETSTORE_API_KEY environment variable"
-            )
-        self.api_key = api_key
-
+        """Construct a new async sambanova client instance."""
         if base_url is None:
-            base_url = os.environ.get("PETSTORE_BASE_URL")
+            base_url = os.environ.get("SAMBANOVA_BASE_URL")
         if base_url is None:
             base_url = f"https://petstore3.swagger.io/api/v3"
 
@@ -279,22 +238,14 @@ class AsyncPetstore(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.pets = pets.AsyncPetsResource(self)
-        self.store = store.AsyncStoreResource(self)
-        self.user = user.AsyncUserResource(self)
-        self.with_raw_response = AsyncPetstoreWithRawResponse(self)
-        self.with_streaming_response = AsyncPetstoreWithStreamedResponse(self)
+        self.chats = chats.AsyncChatsResource(self)
+        self.with_raw_response = AsyncSambanovaWithRawResponse(self)
+        self.with_streaming_response = AsyncSambanovaWithStreamedResponse(self)
 
     @property
     @override
     def qs(self) -> Querystring:
         return Querystring(array_format="comma")
-
-    @property
-    @override
-    def auth_headers(self) -> dict[str, str]:
-        api_key = self.api_key
-        return {"api_key": api_key}
 
     @property
     @override
@@ -308,7 +259,6 @@ class AsyncPetstore(AsyncAPIClient):
     def copy(
         self,
         *,
-        api_key: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = NOT_GIVEN,
         http_client: httpx.AsyncClient | None = None,
@@ -342,7 +292,6 @@ class AsyncPetstore(AsyncAPIClient):
 
         http_client = http_client or self._client
         return self.__class__(
-            api_key=api_key or self.api_key,
             base_url=base_url or self.base_url,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             http_client=http_client,
@@ -390,34 +339,26 @@ class AsyncPetstore(AsyncAPIClient):
         return APIStatusError(err_msg, response=response, body=body)
 
 
-class PetstoreWithRawResponse:
-    def __init__(self, client: Petstore) -> None:
-        self.pets = pets.PetsResourceWithRawResponse(client.pets)
-        self.store = store.StoreResourceWithRawResponse(client.store)
-        self.user = user.UserResourceWithRawResponse(client.user)
+class SambanovaWithRawResponse:
+    def __init__(self, client: Sambanova) -> None:
+        self.chats = chats.ChatsResourceWithRawResponse(client.chats)
 
 
-class AsyncPetstoreWithRawResponse:
-    def __init__(self, client: AsyncPetstore) -> None:
-        self.pets = pets.AsyncPetsResourceWithRawResponse(client.pets)
-        self.store = store.AsyncStoreResourceWithRawResponse(client.store)
-        self.user = user.AsyncUserResourceWithRawResponse(client.user)
+class AsyncSambanovaWithRawResponse:
+    def __init__(self, client: AsyncSambanova) -> None:
+        self.chats = chats.AsyncChatsResourceWithRawResponse(client.chats)
 
 
-class PetstoreWithStreamedResponse:
-    def __init__(self, client: Petstore) -> None:
-        self.pets = pets.PetsResourceWithStreamingResponse(client.pets)
-        self.store = store.StoreResourceWithStreamingResponse(client.store)
-        self.user = user.UserResourceWithStreamingResponse(client.user)
+class SambanovaWithStreamedResponse:
+    def __init__(self, client: Sambanova) -> None:
+        self.chats = chats.ChatsResourceWithStreamingResponse(client.chats)
 
 
-class AsyncPetstoreWithStreamedResponse:
-    def __init__(self, client: AsyncPetstore) -> None:
-        self.pets = pets.AsyncPetsResourceWithStreamingResponse(client.pets)
-        self.store = store.AsyncStoreResourceWithStreamingResponse(client.store)
-        self.user = user.AsyncUserResourceWithStreamingResponse(client.user)
+class AsyncSambanovaWithStreamedResponse:
+    def __init__(self, client: AsyncSambanova) -> None:
+        self.chats = chats.AsyncChatsResourceWithStreamingResponse(client.chats)
 
 
-Client = Petstore
+Client = Sambanova
 
-AsyncClient = AsyncPetstore
+AsyncClient = AsyncSambanova

@@ -1,8 +1,8 @@
-# Petstore Python API library
+# Sambanova Python API library
 
 [![PyPI version](https://img.shields.io/pypi/v/sambanova.svg)](https://pypi.org/project/sambanova/)
 
-The Petstore Python library provides convenient access to the Petstore REST API from any Python 3.8+
+The Sambanova Python library provides convenient access to the Sambanova REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
 
@@ -10,7 +10,7 @@ It is generated with [Stainless](https://www.stainlessapi.com/).
 
 ## Documentation
 
-The REST API documentation can be found on [app.stainlessapi.com](https://app.stainlessapi.com/docs). The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found on [community.sambanova.ai](https://community.sambanova.ai/c/docs/11). The full API of this library can be found in [api.md](api.md).
 
 ## Installation
 
@@ -27,47 +27,28 @@ pip install git+ssh://git@github.com/stainless-sdks/sambanova-python.git
 The full API of this library can be found in [api.md](api.md).
 
 ```python
-import os
-from sambanova import Petstore
+from sambanova import Sambanova
 
-client = Petstore(
-    api_key=os.environ.get("PETSTORE_API_KEY"),  # This is the default and can be omitted
-)
+client = Sambanova()
 
-order = client.store.create_order(
-    pet_id=1,
-    quantity=1,
-    status="placed",
-)
-print(order.id)
+completion = client.chats.completions.create()
+print(completion.id)
 ```
-
-While you can provide an `api_key` keyword argument,
-we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
-to add `PETSTORE_API_KEY="My API Key"` to your `.env` file
-so that your API Key is not stored in source control.
 
 ## Async usage
 
-Simply import `AsyncPetstore` instead of `Petstore` and use `await` with each API call:
+Simply import `AsyncSambanova` instead of `Sambanova` and use `await` with each API call:
 
 ```python
-import os
 import asyncio
-from sambanova import AsyncPetstore
+from sambanova import AsyncSambanova
 
-client = AsyncPetstore(
-    api_key=os.environ.get("PETSTORE_API_KEY"),  # This is the default and can be omitted
-)
+client = AsyncSambanova()
 
 
 async def main() -> None:
-    order = await client.store.create_order(
-        pet_id=1,
-        quantity=1,
-        status="placed",
-    )
-    print(order.id)
+    completion = await client.chats.completions.create()
+    print(completion.id)
 
 
 asyncio.run(main())
@@ -95,12 +76,12 @@ All errors inherit from `sambanova.APIError`.
 
 ```python
 import sambanova
-from sambanova import Petstore
+from sambanova import Sambanova
 
-client = Petstore()
+client = Sambanova()
 
 try:
-    client.store.inventory()
+    client.chats.completions.create()
 except sambanova.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
@@ -134,16 +115,16 @@ Connection errors (for example, due to a network connectivity problem), 408 Requ
 You can use the `max_retries` option to configure or disable retry settings:
 
 ```python
-from sambanova import Petstore
+from sambanova import Sambanova
 
 # Configure the default for all requests:
-client = Petstore(
+client = Sambanova(
     # default is 2
     max_retries=0,
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).store.inventory()
+client.with_options(max_retries=5).chats.completions.create()
 ```
 
 ### Timeouts
@@ -152,21 +133,21 @@ By default requests time out after 1 minute. You can configure this with a `time
 which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/#fine-tuning-the-configuration) object:
 
 ```python
-from sambanova import Petstore
+from sambanova import Sambanova
 
 # Configure the default for all requests:
-client = Petstore(
+client = Sambanova(
     # 20 seconds (default is 1 minute)
     timeout=20.0,
 )
 
 # More granular control:
-client = Petstore(
+client = Sambanova(
     timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).store.inventory()
+client.with_options(timeout=5.0).chats.completions.create()
 ```
 
 On timeout, an `APITimeoutError` is thrown.
@@ -179,10 +160,10 @@ Note that requests that time out are [retried twice by default](#retries).
 
 We use the standard library [`logging`](https://docs.python.org/3/library/logging.html) module.
 
-You can enable logging by setting the environment variable `PETSTORE_LOG` to `info`.
+You can enable logging by setting the environment variable `SAMBANOVA_LOG` to `info`.
 
 ```shell
-$ export PETSTORE_LOG=info
+$ export SAMBANOVA_LOG=info
 ```
 
 Or to `debug` for more verbose logging.
@@ -204,14 +185,14 @@ if response.my_field is None:
 The "raw" Response object can be accessed by prefixing `.with_raw_response.` to any HTTP method call, e.g.,
 
 ```py
-from sambanova import Petstore
+from sambanova import Sambanova
 
-client = Petstore()
-response = client.store.with_raw_response.inventory()
+client = Sambanova()
+response = client.chats.completions.with_raw_response.create()
 print(response.headers.get('X-My-Header'))
 
-store = response.parse()  # get the object that `store.inventory()` would have returned
-print(store)
+completion = response.parse()  # get the object that `chats.completions.create()` would have returned
+print(completion.id)
 ```
 
 These methods return an [`APIResponse`](https://github.com/stainless-sdks/sambanova-python/tree/main/src/sambanova/_response.py) object.
@@ -225,7 +206,7 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.store.with_streaming_response.inventory() as response:
+with client.chats.completions.with_streaming_response.create() as response:
     print(response.headers.get("X-My-Header"))
 
     for line in response.iter_lines():
@@ -278,10 +259,10 @@ You can directly override the [httpx client](https://www.python-httpx.org/api/#c
 
 ```python
 import httpx
-from sambanova import Petstore, DefaultHttpxClient
+from sambanova import Sambanova, DefaultHttpxClient
 
-client = Petstore(
-    # Or use the `PETSTORE_BASE_URL` env var
+client = Sambanova(
+    # Or use the `SAMBANOVA_BASE_URL` env var
     base_url="http://my.test.server.example.com:8083",
     http_client=DefaultHttpxClient(
         proxy="http://my.test.proxy.example.com",
@@ -301,9 +282,9 @@ client.with_options(http_client=DefaultHttpxClient(...))
 By default the library closes underlying HTTP connections whenever the client is [garbage collected](https://docs.python.org/3/reference/datamodel.html#object.__del__). You can manually close the client using the `.close()` method if desired, or with a context manager that closes when exiting.
 
 ```py
-from sambanova import Petstore
+from sambanova import Sambanova
 
-with Petstore() as client:
+with Sambanova() as client:
   # make requests here
   ...
 
