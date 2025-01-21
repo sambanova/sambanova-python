@@ -3,11 +3,9 @@
 from typing import List, Optional
 from typing_extensions import Literal
 
-from pydantic import Field as FieldInfo
+from .._models import BaseModel
 
-from ..._models import BaseModel
-
-__all__ = ["CompletionCreateResponse", "Choice", "ChoiceMessage", "Usage"]
+__all__ = ["ChatCompletionCreateResponse", "Choice", "ChoiceMessage", "Usage"]
 
 
 class ChoiceMessage(BaseModel):
@@ -25,20 +23,20 @@ class Choice(BaseModel):
 
 
 class Usage(BaseModel):
-    input_tokens_count: Optional[int] = None
+    completion_tokens: Optional[int] = None
 
-    api_model_execution_time: Optional[float] = FieldInfo(alias="model_execution_time", default=None)
+    completion_tokens_after_first_per_sec: Optional[float] = None
 
-    output_tokens_count: Optional[int] = None
-
-    throughput_after_first_token: Optional[float] = None
+    prompt_tokens: Optional[int] = None
 
     time_to_first_token: Optional[float] = None
 
-    total_tokens_count: Optional[int] = None
+    total_latency: Optional[float] = None
+
+    total_tokens: Optional[int] = None
 
 
-class CompletionCreateResponse(BaseModel):
+class ChatCompletionCreateResponse(BaseModel):
     id: Optional[str] = None
 
     choices: Optional[List[Choice]] = None

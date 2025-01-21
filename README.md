@@ -34,8 +34,8 @@ client = Sambanova(
     bearer_token=os.environ.get("BEARER_TOKEN"),  # This is the default and can be omitted
 )
 
-completion = client.chats.completions.create()
-print(completion.id)
+chat_completion = client.chat_completions.create()
+print(chat_completion.id)
 ```
 
 While you can provide a `bearer_token` keyword argument,
@@ -58,8 +58,8 @@ client = AsyncSambanova(
 
 
 async def main() -> None:
-    completion = await client.chats.completions.create()
-    print(completion.id)
+    chat_completion = await client.chat_completions.create()
+    print(chat_completion.id)
 
 
 asyncio.run(main())
@@ -76,11 +76,11 @@ from sambanova import Sambanova
 
 client = Sambanova()
 
-stream = client.chats.completions.create(
+stream = client.chat_completions.create(
     stream=True,
 )
-for completion in stream:
-    print(completion.id)
+for chat_completion in stream:
+    print(chat_completion.id)
 ```
 
 The async client uses the exact same interface.
@@ -90,11 +90,11 @@ from sambanova import AsyncSambanova
 
 client = AsyncSambanova()
 
-stream = await client.chats.completions.create(
+stream = await client.chat_completions.create(
     stream=True,
 )
-async for completion in stream:
-    print(completion.id)
+async for chat_completion in stream:
+    print(chat_completion.id)
 ```
 
 ## Using types
@@ -122,7 +122,7 @@ from sambanova import Sambanova
 client = Sambanova()
 
 try:
-    client.chats.completions.create()
+    client.chat_completions.create()
 except sambanova.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
@@ -165,7 +165,7 @@ client = Sambanova(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).chats.completions.create()
+client.with_options(max_retries=5).chat_completions.create()
 ```
 
 ### Timeouts
@@ -188,7 +188,7 @@ client = Sambanova(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).chats.completions.create()
+client.with_options(timeout=5.0).chat_completions.create()
 ```
 
 On timeout, an `APITimeoutError` is thrown.
@@ -229,11 +229,11 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from sambanova import Sambanova
 
 client = Sambanova()
-response = client.chats.completions.with_raw_response.create()
+response = client.chat_completions.with_raw_response.create()
 print(response.headers.get('X-My-Header'))
 
-completion = response.parse()  # get the object that `chats.completions.create()` would have returned
-print(completion.id)
+chat_completion = response.parse()  # get the object that `chat_completions.create()` would have returned
+print(chat_completion.id)
 ```
 
 These methods return an [`APIResponse`](https://github.com/stainless-sdks/sambanova-python/tree/main/src/sambanova/_response.py) object.
@@ -247,7 +247,7 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.chats.completions.with_streaming_response.create() as response:
+with client.chat_completions.with_streaming_response.create() as response:
     print(response.headers.get("X-My-Header"))
 
     for line in response.iter_lines():
