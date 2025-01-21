@@ -91,6 +91,8 @@ class Sambanova(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
+        self._default_stream_cls = Stream
+
         self.chats = chats.ChatsResource(self)
         self.with_raw_response = SambanovaWithRawResponse(self)
         self.with_streaming_response = SambanovaWithStreamedResponse(self)
@@ -237,6 +239,8 @@ class AsyncSambanova(AsyncAPIClient):
             custom_query=default_query,
             _strict_response_validation=_strict_response_validation,
         )
+
+        self._default_stream_cls = AsyncStream
 
         self.chats = chats.AsyncChatsResource(self)
         self.with_raw_response = AsyncSambanovaWithRawResponse(self)
