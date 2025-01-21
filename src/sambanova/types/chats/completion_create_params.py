@@ -3,10 +3,10 @@
 from __future__ import annotations
 
 from typing import List, Union, Iterable
-from typing_extensions import Literal, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 __all__ = [
-    "CompletionCreateParams",
+    "CompletionCreateParamsBase",
     "Message",
     "MessageContentUnionMember1",
     "MessageContentUnionMember1ImageURL",
@@ -18,10 +18,12 @@ __all__ = [
     "Tool",
     "ToolFunction",
     "ToolFunctionParameters",
+    "CompletionCreateParamsNonStreaming",
+    "CompletionCreateParamsStreaming",
 ]
 
 
-class CompletionCreateParams(TypedDict, total=False):
+class CompletionCreateParamsBase(TypedDict, total=False):
     max_tokens: int
     """Maximum number of tokens to generate."""
 
@@ -36,9 +38,6 @@ class CompletionCreateParams(TypedDict, total=False):
 
     stop: Union[str, List[str]]
     """Sequences where the API will stop generating tokens."""
-
-    stream: bool
-    """If set, partial message deltas will be sent."""
 
     stream_options: StreamOptions
     """Options for streaming response."""
@@ -117,3 +116,16 @@ class Tool(TypedDict, total=False):
     function: ToolFunction
 
     type: Literal["function"]
+
+
+class CompletionCreateParamsNonStreaming(CompletionCreateParamsBase, total=False):
+    stream: Literal[False]
+    """If set, partial message deltas will be sent."""
+
+
+class CompletionCreateParamsStreaming(CompletionCreateParamsBase):
+    stream: Required[Literal[True]]
+    """If set, partial message deltas will be sent."""
+
+
+CompletionCreateParams = Union[CompletionCreateParamsNonStreaming, CompletionCreateParamsStreaming]
