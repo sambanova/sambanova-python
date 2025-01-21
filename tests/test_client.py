@@ -804,7 +804,7 @@ class TestSambanova:
 
         respx_mock.post("/v1/chat/completions").mock(side_effect=retry_handler)
 
-        response = client.chats.completions.with_raw_response.create()
+        response = client.chat_completions.with_raw_response.create()
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -828,7 +828,7 @@ class TestSambanova:
 
         respx_mock.post("/v1/chat/completions").mock(side_effect=retry_handler)
 
-        response = client.chats.completions.with_raw_response.create(extra_headers={"x-stainless-retry-count": Omit()})
+        response = client.chat_completions.with_raw_response.create(extra_headers={"x-stainless-retry-count": Omit()})
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
@@ -851,7 +851,7 @@ class TestSambanova:
 
         respx_mock.post("/v1/chat/completions").mock(side_effect=retry_handler)
 
-        response = client.chats.completions.with_raw_response.create(extra_headers={"x-stainless-retry-count": "42"})
+        response = client.chat_completions.with_raw_response.create(extra_headers={"x-stainless-retry-count": "42"})
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
 
@@ -1611,7 +1611,7 @@ class TestAsyncSambanova:
 
         respx_mock.post("/v1/chat/completions").mock(side_effect=retry_handler)
 
-        response = await client.chats.completions.with_raw_response.create()
+        response = await client.chat_completions.with_raw_response.create()
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -1636,7 +1636,7 @@ class TestAsyncSambanova:
 
         respx_mock.post("/v1/chat/completions").mock(side_effect=retry_handler)
 
-        response = await client.chats.completions.with_raw_response.create(
+        response = await client.chat_completions.with_raw_response.create(
             extra_headers={"x-stainless-retry-count": Omit()}
         )
 
@@ -1662,7 +1662,7 @@ class TestAsyncSambanova:
 
         respx_mock.post("/v1/chat/completions").mock(side_effect=retry_handler)
 
-        response = await client.chats.completions.with_raw_response.create(
+        response = await client.chat_completions.with_raw_response.create(
             extra_headers={"x-stainless-retry-count": "42"}
         )
 

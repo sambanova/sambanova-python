@@ -6,7 +6,7 @@ from typing import List, Union, Iterable
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 __all__ = [
-    "CompletionCreateParamsBase",
+    "ChatCompletionCreateParamsBase",
     "Message",
     "MessageContentUnionMember1",
     "MessageContentUnionMember1ImageURL",
@@ -18,12 +18,12 @@ __all__ = [
     "Tool",
     "ToolFunction",
     "ToolFunctionParameters",
-    "CompletionCreateParamsNonStreaming",
-    "CompletionCreateParamsStreaming",
+    "ChatCompletionCreateParamsNonStreaming",
+    "ChatCompletionCreateParamsStreaming",
 ]
 
 
-class CompletionCreateParamsBase(TypedDict, total=False):
+class ChatCompletionCreateParamsBase(TypedDict, total=False):
     max_tokens: int
     """Maximum number of tokens to generate."""
 
@@ -118,14 +118,14 @@ class Tool(TypedDict, total=False):
     type: Literal["function"]
 
 
-class CompletionCreateParamsNonStreaming(CompletionCreateParamsBase, total=False):
+class ChatCompletionCreateParamsNonStreaming(ChatCompletionCreateParamsBase, total=False):
     stream: Literal[False]
     """If set, partial message deltas will be sent."""
 
 
-class CompletionCreateParamsStreaming(CompletionCreateParamsBase):
+class ChatCompletionCreateParamsStreaming(ChatCompletionCreateParamsBase):
     stream: Required[Literal[True]]
     """If set, partial message deltas will be sent."""
 
 
-CompletionCreateParams = Union[CompletionCreateParamsNonStreaming, CompletionCreateParamsStreaming]
+ChatCompletionCreateParams = Union[ChatCompletionCreateParamsNonStreaming, ChatCompletionCreateParamsStreaming]
