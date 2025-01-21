@@ -27,26 +27,33 @@ pip install git+ssh://git@github.com/stainless-sdks/sambanova-python.git
 The full API of this library can be found in [api.md](api.md).
 
 ```python
+import os
 from sambanova import Sambanova
 
 client = Sambanova(
-    bearer_token="My Bearer Token",
+    bearer_token=os.environ.get("BEARER_TOKEN"),  # This is the default and can be omitted
 )
 
 completion = client.chats.completions.create()
 print(completion.id)
 ```
 
+While you can provide a `bearer_token` keyword argument,
+we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
+to add `BEARER_TOKEN="My Bearer Token"` to your `.env` file
+so that your Bearer Token is not stored in source control.
+
 ## Async usage
 
 Simply import `AsyncSambanova` instead of `Sambanova` and use `await` with each API call:
 
 ```python
+import os
 import asyncio
 from sambanova import AsyncSambanova
 
 client = AsyncSambanova(
-    bearer_token="My Bearer Token",
+    bearer_token=os.environ.get("BEARER_TOKEN"),  # This is the default and can be omitted
 )
 
 
@@ -67,9 +74,7 @@ We provide support for streaming responses using Server Side Events (SSE).
 ```python
 from sambanova import Sambanova
 
-client = Sambanova(
-    bearer_token="My Bearer Token",
-)
+client = Sambanova()
 
 stream = client.chats.completions.create(
     stream=True,
@@ -83,9 +88,7 @@ The async client uses the exact same interface.
 ```python
 from sambanova import AsyncSambanova
 
-client = AsyncSambanova(
-    bearer_token="My Bearer Token",
-)
+client = AsyncSambanova()
 
 stream = await client.chats.completions.create(
     stream=True,
@@ -116,9 +119,7 @@ All errors inherit from `sambanova.APIError`.
 import sambanova
 from sambanova import Sambanova
 
-client = Sambanova(
-    bearer_token="My Bearer Token",
-)
+client = Sambanova()
 
 try:
     client.chats.completions.create()
@@ -161,7 +162,6 @@ from sambanova import Sambanova
 client = Sambanova(
     # default is 2
     max_retries=0,
-    bearer_token="My Bearer Token",
 )
 
 # Or, configure per-request:
@@ -180,13 +180,11 @@ from sambanova import Sambanova
 client = Sambanova(
     # 20 seconds (default is 1 minute)
     timeout=20.0,
-    bearer_token="My Bearer Token",
 )
 
 # More granular control:
 client = Sambanova(
     timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
-    bearer_token="My Bearer Token",
 )
 
 # Override per-request:
@@ -230,9 +228,7 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 ```py
 from sambanova import Sambanova
 
-client = Sambanova(
-    bearer_token="My Bearer Token",
-)
+client = Sambanova()
 response = client.chats.completions.with_raw_response.create()
 print(response.headers.get('X-My-Header'))
 
@@ -313,7 +309,6 @@ client = Sambanova(
         proxy="http://my.test.proxy.example.com",
         transport=httpx.HTTPTransport(local_address="0.0.0.0"),
     ),
-    bearer_token="My Bearer Token",
 )
 ```
 
@@ -330,9 +325,7 @@ By default the library closes underlying HTTP connections whenever the client is
 ```py
 from sambanova import Sambanova
 
-with Sambanova(
-    bearer_token="My Bearer Token",
-) as client:
+with Sambanova() as client:
   # make requests here
   ...
 

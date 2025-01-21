@@ -25,7 +25,7 @@ from sambanova._types import Omit
 from sambanova._models import BaseModel, FinalRequestOptions
 from sambanova._constants import RAW_RESPONSE_HEADER
 from sambanova._streaming import Stream, AsyncStream
-from sambanova._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
+from sambanova._exceptions import APIStatusError, SambanovaError, APITimeoutError, APIResponseValidationError
 from sambanova._base_client import (
     DEFAULT_TIMEOUT,
     HTTPX_DEFAULT_TIMEOUT,
@@ -339,6 +339,16 @@ class TestSambanova:
         request = client2._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "stainless"
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
+
+    def test_validate_headers(self) -> None:
+        client = Sambanova(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
+        request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
+        assert request.headers.get("Authorization") == f"Bearer {bearer_token}"
+
+        with pytest.raises(SambanovaError):
+            with update_env(**{"BEARER_TOKEN": Omit()}):
+                client2 = Sambanova(base_url=base_url, bearer_token=None, _strict_response_validation=True)
+            _ = client2
 
     def test_default_query_option(self) -> None:
         client = Sambanova(
@@ -1130,6 +1140,16 @@ class TestAsyncSambanova:
         request = client2._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "stainless"
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
+
+    def test_validate_headers(self) -> None:
+        client = AsyncSambanova(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
+        request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
+        assert request.headers.get("Authorization") == f"Bearer {bearer_token}"
+
+        with pytest.raises(SambanovaError):
+            with update_env(**{"BEARER_TOKEN": Omit()}):
+                client2 = AsyncSambanova(base_url=base_url, bearer_token=None, _strict_response_validation=True)
+            _ = client2
 
     def test_default_query_option(self) -> None:
         client = AsyncSambanova(
