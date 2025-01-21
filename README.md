@@ -29,7 +29,9 @@ The full API of this library can be found in [api.md](api.md).
 ```python
 from sambanova import Sambanova
 
-client = Sambanova()
+client = Sambanova(
+    bearer_token="My Bearer Token",
+)
 
 completion = client.chats.completions.create()
 print(completion.id)
@@ -43,7 +45,9 @@ Simply import `AsyncSambanova` instead of `Sambanova` and use `await` with each 
 import asyncio
 from sambanova import AsyncSambanova
 
-client = AsyncSambanova()
+client = AsyncSambanova(
+    bearer_token="My Bearer Token",
+)
 
 
 async def main() -> None:
@@ -78,7 +82,9 @@ All errors inherit from `sambanova.APIError`.
 import sambanova
 from sambanova import Sambanova
 
-client = Sambanova()
+client = Sambanova(
+    bearer_token="My Bearer Token",
+)
 
 try:
     client.chats.completions.create()
@@ -121,6 +127,7 @@ from sambanova import Sambanova
 client = Sambanova(
     # default is 2
     max_retries=0,
+    bearer_token="My Bearer Token",
 )
 
 # Or, configure per-request:
@@ -139,11 +146,13 @@ from sambanova import Sambanova
 client = Sambanova(
     # 20 seconds (default is 1 minute)
     timeout=20.0,
+    bearer_token="My Bearer Token",
 )
 
 # More granular control:
 client = Sambanova(
     timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
+    bearer_token="My Bearer Token",
 )
 
 # Override per-request:
@@ -187,7 +196,9 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 ```py
 from sambanova import Sambanova
 
-client = Sambanova()
+client = Sambanova(
+    bearer_token="My Bearer Token",
+)
 response = client.chats.completions.with_raw_response.create()
 print(response.headers.get('X-My-Header'))
 
@@ -268,6 +279,7 @@ client = Sambanova(
         proxy="http://my.test.proxy.example.com",
         transport=httpx.HTTPTransport(local_address="0.0.0.0"),
     ),
+    bearer_token="My Bearer Token",
 )
 ```
 
@@ -284,7 +296,9 @@ By default the library closes underlying HTTP connections whenever the client is
 ```py
 from sambanova import Sambanova
 
-with Sambanova() as client:
+with Sambanova(
+    bearer_token="My Bearer Token",
+) as client:
   # make requests here
   ...
 
