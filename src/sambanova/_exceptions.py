@@ -18,11 +18,11 @@ __all__ = [
 ]
 
 
-class PetstoreError(Exception):
+class SambanovaError(Exception):
     pass
 
 
-class APIError(PetstoreError):
+class APIError(SambanovaError):
     message: str
     request: httpx.Request
 
