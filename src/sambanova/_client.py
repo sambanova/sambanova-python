@@ -25,7 +25,7 @@ from ._utils import (
 )
 from ._version import __version__
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
-from ._exceptions import APIStatusError
+from ._exceptions import APIStatusError, SambanovaError
 from ._base_client import (
     DEFAULT_MAX_RETRIES,
     SyncAPIClient,
@@ -51,10 +51,12 @@ class Sambanova(SyncAPIClient):
     with_streaming_response: SambanovaWithStreamedResponse
 
     # client options
+    bearer_token: str
 
     def __init__(
         self,
         *,
+        bearer_token: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -74,11 +76,22 @@ class Sambanova(SyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new synchronous sambanova client instance."""
+        """Construct a new synchronous sambanova client instance.
+
+        This automatically infers the `bearer_token` argument from the `BEARER_TOKEN` environment variable if it is not provided.
+        """
+        if bearer_token is None:
+            bearer_token = os.environ.get("BEARER_TOKEN")
+        if bearer_token is None:
+            raise SambanovaError(
+                "The bearer_token client option must be set either by passing bearer_token to the client or by setting the BEARER_TOKEN environment variable"
+            )
+        self.bearer_token = bearer_token
+
         if base_url is None:
             base_url = os.environ.get("SAMBANOVA_BASE_URL")
         if base_url is None:
-            base_url = f"https://petstore3.swagger.io/api/v3"
+            base_url = f"https://api.sambanova.ai"
 
         super().__init__(
             version=__version__,
@@ -114,6 +127,7 @@ class Sambanova(SyncAPIClient):
     def copy(
         self,
         *,
+        bearer_token: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = NOT_GIVEN,
         http_client: httpx.Client | None = None,
@@ -147,6 +161,7 @@ class Sambanova(SyncAPIClient):
 
         http_client = http_client or self._client
         return self.__class__(
+            bearer_token=bearer_token or self.bearer_token,
             base_url=base_url or self.base_url,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             http_client=http_client,
@@ -200,10 +215,12 @@ class AsyncSambanova(AsyncAPIClient):
     with_streaming_response: AsyncSambanovaWithStreamedResponse
 
     # client options
+    bearer_token: str
 
     def __init__(
         self,
         *,
+        bearer_token: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -223,11 +240,22 @@ class AsyncSambanova(AsyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new async sambanova client instance."""
+        """Construct a new async sambanova client instance.
+
+        This automatically infers the `bearer_token` argument from the `BEARER_TOKEN` environment variable if it is not provided.
+        """
+        if bearer_token is None:
+            bearer_token = os.environ.get("BEARER_TOKEN")
+        if bearer_token is None:
+            raise SambanovaError(
+                "The bearer_token client option must be set either by passing bearer_token to the client or by setting the BEARER_TOKEN environment variable"
+            )
+        self.bearer_token = bearer_token
+
         if base_url is None:
             base_url = os.environ.get("SAMBANOVA_BASE_URL")
         if base_url is None:
-            base_url = f"https://petstore3.swagger.io/api/v3"
+            base_url = f"https://api.sambanova.ai"
 
         super().__init__(
             version=__version__,
@@ -263,6 +291,7 @@ class AsyncSambanova(AsyncAPIClient):
     def copy(
         self,
         *,
+        bearer_token: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = NOT_GIVEN,
         http_client: httpx.AsyncClient | None = None,
@@ -296,6 +325,7 @@ class AsyncSambanova(AsyncAPIClient):
 
         http_client = http_client or self._client
         return self.__class__(
+            bearer_token=bearer_token or self.bearer_token,
             base_url=base_url or self.base_url,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             http_client=http_client,
