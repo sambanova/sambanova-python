@@ -9,14 +9,14 @@ __all__ = [
     "ChatCompletionCreateParamsBase",
     "Message",
     "MessageSystemMessage",
-    "MessageSystemMessageContentUnionMember1",
+    "MessageSystemMessageContentTextContentPartArray",
     "MessageUserMessage",
-    "MessageUserMessageContentUnionMember1",
-    "MessageUserMessageContentUnionMember1TextContent",
-    "MessageUserMessageContentUnionMember1ImageContent",
-    "MessageUserMessageContentUnionMember1ImageContentImageURL",
-    "MessageUserMessageContentUnionMember1AudioContent",
-    "MessageUserMessageContentUnionMember1AudioContentAudioContent",
+    "MessageUserMessageContentMulticontentPartArray",
+    "MessageUserMessageContentMulticontentPartArrayTextContent",
+    "MessageUserMessageContentMulticontentPartArrayImageContent",
+    "MessageUserMessageContentMulticontentPartArrayImageContentImageURL",
+    "MessageUserMessageContentMulticontentPartArrayAudioContent",
+    "MessageUserMessageContentMulticontentPartArrayAudioContentAudioContent",
     "MessageAssistantMessage",
     "MessageAssistantMessageContentUnionMember1",
     "MessageAssistantMessageToolCall",
@@ -187,7 +187,7 @@ class ChatCompletionCreateParamsBase(TypedDict, total=False):
     """
 
 
-class MessageSystemMessageContentUnionMember1Typed(TypedDict, total=False):
+class MessageSystemMessageContentTextContentPartArrayTyped(TypedDict, total=False):
     text: Required[str]
     """string content of the message"""
 
@@ -195,13 +195,13 @@ class MessageSystemMessageContentUnionMember1Typed(TypedDict, total=False):
     """type of content to send. in this case `text`."""
 
 
-MessageSystemMessageContentUnionMember1: TypeAlias = Union[
-    MessageSystemMessageContentUnionMember1Typed, Dict[str, object]
+MessageSystemMessageContentTextContentPartArray: TypeAlias = Union[
+    MessageSystemMessageContentTextContentPartArrayTyped, Dict[str, object]
 ]
 
 
 class MessageSystemMessageTyped(TypedDict, total=False):
-    content: Required[Union[str, Iterable[MessageSystemMessageContentUnionMember1], None]]
+    content: Required[Union[str, Iterable[MessageSystemMessageContentTextContentPartArray], None]]
     """The contents of the system message."""
 
     role: Required[Literal["system"]]
@@ -211,7 +211,7 @@ class MessageSystemMessageTyped(TypedDict, total=False):
 MessageSystemMessage: TypeAlias = Union[MessageSystemMessageTyped, Dict[str, object]]
 
 
-class MessageUserMessageContentUnionMember1TextContentTyped(TypedDict, total=False):
+class MessageUserMessageContentMulticontentPartArrayTextContentTyped(TypedDict, total=False):
     text: Required[str]
     """string content of the message"""
 
@@ -219,12 +219,12 @@ class MessageUserMessageContentUnionMember1TextContentTyped(TypedDict, total=Fal
     """type of content to send. in this case `text`."""
 
 
-MessageUserMessageContentUnionMember1TextContent: TypeAlias = Union[
-    MessageUserMessageContentUnionMember1TextContentTyped, Dict[str, object]
+MessageUserMessageContentMulticontentPartArrayTextContent: TypeAlias = Union[
+    MessageUserMessageContentMulticontentPartArrayTextContentTyped, Dict[str, object]
 ]
 
 
-class MessageUserMessageContentUnionMember1ImageContentImageURL(TypedDict, total=False):
+class MessageUserMessageContentMulticontentPartArrayImageContentImageURL(TypedDict, total=False):
     url: str
     """Either a URL of the image or the base64 encoded image data.
 
@@ -232,43 +232,43 @@ class MessageUserMessageContentUnionMember1ImageContentImageURL(TypedDict, total
     """
 
 
-class MessageUserMessageContentUnionMember1ImageContentTyped(TypedDict, total=False):
-    image_url: Required[MessageUserMessageContentUnionMember1ImageContentImageURL]
+class MessageUserMessageContentMulticontentPartArrayImageContentTyped(TypedDict, total=False):
+    image_url: Required[MessageUserMessageContentMulticontentPartArrayImageContentImageURL]
 
     type: Required[Literal["image_url"]]
     """type of content to send. in this case `image_url`."""
 
 
-MessageUserMessageContentUnionMember1ImageContent: TypeAlias = Union[
-    MessageUserMessageContentUnionMember1ImageContentTyped, Dict[str, object]
+MessageUserMessageContentMulticontentPartArrayImageContent: TypeAlias = Union[
+    MessageUserMessageContentMulticontentPartArrayImageContentTyped, Dict[str, object]
 ]
 
 
-class MessageUserMessageContentUnionMember1AudioContentAudioContent(TypedDict, total=False):
+class MessageUserMessageContentMulticontentPartArrayAudioContentAudioContent(TypedDict, total=False):
     content: str
     """the base64 encoded audio data."""
 
 
-class MessageUserMessageContentUnionMember1AudioContentTyped(TypedDict, total=False):
-    audio_content: Required[MessageUserMessageContentUnionMember1AudioContentAudioContent]
+class MessageUserMessageContentMulticontentPartArrayAudioContentTyped(TypedDict, total=False):
+    audio_content: Required[MessageUserMessageContentMulticontentPartArrayAudioContentAudioContent]
 
     type: Required[Literal["audio_content"]]
     """type of content to send. in this case `audio_content`."""
 
 
-MessageUserMessageContentUnionMember1AudioContent: TypeAlias = Union[
-    MessageUserMessageContentUnionMember1AudioContentTyped, Dict[str, object]
+MessageUserMessageContentMulticontentPartArrayAudioContent: TypeAlias = Union[
+    MessageUserMessageContentMulticontentPartArrayAudioContentTyped, Dict[str, object]
 ]
 
-MessageUserMessageContentUnionMember1: TypeAlias = Union[
-    MessageUserMessageContentUnionMember1TextContent,
-    MessageUserMessageContentUnionMember1ImageContent,
-    MessageUserMessageContentUnionMember1AudioContent,
+MessageUserMessageContentMulticontentPartArray: TypeAlias = Union[
+    MessageUserMessageContentMulticontentPartArrayTextContent,
+    MessageUserMessageContentMulticontentPartArrayImageContent,
+    MessageUserMessageContentMulticontentPartArrayAudioContent,
 ]
 
 
 class MessageUserMessageTyped(TypedDict, total=False):
-    content: Required[Union[str, Iterable[MessageUserMessageContentUnionMember1], None]]
+    content: Required[Union[str, Iterable[MessageUserMessageContentMulticontentPartArray], None]]
     """The contents of the user message."""
 
     role: Required[Literal["user"]]
