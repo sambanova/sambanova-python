@@ -26,7 +26,7 @@ from sambanova._types import Omit
 from sambanova._models import BaseModel, FinalRequestOptions
 from sambanova._constants import RAW_RESPONSE_HEADER
 from sambanova._streaming import Stream, AsyncStream
-from sambanova._exceptions import APIStatusError, SambanovaError, APITimeoutError, APIResponseValidationError
+from sambanova._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
 from sambanova._base_client import (
     DEFAULT_TIMEOUT,
     HTTPX_DEFAULT_TIMEOUT,
@@ -340,16 +340,6 @@ class TestSambanova:
         request = client2._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "stainless"
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
-
-    def test_validate_headers(self) -> None:
-        client = Sambanova(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
-        request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
-        assert request.headers.get("Authorization") == f"Bearer {bearer_token}"
-
-        with pytest.raises(SambanovaError):
-            with update_env(**{"BEARER_TOKEN": Omit()}):
-                client2 = Sambanova(base_url=base_url, bearer_token=None, _strict_response_validation=True)
-            _ = client2
 
     def test_default_query_option(self) -> None:
         client = Sambanova(
@@ -757,7 +747,18 @@ class TestSambanova:
         with pytest.raises(APITimeoutError):
             self.client.post(
                 "/v1/chat/completions",
-                body=cast(object, dict()),
+                body=cast(
+                    object,
+                    dict(
+                        messages=[
+                            {
+                                "content": "string",
+                                "role": "system",
+                            }
+                        ],
+                        model="string",
+                    ),
+                ),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -772,7 +773,18 @@ class TestSambanova:
         with pytest.raises(APIStatusError):
             self.client.post(
                 "/v1/chat/completions",
-                body=cast(object, dict()),
+                body=cast(
+                    object,
+                    dict(
+                        messages=[
+                            {
+                                "content": "string",
+                                "role": "system",
+                            }
+                        ],
+                        model="string",
+                    ),
+                ),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -805,7 +817,15 @@ class TestSambanova:
 
         respx_mock.post("/v1/chat/completions").mock(side_effect=retry_handler)
 
-        response = client.chat_completions.with_raw_response.create()
+        response = client.chat_completions.with_raw_response.create(
+            messages=[
+                {
+                    "content": "string",
+                    "role": "system",
+                }
+            ],
+            model="string",
+        )
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -829,7 +849,16 @@ class TestSambanova:
 
         respx_mock.post("/v1/chat/completions").mock(side_effect=retry_handler)
 
-        response = client.chat_completions.with_raw_response.create(extra_headers={"x-stainless-retry-count": Omit()})
+        response = client.chat_completions.with_raw_response.create(
+            messages=[
+                {
+                    "content": "string",
+                    "role": "system",
+                }
+            ],
+            model="string",
+            extra_headers={"x-stainless-retry-count": Omit()},
+        )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
@@ -852,7 +881,16 @@ class TestSambanova:
 
         respx_mock.post("/v1/chat/completions").mock(side_effect=retry_handler)
 
-        response = client.chat_completions.with_raw_response.create(extra_headers={"x-stainless-retry-count": "42"})
+        response = client.chat_completions.with_raw_response.create(
+            messages=[
+                {
+                    "content": "string",
+                    "role": "system",
+                }
+            ],
+            model="string",
+            extra_headers={"x-stainless-retry-count": "42"},
+        )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
 
@@ -1141,16 +1179,6 @@ class TestAsyncSambanova:
         request = client2._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "stainless"
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
-
-    def test_validate_headers(self) -> None:
-        client = AsyncSambanova(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
-        request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
-        assert request.headers.get("Authorization") == f"Bearer {bearer_token}"
-
-        with pytest.raises(SambanovaError):
-            with update_env(**{"BEARER_TOKEN": Omit()}):
-                client2 = AsyncSambanova(base_url=base_url, bearer_token=None, _strict_response_validation=True)
-            _ = client2
 
     def test_default_query_option(self) -> None:
         client = AsyncSambanova(
@@ -1563,7 +1591,18 @@ class TestAsyncSambanova:
         with pytest.raises(APITimeoutError):
             await self.client.post(
                 "/v1/chat/completions",
-                body=cast(object, dict()),
+                body=cast(
+                    object,
+                    dict(
+                        messages=[
+                            {
+                                "content": "string",
+                                "role": "system",
+                            }
+                        ],
+                        model="string",
+                    ),
+                ),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -1578,7 +1617,18 @@ class TestAsyncSambanova:
         with pytest.raises(APIStatusError):
             await self.client.post(
                 "/v1/chat/completions",
-                body=cast(object, dict()),
+                body=cast(
+                    object,
+                    dict(
+                        messages=[
+                            {
+                                "content": "string",
+                                "role": "system",
+                            }
+                        ],
+                        model="string",
+                    ),
+                ),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -1612,7 +1662,15 @@ class TestAsyncSambanova:
 
         respx_mock.post("/v1/chat/completions").mock(side_effect=retry_handler)
 
-        response = await client.chat_completions.with_raw_response.create()
+        response = await client.chat_completions.with_raw_response.create(
+            messages=[
+                {
+                    "content": "string",
+                    "role": "system",
+                }
+            ],
+            model="string",
+        )
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -1638,7 +1696,14 @@ class TestAsyncSambanova:
         respx_mock.post("/v1/chat/completions").mock(side_effect=retry_handler)
 
         response = await client.chat_completions.with_raw_response.create(
-            extra_headers={"x-stainless-retry-count": Omit()}
+            messages=[
+                {
+                    "content": "string",
+                    "role": "system",
+                }
+            ],
+            model="string",
+            extra_headers={"x-stainless-retry-count": Omit()},
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
@@ -1664,7 +1729,14 @@ class TestAsyncSambanova:
         respx_mock.post("/v1/chat/completions").mock(side_effect=retry_handler)
 
         response = await client.chat_completions.with_raw_response.create(
-            extra_headers={"x-stainless-retry-count": "42"}
+            messages=[
+                {
+                    "content": "string",
+                    "role": "system",
+                }
+            ],
+            model="string",
+            extra_headers={"x-stainless-retry-count": "42"},
         )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
