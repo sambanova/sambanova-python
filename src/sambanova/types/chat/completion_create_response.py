@@ -8,8 +8,8 @@ from .model_output_error import ModelOutputError
 from .chat_completion_response import ChatCompletionResponse
 from .chat_completion_stream_response import ChatCompletionStreamResponse
 
-__all__ = ["ChatCompletionCreateResponse"]
+__all__ = ["CompletionCreateResponse"]
 
-ChatCompletionCreateResponse: TypeAlias = Union[
+CompletionCreateResponse: TypeAlias = Union[
     ChatCompletionResponse, ChatCompletionStreamResponse, ModelOutputError, GeneralError
 ]

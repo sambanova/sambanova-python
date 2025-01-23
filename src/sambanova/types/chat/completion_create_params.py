@@ -6,7 +6,7 @@ from typing import Dict, List, Union, Iterable, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 __all__ = [
-    "ChatCompletionCreateParamsBase",
+    "CompletionCreateParamsBase",
     "Message",
     "MessageSystemMessage",
     "MessageSystemMessageContentTextContentPartArray",
@@ -30,12 +30,12 @@ __all__ = [
     "ToolChoiceToolChoiceObjectFunction",
     "Tool",
     "ToolFunction",
-    "ChatCompletionCreateParamsNonStreaming",
-    "ChatCompletionCreateParamsStreaming",
+    "CompletionCreateParamsNonStreaming",
+    "CompletionCreateParamsStreaming",
 ]
 
 
-class ChatCompletionCreateParamsBase(TypedDict, total=False):
+class CompletionCreateParamsBase(TypedDict, total=False):
     messages: Required[Iterable[Message]]
     """A list of messages comprising the conversation so far."""
 
@@ -436,7 +436,7 @@ class ToolTyped(TypedDict, total=False):
 Tool: TypeAlias = Union[ToolTyped, Dict[str, object]]
 
 
-class ChatCompletionCreateParamsNonStreaming(ChatCompletionCreateParamsBase, total=False):
+class CompletionCreateParamsNonStreaming(CompletionCreateParamsBase, total=False):
     stream: Optional[Literal[False]]
     """If set, partial message deltas will be sent.
 
@@ -447,7 +447,7 @@ class ChatCompletionCreateParamsNonStreaming(ChatCompletionCreateParamsBase, tot
     """
 
 
-class ChatCompletionCreateParamsStreaming(ChatCompletionCreateParamsBase):
+class CompletionCreateParamsStreaming(CompletionCreateParamsBase):
     stream: Required[Literal[True]]
     """If set, partial message deltas will be sent.
 
@@ -458,4 +458,4 @@ class ChatCompletionCreateParamsStreaming(ChatCompletionCreateParamsBase):
     """
 
 
-ChatCompletionCreateParams = Union[ChatCompletionCreateParamsNonStreaming, ChatCompletionCreateParamsStreaming]
+CompletionCreateParams = Union[CompletionCreateParamsNonStreaming, CompletionCreateParamsStreaming]

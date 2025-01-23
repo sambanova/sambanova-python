@@ -24,7 +24,6 @@ from ._utils import (
     get_async_library,
 )
 from ._version import __version__
-from .resources import chat_completions
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError, SambaNovaError
 from ._base_client import (
@@ -32,6 +31,7 @@ from ._base_client import (
     SyncAPIClient,
     AsyncAPIClient,
 )
+from .resources.chat import chat
 
 __all__ = [
     "Timeout",
@@ -46,7 +46,7 @@ __all__ = [
 
 
 class SambaNova(SyncAPIClient):
-    chat_completions: chat_completions.ChatCompletionsResource
+    chat: chat.ChatResource
     with_raw_response: SambaNovaWithRawResponse
     with_streaming_response: SambaNovaWithStreamedResponse
 
@@ -106,7 +106,7 @@ class SambaNova(SyncAPIClient):
 
         self._default_stream_cls = Stream
 
-        self.chat_completions = chat_completions.ChatCompletionsResource(self)
+        self.chat = chat.ChatResource(self)
         self.with_raw_response = SambaNovaWithRawResponse(self)
         self.with_streaming_response = SambaNovaWithStreamedResponse(self)
 
@@ -216,7 +216,7 @@ class SambaNova(SyncAPIClient):
 
 
 class AsyncSambaNova(AsyncAPIClient):
-    chat_completions: chat_completions.AsyncChatCompletionsResource
+    chat: chat.AsyncChatResource
     with_raw_response: AsyncSambaNovaWithRawResponse
     with_streaming_response: AsyncSambaNovaWithStreamedResponse
 
@@ -276,7 +276,7 @@ class AsyncSambaNova(AsyncAPIClient):
 
         self._default_stream_cls = AsyncStream
 
-        self.chat_completions = chat_completions.AsyncChatCompletionsResource(self)
+        self.chat = chat.AsyncChatResource(self)
         self.with_raw_response = AsyncSambaNovaWithRawResponse(self)
         self.with_streaming_response = AsyncSambaNovaWithStreamedResponse(self)
 
@@ -387,24 +387,22 @@ class AsyncSambaNova(AsyncAPIClient):
 
 class SambaNovaWithRawResponse:
     def __init__(self, client: SambaNova) -> None:
-        self.chat_completions = chat_completions.ChatCompletionsResourceWithRawResponse(client.chat_completions)
+        self.chat = chat.ChatResourceWithRawResponse(client.chat)
 
 
 class AsyncSambaNovaWithRawResponse:
     def __init__(self, client: AsyncSambaNova) -> None:
-        self.chat_completions = chat_completions.AsyncChatCompletionsResourceWithRawResponse(client.chat_completions)
+        self.chat = chat.AsyncChatResourceWithRawResponse(client.chat)
 
 
 class SambaNovaWithStreamedResponse:
     def __init__(self, client: SambaNova) -> None:
-        self.chat_completions = chat_completions.ChatCompletionsResourceWithStreamingResponse(client.chat_completions)
+        self.chat = chat.ChatResourceWithStreamingResponse(client.chat)
 
 
 class AsyncSambaNovaWithStreamedResponse:
     def __init__(self, client: AsyncSambaNova) -> None:
-        self.chat_completions = chat_completions.AsyncChatCompletionsResourceWithStreamingResponse(
-            client.chat_completions
-        )
+        self.chat = chat.AsyncChatResourceWithStreamingResponse(client.chat)
 
 
 Client = SambaNova
