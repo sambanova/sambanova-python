@@ -18,11 +18,11 @@ __all__ = [
 ]
 
 
-class SambanovaError(Exception):
+class SambaNovaError(Exception):
     pass
 
 
-class APIError(SambanovaError):
+class APIError(SambaNovaError):
     message: str
     request: httpx.Request
 

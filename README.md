@@ -1,8 +1,8 @@
-# Sambanova Python API library
+# Samba Nova Python API library
 
-[![PyPI version](https://img.shields.io/pypi/v/sambanova.svg)](https://pypi.org/project/sambanova/)
+[![PyPI version](https://img.shields.io/pypi/v/SambaNova.svg)](https://pypi.org/project/SambaNova/)
 
-The Sambanova Python library provides convenient access to the Sambanova REST API from any Python 3.8+
+The Samba Nova Python library provides convenient access to the Samba Nova REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
 
@@ -20,16 +20,16 @@ pip install git+ssh://git@github.com/stainless-sdks/sambanova-python.git
 ```
 
 > [!NOTE]
-> Once this package is [published to PyPI](https://app.stainlessapi.com/docs/guides/publish), this will become: `pip install --pre sambanova`
+> Once this package is [published to PyPI](https://app.stainlessapi.com/docs/guides/publish), this will become: `pip install --pre SambaNova`
 
 ## Usage
 
 The full API of this library can be found in [api.md](api.md).
 
 ```python
-from sambanova import Sambanova
+from SambaNova import SambaNova
 
-client = Sambanova(
+client = SambaNova(
     api_key="My API Key",
 )
 
@@ -46,13 +46,13 @@ chat_completion = client.chat_completions.create(
 
 ## Async usage
 
-Simply import `AsyncSambanova` instead of `Sambanova` and use `await` with each API call:
+Simply import `AsyncSambaNova` instead of `SambaNova` and use `await` with each API call:
 
 ```python
 import asyncio
-from sambanova import AsyncSambanova
+from SambaNova import AsyncSambaNova
 
-client = AsyncSambanova(
+client = AsyncSambaNova(
     api_key="My API Key",
 )
 
@@ -74,6 +74,54 @@ asyncio.run(main())
 
 Functionality between the synchronous and asynchronous clients is otherwise identical.
 
+## Streaming responses
+
+We provide support for streaming responses using Server Side Events (SSE).
+
+```python
+from SambaNova import SambaNova
+
+client = SambaNova(
+    api_key="My API Key",
+)
+
+stream = client.chat_completions.create(
+    messages=[
+        {
+            "content": "string",
+            "role": "system",
+        }
+    ],
+    model="string",
+    stream=True,
+)
+for chat_completion in stream:
+    print(chat_completion)
+```
+
+The async client uses the exact same interface.
+
+```python
+from SambaNova import AsyncSambaNova
+
+client = AsyncSambaNova(
+    api_key="My API Key",
+)
+
+stream = await client.chat_completions.create(
+    messages=[
+        {
+            "content": "string",
+            "role": "system",
+        }
+    ],
+    model="string",
+    stream=True,
+)
+async for chat_completion in stream:
+    print(chat_completion)
+```
+
 ## Using types
 
 Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typing.html#typing.TypedDict). Responses are [Pydantic models](https://docs.pydantic.dev) which also provide helper methods for things like:
@@ -85,18 +133,18 @@ Typed requests and responses provide autocomplete and documentation within your 
 
 ## Handling errors
 
-When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `sambanova.APIConnectionError` is raised.
+When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `SambaNova.APIConnectionError` is raised.
 
 When the API returns a non-success status code (that is, 4xx or 5xx
-response), a subclass of `sambanova.APIStatusError` is raised, containing `status_code` and `response` properties.
+response), a subclass of `SambaNova.APIStatusError` is raised, containing `status_code` and `response` properties.
 
-All errors inherit from `sambanova.APIError`.
+All errors inherit from `SambaNova.APIError`.
 
 ```python
-import sambanova
-from sambanova import Sambanova
+import SambaNova
+from SambaNova import SambaNova
 
-client = Sambanova(
+client = SambaNova(
     api_key="My API Key",
 )
 
@@ -110,12 +158,12 @@ try:
         ],
         model="string",
     )
-except sambanova.APIConnectionError as e:
+except SambaNova.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
-except sambanova.RateLimitError as e:
+except SambaNova.RateLimitError as e:
     print("A 429 status code was received; we should back off a bit.")
-except sambanova.APIStatusError as e:
+except SambaNova.APIStatusError as e:
     print("Another non-200-range status code was received")
     print(e.status_code)
     print(e.response)
@@ -143,10 +191,10 @@ Connection errors (for example, due to a network connectivity problem), 408 Requ
 You can use the `max_retries` option to configure or disable retry settings:
 
 ```python
-from sambanova import Sambanova
+from SambaNova import SambaNova
 
 # Configure the default for all requests:
-client = Sambanova(
+client = SambaNova(
     # default is 2
     max_retries=0,
     api_key="My API Key",
@@ -170,17 +218,17 @@ By default requests time out after 1 minute. You can configure this with a `time
 which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/#fine-tuning-the-configuration) object:
 
 ```python
-from sambanova import Sambanova
+from SambaNova import SambaNova
 
 # Configure the default for all requests:
-client = Sambanova(
+client = SambaNova(
     # 20 seconds (default is 1 minute)
     timeout=20.0,
     api_key="My API Key",
 )
 
 # More granular control:
-client = Sambanova(
+client = SambaNova(
     timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
     api_key="My API Key",
 )
@@ -207,10 +255,10 @@ Note that requests that time out are [retried twice by default](#retries).
 
 We use the standard library [`logging`](https://docs.python.org/3/library/logging.html) module.
 
-You can enable logging by setting the environment variable `SAMBANOVA_LOG` to `info`.
+You can enable logging by setting the environment variable `SAMBA_NOVA_LOG` to `info`.
 
 ```shell
-$ export SAMBANOVA_LOG=info
+$ export SAMBA_NOVA_LOG=info
 ```
 
 Or to `debug` for more verbose logging.
@@ -232,9 +280,9 @@ if response.my_field is None:
 The "raw" Response object can be accessed by prefixing `.with_raw_response.` to any HTTP method call, e.g.,
 
 ```py
-from sambanova import Sambanova
+from SambaNova import SambaNova
 
-client = Sambanova(
+client = SambaNova(
     api_key="My API Key",
 )
 response = client.chat_completions.with_raw_response.create(
@@ -250,9 +298,9 @@ chat_completion = response.parse()  # get the object that `chat_completions.crea
 print(chat_completion)
 ```
 
-These methods return an [`APIResponse`](https://github.com/stainless-sdks/sambanova-python/tree/main/src/sambanova/_response.py) object.
+These methods return an [`APIResponse`](https://github.com/stainless-sdks/sambanova-python/tree/main/src/SambaNova/_response.py) object.
 
-The async client returns an [`AsyncAPIResponse`](https://github.com/stainless-sdks/sambanova-python/tree/main/src/sambanova/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
+The async client returns an [`AsyncAPIResponse`](https://github.com/stainless-sdks/sambanova-python/tree/main/src/SambaNova/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
 
 #### `.with_streaming_response`
 
@@ -322,10 +370,10 @@ You can directly override the [httpx client](https://www.python-httpx.org/api/#c
 
 ```python
 import httpx
-from sambanova import Sambanova, DefaultHttpxClient
+from SambaNova import SambaNova, DefaultHttpxClient
 
-client = Sambanova(
-    # Or use the `SAMBANOVA_BASE_URL` env var
+client = SambaNova(
+    # Or use the `SAMBA_NOVA_BASE_URL` env var
     base_url="http://my.test.server.example.com:8083",
     http_client=DefaultHttpxClient(
         proxy="http://my.test.proxy.example.com",
@@ -346,9 +394,9 @@ client.with_options(http_client=DefaultHttpxClient(...))
 By default the library closes underlying HTTP connections whenever the client is [garbage collected](https://docs.python.org/3/reference/datamodel.html#object.__del__). You can manually close the client using the `.close()` method if desired, or with a context manager that closes when exiting.
 
 ```py
-from sambanova import Sambanova
+from SambaNova import SambaNova
 
-with Sambanova(
+with SambaNova(
     api_key="My API Key",
 ) as client:
   # make requests here
@@ -376,8 +424,8 @@ If you've upgraded to the latest version but aren't seeing any new features you 
 You can determine the version that is being used at runtime with:
 
 ```py
-import sambanova
-print(sambanova.__version__)
+import SambaNova
+print(SambaNova.__version__)
 ```
 
 ## Requirements

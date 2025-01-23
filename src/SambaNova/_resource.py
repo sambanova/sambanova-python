@@ -8,13 +8,13 @@ from typing import TYPE_CHECKING
 import anyio
 
 if TYPE_CHECKING:
-    from ._client import Sambanova, AsyncSambanova
+    from ._client import SambaNova, AsyncSambaNova
 
 
 class SyncAPIResource:
-    _client: Sambanova
+    _client: SambaNova
 
-    def __init__(self, client: Sambanova) -> None:
+    def __init__(self, client: SambaNova) -> None:
         self._client = client
         self._get = client.get
         self._post = client.post
@@ -28,9 +28,9 @@ class SyncAPIResource:
 
 
 class AsyncAPIResource:
-    _client: AsyncSambanova
+    _client: AsyncSambaNova
 
-    def __init__(self, client: AsyncSambanova) -> None:
+    def __init__(self, client: AsyncSambaNova) -> None:
         self._client = client
         self._get = client.get
         self._post = client.post

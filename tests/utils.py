@@ -8,8 +8,8 @@ from typing import Any, TypeVar, Iterator, cast
 from datetime import date, datetime
 from typing_extensions import Literal, get_args, get_origin, assert_type
 
-from sambanova._types import Omit, NoneType
-from sambanova._utils import (
+from SambaNova._types import Omit, NoneType
+from SambaNova._utils import (
     is_dict,
     is_list,
     is_list_type,
@@ -18,8 +18,8 @@ from sambanova._utils import (
     is_annotated_type,
     is_type_alias_type,
 )
-from sambanova._compat import PYDANTIC_V2, field_outer_type, get_model_fields
-from sambanova._models import BaseModel
+from SambaNova._compat import PYDANTIC_V2, field_outer_type, get_model_fields
+from SambaNova._models import BaseModel
 
 BaseModelT = TypeVar("BaseModelT", bound=BaseModel)
 
