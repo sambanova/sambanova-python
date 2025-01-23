@@ -4,8 +4,8 @@ from typing import Sequence
 
 import pytest
 
-from SambaNova._types import FileTypes
-from SambaNova._utils import extract_files
+from sambanova._types import FileTypes
+from sambanova._utils import extract_files
 
 
 def test_removes_files_from_input() -> None:

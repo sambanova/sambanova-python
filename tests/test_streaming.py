@@ -5,8 +5,8 @@ from typing import Iterator, AsyncIterator
 import httpx
 import pytest
 
-from SambaNova import SambaNova, AsyncSambaNova
-from SambaNova._streaming import Stream, AsyncStream, ServerSentEvent
+from sambanova import SambaNova, AsyncSambaNova
+from sambanova._streaming import Stream, AsyncStream, ServerSentEvent
 
 
 @pytest.mark.asyncio

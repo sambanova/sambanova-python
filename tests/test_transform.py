@@ -8,15 +8,15 @@ from typing_extensions import Required, Annotated, TypedDict
 
 import pytest
 
-from SambaNova._types import Base64FileInput
-from SambaNova._utils import (
+from sambanova._types import Base64FileInput
+from sambanova._utils import (
     PropertyInfo,
     transform as _transform,
     parse_datetime,
     async_transform as _async_transform,
 )
-from SambaNova._compat import PYDANTIC_V2
-from SambaNova._models import BaseModel
+from sambanova._compat import PYDANTIC_V2
+from sambanova._models import BaseModel
 
 _T = TypeVar("_T")
 
