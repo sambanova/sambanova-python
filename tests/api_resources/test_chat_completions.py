@@ -37,7 +37,6 @@ class TestChatCompletions:
                 {
                     "content": "string",
                     "role": "system",
-                    "examples": {},
                 }
             ],
             model="string",
@@ -129,7 +128,6 @@ class TestChatCompletions:
                 {
                     "content": "string",
                     "role": "system",
-                    "examples": {},
                 }
             ],
             model="string",
@@ -225,7 +223,6 @@ class TestAsyncChatCompletions:
                 {
                     "content": "string",
                     "role": "system",
-                    "examples": {},
                 }
             ],
             model="string",
@@ -317,7 +314,6 @@ class TestAsyncChatCompletions:
                 {
                     "content": "string",
                     "role": "system",
-                    "examples": {},
                 }
             ],
             model="string",
