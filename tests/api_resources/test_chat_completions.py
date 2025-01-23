@@ -7,9 +7,9 @@ from typing import Any, cast
 
 import pytest
 
-from sambanova import Sambanova, AsyncSambanova
+from SambaNova import SambaNova, AsyncSambaNova
 from tests.utils import assert_matches_type
-from sambanova.types import ChatCompletionCreateResponse
+from SambaNova.types import ChatCompletionCreateResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -18,7 +18,7 @@ class TestChatCompletions:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_create(self, client: Sambanova) -> None:
+    def test_method_create_overload_1(self, client: SambaNova) -> None:
         chat_completion = client.chat_completions.create(
             messages=[
                 {
@@ -31,7 +31,7 @@ class TestChatCompletions:
         assert_matches_type(ChatCompletionCreateResponse, chat_completion, path=["response"])
 
     @parametrize
-    def test_method_create_with_all_params(self, client: Sambanova) -> None:
+    def test_method_create_with_all_params_overload_1(self, client: SambaNova) -> None:
         chat_completion = client.chat_completions.create(
             messages=[
                 {
@@ -51,7 +51,7 @@ class TestChatCompletions:
             response_format={"type": "json_object"},
             seed=0,
             stop="\n",
-            stream=True,
+            stream=False,
             stream_options={"include_usage": True},
             temperature=0.7,
             tool_choice="none",
@@ -72,7 +72,7 @@ class TestChatCompletions:
         assert_matches_type(ChatCompletionCreateResponse, chat_completion, path=["response"])
 
     @parametrize
-    def test_raw_response_create(self, client: Sambanova) -> None:
+    def test_raw_response_create_overload_1(self, client: SambaNova) -> None:
         response = client.chat_completions.with_raw_response.create(
             messages=[
                 {
@@ -89,7 +89,7 @@ class TestChatCompletions:
         assert_matches_type(ChatCompletionCreateResponse, chat_completion, path=["response"])
 
     @parametrize
-    def test_streaming_response_create(self, client: Sambanova) -> None:
+    def test_streaming_response_create_overload_1(self, client: SambaNova) -> None:
         with client.chat_completions.with_streaming_response.create(
             messages=[
                 {
@@ -107,12 +107,104 @@ class TestChatCompletions:
 
         assert cast(Any, response.is_closed) is True
 
+    @parametrize
+    def test_method_create_overload_2(self, client: SambaNova) -> None:
+        chat_completion_stream = client.chat_completions.create(
+            messages=[
+                {
+                    "content": "string",
+                    "role": "system",
+                }
+            ],
+            model="string",
+            stream=True,
+        )
+        chat_completion_stream.response.close()
+
+    @parametrize
+    def test_method_create_with_all_params_overload_2(self, client: SambaNova) -> None:
+        chat_completion_stream = client.chat_completions.create(
+            messages=[
+                {
+                    "content": "string",
+                    "role": "system",
+                }
+            ],
+            model="string",
+            stream=True,
+            frequency_penalty=-2,
+            logit_bias={},
+            logprobs=True,
+            max_completion_tokens=2048,
+            max_tokens=2048,
+            n=1,
+            parallel_tool_calls=True,
+            presence_penalty=-2,
+            response_format={"type": "json_object"},
+            seed=0,
+            stop="\n",
+            stream_options={"include_usage": True},
+            temperature=0.7,
+            tool_choice="none",
+            tools=[
+                {
+                    "function": {
+                        "name": "name",
+                        "description": "description",
+                        "parameters": {"foo": "bar"},
+                    },
+                    "type": "type",
+                }
+            ],
+            top_k=5,
+            top_logprobs=0,
+            top_p=1,
+        )
+        chat_completion_stream.response.close()
+
+    @parametrize
+    def test_raw_response_create_overload_2(self, client: SambaNova) -> None:
+        response = client.chat_completions.with_raw_response.create(
+            messages=[
+                {
+                    "content": "string",
+                    "role": "system",
+                }
+            ],
+            model="string",
+            stream=True,
+        )
+
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        stream = response.parse()
+        stream.close()
+
+    @parametrize
+    def test_streaming_response_create_overload_2(self, client: SambaNova) -> None:
+        with client.chat_completions.with_streaming_response.create(
+            messages=[
+                {
+                    "content": "string",
+                    "role": "system",
+                }
+            ],
+            model="string",
+            stream=True,
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            stream = response.parse()
+            stream.close()
+
+        assert cast(Any, response.is_closed) is True
+
 
 class TestAsyncChatCompletions:
     parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    async def test_method_create(self, async_client: AsyncSambanova) -> None:
+    async def test_method_create_overload_1(self, async_client: AsyncSambaNova) -> None:
         chat_completion = await async_client.chat_completions.create(
             messages=[
                 {
@@ -125,7 +217,7 @@ class TestAsyncChatCompletions:
         assert_matches_type(ChatCompletionCreateResponse, chat_completion, path=["response"])
 
     @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncSambanova) -> None:
+    async def test_method_create_with_all_params_overload_1(self, async_client: AsyncSambaNova) -> None:
         chat_completion = await async_client.chat_completions.create(
             messages=[
                 {
@@ -145,7 +237,7 @@ class TestAsyncChatCompletions:
             response_format={"type": "json_object"},
             seed=0,
             stop="\n",
-            stream=True,
+            stream=False,
             stream_options={"include_usage": True},
             temperature=0.7,
             tool_choice="none",
@@ -166,7 +258,7 @@ class TestAsyncChatCompletions:
         assert_matches_type(ChatCompletionCreateResponse, chat_completion, path=["response"])
 
     @parametrize
-    async def test_raw_response_create(self, async_client: AsyncSambanova) -> None:
+    async def test_raw_response_create_overload_1(self, async_client: AsyncSambaNova) -> None:
         response = await async_client.chat_completions.with_raw_response.create(
             messages=[
                 {
@@ -183,7 +275,7 @@ class TestAsyncChatCompletions:
         assert_matches_type(ChatCompletionCreateResponse, chat_completion, path=["response"])
 
     @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncSambanova) -> None:
+    async def test_streaming_response_create_overload_1(self, async_client: AsyncSambaNova) -> None:
         async with async_client.chat_completions.with_streaming_response.create(
             messages=[
                 {
@@ -198,5 +290,97 @@ class TestAsyncChatCompletions:
 
             chat_completion = await response.parse()
             assert_matches_type(ChatCompletionCreateResponse, chat_completion, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_create_overload_2(self, async_client: AsyncSambaNova) -> None:
+        chat_completion_stream = await async_client.chat_completions.create(
+            messages=[
+                {
+                    "content": "string",
+                    "role": "system",
+                }
+            ],
+            model="string",
+            stream=True,
+        )
+        await chat_completion_stream.response.aclose()
+
+    @parametrize
+    async def test_method_create_with_all_params_overload_2(self, async_client: AsyncSambaNova) -> None:
+        chat_completion_stream = await async_client.chat_completions.create(
+            messages=[
+                {
+                    "content": "string",
+                    "role": "system",
+                }
+            ],
+            model="string",
+            stream=True,
+            frequency_penalty=-2,
+            logit_bias={},
+            logprobs=True,
+            max_completion_tokens=2048,
+            max_tokens=2048,
+            n=1,
+            parallel_tool_calls=True,
+            presence_penalty=-2,
+            response_format={"type": "json_object"},
+            seed=0,
+            stop="\n",
+            stream_options={"include_usage": True},
+            temperature=0.7,
+            tool_choice="none",
+            tools=[
+                {
+                    "function": {
+                        "name": "name",
+                        "description": "description",
+                        "parameters": {"foo": "bar"},
+                    },
+                    "type": "type",
+                }
+            ],
+            top_k=5,
+            top_logprobs=0,
+            top_p=1,
+        )
+        await chat_completion_stream.response.aclose()
+
+    @parametrize
+    async def test_raw_response_create_overload_2(self, async_client: AsyncSambaNova) -> None:
+        response = await async_client.chat_completions.with_raw_response.create(
+            messages=[
+                {
+                    "content": "string",
+                    "role": "system",
+                }
+            ],
+            model="string",
+            stream=True,
+        )
+
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        stream = await response.parse()
+        await stream.close()
+
+    @parametrize
+    async def test_streaming_response_create_overload_2(self, async_client: AsyncSambaNova) -> None:
+        async with async_client.chat_completions.with_streaming_response.create(
+            messages=[
+                {
+                    "content": "string",
+                    "role": "system",
+                }
+            ],
+            model="string",
+            stream=True,
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            stream = await response.parse()
+            await stream.close()
 
         assert cast(Any, response.is_closed) is True

@@ -26,7 +26,7 @@ from ._utils import (
 from ._version import __version__
 from .resources import chat_completions
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
-from ._exceptions import APIStatusError, SambanovaError
+from ._exceptions import APIStatusError, SambaNovaError
 from ._base_client import (
     DEFAULT_MAX_RETRIES,
     SyncAPIClient,
@@ -38,17 +38,17 @@ __all__ = [
     "Transport",
     "ProxiesTypes",
     "RequestOptions",
-    "Sambanova",
-    "AsyncSambanova",
+    "SambaNova",
+    "AsyncSambaNova",
     "Client",
     "AsyncClient",
 ]
 
 
-class Sambanova(SyncAPIClient):
+class SambaNova(SyncAPIClient):
     chat_completions: chat_completions.ChatCompletionsResource
-    with_raw_response: SambanovaWithRawResponse
-    with_streaming_response: SambanovaWithStreamedResponse
+    with_raw_response: SambaNovaWithRawResponse
+    with_streaming_response: SambaNovaWithStreamedResponse
 
     # client options
     api_key: str
@@ -76,20 +76,20 @@ class Sambanova(SyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new synchronous sambanova client instance.
+        """Construct a new synchronous SambaNova client instance.
 
-        This automatically infers the `api_key` argument from the `API_KEY` environment variable if it is not provided.
+        This automatically infers the `api_key` argument from the `SAMBANOVA_API_KEY` environment variable if it is not provided.
         """
         if api_key is None:
-            api_key = os.environ.get("API_KEY")
+            api_key = os.environ.get("SAMBANOVA_API_KEY")
         if api_key is None:
-            raise SambanovaError(
-                "The api_key client option must be set either by passing api_key to the client or by setting the API_KEY environment variable"
+            raise SambaNovaError(
+                "The api_key client option must be set either by passing api_key to the client or by setting the SAMBANOVA_API_KEY environment variable"
             )
         self.api_key = api_key
 
         if base_url is None:
-            base_url = os.environ.get("SAMBANOVA_BASE_URL")
+            base_url = os.environ.get("SAMBA_NOVA_BASE_URL")
         if base_url is None:
             base_url = f"https://api.sambanova.ai"
 
@@ -104,9 +104,11 @@ class Sambanova(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
+        self._default_stream_cls = Stream
+
         self.chat_completions = chat_completions.ChatCompletionsResource(self)
-        self.with_raw_response = SambanovaWithRawResponse(self)
-        self.with_streaming_response = SambanovaWithStreamedResponse(self)
+        self.with_raw_response = SambaNovaWithRawResponse(self)
+        self.with_streaming_response = SambaNovaWithStreamedResponse(self)
 
     @property
     @override
@@ -207,10 +209,10 @@ class Sambanova(SyncAPIClient):
         return APIStatusError(err_msg, response=response, body=body)
 
 
-class AsyncSambanova(AsyncAPIClient):
+class AsyncSambaNova(AsyncAPIClient):
     chat_completions: chat_completions.AsyncChatCompletionsResource
-    with_raw_response: AsyncSambanovaWithRawResponse
-    with_streaming_response: AsyncSambanovaWithStreamedResponse
+    with_raw_response: AsyncSambaNovaWithRawResponse
+    with_streaming_response: AsyncSambaNovaWithStreamedResponse
 
     # client options
     api_key: str
@@ -238,20 +240,20 @@ class AsyncSambanova(AsyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new async sambanova client instance.
+        """Construct a new async SambaNova client instance.
 
-        This automatically infers the `api_key` argument from the `API_KEY` environment variable if it is not provided.
+        This automatically infers the `api_key` argument from the `SAMBANOVA_API_KEY` environment variable if it is not provided.
         """
         if api_key is None:
-            api_key = os.environ.get("API_KEY")
+            api_key = os.environ.get("SAMBANOVA_API_KEY")
         if api_key is None:
-            raise SambanovaError(
-                "The api_key client option must be set either by passing api_key to the client or by setting the API_KEY environment variable"
+            raise SambaNovaError(
+                "The api_key client option must be set either by passing api_key to the client or by setting the SAMBANOVA_API_KEY environment variable"
             )
         self.api_key = api_key
 
         if base_url is None:
-            base_url = os.environ.get("SAMBANOVA_BASE_URL")
+            base_url = os.environ.get("SAMBA_NOVA_BASE_URL")
         if base_url is None:
             base_url = f"https://api.sambanova.ai"
 
@@ -266,9 +268,11 @@ class AsyncSambanova(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
+        self._default_stream_cls = AsyncStream
+
         self.chat_completions = chat_completions.AsyncChatCompletionsResource(self)
-        self.with_raw_response = AsyncSambanovaWithRawResponse(self)
-        self.with_streaming_response = AsyncSambanovaWithStreamedResponse(self)
+        self.with_raw_response = AsyncSambaNovaWithRawResponse(self)
+        self.with_streaming_response = AsyncSambaNovaWithStreamedResponse(self)
 
     @property
     @override
@@ -369,28 +373,28 @@ class AsyncSambanova(AsyncAPIClient):
         return APIStatusError(err_msg, response=response, body=body)
 
 
-class SambanovaWithRawResponse:
-    def __init__(self, client: Sambanova) -> None:
+class SambaNovaWithRawResponse:
+    def __init__(self, client: SambaNova) -> None:
         self.chat_completions = chat_completions.ChatCompletionsResourceWithRawResponse(client.chat_completions)
 
 
-class AsyncSambanovaWithRawResponse:
-    def __init__(self, client: AsyncSambanova) -> None:
+class AsyncSambaNovaWithRawResponse:
+    def __init__(self, client: AsyncSambaNova) -> None:
         self.chat_completions = chat_completions.AsyncChatCompletionsResourceWithRawResponse(client.chat_completions)
 
 
-class SambanovaWithStreamedResponse:
-    def __init__(self, client: Sambanova) -> None:
+class SambaNovaWithStreamedResponse:
+    def __init__(self, client: SambaNova) -> None:
         self.chat_completions = chat_completions.ChatCompletionsResourceWithStreamingResponse(client.chat_completions)
 
 
-class AsyncSambanovaWithStreamedResponse:
-    def __init__(self, client: AsyncSambanova) -> None:
+class AsyncSambaNovaWithStreamedResponse:
+    def __init__(self, client: AsyncSambaNova) -> None:
         self.chat_completions = chat_completions.AsyncChatCompletionsResourceWithStreamingResponse(
             client.chat_completions
         )
 
 
-Client = Sambanova
+Client = SambaNova
 
-AsyncClient = AsyncSambanova
+AsyncClient = AsyncSambaNova

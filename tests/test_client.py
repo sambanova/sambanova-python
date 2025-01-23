@@ -21,12 +21,13 @@ import pytest
 from respx import MockRouter
 from pydantic import ValidationError
 
-from sambanova import Sambanova, AsyncSambanova, APIResponseValidationError
-from sambanova._types import Omit
-from sambanova._models import BaseModel, FinalRequestOptions
-from sambanova._constants import RAW_RESPONSE_HEADER
-from sambanova._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
-from sambanova._base_client import (
+from SambaNova import SambaNova, AsyncSambaNova, APIResponseValidationError
+from SambaNova._types import Omit
+from SambaNova._models import BaseModel, FinalRequestOptions
+from SambaNova._constants import RAW_RESPONSE_HEADER
+from SambaNova._streaming import Stream, AsyncStream
+from SambaNova._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
+from SambaNova._base_client import (
     DEFAULT_TIMEOUT,
     HTTPX_DEFAULT_TIMEOUT,
     BaseClient,
@@ -49,7 +50,7 @@ def _low_retry_timeout(*_args: Any, **_kwargs: Any) -> float:
     return 0.1
 
 
-def _get_open_connections(client: Sambanova | AsyncSambanova) -> int:
+def _get_open_connections(client: SambaNova | AsyncSambaNova) -> int:
     transport = client._client._transport
     assert isinstance(transport, httpx.HTTPTransport) or isinstance(transport, httpx.AsyncHTTPTransport)
 
@@ -57,8 +58,8 @@ def _get_open_connections(client: Sambanova | AsyncSambanova) -> int:
     return len(pool._requests)
 
 
-class TestSambanova:
-    client = Sambanova(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+class TestSambaNova:
+    client = SambaNova(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
     @pytest.mark.respx(base_url=base_url)
     def test_raw_response(self, respx_mock: MockRouter) -> None:
@@ -105,7 +106,7 @@ class TestSambanova:
         assert isinstance(self.client.timeout, httpx.Timeout)
 
     def test_copy_default_headers(self) -> None:
-        client = Sambanova(
+        client = SambaNova(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         assert client.default_headers["X-Foo"] == "bar"
@@ -139,7 +140,7 @@ class TestSambanova:
             client.copy(set_default_headers={}, default_headers={"X-Foo": "Bar"})
 
     def test_copy_default_query(self) -> None:
-        client = Sambanova(
+        client = SambaNova(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"foo": "bar"}
         )
         assert _get_params(client)["foo"] == "bar"
@@ -230,10 +231,10 @@ class TestSambanova:
                         # to_raw_response_wrapper leaks through the @functools.wraps() decorator.
                         #
                         # removing the decorator fixes the leak for reasons we don't understand.
-                        "sambanova/_legacy_response.py",
-                        "sambanova/_response.py",
+                        "SambaNova/_legacy_response.py",
+                        "SambaNova/_response.py",
                         # pydantic.BaseModel.model_dump || pydantic.BaseModel.dict leak memory for some reason.
-                        "sambanova/_compat.py",
+                        "SambaNova/_compat.py",
                         # Standard library leaks we don't care about.
                         "/logging/__init__.py",
                     ]
@@ -264,7 +265,7 @@ class TestSambanova:
         assert timeout == httpx.Timeout(100.0)
 
     def test_client_timeout_option(self) -> None:
-        client = Sambanova(
+        client = SambaNova(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, timeout=httpx.Timeout(0)
         )
 
@@ -275,7 +276,7 @@ class TestSambanova:
     def test_http_client_timeout_option(self) -> None:
         # custom timeout given to the httpx client should be used
         with httpx.Client(timeout=None) as http_client:
-            client = Sambanova(
+            client = SambaNova(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
@@ -285,7 +286,7 @@ class TestSambanova:
 
         # no timeout given to the httpx client should not use the httpx default
         with httpx.Client() as http_client:
-            client = Sambanova(
+            client = SambaNova(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
@@ -295,7 +296,7 @@ class TestSambanova:
 
         # explicitly passing the default timeout currently results in it being ignored
         with httpx.Client(timeout=HTTPX_DEFAULT_TIMEOUT) as http_client:
-            client = Sambanova(
+            client = SambaNova(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
@@ -306,7 +307,7 @@ class TestSambanova:
     async def test_invalid_http_client(self) -> None:
         with pytest.raises(TypeError, match="Invalid `http_client` arg"):
             async with httpx.AsyncClient() as http_client:
-                Sambanova(
+                SambaNova(
                     base_url=base_url,
                     api_key=api_key,
                     _strict_response_validation=True,
@@ -314,14 +315,14 @@ class TestSambanova:
                 )
 
     def test_default_headers_option(self) -> None:
-        client = Sambanova(
+        client = SambaNova(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "bar"
         assert request.headers.get("x-stainless-lang") == "python"
 
-        client2 = Sambanova(
+        client2 = SambaNova(
             base_url=base_url,
             api_key=api_key,
             _strict_response_validation=True,
@@ -335,7 +336,7 @@ class TestSambanova:
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
 
     def test_default_query_option(self) -> None:
-        client = Sambanova(
+        client = SambaNova(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"query_param": "bar"}
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -449,7 +450,7 @@ class TestSambanova:
         params = dict(request.url.params)
         assert params == {"foo": "2"}
 
-    def test_multipart_repeating_array(self, client: Sambanova) -> None:
+    def test_multipart_repeating_array(self, client: SambaNova) -> None:
         request = client._build_request(
             FinalRequestOptions.construct(
                 method="get",
@@ -536,7 +537,7 @@ class TestSambanova:
         assert response.foo == 2
 
     def test_base_url_setter(self) -> None:
-        client = Sambanova(base_url="https://example.com/from_init", api_key=api_key, _strict_response_validation=True)
+        client = SambaNova(base_url="https://example.com/from_init", api_key=api_key, _strict_response_validation=True)
         assert client.base_url == "https://example.com/from_init/"
 
         client.base_url = "https://example.com/from_setter"  # type: ignore[assignment]
@@ -544,15 +545,15 @@ class TestSambanova:
         assert client.base_url == "https://example.com/from_setter/"
 
     def test_base_url_env(self) -> None:
-        with update_env(SAMBANOVA_BASE_URL="http://localhost:5000/from/env"):
-            client = Sambanova(api_key=api_key, _strict_response_validation=True)
+        with update_env(SAMBA_NOVA_BASE_URL="http://localhost:5000/from/env"):
+            client = SambaNova(api_key=api_key, _strict_response_validation=True)
             assert client.base_url == "http://localhost:5000/from/env/"
 
     @pytest.mark.parametrize(
         "client",
         [
-            Sambanova(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
-            Sambanova(
+            SambaNova(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
+            SambaNova(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 _strict_response_validation=True,
@@ -561,7 +562,7 @@ class TestSambanova:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_trailing_slash(self, client: Sambanova) -> None:
+    def test_base_url_trailing_slash(self, client: SambaNova) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -574,8 +575,8 @@ class TestSambanova:
     @pytest.mark.parametrize(
         "client",
         [
-            Sambanova(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
-            Sambanova(
+            SambaNova(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
+            SambaNova(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 _strict_response_validation=True,
@@ -584,7 +585,7 @@ class TestSambanova:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_no_trailing_slash(self, client: Sambanova) -> None:
+    def test_base_url_no_trailing_slash(self, client: SambaNova) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -597,8 +598,8 @@ class TestSambanova:
     @pytest.mark.parametrize(
         "client",
         [
-            Sambanova(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
-            Sambanova(
+            SambaNova(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
+            SambaNova(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 _strict_response_validation=True,
@@ -607,7 +608,7 @@ class TestSambanova:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_absolute_request_url(self, client: Sambanova) -> None:
+    def test_absolute_request_url(self, client: SambaNova) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -618,7 +619,7 @@ class TestSambanova:
         assert request.url == "https://myapi.com/foo"
 
     def test_copied_client_does_not_close_http(self) -> None:
-        client = Sambanova(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = SambaNova(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         assert not client.is_closed()
 
         copied = client.copy()
@@ -629,7 +630,7 @@ class TestSambanova:
         assert not client.is_closed()
 
     def test_client_context_manager(self) -> None:
-        client = Sambanova(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = SambaNova(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         with client as c2:
             assert c2 is client
             assert not c2.is_closed()
@@ -650,7 +651,18 @@ class TestSambanova:
 
     def test_client_max_retries_validation(self) -> None:
         with pytest.raises(TypeError, match=r"max_retries cannot be None"):
-            Sambanova(base_url=base_url, api_key=api_key, _strict_response_validation=True, max_retries=cast(Any, None))
+            SambaNova(base_url=base_url, api_key=api_key, _strict_response_validation=True, max_retries=cast(Any, None))
+
+    @pytest.mark.respx(base_url=base_url)
+    def test_default_stream_cls(self, respx_mock: MockRouter) -> None:
+        class Model(BaseModel):
+            name: str
+
+        respx_mock.post("/foo").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+
+        stream = self.client.post("/foo", cast_to=Model, stream=True, stream_cls=Stream[Model])
+        assert isinstance(stream, Stream)
+        stream.response.close()
 
     @pytest.mark.respx(base_url=base_url)
     def test_received_text_for_expected_json(self, respx_mock: MockRouter) -> None:
@@ -659,12 +671,12 @@ class TestSambanova:
 
         respx_mock.get("/foo").mock(return_value=httpx.Response(200, text="my-custom-format"))
 
-        strict_client = Sambanova(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        strict_client = SambaNova(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
         with pytest.raises(APIResponseValidationError):
             strict_client.get("/foo", cast_to=Model)
 
-        client = Sambanova(base_url=base_url, api_key=api_key, _strict_response_validation=False)
+        client = SambaNova(base_url=base_url, api_key=api_key, _strict_response_validation=False)
 
         response = client.get("/foo", cast_to=Model)
         assert isinstance(response, str)  # type: ignore[unreachable]
@@ -692,14 +704,14 @@ class TestSambanova:
     )
     @mock.patch("time.time", mock.MagicMock(return_value=1696004797))
     def test_parse_retry_after_header(self, remaining_retries: int, retry_after: str, timeout: float) -> None:
-        client = Sambanova(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = SambaNova(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
         headers = httpx.Headers({"retry-after": retry_after})
         options = FinalRequestOptions(method="get", url="/foo", max_retries=3)
         calculated = client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
-    @mock.patch("sambanova._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("SambaNova._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
         respx_mock.post("/v1/chat/completions").mock(side_effect=httpx.TimeoutException("Test timeout error"))
@@ -725,7 +737,7 @@ class TestSambanova:
 
         assert _get_open_connections(self.client) == 0
 
-    @mock.patch("sambanova._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("SambaNova._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
         respx_mock.post("/v1/chat/completions").mock(return_value=httpx.Response(500))
@@ -752,12 +764,12 @@ class TestSambanova:
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("sambanova._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("SambaNova._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.parametrize("failure_mode", ["status", "exception"])
     def test_retries_taken(
         self,
-        client: Sambanova,
+        client: SambaNova,
         failures_before_success: int,
         failure_mode: Literal["status", "exception"],
         respx_mock: MockRouter,
@@ -791,10 +803,10 @@ class TestSambanova:
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("sambanova._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("SambaNova._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_omit_retry_count_header(
-        self, client: Sambanova, failures_before_success: int, respx_mock: MockRouter
+        self, client: SambaNova, failures_before_success: int, respx_mock: MockRouter
     ) -> None:
         client = client.with_options(max_retries=4)
 
@@ -823,10 +835,10 @@ class TestSambanova:
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("sambanova._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("SambaNova._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_overwrite_retry_count_header(
-        self, client: Sambanova, failures_before_success: int, respx_mock: MockRouter
+        self, client: SambaNova, failures_before_success: int, respx_mock: MockRouter
     ) -> None:
         client = client.with_options(max_retries=4)
 
@@ -855,8 +867,8 @@ class TestSambanova:
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
 
 
-class TestAsyncSambanova:
-    client = AsyncSambanova(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+class TestAsyncSambaNova:
+    client = AsyncSambaNova(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
@@ -905,7 +917,7 @@ class TestAsyncSambanova:
         assert isinstance(self.client.timeout, httpx.Timeout)
 
     def test_copy_default_headers(self) -> None:
-        client = AsyncSambanova(
+        client = AsyncSambaNova(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         assert client.default_headers["X-Foo"] == "bar"
@@ -939,7 +951,7 @@ class TestAsyncSambanova:
             client.copy(set_default_headers={}, default_headers={"X-Foo": "Bar"})
 
     def test_copy_default_query(self) -> None:
-        client = AsyncSambanova(
+        client = AsyncSambaNova(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"foo": "bar"}
         )
         assert _get_params(client)["foo"] == "bar"
@@ -1030,10 +1042,10 @@ class TestAsyncSambanova:
                         # to_raw_response_wrapper leaks through the @functools.wraps() decorator.
                         #
                         # removing the decorator fixes the leak for reasons we don't understand.
-                        "sambanova/_legacy_response.py",
-                        "sambanova/_response.py",
+                        "SambaNova/_legacy_response.py",
+                        "SambaNova/_response.py",
                         # pydantic.BaseModel.model_dump || pydantic.BaseModel.dict leak memory for some reason.
-                        "sambanova/_compat.py",
+                        "SambaNova/_compat.py",
                         # Standard library leaks we don't care about.
                         "/logging/__init__.py",
                     ]
@@ -1064,7 +1076,7 @@ class TestAsyncSambanova:
         assert timeout == httpx.Timeout(100.0)
 
     async def test_client_timeout_option(self) -> None:
-        client = AsyncSambanova(
+        client = AsyncSambaNova(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, timeout=httpx.Timeout(0)
         )
 
@@ -1075,7 +1087,7 @@ class TestAsyncSambanova:
     async def test_http_client_timeout_option(self) -> None:
         # custom timeout given to the httpx client should be used
         async with httpx.AsyncClient(timeout=None) as http_client:
-            client = AsyncSambanova(
+            client = AsyncSambaNova(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
@@ -1085,7 +1097,7 @@ class TestAsyncSambanova:
 
         # no timeout given to the httpx client should not use the httpx default
         async with httpx.AsyncClient() as http_client:
-            client = AsyncSambanova(
+            client = AsyncSambaNova(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
@@ -1095,7 +1107,7 @@ class TestAsyncSambanova:
 
         # explicitly passing the default timeout currently results in it being ignored
         async with httpx.AsyncClient(timeout=HTTPX_DEFAULT_TIMEOUT) as http_client:
-            client = AsyncSambanova(
+            client = AsyncSambaNova(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
@@ -1106,7 +1118,7 @@ class TestAsyncSambanova:
     def test_invalid_http_client(self) -> None:
         with pytest.raises(TypeError, match="Invalid `http_client` arg"):
             with httpx.Client() as http_client:
-                AsyncSambanova(
+                AsyncSambaNova(
                     base_url=base_url,
                     api_key=api_key,
                     _strict_response_validation=True,
@@ -1114,14 +1126,14 @@ class TestAsyncSambanova:
                 )
 
     def test_default_headers_option(self) -> None:
-        client = AsyncSambanova(
+        client = AsyncSambaNova(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "bar"
         assert request.headers.get("x-stainless-lang") == "python"
 
-        client2 = AsyncSambanova(
+        client2 = AsyncSambaNova(
             base_url=base_url,
             api_key=api_key,
             _strict_response_validation=True,
@@ -1135,7 +1147,7 @@ class TestAsyncSambanova:
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
 
     def test_default_query_option(self) -> None:
-        client = AsyncSambanova(
+        client = AsyncSambaNova(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"query_param": "bar"}
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -1249,7 +1261,7 @@ class TestAsyncSambanova:
         params = dict(request.url.params)
         assert params == {"foo": "2"}
 
-    def test_multipart_repeating_array(self, async_client: AsyncSambanova) -> None:
+    def test_multipart_repeating_array(self, async_client: AsyncSambaNova) -> None:
         request = async_client._build_request(
             FinalRequestOptions.construct(
                 method="get",
@@ -1336,7 +1348,7 @@ class TestAsyncSambanova:
         assert response.foo == 2
 
     def test_base_url_setter(self) -> None:
-        client = AsyncSambanova(
+        client = AsyncSambaNova(
             base_url="https://example.com/from_init", api_key=api_key, _strict_response_validation=True
         )
         assert client.base_url == "https://example.com/from_init/"
@@ -1346,17 +1358,17 @@ class TestAsyncSambanova:
         assert client.base_url == "https://example.com/from_setter/"
 
     def test_base_url_env(self) -> None:
-        with update_env(SAMBANOVA_BASE_URL="http://localhost:5000/from/env"):
-            client = AsyncSambanova(api_key=api_key, _strict_response_validation=True)
+        with update_env(SAMBA_NOVA_BASE_URL="http://localhost:5000/from/env"):
+            client = AsyncSambaNova(api_key=api_key, _strict_response_validation=True)
             assert client.base_url == "http://localhost:5000/from/env/"
 
     @pytest.mark.parametrize(
         "client",
         [
-            AsyncSambanova(
+            AsyncSambaNova(
                 base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
             ),
-            AsyncSambanova(
+            AsyncSambaNova(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 _strict_response_validation=True,
@@ -1365,7 +1377,7 @@ class TestAsyncSambanova:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_trailing_slash(self, client: AsyncSambanova) -> None:
+    def test_base_url_trailing_slash(self, client: AsyncSambaNova) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -1378,10 +1390,10 @@ class TestAsyncSambanova:
     @pytest.mark.parametrize(
         "client",
         [
-            AsyncSambanova(
+            AsyncSambaNova(
                 base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
             ),
-            AsyncSambanova(
+            AsyncSambaNova(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 _strict_response_validation=True,
@@ -1390,7 +1402,7 @@ class TestAsyncSambanova:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_no_trailing_slash(self, client: AsyncSambanova) -> None:
+    def test_base_url_no_trailing_slash(self, client: AsyncSambaNova) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -1403,10 +1415,10 @@ class TestAsyncSambanova:
     @pytest.mark.parametrize(
         "client",
         [
-            AsyncSambanova(
+            AsyncSambaNova(
                 base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
             ),
-            AsyncSambanova(
+            AsyncSambaNova(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 _strict_response_validation=True,
@@ -1415,7 +1427,7 @@ class TestAsyncSambanova:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_absolute_request_url(self, client: AsyncSambanova) -> None:
+    def test_absolute_request_url(self, client: AsyncSambaNova) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -1426,7 +1438,7 @@ class TestAsyncSambanova:
         assert request.url == "https://myapi.com/foo"
 
     async def test_copied_client_does_not_close_http(self) -> None:
-        client = AsyncSambanova(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = AsyncSambaNova(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         assert not client.is_closed()
 
         copied = client.copy()
@@ -1438,7 +1450,7 @@ class TestAsyncSambanova:
         assert not client.is_closed()
 
     async def test_client_context_manager(self) -> None:
-        client = AsyncSambanova(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = AsyncSambaNova(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         async with client as c2:
             assert c2 is client
             assert not c2.is_closed()
@@ -1460,9 +1472,21 @@ class TestAsyncSambanova:
 
     async def test_client_max_retries_validation(self) -> None:
         with pytest.raises(TypeError, match=r"max_retries cannot be None"):
-            AsyncSambanova(
+            AsyncSambaNova(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, max_retries=cast(Any, None)
             )
+
+    @pytest.mark.respx(base_url=base_url)
+    @pytest.mark.asyncio
+    async def test_default_stream_cls(self, respx_mock: MockRouter) -> None:
+        class Model(BaseModel):
+            name: str
+
+        respx_mock.post("/foo").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+
+        stream = await self.client.post("/foo", cast_to=Model, stream=True, stream_cls=AsyncStream[Model])
+        assert isinstance(stream, AsyncStream)
+        await stream.response.aclose()
 
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
@@ -1472,12 +1496,12 @@ class TestAsyncSambanova:
 
         respx_mock.get("/foo").mock(return_value=httpx.Response(200, text="my-custom-format"))
 
-        strict_client = AsyncSambanova(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        strict_client = AsyncSambaNova(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
         with pytest.raises(APIResponseValidationError):
             await strict_client.get("/foo", cast_to=Model)
 
-        client = AsyncSambanova(base_url=base_url, api_key=api_key, _strict_response_validation=False)
+        client = AsyncSambaNova(base_url=base_url, api_key=api_key, _strict_response_validation=False)
 
         response = await client.get("/foo", cast_to=Model)
         assert isinstance(response, str)  # type: ignore[unreachable]
@@ -1506,14 +1530,14 @@ class TestAsyncSambanova:
     @mock.patch("time.time", mock.MagicMock(return_value=1696004797))
     @pytest.mark.asyncio
     async def test_parse_retry_after_header(self, remaining_retries: int, retry_after: str, timeout: float) -> None:
-        client = AsyncSambanova(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = AsyncSambaNova(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
         headers = httpx.Headers({"retry-after": retry_after})
         options = FinalRequestOptions(method="get", url="/foo", max_retries=3)
         calculated = client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
-    @mock.patch("sambanova._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("SambaNova._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
         respx_mock.post("/v1/chat/completions").mock(side_effect=httpx.TimeoutException("Test timeout error"))
@@ -1539,7 +1563,7 @@ class TestAsyncSambanova:
 
         assert _get_open_connections(self.client) == 0
 
-    @mock.patch("sambanova._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("SambaNova._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
         respx_mock.post("/v1/chat/completions").mock(return_value=httpx.Response(500))
@@ -1566,13 +1590,13 @@ class TestAsyncSambanova:
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("sambanova._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("SambaNova._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
     @pytest.mark.parametrize("failure_mode", ["status", "exception"])
     async def test_retries_taken(
         self,
-        async_client: AsyncSambanova,
+        async_client: AsyncSambaNova,
         failures_before_success: int,
         failure_mode: Literal["status", "exception"],
         respx_mock: MockRouter,
@@ -1606,11 +1630,11 @@ class TestAsyncSambanova:
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("sambanova._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("SambaNova._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
     async def test_omit_retry_count_header(
-        self, async_client: AsyncSambanova, failures_before_success: int, respx_mock: MockRouter
+        self, async_client: AsyncSambaNova, failures_before_success: int, respx_mock: MockRouter
     ) -> None:
         client = async_client.with_options(max_retries=4)
 
@@ -1639,11 +1663,11 @@ class TestAsyncSambanova:
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("sambanova._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("SambaNova._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
     async def test_overwrite_retry_count_header(
-        self, async_client: AsyncSambanova, failures_before_success: int, respx_mock: MockRouter
+        self, async_client: AsyncSambaNova, failures_before_success: int, respx_mock: MockRouter
     ) -> None:
         client = async_client.with_options(max_retries=4)
 
@@ -1682,8 +1706,8 @@ class TestAsyncSambanova:
         import nest_asyncio
         import threading
 
-        from sambanova._utils import asyncify
-        from sambanova._base_client import get_platform 
+        from SambaNova._utils import asyncify
+        from SambaNova._base_client import get_platform 
 
         async def test_main() -> None:
             result = await asyncify(get_platform)()
