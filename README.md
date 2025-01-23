@@ -27,10 +27,11 @@ pip install git+ssh://git@github.com/stainless-sdks/sambanova-python.git
 The full API of this library can be found in [api.md](api.md).
 
 ```python
+import os
 from SambaNova import SambaNova
 
 client = SambaNova(
-    api_key="My API Key",
+    api_key=os.environ.get("SAMBANOVA_API_KEY"),  # This is the default and can be omitted
 )
 
 chat_completion = client.chat_completions.create(
@@ -44,16 +45,22 @@ chat_completion = client.chat_completions.create(
 )
 ```
 
+While you can provide an `api_key` keyword argument,
+we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
+to add `SAMBANOVA_API_KEY="My API Key"` to your `.env` file
+so that your API Key is not stored in source control.
+
 ## Async usage
 
 Simply import `AsyncSambaNova` instead of `SambaNova` and use `await` with each API call:
 
 ```python
+import os
 import asyncio
 from SambaNova import AsyncSambaNova
 
 client = AsyncSambaNova(
-    api_key="My API Key",
+    api_key=os.environ.get("SAMBANOVA_API_KEY"),  # This is the default and can be omitted
 )
 
 
@@ -81,9 +88,7 @@ We provide support for streaming responses using Server Side Events (SSE).
 ```python
 from SambaNova import SambaNova
 
-client = SambaNova(
-    api_key="My API Key",
-)
+client = SambaNova()
 
 stream = client.chat_completions.create(
     messages=[
@@ -104,9 +109,7 @@ The async client uses the exact same interface.
 ```python
 from SambaNova import AsyncSambaNova
 
-client = AsyncSambaNova(
-    api_key="My API Key",
-)
+client = AsyncSambaNova()
 
 stream = await client.chat_completions.create(
     messages=[
@@ -144,9 +147,7 @@ All errors inherit from `SambaNova.APIError`.
 import SambaNova
 from SambaNova import SambaNova
 
-client = SambaNova(
-    api_key="My API Key",
-)
+client = SambaNova()
 
 try:
     client.chat_completions.create(
@@ -197,7 +198,6 @@ from SambaNova import SambaNova
 client = SambaNova(
     # default is 2
     max_retries=0,
-    api_key="My API Key",
 )
 
 # Or, configure per-request:
@@ -224,13 +224,11 @@ from SambaNova import SambaNova
 client = SambaNova(
     # 20 seconds (default is 1 minute)
     timeout=20.0,
-    api_key="My API Key",
 )
 
 # More granular control:
 client = SambaNova(
     timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
-    api_key="My API Key",
 )
 
 # Override per-request:
@@ -282,9 +280,7 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 ```py
 from SambaNova import SambaNova
 
-client = SambaNova(
-    api_key="My API Key",
-)
+client = SambaNova()
 response = client.chat_completions.with_raw_response.create(
     messages=[{
         "content": "string",
@@ -379,7 +375,6 @@ client = SambaNova(
         proxy="http://my.test.proxy.example.com",
         transport=httpx.HTTPTransport(local_address="0.0.0.0"),
     ),
-    api_key="My API Key",
 )
 ```
 
@@ -396,9 +391,7 @@ By default the library closes underlying HTTP connections whenever the client is
 ```py
 from SambaNova import SambaNova
 
-with SambaNova(
-    api_key="My API Key",
-) as client:
+with SambaNova() as client:
   # make requests here
   ...
 

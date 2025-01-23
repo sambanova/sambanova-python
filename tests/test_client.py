@@ -26,7 +26,7 @@ from SambaNova._types import Omit
 from SambaNova._models import BaseModel, FinalRequestOptions
 from SambaNova._constants import RAW_RESPONSE_HEADER
 from SambaNova._streaming import Stream, AsyncStream
-from SambaNova._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
+from SambaNova._exceptions import APIStatusError, SambaNovaError, APITimeoutError, APIResponseValidationError
 from SambaNova._base_client import (
     DEFAULT_TIMEOUT,
     HTTPX_DEFAULT_TIMEOUT,
@@ -334,6 +334,16 @@ class TestSambaNova:
         request = client2._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "stainless"
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
+
+    def test_validate_headers(self) -> None:
+        client = SambaNova(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
+        assert request.headers.get("Authorization") == f"Bearer {api_key}"
+
+        with pytest.raises(SambaNovaError):
+            with update_env(**{"SAMBANOVA_API_KEY": Omit()}):
+                client2 = SambaNova(base_url=base_url, api_key=None, _strict_response_validation=True)
+            _ = client2
 
     def test_default_query_option(self) -> None:
         client = SambaNova(
@@ -1145,6 +1155,16 @@ class TestAsyncSambaNova:
         request = client2._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "stainless"
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
+
+    def test_validate_headers(self) -> None:
+        client = AsyncSambaNova(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
+        assert request.headers.get("Authorization") == f"Bearer {api_key}"
+
+        with pytest.raises(SambaNovaError):
+            with update_env(**{"SAMBANOVA_API_KEY": Omit()}):
+                client2 = AsyncSambaNova(base_url=base_url, api_key=None, _strict_response_validation=True)
+            _ = client2
 
     def test_default_query_option(self) -> None:
         client = AsyncSambaNova(
