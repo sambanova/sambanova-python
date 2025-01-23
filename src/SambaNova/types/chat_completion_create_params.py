@@ -9,11 +9,14 @@ __all__ = [
     "ChatCompletionCreateParamsBase",
     "Message",
     "MessageSystemMessage",
+    "MessageSystemMessageContentUnionMember1",
     "MessageUserMessage",
     "MessageAssistantMessage",
+    "MessageAssistantMessageContentUnionMember1",
     "MessageAssistantMessageToolCall",
     "MessageAssistantMessageToolCallFunction",
     "MessageToolMessage",
+    "MessageToolMessageContentUnionMember1",
     "ResponseFormat",
     "StreamOptions",
     "ToolChoice",
@@ -178,8 +181,21 @@ class ChatCompletionCreateParamsBase(TypedDict, total=False):
     """
 
 
+class MessageSystemMessageContentUnionMember1Typed(TypedDict, total=False):
+    text: Required[str]
+    """string content of the message"""
+
+    type: Required[Literal["text"]]
+    """type of content to send. in this case `text`."""
+
+
+MessageSystemMessageContentUnionMember1: TypeAlias = Union[
+    MessageSystemMessageContentUnionMember1Typed, Dict[str, object]
+]
+
+
 class MessageSystemMessageTyped(TypedDict, total=False):
-    content: Required[Union[str, Iterable[object], None]]
+    content: Required[Union[str, Iterable[MessageSystemMessageContentUnionMember1], None]]
     """The contents of the system message."""
 
     role: Required[Literal["system"]]
@@ -198,6 +214,19 @@ class MessageUserMessageTyped(TypedDict, total=False):
 
 
 MessageUserMessage: TypeAlias = Union[MessageUserMessageTyped, Dict[str, object]]
+
+
+class MessageAssistantMessageContentUnionMember1Typed(TypedDict, total=False):
+    text: Required[str]
+    """string content of the message"""
+
+    type: Required[Literal["text"]]
+    """type of content to send. in this case `text`."""
+
+
+MessageAssistantMessageContentUnionMember1: TypeAlias = Union[
+    MessageAssistantMessageContentUnionMember1Typed, Dict[str, object]
+]
 
 
 class MessageAssistantMessageToolCallFunctionTyped(TypedDict, total=False):
@@ -233,7 +262,7 @@ MessageAssistantMessageToolCall: TypeAlias = Union[MessageAssistantMessageToolCa
 
 
 class MessageAssistantMessageTyped(TypedDict, total=False):
-    content: Required[Union[str, Iterable[object], None]]
+    content: Required[Union[str, Iterable[MessageAssistantMessageContentUnionMember1], None]]
     """The contents of the assistant message."""
 
     role: Required[Literal["assistant"]]
@@ -246,8 +275,19 @@ class MessageAssistantMessageTyped(TypedDict, total=False):
 MessageAssistantMessage: TypeAlias = Union[MessageAssistantMessageTyped, Dict[str, object]]
 
 
+class MessageToolMessageContentUnionMember1Typed(TypedDict, total=False):
+    text: Required[str]
+    """string content of the message"""
+
+    type: Required[Literal["text"]]
+    """type of content to send. in this case `text`."""
+
+
+MessageToolMessageContentUnionMember1: TypeAlias = Union[MessageToolMessageContentUnionMember1Typed, Dict[str, object]]
+
+
 class MessageToolMessageTyped(TypedDict, total=False):
-    content: Required[Union[str, Iterable[object]]]
+    content: Required[Union[str, Iterable[MessageToolMessageContentUnionMember1]]]
     """The contents of the tool message."""
 
     role: Required[Literal["tool"]]
