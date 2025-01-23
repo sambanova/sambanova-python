@@ -27,39 +27,46 @@ pip install git+ssh://git@github.com/stainless-sdks/sambanova-python.git
 The full API of this library can be found in [api.md](api.md).
 
 ```python
-import os
 from sambanova import Sambanova
 
 client = Sambanova(
-    bearer_token=os.environ.get("BEARER_TOKEN"),  # This is the default and can be omitted
+    bearer_token="My Bearer Token",
 )
 
-chat_completion = client.chat_completions.create()
-print(chat_completion.id)
+chat_completion = client.chat_completions.create(
+    messages=[
+        {
+            "content": "string",
+            "role": "system",
+        }
+    ],
+    model="string",
+)
 ```
-
-While you can provide a `bearer_token` keyword argument,
-we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
-to add `BEARER_TOKEN="My Bearer Token"` to your `.env` file
-so that your Bearer Token is not stored in source control.
 
 ## Async usage
 
 Simply import `AsyncSambanova` instead of `Sambanova` and use `await` with each API call:
 
 ```python
-import os
 import asyncio
 from sambanova import AsyncSambanova
 
 client = AsyncSambanova(
-    bearer_token=os.environ.get("BEARER_TOKEN"),  # This is the default and can be omitted
+    bearer_token="My Bearer Token",
 )
 
 
 async def main() -> None:
-    chat_completion = await client.chat_completions.create()
-    print(chat_completion.id)
+    chat_completion = await client.chat_completions.create(
+        messages=[
+            {
+                "content": "string",
+                "role": "system",
+            }
+        ],
+        model="string",
+    )
 
 
 asyncio.run(main())
@@ -74,13 +81,22 @@ We provide support for streaming responses using Server Side Events (SSE).
 ```python
 from sambanova import Sambanova
 
-client = Sambanova()
+client = Sambanova(
+    bearer_token="My Bearer Token",
+)
 
 stream = client.chat_completions.create(
+    messages=[
+        {
+            "content": "string",
+            "role": "system",
+        }
+    ],
+    model="string",
     stream=True,
 )
 for chat_completion in stream:
-    print(chat_completion.id)
+    print(chat_completion)
 ```
 
 The async client uses the exact same interface.
@@ -88,13 +104,22 @@ The async client uses the exact same interface.
 ```python
 from sambanova import AsyncSambanova
 
-client = AsyncSambanova()
+client = AsyncSambanova(
+    bearer_token="My Bearer Token",
+)
 
 stream = await client.chat_completions.create(
+    messages=[
+        {
+            "content": "string",
+            "role": "system",
+        }
+    ],
+    model="string",
     stream=True,
 )
 async for chat_completion in stream:
-    print(chat_completion.id)
+    print(chat_completion)
 ```
 
 ## Using types
@@ -119,10 +144,20 @@ All errors inherit from `sambanova.APIError`.
 import sambanova
 from sambanova import Sambanova
 
-client = Sambanova()
+client = Sambanova(
+    bearer_token="My Bearer Token",
+)
 
 try:
-    client.chat_completions.create()
+    client.chat_completions.create(
+        messages=[
+            {
+                "content": "string",
+                "role": "system",
+            }
+        ],
+        model="string",
+    )
 except sambanova.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
@@ -162,10 +197,19 @@ from sambanova import Sambanova
 client = Sambanova(
     # default is 2
     max_retries=0,
+    bearer_token="My Bearer Token",
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).chat_completions.create()
+client.with_options(max_retries=5).chat_completions.create(
+    messages=[
+        {
+            "content": "string",
+            "role": "system",
+        }
+    ],
+    model="string",
+)
 ```
 
 ### Timeouts
@@ -180,15 +224,25 @@ from sambanova import Sambanova
 client = Sambanova(
     # 20 seconds (default is 1 minute)
     timeout=20.0,
+    bearer_token="My Bearer Token",
 )
 
 # More granular control:
 client = Sambanova(
     timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
+    bearer_token="My Bearer Token",
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).chat_completions.create()
+client.with_options(timeout=5.0).chat_completions.create(
+    messages=[
+        {
+            "content": "string",
+            "role": "system",
+        }
+    ],
+    model="string",
+)
 ```
 
 On timeout, an `APITimeoutError` is thrown.
@@ -228,12 +282,20 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 ```py
 from sambanova import Sambanova
 
-client = Sambanova()
-response = client.chat_completions.with_raw_response.create()
+client = Sambanova(
+    bearer_token="My Bearer Token",
+)
+response = client.chat_completions.with_raw_response.create(
+    messages=[{
+        "content": "string",
+        "role": "system",
+    }],
+    model="string",
+)
 print(response.headers.get('X-My-Header'))
 
 chat_completion = response.parse()  # get the object that `chat_completions.create()` would have returned
-print(chat_completion.id)
+print(chat_completion)
 ```
 
 These methods return an [`APIResponse`](https://github.com/stainless-sdks/sambanova-python/tree/main/src/sambanova/_response.py) object.
@@ -247,7 +309,15 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.chat_completions.with_streaming_response.create() as response:
+with client.chat_completions.with_streaming_response.create(
+    messages=[
+        {
+            "content": "string",
+            "role": "system",
+        }
+    ],
+    model="string",
+) as response:
     print(response.headers.get("X-My-Header"))
 
     for line in response.iter_lines():
@@ -309,6 +379,7 @@ client = Sambanova(
         proxy="http://my.test.proxy.example.com",
         transport=httpx.HTTPTransport(local_address="0.0.0.0"),
     ),
+    bearer_token="My Bearer Token",
 )
 ```
 
@@ -325,7 +396,9 @@ By default the library closes underlying HTTP connections whenever the client is
 ```py
 from sambanova import Sambanova
 
-with Sambanova() as client:
+with Sambanova(
+    bearer_token="My Bearer Token",
+) as client:
   # make requests here
   ...
 
