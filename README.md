@@ -30,7 +30,7 @@ The full API of this library can be found in [api.md](api.md).
 from sambanova import Sambanova
 
 client = Sambanova(
-    bearer_token="My Bearer Token",
+    api_key="My API Key",
 )
 
 chat_completion = client.chat_completions.create(
@@ -53,7 +53,7 @@ import asyncio
 from sambanova import AsyncSambanova
 
 client = AsyncSambanova(
-    bearer_token="My Bearer Token",
+    api_key="My API Key",
 )
 
 
@@ -73,54 +73,6 @@ asyncio.run(main())
 ```
 
 Functionality between the synchronous and asynchronous clients is otherwise identical.
-
-## Streaming responses
-
-We provide support for streaming responses using Server Side Events (SSE).
-
-```python
-from sambanova import Sambanova
-
-client = Sambanova(
-    bearer_token="My Bearer Token",
-)
-
-stream = client.chat_completions.create(
-    messages=[
-        {
-            "content": "string",
-            "role": "system",
-        }
-    ],
-    model="string",
-    stream=True,
-)
-for chat_completion in stream:
-    print(chat_completion)
-```
-
-The async client uses the exact same interface.
-
-```python
-from sambanova import AsyncSambanova
-
-client = AsyncSambanova(
-    bearer_token="My Bearer Token",
-)
-
-stream = await client.chat_completions.create(
-    messages=[
-        {
-            "content": "string",
-            "role": "system",
-        }
-    ],
-    model="string",
-    stream=True,
-)
-async for chat_completion in stream:
-    print(chat_completion)
-```
 
 ## Using types
 
@@ -145,7 +97,7 @@ import sambanova
 from sambanova import Sambanova
 
 client = Sambanova(
-    bearer_token="My Bearer Token",
+    api_key="My API Key",
 )
 
 try:
@@ -197,7 +149,7 @@ from sambanova import Sambanova
 client = Sambanova(
     # default is 2
     max_retries=0,
-    bearer_token="My Bearer Token",
+    api_key="My API Key",
 )
 
 # Or, configure per-request:
@@ -224,13 +176,13 @@ from sambanova import Sambanova
 client = Sambanova(
     # 20 seconds (default is 1 minute)
     timeout=20.0,
-    bearer_token="My Bearer Token",
+    api_key="My API Key",
 )
 
 # More granular control:
 client = Sambanova(
     timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
-    bearer_token="My Bearer Token",
+    api_key="My API Key",
 )
 
 # Override per-request:
@@ -283,7 +235,7 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from sambanova import Sambanova
 
 client = Sambanova(
-    bearer_token="My Bearer Token",
+    api_key="My API Key",
 )
 response = client.chat_completions.with_raw_response.create(
     messages=[{
@@ -379,7 +331,7 @@ client = Sambanova(
         proxy="http://my.test.proxy.example.com",
         transport=httpx.HTTPTransport(local_address="0.0.0.0"),
     ),
-    bearer_token="My Bearer Token",
+    api_key="My API Key",
 )
 ```
 
@@ -397,7 +349,7 @@ By default the library closes underlying HTTP connections whenever the client is
 from sambanova import Sambanova
 
 with Sambanova(
-    bearer_token="My Bearer Token",
+    api_key="My API Key",
 ) as client:
   # make requests here
   ...

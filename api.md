@@ -3,7 +3,13 @@
 Types:
 
 ```python
-from sambanova.types import ChatCompletionCreateResponse
+from sambanova.types import (
+    ChatCompletionResponse,
+    ChatCompletionStreamResponse,
+    GeneralError,
+    ModelOutputError,
+    ChatCompletionCreateResponse,
+)
 ```
 
 Methods:
