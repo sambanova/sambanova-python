@@ -18,7 +18,7 @@ __all__ = [
     "MessageUserMessageContentMulticontentPartArrayAudioContent",
     "MessageUserMessageContentMulticontentPartArrayAudioContentAudioContent",
     "MessageAssistantMessage",
-    "MessageAssistantMessageContentUnionMember1",
+    "MessageAssistantMessageContentTextContentPartArray",
     "MessageAssistantMessageToolCall",
     "MessageAssistantMessageToolCallFunction",
     "MessageToolMessage",
@@ -278,7 +278,7 @@ class MessageUserMessageTyped(TypedDict, total=False):
 MessageUserMessage: TypeAlias = Union[MessageUserMessageTyped, Dict[str, object]]
 
 
-class MessageAssistantMessageContentUnionMember1Typed(TypedDict, total=False):
+class MessageAssistantMessageContentTextContentPartArrayTyped(TypedDict, total=False):
     text: Required[str]
     """string content of the message"""
 
@@ -286,8 +286,8 @@ class MessageAssistantMessageContentUnionMember1Typed(TypedDict, total=False):
     """type of content to send. in this case `text`."""
 
 
-MessageAssistantMessageContentUnionMember1: TypeAlias = Union[
-    MessageAssistantMessageContentUnionMember1Typed, Dict[str, object]
+MessageAssistantMessageContentTextContentPartArray: TypeAlias = Union[
+    MessageAssistantMessageContentTextContentPartArrayTyped, Dict[str, object]
 ]
 
 
@@ -324,7 +324,7 @@ MessageAssistantMessageToolCall: TypeAlias = Union[MessageAssistantMessageToolCa
 
 
 class MessageAssistantMessageTyped(TypedDict, total=False):
-    content: Required[Union[str, Iterable[MessageAssistantMessageContentUnionMember1], None]]
+    content: Required[Union[str, Iterable[MessageAssistantMessageContentTextContentPartArray], None]]
     """The contents of the assistant message."""
 
     role: Required[Literal["assistant"]]
