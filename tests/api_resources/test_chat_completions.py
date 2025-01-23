@@ -7,9 +7,9 @@ from typing import Any, cast
 
 import pytest
 
-from SambaNova import SambaNova, AsyncSambaNova
+from sambanova import SambaNova, AsyncSambaNova
 from tests.utils import assert_matches_type
-from SambaNova.types import ChatCompletionCreateResponse
+from sambanova.types import ChatCompletionCreateResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
