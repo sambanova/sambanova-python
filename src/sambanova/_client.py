@@ -51,12 +51,12 @@ class Sambanova(SyncAPIClient):
     with_streaming_response: SambanovaWithStreamedResponse
 
     # client options
-    bearer_token: str
+    api_key: str
 
     def __init__(
         self,
         *,
-        bearer_token: str | None = None,
+        api_key: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -78,15 +78,15 @@ class Sambanova(SyncAPIClient):
     ) -> None:
         """Construct a new synchronous sambanova client instance.
 
-        This automatically infers the `bearer_token` argument from the `BEARER_TOKEN` environment variable if it is not provided.
+        This automatically infers the `api_key` argument from the `API_KEY` environment variable if it is not provided.
         """
-        if bearer_token is None:
-            bearer_token = os.environ.get("BEARER_TOKEN")
-        if bearer_token is None:
+        if api_key is None:
+            api_key = os.environ.get("API_KEY")
+        if api_key is None:
             raise SambanovaError(
-                "The bearer_token client option must be set either by passing bearer_token to the client or by setting the BEARER_TOKEN environment variable"
+                "The api_key client option must be set either by passing api_key to the client or by setting the API_KEY environment variable"
             )
-        self.bearer_token = bearer_token
+        self.api_key = api_key
 
         if base_url is None:
             base_url = os.environ.get("SAMBANOVA_BASE_URL")
@@ -103,8 +103,6 @@ class Sambanova(SyncAPIClient):
             custom_query=default_query,
             _strict_response_validation=_strict_response_validation,
         )
-
-        self._default_stream_cls = Stream
 
         self.chat_completions = chat_completions.ChatCompletionsResource(self)
         self.with_raw_response = SambanovaWithRawResponse(self)
@@ -127,7 +125,7 @@ class Sambanova(SyncAPIClient):
     def copy(
         self,
         *,
-        bearer_token: str | None = None,
+        api_key: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = NOT_GIVEN,
         http_client: httpx.Client | None = None,
@@ -161,7 +159,7 @@ class Sambanova(SyncAPIClient):
 
         http_client = http_client or self._client
         return self.__class__(
-            bearer_token=bearer_token or self.bearer_token,
+            api_key=api_key or self.api_key,
             base_url=base_url or self.base_url,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             http_client=http_client,
@@ -215,12 +213,12 @@ class AsyncSambanova(AsyncAPIClient):
     with_streaming_response: AsyncSambanovaWithStreamedResponse
 
     # client options
-    bearer_token: str
+    api_key: str
 
     def __init__(
         self,
         *,
-        bearer_token: str | None = None,
+        api_key: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -242,15 +240,15 @@ class AsyncSambanova(AsyncAPIClient):
     ) -> None:
         """Construct a new async sambanova client instance.
 
-        This automatically infers the `bearer_token` argument from the `BEARER_TOKEN` environment variable if it is not provided.
+        This automatically infers the `api_key` argument from the `API_KEY` environment variable if it is not provided.
         """
-        if bearer_token is None:
-            bearer_token = os.environ.get("BEARER_TOKEN")
-        if bearer_token is None:
+        if api_key is None:
+            api_key = os.environ.get("API_KEY")
+        if api_key is None:
             raise SambanovaError(
-                "The bearer_token client option must be set either by passing bearer_token to the client or by setting the BEARER_TOKEN environment variable"
+                "The api_key client option must be set either by passing api_key to the client or by setting the API_KEY environment variable"
             )
-        self.bearer_token = bearer_token
+        self.api_key = api_key
 
         if base_url is None:
             base_url = os.environ.get("SAMBANOVA_BASE_URL")
@@ -267,8 +265,6 @@ class AsyncSambanova(AsyncAPIClient):
             custom_query=default_query,
             _strict_response_validation=_strict_response_validation,
         )
-
-        self._default_stream_cls = AsyncStream
 
         self.chat_completions = chat_completions.AsyncChatCompletionsResource(self)
         self.with_raw_response = AsyncSambanovaWithRawResponse(self)
@@ -291,7 +287,7 @@ class AsyncSambanova(AsyncAPIClient):
     def copy(
         self,
         *,
-        bearer_token: str | None = None,
+        api_key: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = NOT_GIVEN,
         http_client: httpx.AsyncClient | None = None,
@@ -325,7 +321,7 @@ class AsyncSambanova(AsyncAPIClient):
 
         http_client = http_client or self._client
         return self.__class__(
-            bearer_token=bearer_token or self.bearer_token,
+            api_key=api_key or self.api_key,
             base_url=base_url or self.base_url,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             http_client=http_client,

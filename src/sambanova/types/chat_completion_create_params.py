@@ -6,7 +6,7 @@ from typing import Dict, List, Union, Iterable, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 __all__ = [
-    "ChatCompletionCreateParamsBase",
+    "ChatCompletionCreateParams",
     "Message",
     "MessageSystemMessage",
     "MessageUserMessage",
@@ -21,12 +21,10 @@ __all__ = [
     "ToolChoiceToolChoiceObjectFunction",
     "Tool",
     "ToolFunction",
-    "ChatCompletionCreateParamsNonStreaming",
-    "ChatCompletionCreateParamsStreaming",
 ]
 
 
-class ChatCompletionCreateParamsBase(TypedDict, total=False):
+class ChatCompletionCreateParams(TypedDict, total=False):
     messages: Required[Iterable[Message]]
     """A list of messages comprising the conversation so far."""
 
@@ -122,6 +120,15 @@ class ChatCompletionCreateParamsBase(TypedDict, total=False):
     """Sequences where the API will stop generating tokens.
 
     The returned text will not contain the stop sequence.
+    """
+
+    stream: Optional[bool]
+    """If set, partial message deltas will be sent.
+
+    Tokens will be sent as data-only
+    [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format)
+    as they become available, with the stream terminated by a `data: [DONE]`
+    message.
     """
 
     stream_options: Optional[StreamOptions]
@@ -330,28 +337,3 @@ class ToolTyped(TypedDict, total=False):
 
 
 Tool: TypeAlias = Union[ToolTyped, Dict[str, object]]
-
-
-class ChatCompletionCreateParamsNonStreaming(ChatCompletionCreateParamsBase, total=False):
-    stream: Optional[Literal[False]]
-    """If set, partial message deltas will be sent.
-
-    Tokens will be sent as data-only
-    [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format)
-    as they become available, with the stream terminated by a `data: [DONE]`
-    message.
-    """
-
-
-class ChatCompletionCreateParamsStreaming(ChatCompletionCreateParamsBase):
-    stream: Required[Literal[True]]
-    """If set, partial message deltas will be sent.
-
-    Tokens will be sent as data-only
-    [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format)
-    as they become available, with the stream terminated by a `data: [DONE]`
-    message.
-    """
-
-
-ChatCompletionCreateParams = Union[ChatCompletionCreateParamsNonStreaming, ChatCompletionCreateParamsStreaming]
