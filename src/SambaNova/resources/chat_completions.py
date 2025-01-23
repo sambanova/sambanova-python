@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, List, Union, Iterable, Optional, cast
+from typing import Any, Dict, List, Union, Iterable, Optional, cast
 from typing_extensions import Literal, overload
 
 import httpx
@@ -72,7 +72,7 @@ class ChatCompletionsResource(SyncAPIResource):
             ],
         ],
         frequency_penalty: float | NotGiven = NOT_GIVEN,
-        logit_bias: Optional[object] | NotGiven = NOT_GIVEN,
+        logit_bias: Optional[Dict[str, int]] | NotGiven = NOT_GIVEN,
         logprobs: Optional[bool] | NotGiven = NOT_GIVEN,
         max_completion_tokens: Optional[int] | NotGiven = NOT_GIVEN,
         max_tokens: Optional[int] | NotGiven = NOT_GIVEN,
@@ -216,7 +216,7 @@ class ChatCompletionsResource(SyncAPIResource):
         ],
         stream: Literal[True],
         frequency_penalty: float | NotGiven = NOT_GIVEN,
-        logit_bias: Optional[object] | NotGiven = NOT_GIVEN,
+        logit_bias: Optional[Dict[str, int]] | NotGiven = NOT_GIVEN,
         logprobs: Optional[bool] | NotGiven = NOT_GIVEN,
         max_completion_tokens: Optional[int] | NotGiven = NOT_GIVEN,
         max_tokens: Optional[int] | NotGiven = NOT_GIVEN,
@@ -359,7 +359,7 @@ class ChatCompletionsResource(SyncAPIResource):
         ],
         stream: bool,
         frequency_penalty: float | NotGiven = NOT_GIVEN,
-        logit_bias: Optional[object] | NotGiven = NOT_GIVEN,
+        logit_bias: Optional[Dict[str, int]] | NotGiven = NOT_GIVEN,
         logprobs: Optional[bool] | NotGiven = NOT_GIVEN,
         max_completion_tokens: Optional[int] | NotGiven = NOT_GIVEN,
         max_tokens: Optional[int] | NotGiven = NOT_GIVEN,
@@ -501,7 +501,7 @@ class ChatCompletionsResource(SyncAPIResource):
             ],
         ],
         frequency_penalty: float | NotGiven = NOT_GIVEN,
-        logit_bias: Optional[object] | NotGiven = NOT_GIVEN,
+        logit_bias: Optional[Dict[str, int]] | NotGiven = NOT_GIVEN,
         logprobs: Optional[bool] | NotGiven = NOT_GIVEN,
         max_completion_tokens: Optional[int] | NotGiven = NOT_GIVEN,
         max_tokens: Optional[int] | NotGiven = NOT_GIVEN,
@@ -611,7 +611,7 @@ class AsyncChatCompletionsResource(AsyncAPIResource):
             ],
         ],
         frequency_penalty: float | NotGiven = NOT_GIVEN,
-        logit_bias: Optional[object] | NotGiven = NOT_GIVEN,
+        logit_bias: Optional[Dict[str, int]] | NotGiven = NOT_GIVEN,
         logprobs: Optional[bool] | NotGiven = NOT_GIVEN,
         max_completion_tokens: Optional[int] | NotGiven = NOT_GIVEN,
         max_tokens: Optional[int] | NotGiven = NOT_GIVEN,
@@ -755,7 +755,7 @@ class AsyncChatCompletionsResource(AsyncAPIResource):
         ],
         stream: Literal[True],
         frequency_penalty: float | NotGiven = NOT_GIVEN,
-        logit_bias: Optional[object] | NotGiven = NOT_GIVEN,
+        logit_bias: Optional[Dict[str, int]] | NotGiven = NOT_GIVEN,
         logprobs: Optional[bool] | NotGiven = NOT_GIVEN,
         max_completion_tokens: Optional[int] | NotGiven = NOT_GIVEN,
         max_tokens: Optional[int] | NotGiven = NOT_GIVEN,
@@ -898,7 +898,7 @@ class AsyncChatCompletionsResource(AsyncAPIResource):
         ],
         stream: bool,
         frequency_penalty: float | NotGiven = NOT_GIVEN,
-        logit_bias: Optional[object] | NotGiven = NOT_GIVEN,
+        logit_bias: Optional[Dict[str, int]] | NotGiven = NOT_GIVEN,
         logprobs: Optional[bool] | NotGiven = NOT_GIVEN,
         max_completion_tokens: Optional[int] | NotGiven = NOT_GIVEN,
         max_tokens: Optional[int] | NotGiven = NOT_GIVEN,
@@ -1040,7 +1040,7 @@ class AsyncChatCompletionsResource(AsyncAPIResource):
             ],
         ],
         frequency_penalty: float | NotGiven = NOT_GIVEN,
-        logit_bias: Optional[object] | NotGiven = NOT_GIVEN,
+        logit_bias: Optional[Dict[str, int]] | NotGiven = NOT_GIVEN,
         logprobs: Optional[bool] | NotGiven = NOT_GIVEN,
         max_completion_tokens: Optional[int] | NotGiven = NOT_GIVEN,
         max_tokens: Optional[int] | NotGiven = NOT_GIVEN,

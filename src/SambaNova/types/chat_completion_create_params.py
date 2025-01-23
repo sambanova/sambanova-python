@@ -60,7 +60,7 @@ class ChatCompletionCreateParamsBase(TypedDict, total=False):
     text so far, decreasing the model's likelihood to repeat the same line verbatim.
     """
 
-    logit_bias: Optional[object]
+    logit_bias: Optional[Dict[str, int]]
     """This is not yet supported by our models.
 
     Modify the likelihood of specified tokens appearing in the completion.
