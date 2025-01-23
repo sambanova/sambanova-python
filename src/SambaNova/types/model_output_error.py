@@ -27,6 +27,4 @@ class Error(BaseModel):
 
 
 class ModelOutputError(BaseModel):
-    error: Optional[Error] = None
-
-    required: Optional[object] = None
+    error: Error
