@@ -22,7 +22,7 @@ __all__ = [
     "MessageAssistantMessageToolCall",
     "MessageAssistantMessageToolCallFunction",
     "MessageToolMessage",
-    "MessageToolMessageContentUnionMember1",
+    "MessageToolMessageContentTextContentPartArray",
     "ResponseFormat",
     "StreamOptions",
     "ToolChoice",
@@ -337,7 +337,7 @@ class MessageAssistantMessageTyped(TypedDict, total=False):
 MessageAssistantMessage: TypeAlias = Union[MessageAssistantMessageTyped, Dict[str, object]]
 
 
-class MessageToolMessageContentUnionMember1Typed(TypedDict, total=False):
+class MessageToolMessageContentTextContentPartArrayTyped(TypedDict, total=False):
     text: Required[str]
     """string content of the message"""
 
@@ -345,11 +345,13 @@ class MessageToolMessageContentUnionMember1Typed(TypedDict, total=False):
     """type of content to send. in this case `text`."""
 
 
-MessageToolMessageContentUnionMember1: TypeAlias = Union[MessageToolMessageContentUnionMember1Typed, Dict[str, object]]
+MessageToolMessageContentTextContentPartArray: TypeAlias = Union[
+    MessageToolMessageContentTextContentPartArrayTyped, Dict[str, object]
+]
 
 
 class MessageToolMessageTyped(TypedDict, total=False):
-    content: Required[Union[str, Iterable[MessageToolMessageContentUnionMember1]]]
+    content: Required[Union[str, Iterable[MessageToolMessageContentTextContentPartArray]]]
     """The contents of the tool message."""
 
     role: Required[Literal["tool"]]
