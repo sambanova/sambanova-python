@@ -13,6 +13,10 @@ __all__ = [
     "MessageUserMessage",
     "MessageUserMessageContentUnionMember1",
     "MessageUserMessageContentUnionMember1TextContent",
+    "MessageUserMessageContentUnionMember1ImageContent",
+    "MessageUserMessageContentUnionMember1ImageContentImageURL",
+    "MessageUserMessageContentUnionMember1AudioContent",
+    "MessageUserMessageContentUnionMember1AudioContentAudioContent",
     "MessageAssistantMessage",
     "MessageAssistantMessageContentUnionMember1",
     "MessageAssistantMessageToolCall",
@@ -219,8 +223,47 @@ MessageUserMessageContentUnionMember1TextContent: TypeAlias = Union[
     MessageUserMessageContentUnionMember1TextContentTyped, Dict[str, object]
 ]
 
+
+class MessageUserMessageContentUnionMember1ImageContentImageURL(TypedDict, total=False):
+    url: str
+    """Either a URL of the image or the base64 encoded image data.
+
+    currently only base64 encoded image supported
+    """
+
+
+class MessageUserMessageContentUnionMember1ImageContentTyped(TypedDict, total=False):
+    image_url: Required[MessageUserMessageContentUnionMember1ImageContentImageURL]
+
+    type: Required[Literal["image_url"]]
+    """type of content to send. in this case `image_url`."""
+
+
+MessageUserMessageContentUnionMember1ImageContent: TypeAlias = Union[
+    MessageUserMessageContentUnionMember1ImageContentTyped, Dict[str, object]
+]
+
+
+class MessageUserMessageContentUnionMember1AudioContentAudioContent(TypedDict, total=False):
+    content: str
+    """the base64 encoded audio data."""
+
+
+class MessageUserMessageContentUnionMember1AudioContentTyped(TypedDict, total=False):
+    audio_content: Required[MessageUserMessageContentUnionMember1AudioContentAudioContent]
+
+    type: Required[Literal["audio_content"]]
+    """type of content to send. in this case `audio_content`."""
+
+
+MessageUserMessageContentUnionMember1AudioContent: TypeAlias = Union[
+    MessageUserMessageContentUnionMember1AudioContentTyped, Dict[str, object]
+]
+
 MessageUserMessageContentUnionMember1: TypeAlias = Union[
-    MessageUserMessageContentUnionMember1TextContent, object, object
+    MessageUserMessageContentUnionMember1TextContent,
+    MessageUserMessageContentUnionMember1ImageContent,
+    MessageUserMessageContentUnionMember1AudioContent,
 ]
 
 
