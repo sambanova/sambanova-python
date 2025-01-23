@@ -7,53 +7,53 @@ from typing_extensions import Literal, overload
 
 import httpx
 
-from ..types import chat_completion_create_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
-from .._utils import (
+from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ..._utils import (
     required_args,
     maybe_transform,
     async_maybe_transform,
 )
-from .._compat import cached_property
-from .._resource import SyncAPIResource, AsyncAPIResource
-from .._response import (
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._streaming import Stream, AsyncStream
-from .._base_client import make_request_options
-from ..types.chat_completion_create_response import ChatCompletionCreateResponse
+from ..._streaming import Stream, AsyncStream
+from ...types.chat import completion_create_params
+from ..._base_client import make_request_options
+from ...types.chat.completion_create_response import CompletionCreateResponse
 
-__all__ = ["ChatCompletionsResource", "AsyncChatCompletionsResource"]
+__all__ = ["CompletionsResource", "AsyncCompletionsResource"]
 
 
-class ChatCompletionsResource(SyncAPIResource):
+class CompletionsResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> ChatCompletionsResourceWithRawResponse:
+    def with_raw_response(self) -> CompletionsResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/stainless-sdks/sambanova-python#accessing-raw-response-data-eg-headers
         """
-        return ChatCompletionsResourceWithRawResponse(self)
+        return CompletionsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> ChatCompletionsResourceWithStreamingResponse:
+    def with_streaming_response(self) -> CompletionsResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/stainless-sdks/sambanova-python#with_streaming_response
         """
-        return ChatCompletionsResourceWithStreamingResponse(self)
+        return CompletionsResourceWithStreamingResponse(self)
 
     @overload
     def create(
         self,
         *,
-        messages: Iterable[chat_completion_create_params.Message],
+        messages: Iterable[completion_create_params.Message],
         model: Union[
             str,
             Literal[
@@ -79,14 +79,14 @@ class ChatCompletionsResource(SyncAPIResource):
         n: Optional[int] | NotGiven = NOT_GIVEN,
         parallel_tool_calls: Optional[bool] | NotGiven = NOT_GIVEN,
         presence_penalty: Optional[float] | NotGiven = NOT_GIVEN,
-        response_format: Optional[chat_completion_create_params.ResponseFormat] | NotGiven = NOT_GIVEN,
+        response_format: Optional[completion_create_params.ResponseFormat] | NotGiven = NOT_GIVEN,
         seed: Optional[int] | NotGiven = NOT_GIVEN,
         stop: Union[Optional[str], List[str], None] | NotGiven = NOT_GIVEN,
         stream: Optional[Literal[False]] | NotGiven = NOT_GIVEN,
-        stream_options: Optional[chat_completion_create_params.StreamOptions] | NotGiven = NOT_GIVEN,
+        stream_options: Optional[completion_create_params.StreamOptions] | NotGiven = NOT_GIVEN,
         temperature: Optional[float] | NotGiven = NOT_GIVEN,
-        tool_choice: Optional[chat_completion_create_params.ToolChoice] | NotGiven = NOT_GIVEN,
-        tools: Optional[Iterable[chat_completion_create_params.Tool]] | NotGiven = NOT_GIVEN,
+        tool_choice: Optional[completion_create_params.ToolChoice] | NotGiven = NOT_GIVEN,
+        tools: Optional[Iterable[completion_create_params.Tool]] | NotGiven = NOT_GIVEN,
         top_k: Optional[int] | NotGiven = NOT_GIVEN,
         top_logprobs: Optional[int] | NotGiven = NOT_GIVEN,
         top_p: Optional[float] | NotGiven = NOT_GIVEN,
@@ -96,7 +96,7 @@ class ChatCompletionsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ChatCompletionCreateResponse:
+    ) -> CompletionCreateResponse:
         """
         Create chat-based completion
 
@@ -196,7 +196,7 @@ class ChatCompletionsResource(SyncAPIResource):
     def create(
         self,
         *,
-        messages: Iterable[chat_completion_create_params.Message],
+        messages: Iterable[completion_create_params.Message],
         model: Union[
             str,
             Literal[
@@ -223,13 +223,13 @@ class ChatCompletionsResource(SyncAPIResource):
         n: Optional[int] | NotGiven = NOT_GIVEN,
         parallel_tool_calls: Optional[bool] | NotGiven = NOT_GIVEN,
         presence_penalty: Optional[float] | NotGiven = NOT_GIVEN,
-        response_format: Optional[chat_completion_create_params.ResponseFormat] | NotGiven = NOT_GIVEN,
+        response_format: Optional[completion_create_params.ResponseFormat] | NotGiven = NOT_GIVEN,
         seed: Optional[int] | NotGiven = NOT_GIVEN,
         stop: Union[Optional[str], List[str], None] | NotGiven = NOT_GIVEN,
-        stream_options: Optional[chat_completion_create_params.StreamOptions] | NotGiven = NOT_GIVEN,
+        stream_options: Optional[completion_create_params.StreamOptions] | NotGiven = NOT_GIVEN,
         temperature: Optional[float] | NotGiven = NOT_GIVEN,
-        tool_choice: Optional[chat_completion_create_params.ToolChoice] | NotGiven = NOT_GIVEN,
-        tools: Optional[Iterable[chat_completion_create_params.Tool]] | NotGiven = NOT_GIVEN,
+        tool_choice: Optional[completion_create_params.ToolChoice] | NotGiven = NOT_GIVEN,
+        tools: Optional[Iterable[completion_create_params.Tool]] | NotGiven = NOT_GIVEN,
         top_k: Optional[int] | NotGiven = NOT_GIVEN,
         top_logprobs: Optional[int] | NotGiven = NOT_GIVEN,
         top_p: Optional[float] | NotGiven = NOT_GIVEN,
@@ -239,7 +239,7 @@ class ChatCompletionsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Stream[ChatCompletionCreateResponse]:
+    ) -> Stream[CompletionCreateResponse]:
         """
         Create chat-based completion
 
@@ -339,7 +339,7 @@ class ChatCompletionsResource(SyncAPIResource):
     def create(
         self,
         *,
-        messages: Iterable[chat_completion_create_params.Message],
+        messages: Iterable[completion_create_params.Message],
         model: Union[
             str,
             Literal[
@@ -366,13 +366,13 @@ class ChatCompletionsResource(SyncAPIResource):
         n: Optional[int] | NotGiven = NOT_GIVEN,
         parallel_tool_calls: Optional[bool] | NotGiven = NOT_GIVEN,
         presence_penalty: Optional[float] | NotGiven = NOT_GIVEN,
-        response_format: Optional[chat_completion_create_params.ResponseFormat] | NotGiven = NOT_GIVEN,
+        response_format: Optional[completion_create_params.ResponseFormat] | NotGiven = NOT_GIVEN,
         seed: Optional[int] | NotGiven = NOT_GIVEN,
         stop: Union[Optional[str], List[str], None] | NotGiven = NOT_GIVEN,
-        stream_options: Optional[chat_completion_create_params.StreamOptions] | NotGiven = NOT_GIVEN,
+        stream_options: Optional[completion_create_params.StreamOptions] | NotGiven = NOT_GIVEN,
         temperature: Optional[float] | NotGiven = NOT_GIVEN,
-        tool_choice: Optional[chat_completion_create_params.ToolChoice] | NotGiven = NOT_GIVEN,
-        tools: Optional[Iterable[chat_completion_create_params.Tool]] | NotGiven = NOT_GIVEN,
+        tool_choice: Optional[completion_create_params.ToolChoice] | NotGiven = NOT_GIVEN,
+        tools: Optional[Iterable[completion_create_params.Tool]] | NotGiven = NOT_GIVEN,
         top_k: Optional[int] | NotGiven = NOT_GIVEN,
         top_logprobs: Optional[int] | NotGiven = NOT_GIVEN,
         top_p: Optional[float] | NotGiven = NOT_GIVEN,
@@ -382,7 +382,7 @@ class ChatCompletionsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ChatCompletionCreateResponse | Stream[ChatCompletionCreateResponse]:
+    ) -> CompletionCreateResponse | Stream[CompletionCreateResponse]:
         """
         Create chat-based completion
 
@@ -482,7 +482,7 @@ class ChatCompletionsResource(SyncAPIResource):
     def create(
         self,
         *,
-        messages: Iterable[chat_completion_create_params.Message],
+        messages: Iterable[completion_create_params.Message],
         model: Union[
             str,
             Literal[
@@ -508,14 +508,14 @@ class ChatCompletionsResource(SyncAPIResource):
         n: Optional[int] | NotGiven = NOT_GIVEN,
         parallel_tool_calls: Optional[bool] | NotGiven = NOT_GIVEN,
         presence_penalty: Optional[float] | NotGiven = NOT_GIVEN,
-        response_format: Optional[chat_completion_create_params.ResponseFormat] | NotGiven = NOT_GIVEN,
+        response_format: Optional[completion_create_params.ResponseFormat] | NotGiven = NOT_GIVEN,
         seed: Optional[int] | NotGiven = NOT_GIVEN,
         stop: Union[Optional[str], List[str], None] | NotGiven = NOT_GIVEN,
         stream: Optional[Literal[False]] | Literal[True] | NotGiven = NOT_GIVEN,
-        stream_options: Optional[chat_completion_create_params.StreamOptions] | NotGiven = NOT_GIVEN,
+        stream_options: Optional[completion_create_params.StreamOptions] | NotGiven = NOT_GIVEN,
         temperature: Optional[float] | NotGiven = NOT_GIVEN,
-        tool_choice: Optional[chat_completion_create_params.ToolChoice] | NotGiven = NOT_GIVEN,
-        tools: Optional[Iterable[chat_completion_create_params.Tool]] | NotGiven = NOT_GIVEN,
+        tool_choice: Optional[completion_create_params.ToolChoice] | NotGiven = NOT_GIVEN,
+        tools: Optional[Iterable[completion_create_params.Tool]] | NotGiven = NOT_GIVEN,
         top_k: Optional[int] | NotGiven = NOT_GIVEN,
         top_logprobs: Optional[int] | NotGiven = NOT_GIVEN,
         top_p: Optional[float] | NotGiven = NOT_GIVEN,
@@ -525,9 +525,9 @@ class ChatCompletionsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ChatCompletionCreateResponse | Stream[ChatCompletionCreateResponse]:
+    ) -> CompletionCreateResponse | Stream[CompletionCreateResponse]:
         return cast(
-            ChatCompletionCreateResponse,
+            CompletionCreateResponse,
             self._post(
                 "/v1/chat/completions",
                 body=maybe_transform(
@@ -554,45 +554,45 @@ class ChatCompletionsResource(SyncAPIResource):
                         "top_logprobs": top_logprobs,
                         "top_p": top_p,
                     },
-                    chat_completion_create_params.ChatCompletionCreateParams,
+                    completion_create_params.CompletionCreateParams,
                 ),
                 options=make_request_options(
                     extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
                 ),
                 cast_to=cast(
-                    Any, ChatCompletionCreateResponse
+                    Any, CompletionCreateResponse
                 ),  # Union types cannot be passed in as arguments in the type system
                 stream=stream or False,
-                stream_cls=Stream[ChatCompletionCreateResponse],
+                stream_cls=Stream[CompletionCreateResponse],
             ),
         )
 
 
-class AsyncChatCompletionsResource(AsyncAPIResource):
+class AsyncCompletionsResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncChatCompletionsResourceWithRawResponse:
+    def with_raw_response(self) -> AsyncCompletionsResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/stainless-sdks/sambanova-python#accessing-raw-response-data-eg-headers
         """
-        return AsyncChatCompletionsResourceWithRawResponse(self)
+        return AsyncCompletionsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncChatCompletionsResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AsyncCompletionsResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/stainless-sdks/sambanova-python#with_streaming_response
         """
-        return AsyncChatCompletionsResourceWithStreamingResponse(self)
+        return AsyncCompletionsResourceWithStreamingResponse(self)
 
     @overload
     async def create(
         self,
         *,
-        messages: Iterable[chat_completion_create_params.Message],
+        messages: Iterable[completion_create_params.Message],
         model: Union[
             str,
             Literal[
@@ -618,14 +618,14 @@ class AsyncChatCompletionsResource(AsyncAPIResource):
         n: Optional[int] | NotGiven = NOT_GIVEN,
         parallel_tool_calls: Optional[bool] | NotGiven = NOT_GIVEN,
         presence_penalty: Optional[float] | NotGiven = NOT_GIVEN,
-        response_format: Optional[chat_completion_create_params.ResponseFormat] | NotGiven = NOT_GIVEN,
+        response_format: Optional[completion_create_params.ResponseFormat] | NotGiven = NOT_GIVEN,
         seed: Optional[int] | NotGiven = NOT_GIVEN,
         stop: Union[Optional[str], List[str], None] | NotGiven = NOT_GIVEN,
         stream: Optional[Literal[False]] | NotGiven = NOT_GIVEN,
-        stream_options: Optional[chat_completion_create_params.StreamOptions] | NotGiven = NOT_GIVEN,
+        stream_options: Optional[completion_create_params.StreamOptions] | NotGiven = NOT_GIVEN,
         temperature: Optional[float] | NotGiven = NOT_GIVEN,
-        tool_choice: Optional[chat_completion_create_params.ToolChoice] | NotGiven = NOT_GIVEN,
-        tools: Optional[Iterable[chat_completion_create_params.Tool]] | NotGiven = NOT_GIVEN,
+        tool_choice: Optional[completion_create_params.ToolChoice] | NotGiven = NOT_GIVEN,
+        tools: Optional[Iterable[completion_create_params.Tool]] | NotGiven = NOT_GIVEN,
         top_k: Optional[int] | NotGiven = NOT_GIVEN,
         top_logprobs: Optional[int] | NotGiven = NOT_GIVEN,
         top_p: Optional[float] | NotGiven = NOT_GIVEN,
@@ -635,7 +635,7 @@ class AsyncChatCompletionsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ChatCompletionCreateResponse:
+    ) -> CompletionCreateResponse:
         """
         Create chat-based completion
 
@@ -735,7 +735,7 @@ class AsyncChatCompletionsResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        messages: Iterable[chat_completion_create_params.Message],
+        messages: Iterable[completion_create_params.Message],
         model: Union[
             str,
             Literal[
@@ -762,13 +762,13 @@ class AsyncChatCompletionsResource(AsyncAPIResource):
         n: Optional[int] | NotGiven = NOT_GIVEN,
         parallel_tool_calls: Optional[bool] | NotGiven = NOT_GIVEN,
         presence_penalty: Optional[float] | NotGiven = NOT_GIVEN,
-        response_format: Optional[chat_completion_create_params.ResponseFormat] | NotGiven = NOT_GIVEN,
+        response_format: Optional[completion_create_params.ResponseFormat] | NotGiven = NOT_GIVEN,
         seed: Optional[int] | NotGiven = NOT_GIVEN,
         stop: Union[Optional[str], List[str], None] | NotGiven = NOT_GIVEN,
-        stream_options: Optional[chat_completion_create_params.StreamOptions] | NotGiven = NOT_GIVEN,
+        stream_options: Optional[completion_create_params.StreamOptions] | NotGiven = NOT_GIVEN,
         temperature: Optional[float] | NotGiven = NOT_GIVEN,
-        tool_choice: Optional[chat_completion_create_params.ToolChoice] | NotGiven = NOT_GIVEN,
-        tools: Optional[Iterable[chat_completion_create_params.Tool]] | NotGiven = NOT_GIVEN,
+        tool_choice: Optional[completion_create_params.ToolChoice] | NotGiven = NOT_GIVEN,
+        tools: Optional[Iterable[completion_create_params.Tool]] | NotGiven = NOT_GIVEN,
         top_k: Optional[int] | NotGiven = NOT_GIVEN,
         top_logprobs: Optional[int] | NotGiven = NOT_GIVEN,
         top_p: Optional[float] | NotGiven = NOT_GIVEN,
@@ -778,7 +778,7 @@ class AsyncChatCompletionsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncStream[ChatCompletionCreateResponse]:
+    ) -> AsyncStream[CompletionCreateResponse]:
         """
         Create chat-based completion
 
@@ -878,7 +878,7 @@ class AsyncChatCompletionsResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        messages: Iterable[chat_completion_create_params.Message],
+        messages: Iterable[completion_create_params.Message],
         model: Union[
             str,
             Literal[
@@ -905,13 +905,13 @@ class AsyncChatCompletionsResource(AsyncAPIResource):
         n: Optional[int] | NotGiven = NOT_GIVEN,
         parallel_tool_calls: Optional[bool] | NotGiven = NOT_GIVEN,
         presence_penalty: Optional[float] | NotGiven = NOT_GIVEN,
-        response_format: Optional[chat_completion_create_params.ResponseFormat] | NotGiven = NOT_GIVEN,
+        response_format: Optional[completion_create_params.ResponseFormat] | NotGiven = NOT_GIVEN,
         seed: Optional[int] | NotGiven = NOT_GIVEN,
         stop: Union[Optional[str], List[str], None] | NotGiven = NOT_GIVEN,
-        stream_options: Optional[chat_completion_create_params.StreamOptions] | NotGiven = NOT_GIVEN,
+        stream_options: Optional[completion_create_params.StreamOptions] | NotGiven = NOT_GIVEN,
         temperature: Optional[float] | NotGiven = NOT_GIVEN,
-        tool_choice: Optional[chat_completion_create_params.ToolChoice] | NotGiven = NOT_GIVEN,
-        tools: Optional[Iterable[chat_completion_create_params.Tool]] | NotGiven = NOT_GIVEN,
+        tool_choice: Optional[completion_create_params.ToolChoice] | NotGiven = NOT_GIVEN,
+        tools: Optional[Iterable[completion_create_params.Tool]] | NotGiven = NOT_GIVEN,
         top_k: Optional[int] | NotGiven = NOT_GIVEN,
         top_logprobs: Optional[int] | NotGiven = NOT_GIVEN,
         top_p: Optional[float] | NotGiven = NOT_GIVEN,
@@ -921,7 +921,7 @@ class AsyncChatCompletionsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ChatCompletionCreateResponse | AsyncStream[ChatCompletionCreateResponse]:
+    ) -> CompletionCreateResponse | AsyncStream[CompletionCreateResponse]:
         """
         Create chat-based completion
 
@@ -1021,7 +1021,7 @@ class AsyncChatCompletionsResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        messages: Iterable[chat_completion_create_params.Message],
+        messages: Iterable[completion_create_params.Message],
         model: Union[
             str,
             Literal[
@@ -1047,14 +1047,14 @@ class AsyncChatCompletionsResource(AsyncAPIResource):
         n: Optional[int] | NotGiven = NOT_GIVEN,
         parallel_tool_calls: Optional[bool] | NotGiven = NOT_GIVEN,
         presence_penalty: Optional[float] | NotGiven = NOT_GIVEN,
-        response_format: Optional[chat_completion_create_params.ResponseFormat] | NotGiven = NOT_GIVEN,
+        response_format: Optional[completion_create_params.ResponseFormat] | NotGiven = NOT_GIVEN,
         seed: Optional[int] | NotGiven = NOT_GIVEN,
         stop: Union[Optional[str], List[str], None] | NotGiven = NOT_GIVEN,
         stream: Optional[Literal[False]] | Literal[True] | NotGiven = NOT_GIVEN,
-        stream_options: Optional[chat_completion_create_params.StreamOptions] | NotGiven = NOT_GIVEN,
+        stream_options: Optional[completion_create_params.StreamOptions] | NotGiven = NOT_GIVEN,
         temperature: Optional[float] | NotGiven = NOT_GIVEN,
-        tool_choice: Optional[chat_completion_create_params.ToolChoice] | NotGiven = NOT_GIVEN,
-        tools: Optional[Iterable[chat_completion_create_params.Tool]] | NotGiven = NOT_GIVEN,
+        tool_choice: Optional[completion_create_params.ToolChoice] | NotGiven = NOT_GIVEN,
+        tools: Optional[Iterable[completion_create_params.Tool]] | NotGiven = NOT_GIVEN,
         top_k: Optional[int] | NotGiven = NOT_GIVEN,
         top_logprobs: Optional[int] | NotGiven = NOT_GIVEN,
         top_p: Optional[float] | NotGiven = NOT_GIVEN,
@@ -1064,9 +1064,9 @@ class AsyncChatCompletionsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ChatCompletionCreateResponse | AsyncStream[ChatCompletionCreateResponse]:
+    ) -> CompletionCreateResponse | AsyncStream[CompletionCreateResponse]:
         return cast(
-            ChatCompletionCreateResponse,
+            CompletionCreateResponse,
             await self._post(
                 "/v1/chat/completions",
                 body=await async_maybe_transform(
@@ -1093,51 +1093,51 @@ class AsyncChatCompletionsResource(AsyncAPIResource):
                         "top_logprobs": top_logprobs,
                         "top_p": top_p,
                     },
-                    chat_completion_create_params.ChatCompletionCreateParams,
+                    completion_create_params.CompletionCreateParams,
                 ),
                 options=make_request_options(
                     extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
                 ),
                 cast_to=cast(
-                    Any, ChatCompletionCreateResponse
+                    Any, CompletionCreateResponse
                 ),  # Union types cannot be passed in as arguments in the type system
                 stream=stream or False,
-                stream_cls=AsyncStream[ChatCompletionCreateResponse],
+                stream_cls=AsyncStream[CompletionCreateResponse],
             ),
         )
 
 
-class ChatCompletionsResourceWithRawResponse:
-    def __init__(self, chat_completions: ChatCompletionsResource) -> None:
-        self._chat_completions = chat_completions
+class CompletionsResourceWithRawResponse:
+    def __init__(self, completions: CompletionsResource) -> None:
+        self._completions = completions
 
         self.create = to_raw_response_wrapper(
-            chat_completions.create,
+            completions.create,
         )
 
 
-class AsyncChatCompletionsResourceWithRawResponse:
-    def __init__(self, chat_completions: AsyncChatCompletionsResource) -> None:
-        self._chat_completions = chat_completions
+class AsyncCompletionsResourceWithRawResponse:
+    def __init__(self, completions: AsyncCompletionsResource) -> None:
+        self._completions = completions
 
         self.create = async_to_raw_response_wrapper(
-            chat_completions.create,
+            completions.create,
         )
 
 
-class ChatCompletionsResourceWithStreamingResponse:
-    def __init__(self, chat_completions: ChatCompletionsResource) -> None:
-        self._chat_completions = chat_completions
+class CompletionsResourceWithStreamingResponse:
+    def __init__(self, completions: CompletionsResource) -> None:
+        self._completions = completions
 
         self.create = to_streamed_response_wrapper(
-            chat_completions.create,
+            completions.create,
         )
 
 
-class AsyncChatCompletionsResourceWithStreamingResponse:
-    def __init__(self, chat_completions: AsyncChatCompletionsResource) -> None:
-        self._chat_completions = chat_completions
+class AsyncCompletionsResourceWithStreamingResponse:
+    def __init__(self, completions: AsyncCompletionsResource) -> None:
+        self._completions = completions
 
         self.create = async_to_streamed_response_wrapper(
-            chat_completions.create,
+            completions.create,
         )

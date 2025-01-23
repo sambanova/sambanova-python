@@ -799,7 +799,7 @@ class TestSambaNova:
 
         respx_mock.post("/v1/chat/completions").mock(side_effect=retry_handler)
 
-        response = client.chat_completions.with_raw_response.create(
+        response = client.chat.completions.with_raw_response.create(
             messages=[
                 {
                     "content": "string",
@@ -831,7 +831,7 @@ class TestSambaNova:
 
         respx_mock.post("/v1/chat/completions").mock(side_effect=retry_handler)
 
-        response = client.chat_completions.with_raw_response.create(
+        response = client.chat.completions.with_raw_response.create(
             messages=[
                 {
                     "content": "string",
@@ -863,7 +863,7 @@ class TestSambaNova:
 
         respx_mock.post("/v1/chat/completions").mock(side_effect=retry_handler)
 
-        response = client.chat_completions.with_raw_response.create(
+        response = client.chat.completions.with_raw_response.create(
             messages=[
                 {
                     "content": "string",
@@ -1636,7 +1636,7 @@ class TestAsyncSambaNova:
 
         respx_mock.post("/v1/chat/completions").mock(side_effect=retry_handler)
 
-        response = await client.chat_completions.with_raw_response.create(
+        response = await client.chat.completions.with_raw_response.create(
             messages=[
                 {
                     "content": "string",
@@ -1669,7 +1669,7 @@ class TestAsyncSambaNova:
 
         respx_mock.post("/v1/chat/completions").mock(side_effect=retry_handler)
 
-        response = await client.chat_completions.with_raw_response.create(
+        response = await client.chat.completions.with_raw_response.create(
             messages=[
                 {
                     "content": "string",
@@ -1702,7 +1702,7 @@ class TestAsyncSambaNova:
 
         respx_mock.post("/v1/chat/completions").mock(side_effect=retry_handler)
 
-        response = await client.chat_completions.with_raw_response.create(
+        response = await client.chat.completions.with_raw_response.create(
             messages=[
                 {
                     "content": "string",

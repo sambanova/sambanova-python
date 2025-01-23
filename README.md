@@ -34,7 +34,7 @@ client = SambaNova(
     api_key=os.environ.get("SAMBANOVA_API_KEY"),  # This is the default and can be omitted
 )
 
-chat_completion = client.chat_completions.create(
+completion = client.chat.completions.create(
     messages=[
         {
             "content": "string",
@@ -65,7 +65,7 @@ client = AsyncSambaNova(
 
 
 async def main() -> None:
-    chat_completion = await client.chat_completions.create(
+    completion = await client.chat.completions.create(
         messages=[
             {
                 "content": "string",
@@ -90,7 +90,7 @@ from sambanova import SambaNova
 
 client = SambaNova()
 
-stream = client.chat_completions.create(
+stream = client.chat.completions.create(
     messages=[
         {
             "content": "string",
@@ -100,8 +100,8 @@ stream = client.chat_completions.create(
     model="string",
     stream=True,
 )
-for chat_completion in stream:
-    print(chat_completion)
+for completion in stream:
+    print(completion)
 ```
 
 The async client uses the exact same interface.
@@ -111,7 +111,7 @@ from sambanova import AsyncSambaNova
 
 client = AsyncSambaNova()
 
-stream = await client.chat_completions.create(
+stream = await client.chat.completions.create(
     messages=[
         {
             "content": "string",
@@ -121,8 +121,8 @@ stream = await client.chat_completions.create(
     model="string",
     stream=True,
 )
-async for chat_completion in stream:
-    print(chat_completion)
+async for completion in stream:
+    print(completion)
 ```
 
 ## Using types
@@ -150,7 +150,7 @@ from sambanova import SambaNova
 client = SambaNova()
 
 try:
-    client.chat_completions.create(
+    client.chat.completions.create(
         messages=[
             {
                 "content": "string",
@@ -201,7 +201,7 @@ client = SambaNova(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).chat_completions.create(
+client.with_options(max_retries=5).chat.completions.create(
     messages=[
         {
             "content": "string",
@@ -232,7 +232,7 @@ client = SambaNova(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).chat_completions.create(
+client.with_options(timeout=5.0).chat.completions.create(
     messages=[
         {
             "content": "string",
@@ -281,7 +281,7 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from sambanova import SambaNova
 
 client = SambaNova()
-response = client.chat_completions.with_raw_response.create(
+response = client.chat.completions.with_raw_response.create(
     messages=[{
         "content": "string",
         "role": "system",
@@ -290,8 +290,8 @@ response = client.chat_completions.with_raw_response.create(
 )
 print(response.headers.get('X-My-Header'))
 
-chat_completion = response.parse()  # get the object that `chat_completions.create()` would have returned
-print(chat_completion)
+completion = response.parse()  # get the object that `chat.completions.create()` would have returned
+print(completion)
 ```
 
 These methods return an [`APIResponse`](https://github.com/stainless-sdks/sambanova-python/tree/main/src/sambanova/_response.py) object.
@@ -305,7 +305,7 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.chat_completions.with_streaming_response.create(
+with client.chat.completions.with_streaming_response.create(
     messages=[
         {
             "content": "string",
