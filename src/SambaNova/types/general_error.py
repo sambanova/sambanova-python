@@ -22,6 +22,4 @@ class Error(BaseModel):
 
 
 class GeneralError(BaseModel):
-    error: Optional[Error] = None
-
-    required: Optional[object] = None
+    error: Error
