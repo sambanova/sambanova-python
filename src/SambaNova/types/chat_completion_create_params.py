@@ -183,6 +183,8 @@ class MessageSystemMessageTyped(TypedDict, total=False):
     role: Required[Literal["system"]]
     """The role of the messages author, in this case `system`."""
 
+    examples: object
+
 
 MessageSystemMessage: TypeAlias = Union[MessageSystemMessageTyped, Dict[str, object]]
 
