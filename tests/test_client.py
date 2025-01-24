@@ -802,7 +802,7 @@ class TestSambaNova:
         response = client.chat.completions.with_raw_response.create(
             messages=[
                 {
-                    "content": "string",
+                    "content": "create a poem using palindromes",
                     "role": "system",
                 }
             ],
@@ -834,7 +834,7 @@ class TestSambaNova:
         response = client.chat.completions.with_raw_response.create(
             messages=[
                 {
-                    "content": "string",
+                    "content": "create a poem using palindromes",
                     "role": "system",
                 }
             ],
@@ -866,7 +866,7 @@ class TestSambaNova:
         response = client.chat.completions.with_raw_response.create(
             messages=[
                 {
-                    "content": "string",
+                    "content": "create a poem using palindromes",
                     "role": "system",
                 }
             ],
@@ -1639,7 +1639,7 @@ class TestAsyncSambaNova:
         response = await client.chat.completions.with_raw_response.create(
             messages=[
                 {
-                    "content": "string",
+                    "content": "create a poem using palindromes",
                     "role": "system",
                 }
             ],
@@ -1672,7 +1672,7 @@ class TestAsyncSambaNova:
         response = await client.chat.completions.with_raw_response.create(
             messages=[
                 {
-                    "content": "string",
+                    "content": "create a poem using palindromes",
                     "role": "system",
                 }
             ],
@@ -1705,7 +1705,7 @@ class TestAsyncSambaNova:
         response = await client.chat.completions.with_raw_response.create(
             messages=[
                 {
-                    "content": "string",
+                    "content": "create a poem using palindromes",
                     "role": "system",
                 }
             ],
