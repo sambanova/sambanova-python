@@ -37,11 +37,11 @@ client = SambaNova(
 completion = client.chat.completions.create(
     messages=[
         {
-            "content": "string",
-            "role": "system",
+            "role": "user",
+            "content": "create a poem using palindromes",
         }
     ],
-    model="string",
+    model="Meta-Llama-3.3-70B-Instruct",
 )
 ```
 
@@ -68,11 +68,11 @@ async def main() -> None:
     completion = await client.chat.completions.create(
         messages=[
             {
-                "content": "string",
-                "role": "system",
+                "role": "user",
+                "content": "create a poem using palindromes",
             }
         ],
-        model="string",
+        model="Meta-Llama-3.3-70B-Instruct",
     )
 
 
@@ -93,11 +93,11 @@ client = SambaNova()
 stream = client.chat.completions.create(
     messages=[
         {
-            "content": "string",
-            "role": "system",
+            "role": "user",
+            "content": "create a poem using palindromes",
         }
     ],
-    model="string",
+    model="Meta-Llama-3.3-70B-Instruct",
     stream=True,
 )
 for completion in stream:
@@ -114,11 +114,11 @@ client = AsyncSambaNova()
 stream = await client.chat.completions.create(
     messages=[
         {
-            "content": "string",
-            "role": "system",
+            "role": "user",
+            "content": "create a poem using palindromes",
         }
     ],
-    model="string",
+    model="Meta-Llama-3.3-70B-Instruct",
     stream=True,
 )
 async for completion in stream:
@@ -153,11 +153,11 @@ try:
     client.chat.completions.create(
         messages=[
             {
-                "content": "string",
-                "role": "system",
+                "role": "user",
+                "content": "create a poem using palindromes",
             }
         ],
-        model="string",
+        model="Meta-Llama-3.3-70B-Instruct",
     )
 except sambanova.APIConnectionError as e:
     print("The server could not be reached")
@@ -204,11 +204,11 @@ client = SambaNova(
 client.with_options(max_retries=5).chat.completions.create(
     messages=[
         {
-            "content": "string",
-            "role": "system",
+            "role": "user",
+            "content": "create a poem using palindromes",
         }
     ],
-    model="string",
+    model="Meta-Llama-3.3-70B-Instruct",
 )
 ```
 
@@ -235,11 +235,11 @@ client = SambaNova(
 client.with_options(timeout=5.0).chat.completions.create(
     messages=[
         {
-            "content": "string",
-            "role": "system",
+            "role": "user",
+            "content": "create a poem using palindromes",
         }
     ],
-    model="string",
+    model="Meta-Llama-3.3-70B-Instruct",
 )
 ```
 
@@ -283,10 +283,10 @@ from sambanova import SambaNova
 client = SambaNova()
 response = client.chat.completions.with_raw_response.create(
     messages=[{
-        "content": "string",
-        "role": "system",
+        "role": "user",
+        "content": "create a poem using palindromes",
     }],
-    model="string",
+    model="Meta-Llama-3.3-70B-Instruct",
 )
 print(response.headers.get('X-My-Header'))
 
@@ -308,11 +308,11 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 with client.chat.completions.with_streaming_response.create(
     messages=[
         {
-            "content": "string",
-            "role": "system",
+            "role": "user",
+            "content": "create a poem using palindromes",
         }
     ],
-    model="string",
+    model="Meta-Llama-3.3-70B-Instruct",
 ) as response:
     print(response.headers.get("X-My-Header"))
 

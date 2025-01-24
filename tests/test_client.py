@@ -734,11 +734,11 @@ class TestSambaNova:
                     dict(
                         messages=[
                             {
-                                "content": "string",
-                                "role": "system",
+                                "role": "user",
+                                "content": "create a poem using palindromes",
                             }
                         ],
-                        model="string",
+                        model="Meta-Llama-3.3-70B-Instruct",
                     ),
                 ),
                 cast_to=httpx.Response,
@@ -760,11 +760,11 @@ class TestSambaNova:
                     dict(
                         messages=[
                             {
-                                "content": "string",
-                                "role": "system",
+                                "role": "user",
+                                "content": "create a poem using palindromes",
                             }
                         ],
-                        model="string",
+                        model="Meta-Llama-3.3-70B-Instruct",
                     ),
                 ),
                 cast_to=httpx.Response,
@@ -1570,11 +1570,11 @@ class TestAsyncSambaNova:
                     dict(
                         messages=[
                             {
-                                "content": "string",
-                                "role": "system",
+                                "role": "user",
+                                "content": "create a poem using palindromes",
                             }
                         ],
-                        model="string",
+                        model="Meta-Llama-3.3-70B-Instruct",
                     ),
                 ),
                 cast_to=httpx.Response,
@@ -1596,11 +1596,11 @@ class TestAsyncSambaNova:
                     dict(
                         messages=[
                             {
-                                "content": "string",
-                                "role": "system",
+                                "role": "user",
+                                "content": "create a poem using palindromes",
                             }
                         ],
-                        model="string",
+                        model="Meta-Llama-3.3-70B-Instruct",
                     ),
                 ),
                 cast_to=httpx.Response,
