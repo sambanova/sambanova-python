@@ -23,7 +23,7 @@ class TestCompletions:
             messages=[
                 {
                     "content": "create a poem using palindromes",
-                    "role": "system",
+                    "role": "user",
                 }
             ],
             model="string",
@@ -36,7 +36,7 @@ class TestCompletions:
             messages=[
                 {
                     "content": "create a poem using palindromes",
-                    "role": "system",
+                    "role": "user",
                 }
             ],
             model="string",
@@ -77,7 +77,7 @@ class TestCompletions:
             messages=[
                 {
                     "content": "create a poem using palindromes",
-                    "role": "system",
+                    "role": "user",
                 }
             ],
             model="string",
@@ -94,7 +94,7 @@ class TestCompletions:
             messages=[
                 {
                     "content": "create a poem using palindromes",
-                    "role": "system",
+                    "role": "user",
                 }
             ],
             model="string",
@@ -113,7 +113,7 @@ class TestCompletions:
             messages=[
                 {
                     "content": "create a poem using palindromes",
-                    "role": "system",
+                    "role": "user",
                 }
             ],
             model="string",
@@ -127,7 +127,7 @@ class TestCompletions:
             messages=[
                 {
                     "content": "create a poem using palindromes",
-                    "role": "system",
+                    "role": "user",
                 }
             ],
             model="string",
@@ -168,7 +168,7 @@ class TestCompletions:
             messages=[
                 {
                     "content": "create a poem using palindromes",
-                    "role": "system",
+                    "role": "user",
                 }
             ],
             model="string",
@@ -185,7 +185,7 @@ class TestCompletions:
             messages=[
                 {
                     "content": "create a poem using palindromes",
-                    "role": "system",
+                    "role": "user",
                 }
             ],
             model="string",
@@ -209,7 +209,7 @@ class TestAsyncCompletions:
             messages=[
                 {
                     "content": "create a poem using palindromes",
-                    "role": "system",
+                    "role": "user",
                 }
             ],
             model="string",
@@ -222,7 +222,7 @@ class TestAsyncCompletions:
             messages=[
                 {
                     "content": "create a poem using palindromes",
-                    "role": "system",
+                    "role": "user",
                 }
             ],
             model="string",
@@ -263,7 +263,7 @@ class TestAsyncCompletions:
             messages=[
                 {
                     "content": "create a poem using palindromes",
-                    "role": "system",
+                    "role": "user",
                 }
             ],
             model="string",
@@ -280,7 +280,7 @@ class TestAsyncCompletions:
             messages=[
                 {
                     "content": "create a poem using palindromes",
-                    "role": "system",
+                    "role": "user",
                 }
             ],
             model="string",
@@ -299,7 +299,7 @@ class TestAsyncCompletions:
             messages=[
                 {
                     "content": "create a poem using palindromes",
-                    "role": "system",
+                    "role": "user",
                 }
             ],
             model="string",
@@ -313,7 +313,7 @@ class TestAsyncCompletions:
             messages=[
                 {
                     "content": "create a poem using palindromes",
-                    "role": "system",
+                    "role": "user",
                 }
             ],
             model="string",
@@ -354,7 +354,7 @@ class TestAsyncCompletions:
             messages=[
                 {
                     "content": "create a poem using palindromes",
-                    "role": "system",
+                    "role": "user",
                 }
             ],
             model="string",
@@ -371,7 +371,7 @@ class TestAsyncCompletions:
             messages=[
                 {
                     "content": "create a poem using palindromes",
-                    "role": "system",
+                    "role": "user",
                 }
             ],
             model="string",

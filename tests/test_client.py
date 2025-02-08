@@ -803,7 +803,7 @@ class TestSambaNova:
             messages=[
                 {
                     "content": "create a poem using palindromes",
-                    "role": "system",
+                    "role": "user",
                 }
             ],
             model="string",
@@ -835,7 +835,7 @@ class TestSambaNova:
             messages=[
                 {
                     "content": "create a poem using palindromes",
-                    "role": "system",
+                    "role": "user",
                 }
             ],
             model="string",
@@ -867,7 +867,7 @@ class TestSambaNova:
             messages=[
                 {
                     "content": "create a poem using palindromes",
-                    "role": "system",
+                    "role": "user",
                 }
             ],
             model="string",
@@ -1640,7 +1640,7 @@ class TestAsyncSambaNova:
             messages=[
                 {
                     "content": "create a poem using palindromes",
-                    "role": "system",
+                    "role": "user",
                 }
             ],
             model="string",
@@ -1673,7 +1673,7 @@ class TestAsyncSambaNova:
             messages=[
                 {
                     "content": "create a poem using palindromes",
-                    "role": "system",
+                    "role": "user",
                 }
             ],
             model="string",
@@ -1706,7 +1706,7 @@ class TestAsyncSambaNova:
             messages=[
                 {
                     "content": "create a poem using palindromes",
-                    "role": "system",
+                    "role": "user",
                 }
             ],
             model="string",
