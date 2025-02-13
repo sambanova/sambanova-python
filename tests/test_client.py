@@ -23,6 +23,7 @@ from pydantic import ValidationError
 
 from sambanova import SambaNova, AsyncSambaNova, APIResponseValidationError
 from sambanova._types import Omit
+from sambanova._utils import maybe_transform
 from sambanova._models import BaseModel, FinalRequestOptions
 from sambanova._constants import RAW_RESPONSE_HEADER
 from sambanova._streaming import Stream, AsyncStream
@@ -33,6 +34,7 @@ from sambanova._base_client import (
     BaseClient,
     make_request_options,
 )
+from sambanova.types.chat.completion_create_params import CompletionCreateParamsNonStreaming
 
 from .utils import update_env
 
@@ -731,14 +733,17 @@ class TestSambaNova:
                 "/v1/chat/completions",
                 body=cast(
                     object,
-                    dict(
-                        messages=[
-                            {
-                                "role": "user",
-                                "content": "create a poem using palindromes",
-                            }
-                        ],
-                        model="Meta-Llama-3.3-70B-Instruct",
+                    maybe_transform(
+                        dict(
+                            messages=[
+                                {
+                                    "role": "user",
+                                    "content": "create a poem using palindromes",
+                                }
+                            ],
+                            model="Meta-Llama-3.3-70B-Instruct",
+                        ),
+                        CompletionCreateParamsNonStreaming,
                     ),
                 ),
                 cast_to=httpx.Response,
@@ -757,14 +762,17 @@ class TestSambaNova:
                 "/v1/chat/completions",
                 body=cast(
                     object,
-                    dict(
-                        messages=[
-                            {
-                                "role": "user",
-                                "content": "create a poem using palindromes",
-                            }
-                        ],
-                        model="Meta-Llama-3.3-70B-Instruct",
+                    maybe_transform(
+                        dict(
+                            messages=[
+                                {
+                                    "role": "user",
+                                    "content": "create a poem using palindromes",
+                                }
+                            ],
+                            model="Meta-Llama-3.3-70B-Instruct",
+                        ),
+                        CompletionCreateParamsNonStreaming,
                     ),
                 ),
                 cast_to=httpx.Response,
@@ -1567,14 +1575,17 @@ class TestAsyncSambaNova:
                 "/v1/chat/completions",
                 body=cast(
                     object,
-                    dict(
-                        messages=[
-                            {
-                                "role": "user",
-                                "content": "create a poem using palindromes",
-                            }
-                        ],
-                        model="Meta-Llama-3.3-70B-Instruct",
+                    maybe_transform(
+                        dict(
+                            messages=[
+                                {
+                                    "role": "user",
+                                    "content": "create a poem using palindromes",
+                                }
+                            ],
+                            model="Meta-Llama-3.3-70B-Instruct",
+                        ),
+                        CompletionCreateParamsNonStreaming,
                     ),
                 ),
                 cast_to=httpx.Response,
@@ -1593,14 +1604,17 @@ class TestAsyncSambaNova:
                 "/v1/chat/completions",
                 body=cast(
                     object,
-                    dict(
-                        messages=[
-                            {
-                                "role": "user",
-                                "content": "create a poem using palindromes",
-                            }
-                        ],
-                        model="Meta-Llama-3.3-70B-Instruct",
+                    maybe_transform(
+                        dict(
+                            messages=[
+                                {
+                                    "role": "user",
+                                    "content": "create a poem using palindromes",
+                                }
+                            ],
+                            model="Meta-Llama-3.3-70B-Instruct",
+                        ),
+                        CompletionCreateParamsNonStreaming,
                     ),
                 ),
                 cast_to=httpx.Response,
