@@ -2,9 +2,10 @@ from __future__ import annotations
 
 import os
 import inspect
-from typing import TYPE_CHECKING, Any, Type, Union, Generic, TypeVar, Callable, cast
+from typing import TYPE_CHECKING, Any, Type, Union, Generic, TypeVar, Callable, Optional, cast
 from datetime import date, datetime
 from typing_extensions import (
+    List,
     Unpack,
     Literal,
     ClassVar,
@@ -19,7 +20,6 @@ from typing_extensions import (
 )
 
 import pydantic
-import pydantic.generics
 from pydantic.fields import FieldInfo
 
 from ._types import (
@@ -65,7 +65,7 @@ from ._compat import (
 from ._constants import RAW_RESPONSE_HEADER
 
 if TYPE_CHECKING:
-    from pydantic_core.core_schema import ModelField, LiteralSchema, ModelFieldsSchema
+    from pydantic_core.core_schema import ModelField, ModelSchema, LiteralSchema, ModelFieldsSchema
 
 __all__ = ["BaseModel", "GenericModel"]
 
@@ -208,14 +208,18 @@ class BaseModel(pydantic.BaseModel):
             else:
                 fields_values[name] = field_get_default(field)
 
+        extra_field_type = _get_extra_fields_type(__cls)
+
         _extra = {}
         for key, value in values.items():
             if key not in model_fields:
+                parsed = construct_type(value=value, type_=extra_field_type) if extra_field_type is not None else value
+
                 if PYDANTIC_V2:
-                    _extra[key] = value
+                    _extra[key] = parsed
                 else:
                     _fields_set.add(key)
-                    fields_values[key] = value
+                    fields_values[key] = parsed
 
         object.__setattr__(m, "__dict__", fields_values)
 
@@ -367,7 +371,24 @@ def _construct_field(value: object, field: FieldInfo, key: str) -> object:
     if type_ is None:
         raise RuntimeError(f"Unexpected field type is None for {key}")
 
-    return construct_type(value=value, type_=type_)
+    return construct_type(value=value, type_=type_, metadata=getattr(field, "metadata", None))
+
+
+def _get_extra_fields_type(cls: type[pydantic.BaseModel]) -> type | None:
+    if not PYDANTIC_V2:
+        # TODO
+        return None
+
+    schema = cls.__pydantic_core_schema__
+    if schema["type"] == "model":
+        fields = schema["schema"]
+        if fields["type"] == "model-fields":
+            extras = fields.get("extras_schema")
+            if extras and "cls" in extras:
+                # mypy can't narrow the type
+                return extras["cls"]  # type: ignore[no-any-return]
+
+    return None
 
 
 def is_basemodel(type_: type) -> bool:
@@ -421,7 +442,7 @@ def construct_type_unchecked(*, value: object, type_: type[_T]) -> _T:
     return cast(_T, construct_type(value=value, type_=type_))
 
 
-def construct_type(*, value: object, type_: object) -> object:
+def construct_type(*, value: object, type_: object, metadata: Optional[List[Any]] = None) -> object:
     """Loose coercion to the expected type with construction of nested values.
 
     If the given value does not match the expected type then it is returned as-is.
@@ -439,8 +460,10 @@ def construct_type(*, value: object, type_: object) -> object:
         type_ = type_.__value__  # type: ignore[unreachable]
 
     # unwrap `Annotated[T, ...]` -> `T`
-    if is_annotated_type(type_):
-        meta: tuple[Any, ...] = get_args(type_)[1:]
+    if metadata is not None and len(metadata) > 0:
+        meta: tuple[Any, ...] = tuple(metadata)
+    elif is_annotated_type(type_):
+        meta = get_args(type_)[1:]
         type_ = extract_type_arg(type_, 0)
     else:
         meta = tuple()
@@ -627,8 +650,8 @@ def _build_discriminated_union_meta(*, union: type, meta_annotations: tuple[Any,
                 # Note: if one variant defines an alias then they all should
                 discriminator_alias = field_info.alias
 
-                if field_info.annotation and is_literal_type(field_info.annotation):
-                    for entry in get_args(field_info.annotation):
+                if (annotation := getattr(field_info, "annotation", None)) and is_literal_type(annotation):
+                    for entry in get_args(annotation):
                         if isinstance(entry, str):
                             mapping[entry] = variant
 
@@ -646,15 +669,18 @@ def _build_discriminated_union_meta(*, union: type, meta_annotations: tuple[Any,
 
 def _extract_field_schema_pv2(model: type[BaseModel], field_name: str) -> ModelField | None:
     schema = model.__pydantic_core_schema__
+    if schema["type"] == "definitions":
+        schema = schema["schema"]
+
     if schema["type"] != "model":
         return None
 
+    schema = cast("ModelSchema", schema)
     fields_schema = schema["schema"]
     if fields_schema["type"] != "model-fields":
         return None
 
     fields_schema = cast("ModelFieldsSchema", fields_schema)
-
     field = fields_schema["fields"].get(field_name)
     if not field:
         return None
@@ -678,7 +704,7 @@ def set_pydantic_config(typ: Any, config: pydantic.ConfigDict) -> None:
     setattr(typ, "__pydantic_config__", config)  # noqa: B010
 
 
-# our use of subclasssing here causes weirdness for type checkers,
+# our use of subclassing here causes weirdness for type checkers,
 # so we just pretend that we don't subclass
 if TYPE_CHECKING:
     GenericModel = BaseModel
@@ -735,6 +761,7 @@ class FinalRequestOptionsInput(TypedDict, total=False):
     idempotency_key: str
     json_data: Body
     extra_json: AnyMapping
+    follow_redirects: bool
 
 
 @final
@@ -748,6 +775,7 @@ class FinalRequestOptions(pydantic.BaseModel):
     files: Union[HttpxRequestFiles, None] = None
     idempotency_key: Union[str, None] = None
     post_parser: Union[Callable[[Any], Any], NotGiven] = NotGiven()
+    follow_redirects: Union[bool, None] = None
 
     # It should be noted that we cannot use `json` here as that would override
     # a BaseModel method in an incompatible fashion.

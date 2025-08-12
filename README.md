@@ -1,12 +1,13 @@
 # Samba Nova Python API library
 
-[![PyPI version](https://img.shields.io/pypi/v/sambanova.svg)](https://pypi.org/project/sambanova/)
+<!-- prettier-ignore -->
+[![PyPI version](https://img.shields.io/pypi/v/sambanova.svg?label=pypi%20(stable))](https://pypi.org/project/sambanova/)
 
 The Samba Nova Python library provides convenient access to the Samba Nova REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
 
-It is generated with [Stainless](https://www.stainlessapi.com/).
+It is generated with [Stainless](https://www.stainless.com/).
 
 ## Documentation
 
@@ -20,7 +21,7 @@ pip install git+ssh://git@github.com/stainless-sdks/sambanova-python.git
 ```
 
 > [!NOTE]
-> Once this package is [published to PyPI](https://app.stainlessapi.com/docs/guides/publish), this will become: `pip install --pre sambanova`
+> Once this package is [published to PyPI](https://www.stainless.com/docs/guides/publish), this will become: `pip install --pre sambanova`
 
 ## Usage
 
@@ -41,7 +42,7 @@ completion = client.chat.completions.create(
             "content": "create a poem using palindromes",
         }
     ],
-    model="Meta-Llama-3.3-70B-Instruct",
+    model="string",
 )
 ```
 
@@ -72,7 +73,7 @@ async def main() -> None:
                 "content": "create a poem using palindromes",
             }
         ],
-        model="Meta-Llama-3.3-70B-Instruct",
+        model="string",
     )
 
 
@@ -80,6 +81,44 @@ asyncio.run(main())
 ```
 
 Functionality between the synchronous and asynchronous clients is otherwise identical.
+
+### With aiohttp
+
+By default, the async client uses `httpx` for HTTP requests. However, for improved concurrency performance you may also use `aiohttp` as the HTTP backend.
+
+You can enable this by installing `aiohttp`:
+
+```sh
+# install from this staging repo
+pip install 'sambanova[aiohttp] @ git+ssh://git@github.com/stainless-sdks/sambanova-python.git'
+```
+
+Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
+
+```python
+import asyncio
+from sambanova import DefaultAioHttpClient
+from sambanova import AsyncSambaNova
+
+
+async def main() -> None:
+    async with AsyncSambaNova(
+        api_key="My API Key",
+        http_client=DefaultAioHttpClient(),
+    ) as client:
+        completion = await client.chat.completions.create(
+            messages=[
+                {
+                    "role": "user",
+                    "content": "create a poem using palindromes",
+                }
+            ],
+            model="string",
+        )
+
+
+asyncio.run(main())
+```
 
 ## Streaming responses
 
@@ -97,7 +136,7 @@ stream = client.chat.completions.create(
             "content": "create a poem using palindromes",
         }
     ],
-    model="Meta-Llama-3.3-70B-Instruct",
+    model="string",
     stream=True,
 )
 for completion in stream:
@@ -118,7 +157,7 @@ stream = await client.chat.completions.create(
             "content": "create a poem using palindromes",
         }
     ],
-    model="Meta-Llama-3.3-70B-Instruct",
+    model="string",
     stream=True,
 )
 async for completion in stream:
@@ -133,6 +172,28 @@ Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typ
 - Converting to a dictionary, `model.to_dict()`
 
 Typed requests and responses provide autocomplete and documentation within your editor. If you would like to see type errors in VS Code to help catch bugs earlier, set `python.analysis.typeCheckingMode` to `basic`.
+
+## Nested params
+
+Nested parameters are dictionaries, typed using `TypedDict`, for example:
+
+```python
+from sambanova import SambaNova
+
+client = SambaNova()
+
+completion = client.chat.completions.create(
+    messages=[
+        {
+            "content": "create a poem using palindromes",
+            "role": "user",
+        }
+    ],
+    model="string",
+    response_format={},
+)
+print(completion.response_format)
+```
 
 ## Handling errors
 
@@ -157,7 +218,7 @@ try:
                 "content": "create a poem using palindromes",
             }
         ],
-        model="Meta-Llama-3.3-70B-Instruct",
+        model="string",
     )
 except sambanova.APIConnectionError as e:
     print("The server could not be reached")
@@ -208,14 +269,14 @@ client.with_options(max_retries=5).chat.completions.create(
             "content": "create a poem using palindromes",
         }
     ],
-    model="Meta-Llama-3.3-70B-Instruct",
+    model="string",
 )
 ```
 
 ### Timeouts
 
 By default requests time out after 1 minute. You can configure this with a `timeout` option,
-which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/#fine-tuning-the-configuration) object:
+which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/timeouts/#fine-tuning-the-configuration) object:
 
 ```python
 from sambanova import SambaNova
@@ -239,7 +300,7 @@ client.with_options(timeout=5.0).chat.completions.create(
             "content": "create a poem using palindromes",
         }
     ],
-    model="Meta-Llama-3.3-70B-Instruct",
+    model="string",
 )
 ```
 
@@ -286,7 +347,7 @@ response = client.chat.completions.with_raw_response.create(
         "role": "user",
         "content": "create a poem using palindromes",
     }],
-    model="Meta-Llama-3.3-70B-Instruct",
+    model="string",
 )
 print(response.headers.get('X-My-Header'))
 
@@ -312,7 +373,7 @@ with client.chat.completions.with_streaming_response.create(
             "content": "create a poem using palindromes",
         }
     ],
-    model="Meta-Llama-3.3-70B-Instruct",
+    model="string",
 ) as response:
     print(response.headers.get("X-My-Header"))
 

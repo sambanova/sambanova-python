@@ -19,10 +19,7 @@ from ._types import (
     ProxiesTypes,
     RequestOptions,
 )
-from ._utils import (
-    is_given,
-    get_async_library,
-)
+from ._utils import is_given, get_async_library
 from ._version import __version__
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError, SambaNovaError
@@ -246,7 +243,7 @@ class AsyncSambaNova(AsyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new async SambaNova client instance.
+        """Construct a new async AsyncSambaNova client instance.
 
         This automatically infers the `api_key` argument from the `SAMBANOVA_API_KEY` environment variable if it is not provided.
         """
