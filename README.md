@@ -11,7 +11,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 ## Documentation
 
-The REST API documentation can be found on [community.sambanova.ai](https://community.sambanova.ai/c/docs/11). The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found on [docs.sambanova.ai](https://docs.sambanova.ai/cloud/). The full API of this library can be found in [api.md](api.md).
 
 ## Installation
 
