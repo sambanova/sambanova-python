@@ -8,11 +8,7 @@ from typing_extensions import Literal, overload
 import httpx
 
 from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
-from ..._utils import (
-    required_args,
-    maybe_transform,
-    async_maybe_transform,
-)
+from ..._utils import required_args, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -526,45 +522,44 @@ class CompletionsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> CompletionCreateResponse | Stream[CompletionCreateResponse]:
-        return cast(
-            CompletionCreateResponse,
-            self._post(
-                "/v1/chat/completions",
-                body=maybe_transform(
-                    {
-                        "messages": messages,
-                        "model": model,
-                        "frequency_penalty": frequency_penalty,
-                        "logit_bias": logit_bias,
-                        "logprobs": logprobs,
-                        "max_completion_tokens": max_completion_tokens,
-                        "max_tokens": max_tokens,
-                        "n": n,
-                        "parallel_tool_calls": parallel_tool_calls,
-                        "presence_penalty": presence_penalty,
-                        "response_format": response_format,
-                        "seed": seed,
-                        "stop": stop,
-                        "stream": stream,
-                        "stream_options": stream_options,
-                        "temperature": temperature,
-                        "tool_choice": tool_choice,
-                        "tools": tools,
-                        "top_k": top_k,
-                        "top_logprobs": top_logprobs,
-                        "top_p": top_p,
-                    },
-                    completion_create_params.CompletionCreateParams,
-                ),
-                options=make_request_options(
-                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-                ),
-                cast_to=cast(
-                    Any, CompletionCreateResponse
-                ),  # Union types cannot be passed in as arguments in the type system
-                stream=stream or False,
-                stream_cls=Stream[CompletionCreateResponse],
+        return self._post(
+            "/v1/chat/completions",
+            body=maybe_transform(
+                {
+                    "messages": messages,
+                    "model": model,
+                    "frequency_penalty": frequency_penalty,
+                    "logit_bias": logit_bias,
+                    "logprobs": logprobs,
+                    "max_completion_tokens": max_completion_tokens,
+                    "max_tokens": max_tokens,
+                    "n": n,
+                    "parallel_tool_calls": parallel_tool_calls,
+                    "presence_penalty": presence_penalty,
+                    "response_format": response_format,
+                    "seed": seed,
+                    "stop": stop,
+                    "stream": stream,
+                    "stream_options": stream_options,
+                    "temperature": temperature,
+                    "tool_choice": tool_choice,
+                    "tools": tools,
+                    "top_k": top_k,
+                    "top_logprobs": top_logprobs,
+                    "top_p": top_p,
+                },
+                completion_create_params.CompletionCreateParamsStreaming
+                if stream
+                else completion_create_params.CompletionCreateParamsNonStreaming,
             ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=cast(
+                Any, CompletionCreateResponse
+            ),  # Union types cannot be passed in as arguments in the type system
+            stream=stream or False,
+            stream_cls=Stream[CompletionCreateResponse],
         )
 
 
@@ -1065,45 +1060,44 @@ class AsyncCompletionsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> CompletionCreateResponse | AsyncStream[CompletionCreateResponse]:
-        return cast(
-            CompletionCreateResponse,
-            await self._post(
-                "/v1/chat/completions",
-                body=await async_maybe_transform(
-                    {
-                        "messages": messages,
-                        "model": model,
-                        "frequency_penalty": frequency_penalty,
-                        "logit_bias": logit_bias,
-                        "logprobs": logprobs,
-                        "max_completion_tokens": max_completion_tokens,
-                        "max_tokens": max_tokens,
-                        "n": n,
-                        "parallel_tool_calls": parallel_tool_calls,
-                        "presence_penalty": presence_penalty,
-                        "response_format": response_format,
-                        "seed": seed,
-                        "stop": stop,
-                        "stream": stream,
-                        "stream_options": stream_options,
-                        "temperature": temperature,
-                        "tool_choice": tool_choice,
-                        "tools": tools,
-                        "top_k": top_k,
-                        "top_logprobs": top_logprobs,
-                        "top_p": top_p,
-                    },
-                    completion_create_params.CompletionCreateParams,
-                ),
-                options=make_request_options(
-                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-                ),
-                cast_to=cast(
-                    Any, CompletionCreateResponse
-                ),  # Union types cannot be passed in as arguments in the type system
-                stream=stream or False,
-                stream_cls=AsyncStream[CompletionCreateResponse],
+        return await self._post(
+            "/v1/chat/completions",
+            body=await async_maybe_transform(
+                {
+                    "messages": messages,
+                    "model": model,
+                    "frequency_penalty": frequency_penalty,
+                    "logit_bias": logit_bias,
+                    "logprobs": logprobs,
+                    "max_completion_tokens": max_completion_tokens,
+                    "max_tokens": max_tokens,
+                    "n": n,
+                    "parallel_tool_calls": parallel_tool_calls,
+                    "presence_penalty": presence_penalty,
+                    "response_format": response_format,
+                    "seed": seed,
+                    "stop": stop,
+                    "stream": stream,
+                    "stream_options": stream_options,
+                    "temperature": temperature,
+                    "tool_choice": tool_choice,
+                    "tools": tools,
+                    "top_k": top_k,
+                    "top_logprobs": top_logprobs,
+                    "top_p": top_p,
+                },
+                completion_create_params.CompletionCreateParamsStreaming
+                if stream
+                else completion_create_params.CompletionCreateParamsNonStreaming,
             ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=cast(
+                Any, CompletionCreateResponse
+            ),  # Union types cannot be passed in as arguments in the type system
+            stream=stream or False,
+            stream_cls=AsyncStream[CompletionCreateResponse],
         )
 
 
