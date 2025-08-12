@@ -25,7 +25,7 @@ from sambanova import SambaNova, AsyncSambaNova, APIResponseValidationError
 from sambanova._types import Omit
 from sambanova._models import BaseModel, FinalRequestOptions
 from sambanova._streaming import Stream, AsyncStream
-from sambanova._exceptions import APIStatusError, SambaNovaError, APITimeoutError, APIResponseValidationError
+from sambanova._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
 from sambanova._base_client import (
     DEFAULT_TIMEOUT,
     HTTPX_DEFAULT_TIMEOUT,
@@ -336,16 +336,6 @@ class TestSambaNova:
         request = client2._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "stainless"
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
-
-    def test_validate_headers(self) -> None:
-        client = SambaNova(base_url=base_url, api_key=api_key, _strict_response_validation=True)
-        request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
-        assert request.headers.get("Authorization") == f"Bearer {api_key}"
-
-        with pytest.raises(SambaNovaError):
-            with update_env(**{"SAMBANOVA_API_KEY": Omit()}):
-                client2 = SambaNova(base_url=base_url, api_key=None, _strict_response_validation=True)
-            _ = client2
 
     def test_default_query_option(self) -> None:
         client = SambaNova(
@@ -732,11 +722,11 @@ class TestSambaNova:
             client.chat.completions.with_streaming_response.create(
                 messages=[
                     {
-                        "content": "create a poem using palindromes",
-                        "role": "user",
+                        "content": "string",
+                        "role": "system",
                     }
                 ],
-                model="string",
+                model="model",
             ).__enter__()
 
         assert _get_open_connections(self.client) == 0
@@ -750,11 +740,11 @@ class TestSambaNova:
             client.chat.completions.with_streaming_response.create(
                 messages=[
                     {
-                        "content": "create a poem using palindromes",
-                        "role": "user",
+                        "content": "string",
+                        "role": "system",
                     }
                 ],
-                model="string",
+                model="model",
             ).__enter__()
         assert _get_open_connections(self.client) == 0
 
@@ -787,11 +777,11 @@ class TestSambaNova:
         response = client.chat.completions.with_raw_response.create(
             messages=[
                 {
-                    "content": "create a poem using palindromes",
-                    "role": "user",
+                    "content": "string",
+                    "role": "system",
                 }
             ],
-            model="string",
+            model="model",
         )
 
         assert response.retries_taken == failures_before_success
@@ -819,11 +809,11 @@ class TestSambaNova:
         response = client.chat.completions.with_raw_response.create(
             messages=[
                 {
-                    "content": "create a poem using palindromes",
-                    "role": "user",
+                    "content": "string",
+                    "role": "system",
                 }
             ],
-            model="string",
+            model="model",
             extra_headers={"x-stainless-retry-count": Omit()},
         )
 
@@ -851,11 +841,11 @@ class TestSambaNova:
         response = client.chat.completions.with_raw_response.create(
             messages=[
                 {
-                    "content": "create a poem using palindromes",
-                    "role": "user",
+                    "content": "string",
+                    "role": "system",
                 }
             ],
-            model="string",
+            model="model",
             extra_headers={"x-stainless-retry-count": "42"},
         )
 
@@ -1190,16 +1180,6 @@ class TestAsyncSambaNova:
         request = client2._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "stainless"
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
-
-    def test_validate_headers(self) -> None:
-        client = AsyncSambaNova(base_url=base_url, api_key=api_key, _strict_response_validation=True)
-        request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
-        assert request.headers.get("Authorization") == f"Bearer {api_key}"
-
-        with pytest.raises(SambaNovaError):
-            with update_env(**{"SAMBANOVA_API_KEY": Omit()}):
-                client2 = AsyncSambaNova(base_url=base_url, api_key=None, _strict_response_validation=True)
-            _ = client2
 
     def test_default_query_option(self) -> None:
         client = AsyncSambaNova(
@@ -1603,11 +1583,11 @@ class TestAsyncSambaNova:
             await async_client.chat.completions.with_streaming_response.create(
                 messages=[
                     {
-                        "content": "create a poem using palindromes",
-                        "role": "user",
+                        "content": "string",
+                        "role": "system",
                     }
                 ],
-                model="string",
+                model="model",
             ).__aenter__()
 
         assert _get_open_connections(self.client) == 0
@@ -1623,11 +1603,11 @@ class TestAsyncSambaNova:
             await async_client.chat.completions.with_streaming_response.create(
                 messages=[
                     {
-                        "content": "create a poem using palindromes",
-                        "role": "user",
+                        "content": "string",
+                        "role": "system",
                     }
                 ],
-                model="string",
+                model="model",
             ).__aenter__()
         assert _get_open_connections(self.client) == 0
 
@@ -1661,11 +1641,11 @@ class TestAsyncSambaNova:
         response = await client.chat.completions.with_raw_response.create(
             messages=[
                 {
-                    "content": "create a poem using palindromes",
-                    "role": "user",
+                    "content": "string",
+                    "role": "system",
                 }
             ],
-            model="string",
+            model="model",
         )
 
         assert response.retries_taken == failures_before_success
@@ -1694,11 +1674,11 @@ class TestAsyncSambaNova:
         response = await client.chat.completions.with_raw_response.create(
             messages=[
                 {
-                    "content": "create a poem using palindromes",
-                    "role": "user",
+                    "content": "string",
+                    "role": "system",
                 }
             ],
-            model="string",
+            model="model",
             extra_headers={"x-stainless-retry-count": Omit()},
         )
 
@@ -1727,11 +1707,11 @@ class TestAsyncSambaNova:
         response = await client.chat.completions.with_raw_response.create(
             messages=[
                 {
-                    "content": "create a poem using palindromes",
-                    "role": "user",
+                    "content": "string",
+                    "role": "system",
                 }
             ],
-            model="string",
+            model="model",
             extra_headers={"x-stainless-retry-count": "42"},
         )
 
