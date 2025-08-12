@@ -28,48 +28,53 @@ pip install git+ssh://git@github.com/stainless-sdks/sambanova-python.git
 The full API of this library can be found in [api.md](api.md).
 
 ```python
+import os
 from sambanova import SambaNova
 
 client = SambaNova(
-    api_key="My API Key",
+    api_key=os.environ.get("SAMBANOVA_API_KEY"),  # This is the default and can be omitted
 )
 
-chat_completion_response = client.chat.completions.create(
+completion = client.chat.completions.create(
     messages=[
         {
-            "content": "string",
-            "role": "system",
+            "content": "create a poem using palindromes",
+            "role": "user",
         }
     ],
-    model="model",
+    model="string",
 )
-print(chat_completion_response.id)
 ```
+
+While you can provide an `api_key` keyword argument,
+we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
+to add `SAMBANOVA_API_KEY="My API Key"` to your `.env` file
+so that your API Key is not stored in source control.
 
 ## Async usage
 
 Simply import `AsyncSambaNova` instead of `SambaNova` and use `await` with each API call:
 
 ```python
+import os
 import asyncio
 from sambanova import AsyncSambaNova
 
 client = AsyncSambaNova(
-    api_key="My API Key",
+    api_key=os.environ.get("SAMBANOVA_API_KEY"),  # This is the default and can be omitted
 )
 
 
 async def main() -> None:
-    chat_completion_response = await client.chat.completions.create(
+    completion = await client.chat.completions.create(
         messages=[
             {
-                "content": "string",
-                "role": "system",
+                "content": "create a poem using palindromes",
+                "role": "user",
             }
         ],
-        model="model",
+        model="string",
     )
-    print(chat_completion_response.id)
 
 
 asyncio.run(main())
@@ -101,16 +106,15 @@ async def main() -> None:
         api_key="My API Key",
         http_client=DefaultAioHttpClient(),
     ) as client:
-        chat_completion_response = await client.chat.completions.create(
+        completion = await client.chat.completions.create(
             messages=[
                 {
-                    "content": "string",
-                    "role": "system",
+                    "content": "create a poem using palindromes",
+                    "role": "user",
                 }
             ],
-            model="model",
+            model="string",
         )
-        print(chat_completion_response.id)
 
 
 asyncio.run(main())
@@ -123,22 +127,20 @@ We provide support for streaming responses using Server Side Events (SSE).
 ```python
 from sambanova import SambaNova
 
-client = SambaNova(
-    api_key="My API Key",
-)
+client = SambaNova()
 
 stream = client.chat.completions.create(
     messages=[
         {
-            "content": "string",
-            "role": "system",
+            "content": "create a poem using palindromes",
+            "role": "user",
         }
     ],
-    model="model",
+    model="string",
     stream=True,
 )
-for chat_completion_response in stream:
-    print(chat_completion_response.id)
+for completion in stream:
+    print(completion)
 ```
 
 The async client uses the exact same interface.
@@ -146,22 +148,20 @@ The async client uses the exact same interface.
 ```python
 from sambanova import AsyncSambaNova
 
-client = AsyncSambaNova(
-    api_key="My API Key",
-)
+client = AsyncSambaNova()
 
 stream = await client.chat.completions.create(
     messages=[
         {
-            "content": "string",
-            "role": "system",
+            "content": "create a poem using palindromes",
+            "role": "user",
         }
     ],
-    model="model",
+    model="string",
     stream=True,
 )
-async for chat_completion_response in stream:
-    print(chat_completion_response.id)
+async for completion in stream:
+    print(completion)
 ```
 
 ## Using types
@@ -180,21 +180,19 @@ Nested parameters are dictionaries, typed using `TypedDict`, for example:
 ```python
 from sambanova import SambaNova
 
-client = SambaNova(
-    api_key="My API Key",
-)
+client = SambaNova()
 
-chat_completion_response = client.chat.completions.create(
+completion = client.chat.completions.create(
     messages=[
         {
-            "content": "string",
-            "role": "system",
+            "content": "create a poem using palindromes",
+            "role": "user",
         }
     ],
-    model="model",
-    response_format={"type": "json_object"},
+    model="string",
+    response_format={},
 )
-print(chat_completion_response.response_format)
+print(completion.response_format)
 ```
 
 ## Handling errors
@@ -210,19 +208,17 @@ All errors inherit from `sambanova.APIError`.
 import sambanova
 from sambanova import SambaNova
 
-client = SambaNova(
-    api_key="My API Key",
-)
+client = SambaNova()
 
 try:
     client.chat.completions.create(
         messages=[
             {
-                "content": "string",
-                "role": "system",
+                "content": "create a poem using palindromes",
+                "role": "user",
             }
         ],
-        model="model",
+        model="string",
     )
 except sambanova.APIConnectionError as e:
     print("The server could not be reached")
@@ -261,7 +257,6 @@ from sambanova import SambaNova
 
 # Configure the default for all requests:
 client = SambaNova(
-    api_key="My API Key",
     # default is 2
     max_retries=0,
 )
@@ -270,11 +265,11 @@ client = SambaNova(
 client.with_options(max_retries=5).chat.completions.create(
     messages=[
         {
-            "content": "string",
-            "role": "system",
+            "content": "create a poem using palindromes",
+            "role": "user",
         }
     ],
-    model="model",
+    model="string",
 )
 ```
 
@@ -288,14 +283,12 @@ from sambanova import SambaNova
 
 # Configure the default for all requests:
 client = SambaNova(
-    api_key="My API Key",
     # 20 seconds (default is 1 minute)
     timeout=20.0,
 )
 
 # More granular control:
 client = SambaNova(
-    api_key="My API Key",
     timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
 )
 
@@ -303,11 +296,11 @@ client = SambaNova(
 client.with_options(timeout=5.0).chat.completions.create(
     messages=[
         {
-            "content": "string",
-            "role": "system",
+            "content": "create a poem using palindromes",
+            "role": "user",
         }
     ],
-    model="model",
+    model="string",
 )
 ```
 
@@ -348,20 +341,18 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 ```py
 from sambanova import SambaNova
 
-client = SambaNova(
-    api_key="My API Key",
-)
+client = SambaNova()
 response = client.chat.completions.with_raw_response.create(
     messages=[{
-        "content": "string",
-        "role": "system",
+        "content": "create a poem using palindromes",
+        "role": "user",
     }],
-    model="model",
+    model="string",
 )
 print(response.headers.get('X-My-Header'))
 
 completion = response.parse()  # get the object that `chat.completions.create()` would have returned
-print(completion.id)
+print(completion)
 ```
 
 These methods return an [`APIResponse`](https://github.com/stainless-sdks/sambanova-python/tree/main/src/sambanova/_response.py) object.
@@ -378,11 +369,11 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 with client.chat.completions.with_streaming_response.create(
     messages=[
         {
-            "content": "string",
-            "role": "system",
+            "content": "create a poem using palindromes",
+            "role": "user",
         }
     ],
-    model="model",
+    model="string",
 ) as response:
     print(response.headers.get("X-My-Header"))
 
@@ -439,7 +430,6 @@ import httpx
 from sambanova import SambaNova, DefaultHttpxClient
 
 client = SambaNova(
-    api_key="My API Key",
     # Or use the `SAMBA_NOVA_BASE_URL` env var
     base_url="http://my.test.server.example.com:8083",
     http_client=DefaultHttpxClient(
@@ -462,9 +452,7 @@ By default the library closes underlying HTTP connections whenever the client is
 ```py
 from sambanova import SambaNova
 
-with SambaNova(
-    api_key="My API Key",
-) as client:
+with SambaNova() as client:
   # make requests here
   ...
 
