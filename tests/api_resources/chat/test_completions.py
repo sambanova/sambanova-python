@@ -9,7 +9,7 @@ import pytest
 
 from sambanova import SambaNova, AsyncSambaNova
 from tests.utils import assert_matches_type
-from sambanova.types.chat import ChatCompletionResponse
+from sambanova.types.chat import CompletionCreateResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -22,83 +22,96 @@ class TestCompletions:
         completion = client.chat.completions.create(
             messages=[
                 {
-                    "content": "string",
-                    "role": "system",
+                    "content": "create a poem using palindromes",
+                    "role": "user",
                 }
             ],
-            model="model",
+            model="string",
         )
-        assert_matches_type(ChatCompletionResponse, completion, path=["response"])
+        assert_matches_type(CompletionCreateResponse, completion, path=["response"])
 
     @parametrize
     def test_method_create_with_all_params_overload_1(self, client: SambaNova) -> None:
         completion = client.chat.completions.create(
             messages=[
                 {
-                    "content": "string",
-                    "role": "system",
+                    "content": "create a poem using palindromes",
+                    "role": "user",
                 }
             ],
-            model="model",
-            max_tokens=0,
+            model="string",
+            frequency_penalty=-2,
+            logit_bias={"foo": 0},
+            logprobs=True,
+            max_completion_tokens=2048,
+            max_tokens=2048,
+            n=1,
+            parallel_tool_calls=True,
+            presence_penalty=-2,
             response_format={
+                "json_schema": {
+                    "name": "name",
+                    "schema": {},
+                    "strict": True,
+                    "title": "title",
+                },
                 "type": "json_object",
-                "json_schema": {"foo": "bar"},
             },
-            stop="string",
+            seed=0,
+            stop="\n",
             stream=False,
             stream_options={"include_usage": True},
-            temperature=0,
-            tool_choice="auto",
+            temperature=0.7,
+            tool_choice="none",
             tools=[
                 {
-                    "description": "description",
-                    "name": "name",
-                    "parameters": {
-                        "properties": {"foo": "bar"},
-                        "type": "object",
-                        "required": ["string"],
+                    "function": {
+                        "name": "name",
+                        "description": "description",
+                        "parameters": {"foo": "bar"},
                     },
+                    "type": "type",
                 }
             ],
-            top_k=0,
-            top_p=0,
+            top_k=5,
+            top_logprobs=0,
+            top_p=1,
         )
-        assert_matches_type(ChatCompletionResponse, completion, path=["response"])
+        assert_matches_type(CompletionCreateResponse, completion, path=["response"])
 
     @parametrize
     def test_raw_response_create_overload_1(self, client: SambaNova) -> None:
         response = client.chat.completions.with_raw_response.create(
             messages=[
                 {
-                    "content": "string",
-                    "role": "system",
+                    "content": "create a poem using palindromes",
+                    "role": "user",
                 }
             ],
-            model="model",
+            model="string",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         completion = response.parse()
-        assert_matches_type(ChatCompletionResponse, completion, path=["response"])
+        assert_matches_type(CompletionCreateResponse, completion, path=["response"])
 
     @parametrize
     def test_streaming_response_create_overload_1(self, client: SambaNova) -> None:
         with client.chat.completions.with_streaming_response.create(
             messages=[
                 {
-                    "content": "string",
-                    "role": "system",
+                    "content": "create a poem using palindromes",
+                    "role": "user",
                 }
             ],
-            model="model",
+            model="string",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             completion = response.parse()
-            assert_matches_type(ChatCompletionResponse, completion, path=["response"])
+            assert_matches_type(CompletionCreateResponse, completion, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -107,11 +120,11 @@ class TestCompletions:
         completion_stream = client.chat.completions.create(
             messages=[
                 {
-                    "content": "string",
-                    "role": "system",
+                    "content": "create a poem using palindromes",
+                    "role": "user",
                 }
             ],
-            model="model",
+            model="string",
             stream=True,
         )
         completion_stream.response.close()
@@ -121,34 +134,47 @@ class TestCompletions:
         completion_stream = client.chat.completions.create(
             messages=[
                 {
-                    "content": "string",
-                    "role": "system",
+                    "content": "create a poem using palindromes",
+                    "role": "user",
                 }
             ],
-            model="model",
+            model="string",
             stream=True,
-            max_tokens=0,
+            frequency_penalty=-2,
+            logit_bias={"foo": 0},
+            logprobs=True,
+            max_completion_tokens=2048,
+            max_tokens=2048,
+            n=1,
+            parallel_tool_calls=True,
+            presence_penalty=-2,
             response_format={
+                "json_schema": {
+                    "name": "name",
+                    "schema": {},
+                    "strict": True,
+                    "title": "title",
+                },
                 "type": "json_object",
-                "json_schema": {"foo": "bar"},
             },
-            stop="string",
+            seed=0,
+            stop="\n",
             stream_options={"include_usage": True},
-            temperature=0,
-            tool_choice="auto",
+            temperature=0.7,
+            tool_choice="none",
             tools=[
                 {
-                    "description": "description",
-                    "name": "name",
-                    "parameters": {
-                        "properties": {"foo": "bar"},
-                        "type": "object",
-                        "required": ["string"],
+                    "function": {
+                        "name": "name",
+                        "description": "description",
+                        "parameters": {"foo": "bar"},
                     },
+                    "type": "type",
                 }
             ],
-            top_k=0,
-            top_p=0,
+            top_k=5,
+            top_logprobs=0,
+            top_p=1,
         )
         completion_stream.response.close()
 
@@ -157,11 +183,11 @@ class TestCompletions:
         response = client.chat.completions.with_raw_response.create(
             messages=[
                 {
-                    "content": "string",
-                    "role": "system",
+                    "content": "create a poem using palindromes",
+                    "role": "user",
                 }
             ],
-            model="model",
+            model="string",
             stream=True,
         )
 
@@ -174,11 +200,11 @@ class TestCompletions:
         with client.chat.completions.with_streaming_response.create(
             messages=[
                 {
-                    "content": "string",
-                    "role": "system",
+                    "content": "create a poem using palindromes",
+                    "role": "user",
                 }
             ],
-            model="model",
+            model="string",
             stream=True,
         ) as response:
             assert not response.is_closed
@@ -200,83 +226,96 @@ class TestAsyncCompletions:
         completion = await async_client.chat.completions.create(
             messages=[
                 {
-                    "content": "string",
-                    "role": "system",
+                    "content": "create a poem using palindromes",
+                    "role": "user",
                 }
             ],
-            model="model",
+            model="string",
         )
-        assert_matches_type(ChatCompletionResponse, completion, path=["response"])
+        assert_matches_type(CompletionCreateResponse, completion, path=["response"])
 
     @parametrize
     async def test_method_create_with_all_params_overload_1(self, async_client: AsyncSambaNova) -> None:
         completion = await async_client.chat.completions.create(
             messages=[
                 {
-                    "content": "string",
-                    "role": "system",
+                    "content": "create a poem using palindromes",
+                    "role": "user",
                 }
             ],
-            model="model",
-            max_tokens=0,
+            model="string",
+            frequency_penalty=-2,
+            logit_bias={"foo": 0},
+            logprobs=True,
+            max_completion_tokens=2048,
+            max_tokens=2048,
+            n=1,
+            parallel_tool_calls=True,
+            presence_penalty=-2,
             response_format={
+                "json_schema": {
+                    "name": "name",
+                    "schema": {},
+                    "strict": True,
+                    "title": "title",
+                },
                 "type": "json_object",
-                "json_schema": {"foo": "bar"},
             },
-            stop="string",
+            seed=0,
+            stop="\n",
             stream=False,
             stream_options={"include_usage": True},
-            temperature=0,
-            tool_choice="auto",
+            temperature=0.7,
+            tool_choice="none",
             tools=[
                 {
-                    "description": "description",
-                    "name": "name",
-                    "parameters": {
-                        "properties": {"foo": "bar"},
-                        "type": "object",
-                        "required": ["string"],
+                    "function": {
+                        "name": "name",
+                        "description": "description",
+                        "parameters": {"foo": "bar"},
                     },
+                    "type": "type",
                 }
             ],
-            top_k=0,
-            top_p=0,
+            top_k=5,
+            top_logprobs=0,
+            top_p=1,
         )
-        assert_matches_type(ChatCompletionResponse, completion, path=["response"])
+        assert_matches_type(CompletionCreateResponse, completion, path=["response"])
 
     @parametrize
     async def test_raw_response_create_overload_1(self, async_client: AsyncSambaNova) -> None:
         response = await async_client.chat.completions.with_raw_response.create(
             messages=[
                 {
-                    "content": "string",
-                    "role": "system",
+                    "content": "create a poem using palindromes",
+                    "role": "user",
                 }
             ],
-            model="model",
+            model="string",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         completion = await response.parse()
-        assert_matches_type(ChatCompletionResponse, completion, path=["response"])
+        assert_matches_type(CompletionCreateResponse, completion, path=["response"])
 
     @parametrize
     async def test_streaming_response_create_overload_1(self, async_client: AsyncSambaNova) -> None:
         async with async_client.chat.completions.with_streaming_response.create(
             messages=[
                 {
-                    "content": "string",
-                    "role": "system",
+                    "content": "create a poem using palindromes",
+                    "role": "user",
                 }
             ],
-            model="model",
+            model="string",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             completion = await response.parse()
-            assert_matches_type(ChatCompletionResponse, completion, path=["response"])
+            assert_matches_type(CompletionCreateResponse, completion, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -285,11 +324,11 @@ class TestAsyncCompletions:
         completion_stream = await async_client.chat.completions.create(
             messages=[
                 {
-                    "content": "string",
-                    "role": "system",
+                    "content": "create a poem using palindromes",
+                    "role": "user",
                 }
             ],
-            model="model",
+            model="string",
             stream=True,
         )
         await completion_stream.response.aclose()
@@ -299,34 +338,47 @@ class TestAsyncCompletions:
         completion_stream = await async_client.chat.completions.create(
             messages=[
                 {
-                    "content": "string",
-                    "role": "system",
+                    "content": "create a poem using palindromes",
+                    "role": "user",
                 }
             ],
-            model="model",
+            model="string",
             stream=True,
-            max_tokens=0,
+            frequency_penalty=-2,
+            logit_bias={"foo": 0},
+            logprobs=True,
+            max_completion_tokens=2048,
+            max_tokens=2048,
+            n=1,
+            parallel_tool_calls=True,
+            presence_penalty=-2,
             response_format={
+                "json_schema": {
+                    "name": "name",
+                    "schema": {},
+                    "strict": True,
+                    "title": "title",
+                },
                 "type": "json_object",
-                "json_schema": {"foo": "bar"},
             },
-            stop="string",
+            seed=0,
+            stop="\n",
             stream_options={"include_usage": True},
-            temperature=0,
-            tool_choice="auto",
+            temperature=0.7,
+            tool_choice="none",
             tools=[
                 {
-                    "description": "description",
-                    "name": "name",
-                    "parameters": {
-                        "properties": {"foo": "bar"},
-                        "type": "object",
-                        "required": ["string"],
+                    "function": {
+                        "name": "name",
+                        "description": "description",
+                        "parameters": {"foo": "bar"},
                     },
+                    "type": "type",
                 }
             ],
-            top_k=0,
-            top_p=0,
+            top_k=5,
+            top_logprobs=0,
+            top_p=1,
         )
         await completion_stream.response.aclose()
 
@@ -335,11 +387,11 @@ class TestAsyncCompletions:
         response = await async_client.chat.completions.with_raw_response.create(
             messages=[
                 {
-                    "content": "string",
-                    "role": "system",
+                    "content": "create a poem using palindromes",
+                    "role": "user",
                 }
             ],
-            model="model",
+            model="string",
             stream=True,
         )
 
@@ -352,11 +404,11 @@ class TestAsyncCompletions:
         async with async_client.chat.completions.with_streaming_response.create(
             messages=[
                 {
-                    "content": "string",
-                    "role": "system",
+                    "content": "create a poem using palindromes",
+                    "role": "user",
                 }
             ],
-            model="model",
+            model="string",
             stream=True,
         ) as response:
             assert not response.is_closed
