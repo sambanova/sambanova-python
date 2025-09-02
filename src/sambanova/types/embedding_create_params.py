@@ -2,14 +2,16 @@
 
 from __future__ import annotations
 
-from typing import List, Union
+from typing import Union
 from typing_extensions import Literal, Required, TypedDict
+
+from .._types import SequenceNotStr
 
 __all__ = ["EmbeddingCreateParams"]
 
 
 class EmbeddingCreateParams(TypedDict, total=False):
-    input: Required[Union[str, List[str]]]
+    input: Required[Union[str, SequenceNotStr[str]]]
     """Input text to embed.
 
     to embed multiple inputs in a single request, pass an array of strings. The

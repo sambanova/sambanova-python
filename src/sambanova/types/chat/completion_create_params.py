@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable, Optional
+from typing import Dict, Union, Iterable, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
+
+from ..._types import SequenceNotStr
 
 __all__ = [
     "CompletionCreateParamsBase",
@@ -141,7 +143,7 @@ class CompletionCreateParamsBase(TypedDict, total=False):
     seed: Optional[int]
     """This is not yet supported by our models."""
 
-    stop: Union[Optional[str], List[str], None]
+    stop: Union[Optional[str], SequenceNotStr[str], None]
     """Sequences where the API will stop generating tokens.
 
     The returned text will not contain the stop sequence.
