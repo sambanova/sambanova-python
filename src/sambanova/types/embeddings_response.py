@@ -70,7 +70,7 @@ class Usage(BaseModel):
     time_to_first_token: Optional[float] = None
     """also TTF, time (in seconds) taken to generate the first token"""
 
-    total_latency: Optional[int] = None
+    total_latency: Optional[float] = None
     """total time (in seconds) taken to generate the full generation"""
 
     total_tokens: Optional[int] = None
