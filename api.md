@@ -75,4 +75,4 @@ from sambanova.types import ModelResponse, ModelsResponse
 Methods:
 
 - <code title="get /v1/models/{model_id}">client.models.<a href="./src/sambanova/resources/models.py">retrieve</a>(model_id) -> <a href="./src/sambanova/types/model_response.py">ModelResponse</a></code>
-- <code title="get /v1/models">client.models.<a href="./src/sambanova/resources/models.py">list</a>() -> None</code>
+- <code title="get /v1/models">client.models.<a href="./src/sambanova/resources/models.py">list</a>() -> <a href="./src/sambanova/types/models_response.py">ModelsResponse</a></code>
