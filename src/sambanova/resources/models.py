@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import httpx
 
-from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
+from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -15,6 +15,7 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.model_response import ModelResponse
+from ..types.models_response import ModelsResponse
 
 __all__ = ["ModelsResource", "AsyncModelsResource"]
 
@@ -83,15 +84,14 @@ class ModelsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> None:
+    ) -> ModelsResponse:
         """Get environment's available model list metadata"""
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._get(
             "/v1/models",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=ModelsResponse,
         )
 
 
@@ -159,15 +159,14 @@ class AsyncModelsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> None:
+    ) -> ModelsResponse:
         """Get environment's available model list metadata"""
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._get(
             "/v1/models",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=ModelsResponse,
         )
 
 
