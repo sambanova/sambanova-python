@@ -16,8 +16,8 @@ The REST API documentation can be found on [docs.sambanova.ai](https://docs.samb
 ## Installation
 
 ```sh
-# install from this staging repo
-pip install git+ssh://git@github.com/stainless-sdks/sambanova-python.git
+# install from the production repo
+pip install git+ssh://git@github.com/sambanova/sambanova-python.git
 ```
 
 > [!NOTE]
@@ -89,8 +89,8 @@ By default, the async client uses `httpx` for HTTP requests. However, for improv
 You can enable this by installing `aiohttp`:
 
 ```sh
-# install from this staging repo
-pip install 'sambanova[aiohttp] @ git+ssh://git@github.com/stainless-sdks/sambanova-python.git'
+# install from the production repo
+pip install 'sambanova[aiohttp] @ git+ssh://git@github.com/sambanova/sambanova-python.git'
 ```
 
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
@@ -190,10 +190,28 @@ completion = client.chat.completions.create(
         }
     ],
     model="string",
-    response_format={},
+    stream_options={},
 )
-print(completion.response_format)
+print(completion.stream_options)
 ```
+
+## File uploads
+
+Request parameters that correspond to file uploads can be passed as `bytes`, or a [`PathLike`](https://docs.python.org/3/library/os.html#os.PathLike) instance or a tuple of `(filename, contents, media type)`.
+
+```python
+from pathlib import Path
+from sambanova import SambaNova
+
+client = SambaNova()
+
+client.audio.transcriptions.create(
+    file=Path("/path/to/file"),
+    model="Whisper-Large-v3",
+)
+```
+
+The async client uses the exact same interface. If you pass a [`PathLike`](https://docs.python.org/3/library/os.html#os.PathLike) instance, the file contents will be read asynchronously automatically.
 
 ## Handling errors
 
@@ -355,9 +373,9 @@ completion = response.parse()  # get the object that `chat.completions.create()`
 print(completion)
 ```
 
-These methods return an [`APIResponse`](https://github.com/stainless-sdks/sambanova-python/tree/main/src/sambanova/_response.py) object.
+These methods return an [`APIResponse`](https://github.com/sambanova/sambanova-python/tree/main/src/sambanova/_response.py) object.
 
-The async client returns an [`AsyncAPIResponse`](https://github.com/stainless-sdks/sambanova-python/tree/main/src/sambanova/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
+The async client returns an [`AsyncAPIResponse`](https://github.com/sambanova/sambanova-python/tree/main/src/sambanova/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
 
 #### `.with_streaming_response`
 
@@ -469,7 +487,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/sambanova-python/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/sambanova/sambanova-python/issues) with questions, bugs, or suggestions.
 
 ### Determining the installed version
 

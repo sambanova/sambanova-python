@@ -17,6 +17,7 @@ __all__ = [
     "ChoiceLogprobsContent",
     "ChoiceLogprobsContentTopLogprobs",
     "Usage",
+    "UsagePromptTokensDetails",
 ]
 
 
@@ -49,6 +50,9 @@ class ChoiceMessageToolCall(BaseModel):
 
     type: Literal["function"]
     """type of the tool cal. only `function` is supported."""
+
+    index: Optional[int] = None
+    """index of tool call chunk only used when using streaming"""
 
     __pydantic_extra__: Dict[str, object] = FieldInfo(init=False)  # pyright: ignore[reportIncompatibleVariableOverride]
     if TYPE_CHECKING:
@@ -144,6 +148,18 @@ class Choice(BaseModel):
         def __getattr__(self, attr: str) -> object: ...
 
 
+class UsagePromptTokensDetails(BaseModel):
+    cached_tokens: Optional[int] = None
+    """amount of cached tokens"""
+
+    __pydantic_extra__: Dict[str, object] = FieldInfo(init=False)  # pyright: ignore[reportIncompatibleVariableOverride]
+    if TYPE_CHECKING:
+        # Stub to indicate that arbitrary properties are accepted.
+        # To access properties that are not valid identifiers you can use `getattr`, e.g.
+        # `getattr(obj, '$type')`
+        def __getattr__(self, attr: str) -> object: ...
+
+
 class Usage(BaseModel):
     acceptance_rate: Optional[float] = None
     """acceptance rate"""
@@ -157,6 +173,9 @@ class Usage(BaseModel):
     completion_tokens_after_first_per_sec_first_ten: Optional[float] = None
     """completion tokens per second after first token generation first ten"""
 
+    completion_tokens_after_first_per_sec_graph: Optional[float] = None
+    """completion tokens per second after first token generation"""
+
     completion_tokens_per_sec: Optional[float] = None
     """completion tokens per second"""
 
@@ -169,13 +188,16 @@ class Usage(BaseModel):
     prompt_tokens: Optional[int] = None
     """number of tokens used in the prompt sent"""
 
+    prompt_tokens_details: Optional[UsagePromptTokensDetails] = None
+    """Extra tokens details"""
+
     start_time: Optional[float] = None
     """The Unix timestamp (in seconds) of when the generation started."""
 
     time_to_first_token: Optional[float] = None
     """also TTF, time (in seconds) taken to generate the first token"""
 
-    total_latency: Optional[int] = None
+    total_latency: Optional[float] = None
     """total time (in seconds) taken to generate the full generation"""
 
     total_tokens: Optional[int] = None
@@ -211,4 +233,7 @@ class ChatCompletionResponse(BaseModel):
     """Backend configuration that the model runs with."""
 
     usage: Optional[Usage] = None
-    """Usage metrics for the completion request"""
+    """
+    Usage metrics for the completion, embeddings,transcription or translation
+    request
+    """
