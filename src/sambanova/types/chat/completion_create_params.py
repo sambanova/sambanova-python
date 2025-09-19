@@ -365,6 +365,9 @@ class MessageAssistantMessageTyped(TypedDict, total=False):
     role: Required[Literal["assistant"]]
     """The role of the messages author, in this case `assistant`."""
 
+    channel: Optional[str]
+    """Channel (returned by reasoning models like gpt oss)"""
+
     reasoning: Optional[str]
     """Reasoning (returned by reasoning models like gpt oss)"""
 

@@ -67,6 +67,12 @@ class ChoiceDelta(BaseModel):
     content: Optional[str] = None
     """The contents of the assistant message."""
 
+    channel: Optional[str] = None
+    """Channel (returned by reasoning models like gpt oss)"""
+
+    reasoning: Optional[str] = None
+    """Reasoning (returned by reasoning models like gpt oss)"""
+
     role: Optional[Literal["assistant", "user", "system", "tool"]] = None
     """The role of the messages author"""
 
