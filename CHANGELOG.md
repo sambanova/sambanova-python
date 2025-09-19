@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.1.0-alpha.2 (2025-09-19)
+
+Full Changelog: [v0.1.0-alpha.1...v0.1.0-alpha.2](https://github.com/sambanova/sambanova-python/compare/v0.1.0-alpha.1...v0.1.0-alpha.2)
+
+### Features
+
+* **api:** add reasoning and channel param to messages delta ([73fe8e2](https://github.com/sambanova/sambanova-python/commit/73fe8e21c776b789a963c9659b1ac94b02e0cb08))
+
+
+### Chores
+
+* do not install brew dependencies in ./scripts/bootstrap by default ([c574a29](https://github.com/sambanova/sambanova-python/commit/c574a2976746c38ad9b1b50b4a0bedc70a873fe6))
+* **types:** change optional parameter type from NotGiven to Omit ([ac23420](https://github.com/sambanova/sambanova-python/commit/ac23420d9e64ec7a26f15c3c783d7d3c3df139b2))
+
 ## 0.1.0-alpha.1 (2025-09-17)
 
 Full Changelog: [v0.0.1-alpha.0...v0.1.0-alpha.1](https://github.com/sambanova/sambanova-python/compare/v0.0.1-alpha.0...v0.1.0-alpha.1)
