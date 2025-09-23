@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.0 (2025-09-22)
+
+Full Changelog: [v0.1.0-alpha.2...v1.1.0](https://github.com/sambanova/sambanova-python/compare/v0.1.0-alpha.2...v1.1.0)
+
+### Chores
+
+* **internal:** trigger CI ([c83c129](https://github.com/sambanova/sambanova-python/commit/c83c129f4cdc60e2940fe9f87edb3e082c70ad72))
+
 ## 0.1.0-alpha.2 (2025-09-19)
 
 Full Changelog: [v0.1.0-alpha.1...v0.1.0-alpha.2](https://github.com/sambanova/sambanova-python/compare/v0.1.0-alpha.1...v0.1.0-alpha.2)
