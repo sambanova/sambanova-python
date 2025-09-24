@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.1 (2025-09-24)
+
+Full Changelog: [v1.1.0...v1.1.1](https://github.com/sambanova/sambanova-python/compare/v1.1.0...v1.1.1)
+
+### Bug Fixes
+
+* **compat:** compat with `pydantic&lt;2.8.0` when using additional fields ([3e62306](https://github.com/sambanova/sambanova-python/commit/3e6230676555a1f0c75e158014a035d337126f5d))
+
 ## 1.1.0 (2025-09-22)
 
 Full Changelog: [v0.1.0-alpha.2...v1.1.0](https://github.com/sambanova/sambanova-python/compare/v0.1.0-alpha.2...v1.1.0)
