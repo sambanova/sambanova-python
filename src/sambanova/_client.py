@@ -93,7 +93,7 @@ class SambaNova(SyncAPIClient):
         if base_url is None:
             base_url = os.environ.get("SAMBA_NOVA_BASE_URL")
         if base_url is None:
-            base_url = f"https://api.sambanova.ai"
+            base_url = f"https://api.sambanova.ai/v1"
 
         super().__init__(
             version=__version__,
@@ -269,7 +269,7 @@ class AsyncSambaNova(AsyncAPIClient):
         if base_url is None:
             base_url = os.environ.get("SAMBA_NOVA_BASE_URL")
         if base_url is None:
-            base_url = f"https://api.sambanova.ai"
+            base_url = f"https://api.sambanova.ai/v1"
 
         super().__init__(
             version=__version__,
