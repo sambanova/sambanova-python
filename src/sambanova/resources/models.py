@@ -68,7 +68,7 @@ class ModelsResource(SyncAPIResource):
         if not model_id:
             raise ValueError(f"Expected a non-empty value for `model_id` but received {model_id!r}")
         return self._get(
-            f"/v1/models/{model_id}",
+            f"/models/{model_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -87,7 +87,7 @@ class ModelsResource(SyncAPIResource):
     ) -> ModelsResponse:
         """Get environment's available model list metadata"""
         return self._get(
-            "/v1/models",
+            "/models",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -143,7 +143,7 @@ class AsyncModelsResource(AsyncAPIResource):
         if not model_id:
             raise ValueError(f"Expected a non-empty value for `model_id` but received {model_id!r}")
         return await self._get(
-            f"/v1/models/{model_id}",
+            f"/models/{model_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -162,7 +162,7 @@ class AsyncModelsResource(AsyncAPIResource):
     ) -> ModelsResponse:
         """Get environment's available model list metadata"""
         return await self._get(
-            "/v1/models",
+            "/models",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

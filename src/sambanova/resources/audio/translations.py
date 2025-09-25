@@ -649,7 +649,7 @@ class TranslationsResource(SyncAPIResource):
         # multipart/form-data; boundary=---abc--
         extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
         return self._post(
-            "/v1/audio/translations",
+            "/audio/translations",
             body=maybe_transform(
                 body,
                 translation_create_params.TranslationCreateParamsStreaming
@@ -1292,7 +1292,7 @@ class AsyncTranslationsResource(AsyncAPIResource):
         # multipart/form-data; boundary=---abc--
         extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
         return await self._post(
-            "/v1/audio/translations",
+            "/audio/translations",
             body=await async_maybe_transform(
                 body,
                 translation_create_params.TranslationCreateParamsStreaming

@@ -726,7 +726,7 @@ class TestSambaNova:
     @mock.patch("sambanova._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter, client: SambaNova) -> None:
-        respx_mock.post("/v1/chat/completions").mock(side_effect=httpx.TimeoutException("Test timeout error"))
+        respx_mock.post("/chat/completions").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
             client.chat.completions.with_streaming_response.create(
@@ -744,7 +744,7 @@ class TestSambaNova:
     @mock.patch("sambanova._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter, client: SambaNova) -> None:
-        respx_mock.post("/v1/chat/completions").mock(return_value=httpx.Response(500))
+        respx_mock.post("/chat/completions").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
             client.chat.completions.with_streaming_response.create(
@@ -782,7 +782,7 @@ class TestSambaNova:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/v1/chat/completions").mock(side_effect=retry_handler)
+        respx_mock.post("/chat/completions").mock(side_effect=retry_handler)
 
         response = client.chat.completions.with_raw_response.create(
             messages=[
@@ -814,7 +814,7 @@ class TestSambaNova:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/v1/chat/completions").mock(side_effect=retry_handler)
+        respx_mock.post("/chat/completions").mock(side_effect=retry_handler)
 
         response = client.chat.completions.with_raw_response.create(
             messages=[
@@ -846,7 +846,7 @@ class TestSambaNova:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/v1/chat/completions").mock(side_effect=retry_handler)
+        respx_mock.post("/chat/completions").mock(side_effect=retry_handler)
 
         response = client.chat.completions.with_raw_response.create(
             messages=[
@@ -1597,7 +1597,7 @@ class TestAsyncSambaNova:
     async def test_retrying_timeout_errors_doesnt_leak(
         self, respx_mock: MockRouter, async_client: AsyncSambaNova
     ) -> None:
-        respx_mock.post("/v1/chat/completions").mock(side_effect=httpx.TimeoutException("Test timeout error"))
+        respx_mock.post("/chat/completions").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
             await async_client.chat.completions.with_streaming_response.create(
@@ -1617,7 +1617,7 @@ class TestAsyncSambaNova:
     async def test_retrying_status_errors_doesnt_leak(
         self, respx_mock: MockRouter, async_client: AsyncSambaNova
     ) -> None:
-        respx_mock.post("/v1/chat/completions").mock(return_value=httpx.Response(500))
+        respx_mock.post("/chat/completions").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
             await async_client.chat.completions.with_streaming_response.create(
@@ -1656,7 +1656,7 @@ class TestAsyncSambaNova:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/v1/chat/completions").mock(side_effect=retry_handler)
+        respx_mock.post("/chat/completions").mock(side_effect=retry_handler)
 
         response = await client.chat.completions.with_raw_response.create(
             messages=[
@@ -1689,7 +1689,7 @@ class TestAsyncSambaNova:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/v1/chat/completions").mock(side_effect=retry_handler)
+        respx_mock.post("/chat/completions").mock(side_effect=retry_handler)
 
         response = await client.chat.completions.with_raw_response.create(
             messages=[
@@ -1722,7 +1722,7 @@ class TestAsyncSambaNova:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/v1/chat/completions").mock(side_effect=retry_handler)
+        respx_mock.post("/chat/completions").mock(side_effect=retry_handler)
 
         response = await client.chat.completions.with_raw_response.create(
             messages=[

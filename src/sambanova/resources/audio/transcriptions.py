@@ -649,7 +649,7 @@ class TranscriptionsResource(SyncAPIResource):
         # multipart/form-data; boundary=---abc--
         extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
         return self._post(
-            "/v1/audio/transcriptions",
+            "/audio/transcriptions",
             body=maybe_transform(
                 body,
                 transcription_create_params.TranscriptionCreateParamsStreaming
@@ -1292,7 +1292,7 @@ class AsyncTranscriptionsResource(AsyncAPIResource):
         # multipart/form-data; boundary=---abc--
         extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
         return await self._post(
-            "/v1/audio/transcriptions",
+            "/audio/transcriptions",
             body=await async_maybe_transform(
                 body,
                 transcription_create_params.TranscriptionCreateParamsStreaming

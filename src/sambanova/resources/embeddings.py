@@ -76,7 +76,7 @@ class EmbeddingsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/v1/embeddings",
+            "/embeddings",
             body=maybe_transform(
                 {
                     "input": input,
@@ -143,7 +143,7 @@ class AsyncEmbeddingsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/v1/embeddings",
+            "/embeddings",
             body=await async_maybe_transform(
                 {
                     "input": input,
