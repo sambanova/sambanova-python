@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.1.2 (2025-09-27)
+
+Full Changelog: [v1.1.1...v1.1.2](https://github.com/sambanova/sambanova-python/compare/v1.1.1...v1.1.2)
+
+### Features
+
+* **api:** fix delta dict structure ([ae249ac](https://github.com/sambanova/sambanova-python/commit/ae249ac8250d2fac41586ef4a4097b34465d4639))
+* **api:** fix delta object type for chat completions ([92c5870](https://github.com/sambanova/sambanova-python/commit/92c58701837f0122494fe55172669a0e5d61a92a))
+* **api:** fix streaming event models ([c974b4c](https://github.com/sambanova/sambanova-python/commit/c974b4ccafa74399ad155ab2e1036d304796addd))
+* **api:** keep additional properties for streaming and pricing object ([73fd5d8](https://github.com/sambanova/sambanova-python/commit/73fd5d8a6c43a350aff1abaf1755da9b41469b0a))
+* **api:** update prod-url ([03bf9be](https://github.com/sambanova/sambanova-python/commit/03bf9bef4b745f778af4a6f9a42351d7bd0e9660))
+
 ## 1.1.1 (2025-09-24)
 
 Full Changelog: [v1.1.0...v1.1.1](https://github.com/sambanova/sambanova-python/compare/v1.1.0...v1.1.1)
