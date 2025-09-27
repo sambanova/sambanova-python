@@ -21,6 +21,7 @@ from ..._streaming import Stream, AsyncStream
 from ...types.audio import translation_create_params
 from ..._base_client import make_request_options
 from ...types.audio.translation_create_response import TranslationCreateResponse
+from ...types.audio.translation_stream_response import TranslationStreamResponse
 
 __all__ = ["TranslationsResource", "AsyncTranslationsResource"]
 
@@ -321,7 +322,7 @@ class TranslationsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Stream[TranslationCreateResponse]:
+    ) -> Stream[TranslationStreamResponse]:
         """
         Translate audio into English.
 
@@ -476,7 +477,7 @@ class TranslationsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TranslationCreateResponse | Stream[TranslationCreateResponse]:
+    ) -> TranslationCreateResponse | Stream[TranslationStreamResponse]:
         """
         Translate audio into English.
 
@@ -631,7 +632,7 @@ class TranslationsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TranslationCreateResponse | Stream[TranslationCreateResponse]:
+    ) -> TranslationCreateResponse | Stream[TranslationStreamResponse]:
         body = deepcopy_minimal(
             {
                 "file": file,
@@ -664,7 +665,7 @@ class TranslationsResource(SyncAPIResource):
                 Any, TranslationCreateResponse
             ),  # Union types cannot be passed in as arguments in the type system
             stream=stream or False,
-            stream_cls=Stream[TranslationCreateResponse],
+            stream_cls=Stream[TranslationStreamResponse],
         )
 
 
@@ -964,7 +965,7 @@ class AsyncTranslationsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncStream[TranslationCreateResponse]:
+    ) -> AsyncStream[TranslationStreamResponse]:
         """
         Translate audio into English.
 
@@ -1119,7 +1120,7 @@ class AsyncTranslationsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TranslationCreateResponse | AsyncStream[TranslationCreateResponse]:
+    ) -> TranslationCreateResponse | AsyncStream[TranslationStreamResponse]:
         """
         Translate audio into English.
 
@@ -1274,7 +1275,7 @@ class AsyncTranslationsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TranslationCreateResponse | AsyncStream[TranslationCreateResponse]:
+    ) -> TranslationCreateResponse | AsyncStream[TranslationStreamResponse]:
         body = deepcopy_minimal(
             {
                 "file": file,
@@ -1307,7 +1308,7 @@ class AsyncTranslationsResource(AsyncAPIResource):
                 Any, TranslationCreateResponse
             ),  # Union types cannot be passed in as arguments in the type system
             stream=stream or False,
-            stream_cls=AsyncStream[TranslationCreateResponse],
+            stream_cls=AsyncStream[TranslationStreamResponse],
         )
 
 

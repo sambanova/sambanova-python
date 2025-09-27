@@ -21,6 +21,7 @@ from ..._streaming import Stream, AsyncStream
 from ...types.audio import transcription_create_params
 from ..._base_client import make_request_options
 from ...types.audio.transcription_create_response import TranscriptionCreateResponse
+from ...types.audio.transcription_stream_response import TranscriptionStreamResponse
 
 __all__ = ["TranscriptionsResource", "AsyncTranscriptionsResource"]
 
@@ -321,7 +322,7 @@ class TranscriptionsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Stream[TranscriptionCreateResponse]:
+    ) -> Stream[TranscriptionStreamResponse]:
         """
         Transcribes audio into the input language.
 
@@ -476,7 +477,7 @@ class TranscriptionsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TranscriptionCreateResponse | Stream[TranscriptionCreateResponse]:
+    ) -> TranscriptionCreateResponse | Stream[TranscriptionStreamResponse]:
         """
         Transcribes audio into the input language.
 
@@ -631,7 +632,7 @@ class TranscriptionsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TranscriptionCreateResponse | Stream[TranscriptionCreateResponse]:
+    ) -> TranscriptionCreateResponse | Stream[TranscriptionStreamResponse]:
         body = deepcopy_minimal(
             {
                 "file": file,
@@ -664,7 +665,7 @@ class TranscriptionsResource(SyncAPIResource):
                 Any, TranscriptionCreateResponse
             ),  # Union types cannot be passed in as arguments in the type system
             stream=stream or False,
-            stream_cls=Stream[TranscriptionCreateResponse],
+            stream_cls=Stream[TranscriptionStreamResponse],
         )
 
 
@@ -964,7 +965,7 @@ class AsyncTranscriptionsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncStream[TranscriptionCreateResponse]:
+    ) -> AsyncStream[TranscriptionStreamResponse]:
         """
         Transcribes audio into the input language.
 
@@ -1119,7 +1120,7 @@ class AsyncTranscriptionsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TranscriptionCreateResponse | AsyncStream[TranscriptionCreateResponse]:
+    ) -> TranscriptionCreateResponse | AsyncStream[TranscriptionStreamResponse]:
         """
         Transcribes audio into the input language.
 
@@ -1274,7 +1275,7 @@ class AsyncTranscriptionsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TranscriptionCreateResponse | AsyncStream[TranscriptionCreateResponse]:
+    ) -> TranscriptionCreateResponse | AsyncStream[TranscriptionStreamResponse]:
         body = deepcopy_minimal(
             {
                 "file": file,
@@ -1307,7 +1308,7 @@ class AsyncTranscriptionsResource(AsyncAPIResource):
                 Any, TranscriptionCreateResponse
             ),  # Union types cannot be passed in as arguments in the type system
             stream=stream or False,
-            stream_cls=AsyncStream[TranscriptionCreateResponse],
+            stream_cls=AsyncStream[TranscriptionStreamResponse],
         )
 
 
