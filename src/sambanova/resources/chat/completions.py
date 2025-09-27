@@ -21,6 +21,7 @@ from ..._streaming import Stream, AsyncStream
 from ...types.chat import completion_create_params
 from ..._base_client import make_request_options
 from ...types.chat.completion_create_response import CompletionCreateResponse
+from ...types.chat.chat_completion_stream_response import ChatCompletionStreamResponse
 
 __all__ = ["CompletionsResource", "AsyncCompletionsResource"]
 
@@ -268,7 +269,7 @@ class CompletionsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Stream[CompletionCreateResponse]:
+    ) -> Stream[ChatCompletionStreamResponse]:
         """
         Create chat-based completion
 
@@ -433,7 +434,7 @@ class CompletionsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CompletionCreateResponse | Stream[CompletionCreateResponse]:
+    ) -> CompletionCreateResponse | Stream[ChatCompletionStreamResponse]:
         """
         Create chat-based completion
 
@@ -598,9 +599,9 @@ class CompletionsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CompletionCreateResponse | Stream[CompletionCreateResponse]:
+    ) -> CompletionCreateResponse | Stream[ChatCompletionStreamResponse]:
         return self._post(
-            "/v1/chat/completions",
+            "/chat/completions",
             body=maybe_transform(
                 {
                     "messages": messages,
@@ -638,7 +639,7 @@ class CompletionsResource(SyncAPIResource):
                 Any, CompletionCreateResponse
             ),  # Union types cannot be passed in as arguments in the type system
             stream=stream or False,
-            stream_cls=Stream[CompletionCreateResponse],
+            stream_cls=Stream[ChatCompletionStreamResponse],
         )
 
 
@@ -885,7 +886,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncStream[CompletionCreateResponse]:
+    ) -> AsyncStream[ChatCompletionStreamResponse]:
         """
         Create chat-based completion
 
@@ -1050,7 +1051,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CompletionCreateResponse | AsyncStream[CompletionCreateResponse]:
+    ) -> CompletionCreateResponse | AsyncStream[ChatCompletionStreamResponse]:
         """
         Create chat-based completion
 
@@ -1215,9 +1216,9 @@ class AsyncCompletionsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CompletionCreateResponse | AsyncStream[CompletionCreateResponse]:
+    ) -> CompletionCreateResponse | AsyncStream[ChatCompletionStreamResponse]:
         return await self._post(
-            "/v1/chat/completions",
+            "/chat/completions",
             body=await async_maybe_transform(
                 {
                     "messages": messages,
@@ -1255,7 +1256,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
                 Any, CompletionCreateResponse
             ),  # Union types cannot be passed in as arguments in the type system
             stream=stream or False,
-            stream_cls=AsyncStream[CompletionCreateResponse],
+            stream_cls=AsyncStream[ChatCompletionStreamResponse],
         )
 
 

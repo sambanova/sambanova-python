@@ -1,4 +1,4 @@
 configured_endpoints: 6
-openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/sambanova%2Fsambanova-388f2a4cd2d3aaa7b3ccdbf958fa689848aa67cc0de9405ffe3acb019a2895cc.yml
-openapi_spec_hash: d5313069c5542a087f8f7ef2d64eec74
-config_hash: a3c7d373379a8d9e8648f1c7eaa21170
+openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/sambanova%2Fsambanova-ccb1ab9c621a41fd4c16006e1ba0d6c883e89a4b4d8ae514ab0758b76680905e.yml
+openapi_spec_hash: 4635ef0a8f6400bff9172e91392a4aff
+config_hash: 6c2ccc2f2dd4633644c77ad4153e3069

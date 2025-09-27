@@ -74,11 +74,11 @@ class ChoiceDeltaToolCall(BaseModel):
 
 
 class ChoiceDelta(BaseModel):
-    content: Optional[str] = None
-    """The contents of the assistant message."""
-
     channel: Optional[str] = None
     """Channel (returned by reasoning models like gpt oss)"""
+
+    content: Optional[str] = None
+    """The contents of the assistant message."""
 
     reasoning: Optional[str] = None
     """Reasoning (returned by reasoning models like gpt oss)"""
