@@ -210,7 +210,7 @@ class TranscriptionStreamResponse(BaseModel):
     choices: Optional[List[Choice]] = None
     """A list of transcription or translation choices."""
 
-    created: int
+    created: float
     """The Unix timestamp (in seconds) of when the chat completion was created."""
 
     model: str
