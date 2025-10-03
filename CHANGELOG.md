@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.3 (2025-10-03)
+
+Full Changelog: [v1.1.2...v1.1.3](https://github.com/sambanova/sambanova-python/compare/v1.1.2...v1.1.3)
+
+### Features
+
+* **api:** update created field type ([c1107e9](https://github.com/sambanova/sambanova-python/commit/c1107e9f1b0543d73e96ce1037fb4d6e9fd40439))
+
 ## 1.1.2 (2025-09-27)
 
 Full Changelog: [v1.1.1...v1.1.2](https://github.com/sambanova/sambanova-python/compare/v1.1.1...v1.1.2)
