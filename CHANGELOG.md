@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.1.4 (2025-10-10)
+
+Full Changelog: [v1.1.3...v1.1.4](https://github.com/sambanova/sambanova-python/compare/v1.1.3...v1.1.4)
+
+### Bug Fixes
+
+* **api:** embeddings summary ([a745c20](https://github.com/sambanova/sambanova-python/commit/a745c20e4416839818213431c59255add2c81951))
+
+
+### Chores
+
+* **internal:** detect missing future annotations with ruff ([859704e](https://github.com/sambanova/sambanova-python/commit/859704e90d1e620e3075b1c62759b08effb6279f))
+
 ## 1.1.3 (2025-10-03)
 
 Full Changelog: [v1.1.2...v1.1.3](https://github.com/sambanova/sambanova-python/compare/v1.1.2...v1.1.3)
