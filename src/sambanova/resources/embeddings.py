@@ -56,7 +56,7 @@ class EmbeddingsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EmbeddingsResponse:
-        """Create chat-based completion
+        """Create embeddings
 
         Args:
           input: Input text to embed.
@@ -123,7 +123,7 @@ class AsyncEmbeddingsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EmbeddingsResponse:
-        """Create chat-based completion
+        """Create embeddings
 
         Args:
           input: Input text to embed.
