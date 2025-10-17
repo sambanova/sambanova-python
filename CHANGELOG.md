@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.5 (2025-10-17)
+
+Full Changelog: [v1.1.4...v1.1.5](https://github.com/sambanova/sambanova-python/compare/v1.1.4...v1.1.5)
+
+### Chores
+
+* bump `httpx-aiohttp` version to 0.1.9 ([e0aa167](https://github.com/sambanova/sambanova-python/commit/e0aa1677250d207aad2d8ed05519f81faee6910a))
+
 ## 1.1.4 (2025-10-10)
 
 Full Changelog: [v1.1.3...v1.1.4](https://github.com/sambanova/sambanova-python/compare/v1.1.3...v1.1.4)
