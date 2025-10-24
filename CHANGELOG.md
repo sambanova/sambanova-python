@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.1.5 (2025-10-24)
+
+Full Changelog: [v1.1.4...v1.1.5](https://github.com/sambanova/sambanova-python/compare/v1.1.4...v1.1.5)
+
+### Bug Fixes
+
+* **api:** increase default timeouts ([5b4435e](https://github.com/sambanova/sambanova-python/commit/5b4435e3a77b4e5ebb6ab75060d02577720a7776))
+
+
+### Chores
+
+* bump `httpx-aiohttp` version to 0.1.9 ([e0aa167](https://github.com/sambanova/sambanova-python/commit/e0aa1677250d207aad2d8ed05519f81faee6910a))
+
 ## 1.1.4 (2025-10-10)
 
 Full Changelog: [v1.1.3...v1.1.4](https://github.com/sambanova/sambanova-python/compare/v1.1.3...v1.1.4)
