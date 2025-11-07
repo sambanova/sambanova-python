@@ -62,14 +62,17 @@ class CompletionCreateParamsBase(TypedDict, total=False):
                 "QwQ-32B-Preview",
                 "Meta-Llama-Guard-3-8B",
                 "DeepSeek-R1",
+                "DeepSeek-R1-0528",
                 "DeepSeek-V3-0324",
                 "DeepSeek-V3.1",
+                "DeepSeek-V3.1-Terminus",
                 "DeepSeek-R1-Distill-Llama-70B",
                 "Llama-4-Maverick-17B-128E-Instruct",
                 "Llama-4-Scout-17B-16E-Instruct",
                 "Qwen3-32B",
                 "Llama-3.3-Swallow-70B-Instruct-v0.4",
                 "gpt-oss-120b",
+                "ALLaM-7B-Instruct-preview",
             ],
         ]
     ]
