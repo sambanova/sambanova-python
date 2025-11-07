@@ -187,9 +187,9 @@ completion = client.chat.completions.create(
         }
     ],
     model="string",
-    stream_options={},
+    chat_template_kwargs={"enable_thinking": True},
 )
-print(completion.stream_options)
+print(completion.chat_template_kwargs)
 ```
 
 ## File uploads
