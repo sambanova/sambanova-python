@@ -40,6 +40,7 @@ class TestCompletions:
                 }
             ],
             model="string",
+            chat_template_kwargs={"enable_thinking": True},
             do_sample=True,
             frequency_penalty=-2,
             logit_bias={"foo": 0},
@@ -134,6 +135,7 @@ class TestCompletions:
             ],
             model="string",
             stream=True,
+            chat_template_kwargs={"enable_thinking": True},
             do_sample=True,
             frequency_penalty=-2,
             logit_bias={"foo": 0},
@@ -232,6 +234,7 @@ class TestAsyncCompletions:
                 }
             ],
             model="string",
+            chat_template_kwargs={"enable_thinking": True},
             do_sample=True,
             frequency_penalty=-2,
             logit_bias={"foo": 0},
@@ -326,6 +329,7 @@ class TestAsyncCompletions:
             ],
             model="string",
             stream=True,
+            chat_template_kwargs={"enable_thinking": True},
             do_sample=True,
             frequency_penalty=-2,
             logit_bias={"foo": 0},

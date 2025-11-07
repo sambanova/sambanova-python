@@ -67,16 +67,20 @@ class CompletionsResource(SyncAPIResource):
                 "QwQ-32B-Preview",
                 "Meta-Llama-Guard-3-8B",
                 "DeepSeek-R1",
+                "DeepSeek-R1-0528",
                 "DeepSeek-V3-0324",
                 "DeepSeek-V3.1",
+                "DeepSeek-V3.1-Terminus",
                 "DeepSeek-R1-Distill-Llama-70B",
                 "Llama-4-Maverick-17B-128E-Instruct",
                 "Llama-4-Scout-17B-16E-Instruct",
                 "Qwen3-32B",
                 "Llama-3.3-Swallow-70B-Instruct-v0.4",
                 "gpt-oss-120b",
+                "ALLaM-7B-Instruct-preview",
             ],
         ],
+        chat_template_kwargs: Optional[completion_create_params.ChatTemplateKwargs] | Omit = omit,
         do_sample: Optional[bool] | Omit = omit,
         frequency_penalty: float | Omit = omit,
         logit_bias: Optional[Dict[str, int]] | Omit = omit,
@@ -113,6 +117,10 @@ class CompletionsResource(SyncAPIResource):
 
           model: The model ID to use (e.g. Meta-Llama-3.3-70B-Instruct). See available
               [models](https://docs.sambanova.ai/cloud/docs/get-started/supported-models)
+
+          chat_template_kwargs: A dictionary of additional keyword arguments to pass into the chat template. Use
+              this to provide extra context or parameters that the model's chat template can
+              process. Keys must be strings; values may be any valid JSON type.
 
           do_sample: If true, sampling is enabled during output generation. If false, deterministic
               decoding is used.
@@ -232,17 +240,21 @@ class CompletionsResource(SyncAPIResource):
                 "QwQ-32B-Preview",
                 "Meta-Llama-Guard-3-8B",
                 "DeepSeek-R1",
+                "DeepSeek-R1-0528",
                 "DeepSeek-V3-0324",
                 "DeepSeek-V3.1",
+                "DeepSeek-V3.1-Terminus",
                 "DeepSeek-R1-Distill-Llama-70B",
                 "Llama-4-Maverick-17B-128E-Instruct",
                 "Llama-4-Scout-17B-16E-Instruct",
                 "Qwen3-32B",
                 "Llama-3.3-Swallow-70B-Instruct-v0.4",
                 "gpt-oss-120b",
+                "ALLaM-7B-Instruct-preview",
             ],
         ],
         stream: Literal[True],
+        chat_template_kwargs: Optional[completion_create_params.ChatTemplateKwargs] | Omit = omit,
         do_sample: Optional[bool] | Omit = omit,
         frequency_penalty: float | Omit = omit,
         logit_bias: Optional[Dict[str, int]] | Omit = omit,
@@ -284,6 +296,10 @@ class CompletionsResource(SyncAPIResource):
               as they become available, with the stream terminated by a `data: [DONE]`
               message.
 
+          chat_template_kwargs: A dictionary of additional keyword arguments to pass into the chat template. Use
+              this to provide extra context or parameters that the model's chat template can
+              process. Keys must be strings; values may be any valid JSON type.
+
           do_sample: If true, sampling is enabled during output generation. If false, deterministic
               decoding is used.
 
@@ -397,17 +413,21 @@ class CompletionsResource(SyncAPIResource):
                 "QwQ-32B-Preview",
                 "Meta-Llama-Guard-3-8B",
                 "DeepSeek-R1",
+                "DeepSeek-R1-0528",
                 "DeepSeek-V3-0324",
                 "DeepSeek-V3.1",
+                "DeepSeek-V3.1-Terminus",
                 "DeepSeek-R1-Distill-Llama-70B",
                 "Llama-4-Maverick-17B-128E-Instruct",
                 "Llama-4-Scout-17B-16E-Instruct",
                 "Qwen3-32B",
                 "Llama-3.3-Swallow-70B-Instruct-v0.4",
                 "gpt-oss-120b",
+                "ALLaM-7B-Instruct-preview",
             ],
         ],
         stream: bool,
+        chat_template_kwargs: Optional[completion_create_params.ChatTemplateKwargs] | Omit = omit,
         do_sample: Optional[bool] | Omit = omit,
         frequency_penalty: float | Omit = omit,
         logit_bias: Optional[Dict[str, int]] | Omit = omit,
@@ -448,6 +468,10 @@ class CompletionsResource(SyncAPIResource):
               [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format)
               as they become available, with the stream terminated by a `data: [DONE]`
               message.
+
+          chat_template_kwargs: A dictionary of additional keyword arguments to pass into the chat template. Use
+              this to provide extra context or parameters that the model's chat template can
+              process. Keys must be strings; values may be any valid JSON type.
 
           do_sample: If true, sampling is enabled during output generation. If false, deterministic
               decoding is used.
@@ -562,16 +586,20 @@ class CompletionsResource(SyncAPIResource):
                 "QwQ-32B-Preview",
                 "Meta-Llama-Guard-3-8B",
                 "DeepSeek-R1",
+                "DeepSeek-R1-0528",
                 "DeepSeek-V3-0324",
                 "DeepSeek-V3.1",
+                "DeepSeek-V3.1-Terminus",
                 "DeepSeek-R1-Distill-Llama-70B",
                 "Llama-4-Maverick-17B-128E-Instruct",
                 "Llama-4-Scout-17B-16E-Instruct",
                 "Qwen3-32B",
                 "Llama-3.3-Swallow-70B-Instruct-v0.4",
                 "gpt-oss-120b",
+                "ALLaM-7B-Instruct-preview",
             ],
         ],
+        chat_template_kwargs: Optional[completion_create_params.ChatTemplateKwargs] | Omit = omit,
         do_sample: Optional[bool] | Omit = omit,
         frequency_penalty: float | Omit = omit,
         logit_bias: Optional[Dict[str, int]] | Omit = omit,
@@ -606,6 +634,7 @@ class CompletionsResource(SyncAPIResource):
                 {
                     "messages": messages,
                     "model": model,
+                    "chat_template_kwargs": chat_template_kwargs,
                     "do_sample": do_sample,
                     "frequency_penalty": frequency_penalty,
                     "logit_bias": logit_bias,
@@ -684,16 +713,20 @@ class AsyncCompletionsResource(AsyncAPIResource):
                 "QwQ-32B-Preview",
                 "Meta-Llama-Guard-3-8B",
                 "DeepSeek-R1",
+                "DeepSeek-R1-0528",
                 "DeepSeek-V3-0324",
                 "DeepSeek-V3.1",
+                "DeepSeek-V3.1-Terminus",
                 "DeepSeek-R1-Distill-Llama-70B",
                 "Llama-4-Maverick-17B-128E-Instruct",
                 "Llama-4-Scout-17B-16E-Instruct",
                 "Qwen3-32B",
                 "Llama-3.3-Swallow-70B-Instruct-v0.4",
                 "gpt-oss-120b",
+                "ALLaM-7B-Instruct-preview",
             ],
         ],
+        chat_template_kwargs: Optional[completion_create_params.ChatTemplateKwargs] | Omit = omit,
         do_sample: Optional[bool] | Omit = omit,
         frequency_penalty: float | Omit = omit,
         logit_bias: Optional[Dict[str, int]] | Omit = omit,
@@ -730,6 +763,10 @@ class AsyncCompletionsResource(AsyncAPIResource):
 
           model: The model ID to use (e.g. Meta-Llama-3.3-70B-Instruct). See available
               [models](https://docs.sambanova.ai/cloud/docs/get-started/supported-models)
+
+          chat_template_kwargs: A dictionary of additional keyword arguments to pass into the chat template. Use
+              this to provide extra context or parameters that the model's chat template can
+              process. Keys must be strings; values may be any valid JSON type.
 
           do_sample: If true, sampling is enabled during output generation. If false, deterministic
               decoding is used.
@@ -849,17 +886,21 @@ class AsyncCompletionsResource(AsyncAPIResource):
                 "QwQ-32B-Preview",
                 "Meta-Llama-Guard-3-8B",
                 "DeepSeek-R1",
+                "DeepSeek-R1-0528",
                 "DeepSeek-V3-0324",
                 "DeepSeek-V3.1",
+                "DeepSeek-V3.1-Terminus",
                 "DeepSeek-R1-Distill-Llama-70B",
                 "Llama-4-Maverick-17B-128E-Instruct",
                 "Llama-4-Scout-17B-16E-Instruct",
                 "Qwen3-32B",
                 "Llama-3.3-Swallow-70B-Instruct-v0.4",
                 "gpt-oss-120b",
+                "ALLaM-7B-Instruct-preview",
             ],
         ],
         stream: Literal[True],
+        chat_template_kwargs: Optional[completion_create_params.ChatTemplateKwargs] | Omit = omit,
         do_sample: Optional[bool] | Omit = omit,
         frequency_penalty: float | Omit = omit,
         logit_bias: Optional[Dict[str, int]] | Omit = omit,
@@ -901,6 +942,10 @@ class AsyncCompletionsResource(AsyncAPIResource):
               as they become available, with the stream terminated by a `data: [DONE]`
               message.
 
+          chat_template_kwargs: A dictionary of additional keyword arguments to pass into the chat template. Use
+              this to provide extra context or parameters that the model's chat template can
+              process. Keys must be strings; values may be any valid JSON type.
+
           do_sample: If true, sampling is enabled during output generation. If false, deterministic
               decoding is used.
 
@@ -1014,17 +1059,21 @@ class AsyncCompletionsResource(AsyncAPIResource):
                 "QwQ-32B-Preview",
                 "Meta-Llama-Guard-3-8B",
                 "DeepSeek-R1",
+                "DeepSeek-R1-0528",
                 "DeepSeek-V3-0324",
                 "DeepSeek-V3.1",
+                "DeepSeek-V3.1-Terminus",
                 "DeepSeek-R1-Distill-Llama-70B",
                 "Llama-4-Maverick-17B-128E-Instruct",
                 "Llama-4-Scout-17B-16E-Instruct",
                 "Qwen3-32B",
                 "Llama-3.3-Swallow-70B-Instruct-v0.4",
                 "gpt-oss-120b",
+                "ALLaM-7B-Instruct-preview",
             ],
         ],
         stream: bool,
+        chat_template_kwargs: Optional[completion_create_params.ChatTemplateKwargs] | Omit = omit,
         do_sample: Optional[bool] | Omit = omit,
         frequency_penalty: float | Omit = omit,
         logit_bias: Optional[Dict[str, int]] | Omit = omit,
@@ -1065,6 +1114,10 @@ class AsyncCompletionsResource(AsyncAPIResource):
               [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format)
               as they become available, with the stream terminated by a `data: [DONE]`
               message.
+
+          chat_template_kwargs: A dictionary of additional keyword arguments to pass into the chat template. Use
+              this to provide extra context or parameters that the model's chat template can
+              process. Keys must be strings; values may be any valid JSON type.
 
           do_sample: If true, sampling is enabled during output generation. If false, deterministic
               decoding is used.
@@ -1179,16 +1232,20 @@ class AsyncCompletionsResource(AsyncAPIResource):
                 "QwQ-32B-Preview",
                 "Meta-Llama-Guard-3-8B",
                 "DeepSeek-R1",
+                "DeepSeek-R1-0528",
                 "DeepSeek-V3-0324",
                 "DeepSeek-V3.1",
+                "DeepSeek-V3.1-Terminus",
                 "DeepSeek-R1-Distill-Llama-70B",
                 "Llama-4-Maverick-17B-128E-Instruct",
                 "Llama-4-Scout-17B-16E-Instruct",
                 "Qwen3-32B",
                 "Llama-3.3-Swallow-70B-Instruct-v0.4",
                 "gpt-oss-120b",
+                "ALLaM-7B-Instruct-preview",
             ],
         ],
+        chat_template_kwargs: Optional[completion_create_params.ChatTemplateKwargs] | Omit = omit,
         do_sample: Optional[bool] | Omit = omit,
         frequency_penalty: float | Omit = omit,
         logit_bias: Optional[Dict[str, int]] | Omit = omit,
@@ -1223,6 +1280,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
                 {
                     "messages": messages,
                     "model": model,
+                    "chat_template_kwargs": chat_template_kwargs,
                     "do_sample": do_sample,
                     "frequency_penalty": frequency_penalty,
                     "logit_bias": logit_bias,
