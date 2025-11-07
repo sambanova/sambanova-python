@@ -25,6 +25,7 @@ __all__ = [
     "MessageAssistantMessageToolCallFunction",
     "MessageToolMessage",
     "MessageToolMessageContentTextContentPartArray",
+    "ChatTemplateKwargs",
     "ResponseFormat",
     "ResponseFormatResponseFormatText",
     "ResponseFormatResponseFormatJsonObject",
@@ -80,6 +81,13 @@ class CompletionCreateParamsBase(TypedDict, total=False):
 
     Meta-Llama-3.3-70B-Instruct). See available
     [models](https://docs.sambanova.ai/cloud/docs/get-started/supported-models)
+    """
+
+    chat_template_kwargs: Optional[ChatTemplateKwargs]
+    """A dictionary of additional keyword arguments to pass into the chat template.
+
+    Use this to provide extra context or parameters that the model's chat template
+    can process. Keys must be strings; values may be any valid JSON type.
     """
 
     do_sample: Optional[bool]
@@ -405,6 +413,17 @@ class MessageToolMessageTyped(TypedDict, total=False):
 MessageToolMessage: TypeAlias = Union[MessageToolMessageTyped, Dict[str, object]]
 
 Message: TypeAlias = Union[MessageSystemMessage, MessageUserMessage, MessageAssistantMessage, MessageToolMessage]
+
+
+class ChatTemplateKwargsTyped(TypedDict, total=False):
+    enable_thinking: bool
+    """
+    Enables the model's internal reasoning or "thinking" mode, if supported by the
+    chat template (deepseek models).
+    """
+
+
+ChatTemplateKwargs: TypeAlias = Union[ChatTemplateKwargsTyped, Dict[str, object]]
 
 
 class ResponseFormatResponseFormatTextTyped(TypedDict, total=False):
