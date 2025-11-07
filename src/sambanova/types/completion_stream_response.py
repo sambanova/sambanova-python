@@ -1,0 +1,222 @@
+# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+import builtins
+from typing import TYPE_CHECKING, Dict, List, Optional
+from typing_extensions import Literal
+
+from pydantic import Field as FieldInfo
+
+from .._models import BaseModel
+
+__all__ = [
+    "CompletionStreamResponse",
+    "Choice",
+    "ChoiceLogprobs",
+    "ChoiceLogprobsContent",
+    "ChoiceLogprobsContentTopLogprobs",
+    "Usage",
+    "UsagePromptTokensDetails",
+]
+
+
+class ChoiceLogprobsContentTopLogprobs(BaseModel):
+    token: str
+
+    logprob: float
+
+    bytes: Optional[List[int]] = None
+
+    if TYPE_CHECKING:
+        # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
+        # value to this field, so for compatibility we avoid doing it at runtime.
+        __pydantic_extra__: Dict[str, object] = FieldInfo(init=False)  # pyright: ignore[reportIncompatibleVariableOverride]
+
+        # Stub to indicate that arbitrary properties are accepted.
+        # To access properties that are not valid identifiers you can use `getattr`, e.g.
+        # `getattr(obj, '$type')`
+        def __getattr__(self, attr: str) -> object: ...
+    else:
+        __pydantic_extra__: Dict[str, object]
+
+
+class ChoiceLogprobsContent(BaseModel):
+    token: str
+
+    logprob: float
+
+    top_logprobs: ChoiceLogprobsContentTopLogprobs
+
+    bytes: Optional[List[int]] = None
+
+    if TYPE_CHECKING:
+        # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
+        # value to this field, so for compatibility we avoid doing it at runtime.
+        __pydantic_extra__: Dict[str, object] = FieldInfo(init=False)  # pyright: ignore[reportIncompatibleVariableOverride]
+
+        # Stub to indicate that arbitrary properties are accepted.
+        # To access properties that are not valid identifiers you can use `getattr`, e.g.
+        # `getattr(obj, '$type')`
+        def __getattr__(self, attr: str) -> object: ...
+    else:
+        __pydantic_extra__: Dict[str, object]
+
+
+class ChoiceLogprobs(BaseModel):
+    content: ChoiceLogprobsContent
+
+    if TYPE_CHECKING:
+        # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
+        # value to this field, so for compatibility we avoid doing it at runtime.
+        __pydantic_extra__: Dict[str, object] = FieldInfo(init=False)  # pyright: ignore[reportIncompatibleVariableOverride]
+
+        # Stub to indicate that arbitrary properties are accepted.
+        # To access properties that are not valid identifiers you can use `getattr`, e.g.
+        # `getattr(obj, '$type')`
+        def __getattr__(self, attr: str) -> object: ...
+    else:
+        __pydantic_extra__: Dict[str, object]
+
+
+class Choice(BaseModel):
+    text: str
+    """model generation response"""
+
+    finish_reason: Optional[Literal["stop", "length"]] = None
+    """The reason the model stopped generating tokens.
+
+    Will be `stop` if the model hit a natural stop point or a provided stop
+    sequence, `length` if the maximum number of tokens specified in the request was
+    reached, `tool_calls` if the model called a tool.
+    """
+
+    index: Optional[int] = None
+    """The index of the choice in the list of choices"""
+
+    logprobs: Optional[ChoiceLogprobs] = None
+    """Completion Log Probs object"""
+
+    if TYPE_CHECKING:
+        # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
+        # value to this field, so for compatibility we avoid doing it at runtime.
+        __pydantic_extra__: Dict[str, object] = FieldInfo(init=False)  # pyright: ignore[reportIncompatibleVariableOverride]
+
+        # Stub to indicate that arbitrary properties are accepted.
+        # To access properties that are not valid identifiers you can use `getattr`, e.g.
+        # `getattr(obj, '$type')`
+        def __getattr__(self, attr: str) -> object: ...
+    else:
+        __pydantic_extra__: Dict[str, object]
+
+
+class UsagePromptTokensDetails(BaseModel):
+    cached_tokens: Optional[int] = None
+    """amount of cached tokens"""
+
+    if TYPE_CHECKING:
+        # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
+        # value to this field, so for compatibility we avoid doing it at runtime.
+        __pydantic_extra__: Dict[str, object] = FieldInfo(init=False)  # pyright: ignore[reportIncompatibleVariableOverride]
+
+        # Stub to indicate that arbitrary properties are accepted.
+        # To access properties that are not valid identifiers you can use `getattr`, e.g.
+        # `getattr(obj, '$type')`
+        def __getattr__(self, attr: str) -> object: ...
+    else:
+        __pydantic_extra__: Dict[str, object]
+
+
+class Usage(BaseModel):
+    acceptance_rate: Optional[float] = None
+    """acceptance rate"""
+
+    completion_tokens: Optional[int] = None
+    """number of tokens generated in completion"""
+
+    completion_tokens_after_first_per_sec: Optional[float] = None
+    """completion tokens per second after first token generation"""
+
+    completion_tokens_after_first_per_sec_first_ten: Optional[float] = None
+    """completion tokens per second after first token generation first ten"""
+
+    completion_tokens_after_first_per_sec_graph: Optional[float] = None
+    """completion tokens per second after first token generation"""
+
+    completion_tokens_per_sec: Optional[float] = None
+    """completion tokens per second"""
+
+    end_time: Optional[float] = None
+    """The Unix timestamp (in seconds) of when the generation finished."""
+
+    is_last_response: Optional[Literal[True]] = None
+    """whether or not is last response, always true for non streaming response"""
+
+    prompt_tokens: Optional[int] = None
+    """number of tokens used in the prompt sent"""
+
+    prompt_tokens_details: Optional[UsagePromptTokensDetails] = None
+    """Extra tokens details"""
+
+    start_time: Optional[float] = None
+    """The Unix timestamp (in seconds) of when the generation started."""
+
+    time_to_first_token: Optional[float] = None
+    """also TTF, time (in seconds) taken to generate the first token"""
+
+    total_latency: Optional[float] = None
+    """total time (in seconds) taken to generate the full generation"""
+
+    total_tokens: Optional[int] = None
+    """prompt tokens + completion tokens"""
+
+    total_tokens_per_sec: Optional[float] = None
+    """tokens per second including prompt and completion"""
+
+    if TYPE_CHECKING:
+        # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
+        # value to this field, so for compatibility we avoid doing it at runtime.
+        __pydantic_extra__: Dict[str, object] = FieldInfo(init=False)  # pyright: ignore[reportIncompatibleVariableOverride]
+
+        # Stub to indicate that arbitrary properties are accepted.
+        # To access properties that are not valid identifiers you can use `getattr`, e.g.
+        # `getattr(obj, '$type')`
+        def __getattr__(self, attr: str) -> object: ...
+    else:
+        __pydantic_extra__: Dict[str, object]
+
+
+class CompletionStreamResponse(BaseModel):
+    id: str
+    """A unique identifier for the chat completion."""
+
+    choices: Optional[List[Choice]] = None
+    """A list of chat completion choices."""
+
+    created: float
+    """The Unix timestamp (in seconds) of when the chat completion was created."""
+
+    model: str
+    """The model used for the chat completion."""
+
+    object: Literal["chat.completion.chunk"]
+    """The object type, always `chat.completion.chunk`."""
+
+    system_fingerprint: str
+    """Backend configuration that the model runs with."""
+
+    usage: Optional[Usage] = None
+    """
+    Usage metrics for the completion, embeddings,transcription or translation
+    request
+    """
+
+    if TYPE_CHECKING:
+        # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
+        # value to this field, so for compatibility we avoid doing it at runtime.
+        __pydantic_extra__: Dict[str, builtins.object] = FieldInfo(init=False)  # pyright: ignore[reportIncompatibleVariableOverride]
+
+        # Stub to indicate that arbitrary properties are accepted.
+        # To access properties that are not valid identifiers you can use `getattr`, e.g.
+        # `getattr(obj, '$type')`
+        def __getattr__(self, attr: str) -> builtins.object: ...
+    else:
+        __pydantic_extra__: Dict[str, builtins.object]

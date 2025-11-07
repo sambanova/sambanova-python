@@ -21,7 +21,7 @@ from ._types import (
 )
 from ._utils import is_given, get_async_library
 from ._version import __version__
-from .resources import models, embeddings
+from .resources import models, embeddings, completions
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError, SambaNovaError
 from ._base_client import (
@@ -46,6 +46,7 @@ __all__ = [
 
 class SambaNova(SyncAPIClient):
     chat: chat.ChatResource
+    completions: completions.CompletionsResource
     embeddings: embeddings.EmbeddingsResource
     audio: audio.AudioResource
     models: models.ModelsResource
@@ -109,6 +110,7 @@ class SambaNova(SyncAPIClient):
         self._default_stream_cls = Stream
 
         self.chat = chat.ChatResource(self)
+        self.completions = completions.CompletionsResource(self)
         self.embeddings = embeddings.EmbeddingsResource(self)
         self.audio = audio.AudioResource(self)
         self.models = models.ModelsResource(self)
@@ -222,6 +224,7 @@ class SambaNova(SyncAPIClient):
 
 class AsyncSambaNova(AsyncAPIClient):
     chat: chat.AsyncChatResource
+    completions: completions.AsyncCompletionsResource
     embeddings: embeddings.AsyncEmbeddingsResource
     audio: audio.AsyncAudioResource
     models: models.AsyncModelsResource
@@ -285,6 +288,7 @@ class AsyncSambaNova(AsyncAPIClient):
         self._default_stream_cls = AsyncStream
 
         self.chat = chat.AsyncChatResource(self)
+        self.completions = completions.AsyncCompletionsResource(self)
         self.embeddings = embeddings.AsyncEmbeddingsResource(self)
         self.audio = audio.AsyncAudioResource(self)
         self.models = models.AsyncModelsResource(self)
@@ -399,6 +403,7 @@ class AsyncSambaNova(AsyncAPIClient):
 class SambaNovaWithRawResponse:
     def __init__(self, client: SambaNova) -> None:
         self.chat = chat.ChatResourceWithRawResponse(client.chat)
+        self.completions = completions.CompletionsResourceWithRawResponse(client.completions)
         self.embeddings = embeddings.EmbeddingsResourceWithRawResponse(client.embeddings)
         self.audio = audio.AudioResourceWithRawResponse(client.audio)
         self.models = models.ModelsResourceWithRawResponse(client.models)
@@ -407,6 +412,7 @@ class SambaNovaWithRawResponse:
 class AsyncSambaNovaWithRawResponse:
     def __init__(self, client: AsyncSambaNova) -> None:
         self.chat = chat.AsyncChatResourceWithRawResponse(client.chat)
+        self.completions = completions.AsyncCompletionsResourceWithRawResponse(client.completions)
         self.embeddings = embeddings.AsyncEmbeddingsResourceWithRawResponse(client.embeddings)
         self.audio = audio.AsyncAudioResourceWithRawResponse(client.audio)
         self.models = models.AsyncModelsResourceWithRawResponse(client.models)
@@ -415,6 +421,7 @@ class AsyncSambaNovaWithRawResponse:
 class SambaNovaWithStreamedResponse:
     def __init__(self, client: SambaNova) -> None:
         self.chat = chat.ChatResourceWithStreamingResponse(client.chat)
+        self.completions = completions.CompletionsResourceWithStreamingResponse(client.completions)
         self.embeddings = embeddings.EmbeddingsResourceWithStreamingResponse(client.embeddings)
         self.audio = audio.AudioResourceWithStreamingResponse(client.audio)
         self.models = models.ModelsResourceWithStreamingResponse(client.models)
@@ -423,6 +430,7 @@ class SambaNovaWithStreamedResponse:
 class AsyncSambaNovaWithStreamedResponse:
     def __init__(self, client: AsyncSambaNova) -> None:
         self.chat = chat.AsyncChatResourceWithStreamingResponse(client.chat)
+        self.completions = completions.AsyncCompletionsResourceWithStreamingResponse(client.completions)
         self.embeddings = embeddings.AsyncEmbeddingsResourceWithStreamingResponse(client.embeddings)
         self.audio = audio.AsyncAudioResourceWithStreamingResponse(client.audio)
         self.models = models.AsyncModelsResourceWithStreamingResponse(client.models)
