@@ -18,6 +18,18 @@ Methods:
 
 - <code title="post /chat/completions">client.chat.completions.<a href="./src/sambanova/resources/chat/completions.py">create</a>(\*\*<a href="src/sambanova/types/chat/completion_create_params.py">params</a>) -> <a href="./src/sambanova/types/chat/completion_create_response.py">CompletionCreateResponse</a></code>
 
+# Completions
+
+Types:
+
+```python
+from sambanova.types import CompletionResponse, CompletionStreamResponse, CompletionCreateResponse
+```
+
+Methods:
+
+- <code title="post /completions">client.completions.<a href="./src/sambanova/resources/completions.py">create</a>(\*\*<a href="src/sambanova/types/completion_create_params.py">params</a>) -> <a href="./src/sambanova/types/completion_create_response.py">CompletionCreateResponse</a></code>
+
 # Embeddings
 
 Types:
