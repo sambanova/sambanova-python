@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.2.0 (2025-11-07)
+
+Full Changelog: [v1.1.6...v1.2.0](https://github.com/sambanova/sambanova-python/compare/v1.1.6...v1.2.0)
+
+### Features
+
+* **api:** add completions support ([1c56851](https://github.com/sambanova/sambanova-python/commit/1c56851e5e320b4aceddb1e607345908d828dcf8))
+
 ## 1.1.6 (2025-11-07)
 
 Full Changelog: [v1.1.5...v1.1.6](https://github.com/sambanova/sambanova-python/compare/v1.1.5...v1.1.6)
