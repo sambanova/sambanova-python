@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.1.6 (2025-11-07)
+
+Full Changelog: [v1.1.5...v1.1.6](https://github.com/sambanova/sambanova-python/compare/v1.1.5...v1.1.6)
+
+### Bug Fixes
+
+* **api:** add missing chat_template_kwargs chat completions argument ([b9f5815](https://github.com/sambanova/sambanova-python/commit/b9f58153394bc87cae1448613ec55ff33f266625))
+* **api:** update deafault models ([b08b3b4](https://github.com/sambanova/sambanova-python/commit/b08b3b4cd44b9d8afb2490f2e361b57b038d89dc))
+* **client:** close streams without requiring full consumption ([6f6a574](https://github.com/sambanova/sambanova-python/commit/6f6a574d497b0c7c0812c628a4b96d6474d991ba))
+
+
+### Chores
+
+* **internal/tests:** avoid race condition with implicit client cleanup ([4975c18](https://github.com/sambanova/sambanova-python/commit/4975c18ced8834a22c29e34e6938de08ca3cd8dd))
+* **internal:** grammar fix (it's -&gt; its) ([a4cb7c0](https://github.com/sambanova/sambanova-python/commit/a4cb7c0572d25c532d25096ecaf3603539730527))
+
 ## 1.1.5 (2025-10-24)
 
 Full Changelog: [v1.1.4...v1.1.5](https://github.com/sambanova/sambanova-python/compare/v1.1.4...v1.1.5)
