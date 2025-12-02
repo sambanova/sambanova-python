@@ -93,6 +93,7 @@ pip install sambanova[aiohttp]
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
 
 ```python
+import os
 import asyncio
 from sambanova import DefaultAioHttpClient
 from sambanova import AsyncSambaNova
@@ -100,7 +101,7 @@ from sambanova import AsyncSambaNova
 
 async def main() -> None:
     async with AsyncSambaNova(
-        api_key="My API Key",
+        api_key=os.environ.get("SAMBANOVA_API_KEY"),  # This is the default and can be omitted
         http_client=DefaultAioHttpClient(),
     ) as client:
         completion = await client.chat.completions.create(
