@@ -158,6 +158,8 @@ class CompletionCreateParamsBase(TypedDict, total=False):
 
 
 class StreamOptionsTyped(TypedDict, total=False):
+    """Options for streaming response. Only set this when setting stream as true"""
+
     include_usage: Optional[bool]
     """Whether to include the usage metrics in a final chunk or not"""
 

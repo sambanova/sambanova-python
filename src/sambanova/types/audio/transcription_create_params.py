@@ -153,6 +153,8 @@ class TranscriptionCreateParamsBase(TypedDict, total=False):
 
 
 class StreamOptions(TypedDict, total=False):
+    """Optional settings that apply when `stream` is true."""
+
     include_usage: Optional[bool]
     """
     If true and `stream` is enabled, optional usage metadata will be included in the

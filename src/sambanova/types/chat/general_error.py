@@ -22,4 +22,6 @@ class Error(BaseModel):
 
 
 class GeneralError(BaseModel):
+    """other kind of errors"""
+
     error: Error

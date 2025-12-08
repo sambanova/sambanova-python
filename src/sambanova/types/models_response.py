@@ -13,6 +13,8 @@ __all__ = ["ModelsResponse"]
 
 
 class ModelsResponse(BaseModel):
+    """object containing available models and metadata"""
+
     data: List[ModelResponse]
     """array of model metadata list"""
 

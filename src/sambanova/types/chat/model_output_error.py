@@ -27,4 +27,6 @@ class Error(BaseModel):
 
 
 class ModelOutputError(BaseModel):
+    """error in model output generation"""
+
     error: Error
