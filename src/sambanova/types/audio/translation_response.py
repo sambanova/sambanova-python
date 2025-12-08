@@ -10,6 +10,8 @@ __all__ = ["TranslationResponse"]
 
 
 class TranslationResponse(BaseModel):
+    """Translation response json object"""
+
     text: str
     """audio file english text translation"""
 
