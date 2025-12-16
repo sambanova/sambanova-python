@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Mapping
+from typing import TYPE_CHECKING, Any, Mapping
 from typing_extensions import Self, override
 
 import httpx
@@ -20,8 +20,8 @@ from ._types import (
     not_given,
 )
 from ._utils import is_given, get_async_library
+from ._compat import cached_property
 from ._version import __version__
-from .resources import models, embeddings, completions
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError, SambaNovaError
 from ._base_client import (
@@ -29,8 +29,14 @@ from ._base_client import (
     SyncAPIClient,
     AsyncAPIClient,
 )
-from .resources.chat import chat
-from .resources.audio import audio
+
+if TYPE_CHECKING:
+    from .resources import chat, audio, models, embeddings, completions
+    from .resources.models import ModelsResource, AsyncModelsResource
+    from .resources.chat.chat import ChatResource, AsyncChatResource
+    from .resources.embeddings import EmbeddingsResource, AsyncEmbeddingsResource
+    from .resources.audio.audio import AudioResource, AsyncAudioResource
+    from .resources.completions import CompletionsResource, AsyncCompletionsResource
 
 __all__ = [
     "Timeout",
@@ -45,14 +51,6 @@ __all__ = [
 
 
 class SambaNova(SyncAPIClient):
-    chat: chat.ChatResource
-    completions: completions.CompletionsResource
-    embeddings: embeddings.EmbeddingsResource
-    audio: audio.AudioResource
-    models: models.ModelsResource
-    with_raw_response: SambaNovaWithRawResponse
-    with_streaming_response: SambaNovaWithStreamedResponse
-
     # client options
     api_key: str
 
@@ -109,13 +107,43 @@ class SambaNova(SyncAPIClient):
 
         self._default_stream_cls = Stream
 
-        self.chat = chat.ChatResource(self)
-        self.completions = completions.CompletionsResource(self)
-        self.embeddings = embeddings.EmbeddingsResource(self)
-        self.audio = audio.AudioResource(self)
-        self.models = models.ModelsResource(self)
-        self.with_raw_response = SambaNovaWithRawResponse(self)
-        self.with_streaming_response = SambaNovaWithStreamedResponse(self)
+    @cached_property
+    def chat(self) -> ChatResource:
+        from .resources.chat import ChatResource
+
+        return ChatResource(self)
+
+    @cached_property
+    def completions(self) -> CompletionsResource:
+        from .resources.completions import CompletionsResource
+
+        return CompletionsResource(self)
+
+    @cached_property
+    def embeddings(self) -> EmbeddingsResource:
+        from .resources.embeddings import EmbeddingsResource
+
+        return EmbeddingsResource(self)
+
+    @cached_property
+    def audio(self) -> AudioResource:
+        from .resources.audio import AudioResource
+
+        return AudioResource(self)
+
+    @cached_property
+    def models(self) -> ModelsResource:
+        from .resources.models import ModelsResource
+
+        return ModelsResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> SambaNovaWithRawResponse:
+        return SambaNovaWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> SambaNovaWithStreamedResponse:
+        return SambaNovaWithStreamedResponse(self)
 
     @property
     @override
@@ -223,14 +251,6 @@ class SambaNova(SyncAPIClient):
 
 
 class AsyncSambaNova(AsyncAPIClient):
-    chat: chat.AsyncChatResource
-    completions: completions.AsyncCompletionsResource
-    embeddings: embeddings.AsyncEmbeddingsResource
-    audio: audio.AsyncAudioResource
-    models: models.AsyncModelsResource
-    with_raw_response: AsyncSambaNovaWithRawResponse
-    with_streaming_response: AsyncSambaNovaWithStreamedResponse
-
     # client options
     api_key: str
 
@@ -287,13 +307,43 @@ class AsyncSambaNova(AsyncAPIClient):
 
         self._default_stream_cls = AsyncStream
 
-        self.chat = chat.AsyncChatResource(self)
-        self.completions = completions.AsyncCompletionsResource(self)
-        self.embeddings = embeddings.AsyncEmbeddingsResource(self)
-        self.audio = audio.AsyncAudioResource(self)
-        self.models = models.AsyncModelsResource(self)
-        self.with_raw_response = AsyncSambaNovaWithRawResponse(self)
-        self.with_streaming_response = AsyncSambaNovaWithStreamedResponse(self)
+    @cached_property
+    def chat(self) -> AsyncChatResource:
+        from .resources.chat import AsyncChatResource
+
+        return AsyncChatResource(self)
+
+    @cached_property
+    def completions(self) -> AsyncCompletionsResource:
+        from .resources.completions import AsyncCompletionsResource
+
+        return AsyncCompletionsResource(self)
+
+    @cached_property
+    def embeddings(self) -> AsyncEmbeddingsResource:
+        from .resources.embeddings import AsyncEmbeddingsResource
+
+        return AsyncEmbeddingsResource(self)
+
+    @cached_property
+    def audio(self) -> AsyncAudioResource:
+        from .resources.audio import AsyncAudioResource
+
+        return AsyncAudioResource(self)
+
+    @cached_property
+    def models(self) -> AsyncModelsResource:
+        from .resources.models import AsyncModelsResource
+
+        return AsyncModelsResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> AsyncSambaNovaWithRawResponse:
+        return AsyncSambaNovaWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> AsyncSambaNovaWithStreamedResponse:
+        return AsyncSambaNovaWithStreamedResponse(self)
 
     @property
     @override
@@ -401,39 +451,151 @@ class AsyncSambaNova(AsyncAPIClient):
 
 
 class SambaNovaWithRawResponse:
+    _client: SambaNova
+
     def __init__(self, client: SambaNova) -> None:
-        self.chat = chat.ChatResourceWithRawResponse(client.chat)
-        self.completions = completions.CompletionsResourceWithRawResponse(client.completions)
-        self.embeddings = embeddings.EmbeddingsResourceWithRawResponse(client.embeddings)
-        self.audio = audio.AudioResourceWithRawResponse(client.audio)
-        self.models = models.ModelsResourceWithRawResponse(client.models)
+        self._client = client
+
+    @cached_property
+    def chat(self) -> chat.ChatResourceWithRawResponse:
+        from .resources.chat import ChatResourceWithRawResponse
+
+        return ChatResourceWithRawResponse(self._client.chat)
+
+    @cached_property
+    def completions(self) -> completions.CompletionsResourceWithRawResponse:
+        from .resources.completions import CompletionsResourceWithRawResponse
+
+        return CompletionsResourceWithRawResponse(self._client.completions)
+
+    @cached_property
+    def embeddings(self) -> embeddings.EmbeddingsResourceWithRawResponse:
+        from .resources.embeddings import EmbeddingsResourceWithRawResponse
+
+        return EmbeddingsResourceWithRawResponse(self._client.embeddings)
+
+    @cached_property
+    def audio(self) -> audio.AudioResourceWithRawResponse:
+        from .resources.audio import AudioResourceWithRawResponse
+
+        return AudioResourceWithRawResponse(self._client.audio)
+
+    @cached_property
+    def models(self) -> models.ModelsResourceWithRawResponse:
+        from .resources.models import ModelsResourceWithRawResponse
+
+        return ModelsResourceWithRawResponse(self._client.models)
 
 
 class AsyncSambaNovaWithRawResponse:
+    _client: AsyncSambaNova
+
     def __init__(self, client: AsyncSambaNova) -> None:
-        self.chat = chat.AsyncChatResourceWithRawResponse(client.chat)
-        self.completions = completions.AsyncCompletionsResourceWithRawResponse(client.completions)
-        self.embeddings = embeddings.AsyncEmbeddingsResourceWithRawResponse(client.embeddings)
-        self.audio = audio.AsyncAudioResourceWithRawResponse(client.audio)
-        self.models = models.AsyncModelsResourceWithRawResponse(client.models)
+        self._client = client
+
+    @cached_property
+    def chat(self) -> chat.AsyncChatResourceWithRawResponse:
+        from .resources.chat import AsyncChatResourceWithRawResponse
+
+        return AsyncChatResourceWithRawResponse(self._client.chat)
+
+    @cached_property
+    def completions(self) -> completions.AsyncCompletionsResourceWithRawResponse:
+        from .resources.completions import AsyncCompletionsResourceWithRawResponse
+
+        return AsyncCompletionsResourceWithRawResponse(self._client.completions)
+
+    @cached_property
+    def embeddings(self) -> embeddings.AsyncEmbeddingsResourceWithRawResponse:
+        from .resources.embeddings import AsyncEmbeddingsResourceWithRawResponse
+
+        return AsyncEmbeddingsResourceWithRawResponse(self._client.embeddings)
+
+    @cached_property
+    def audio(self) -> audio.AsyncAudioResourceWithRawResponse:
+        from .resources.audio import AsyncAudioResourceWithRawResponse
+
+        return AsyncAudioResourceWithRawResponse(self._client.audio)
+
+    @cached_property
+    def models(self) -> models.AsyncModelsResourceWithRawResponse:
+        from .resources.models import AsyncModelsResourceWithRawResponse
+
+        return AsyncModelsResourceWithRawResponse(self._client.models)
 
 
 class SambaNovaWithStreamedResponse:
+    _client: SambaNova
+
     def __init__(self, client: SambaNova) -> None:
-        self.chat = chat.ChatResourceWithStreamingResponse(client.chat)
-        self.completions = completions.CompletionsResourceWithStreamingResponse(client.completions)
-        self.embeddings = embeddings.EmbeddingsResourceWithStreamingResponse(client.embeddings)
-        self.audio = audio.AudioResourceWithStreamingResponse(client.audio)
-        self.models = models.ModelsResourceWithStreamingResponse(client.models)
+        self._client = client
+
+    @cached_property
+    def chat(self) -> chat.ChatResourceWithStreamingResponse:
+        from .resources.chat import ChatResourceWithStreamingResponse
+
+        return ChatResourceWithStreamingResponse(self._client.chat)
+
+    @cached_property
+    def completions(self) -> completions.CompletionsResourceWithStreamingResponse:
+        from .resources.completions import CompletionsResourceWithStreamingResponse
+
+        return CompletionsResourceWithStreamingResponse(self._client.completions)
+
+    @cached_property
+    def embeddings(self) -> embeddings.EmbeddingsResourceWithStreamingResponse:
+        from .resources.embeddings import EmbeddingsResourceWithStreamingResponse
+
+        return EmbeddingsResourceWithStreamingResponse(self._client.embeddings)
+
+    @cached_property
+    def audio(self) -> audio.AudioResourceWithStreamingResponse:
+        from .resources.audio import AudioResourceWithStreamingResponse
+
+        return AudioResourceWithStreamingResponse(self._client.audio)
+
+    @cached_property
+    def models(self) -> models.ModelsResourceWithStreamingResponse:
+        from .resources.models import ModelsResourceWithStreamingResponse
+
+        return ModelsResourceWithStreamingResponse(self._client.models)
 
 
 class AsyncSambaNovaWithStreamedResponse:
+    _client: AsyncSambaNova
+
     def __init__(self, client: AsyncSambaNova) -> None:
-        self.chat = chat.AsyncChatResourceWithStreamingResponse(client.chat)
-        self.completions = completions.AsyncCompletionsResourceWithStreamingResponse(client.completions)
-        self.embeddings = embeddings.AsyncEmbeddingsResourceWithStreamingResponse(client.embeddings)
-        self.audio = audio.AsyncAudioResourceWithStreamingResponse(client.audio)
-        self.models = models.AsyncModelsResourceWithStreamingResponse(client.models)
+        self._client = client
+
+    @cached_property
+    def chat(self) -> chat.AsyncChatResourceWithStreamingResponse:
+        from .resources.chat import AsyncChatResourceWithStreamingResponse
+
+        return AsyncChatResourceWithStreamingResponse(self._client.chat)
+
+    @cached_property
+    def completions(self) -> completions.AsyncCompletionsResourceWithStreamingResponse:
+        from .resources.completions import AsyncCompletionsResourceWithStreamingResponse
+
+        return AsyncCompletionsResourceWithStreamingResponse(self._client.completions)
+
+    @cached_property
+    def embeddings(self) -> embeddings.AsyncEmbeddingsResourceWithStreamingResponse:
+        from .resources.embeddings import AsyncEmbeddingsResourceWithStreamingResponse
+
+        return AsyncEmbeddingsResourceWithStreamingResponse(self._client.embeddings)
+
+    @cached_property
+    def audio(self) -> audio.AsyncAudioResourceWithStreamingResponse:
+        from .resources.audio import AsyncAudioResourceWithStreamingResponse
+
+        return AsyncAudioResourceWithStreamingResponse(self._client.audio)
+
+    @cached_property
+    def models(self) -> models.AsyncModelsResourceWithStreamingResponse:
+        from .resources.models import AsyncModelsResourceWithStreamingResponse
+
+        return AsyncModelsResourceWithStreamingResponse(self._client.models)
 
 
 Client = SambaNova
