@@ -135,6 +135,8 @@ class ChoiceMessageToolCall(BaseModel):
 
 
 class ChoiceMessage(BaseModel):
+    """completion response message object"""
+
     content: Optional[str] = None
     """The contents of the assistant message."""
 
@@ -176,6 +178,7 @@ class Choice(BaseModel):
     """Completion Log Probs object"""
 
     message: Optional[ChoiceMessage] = None
+    """completion response message object"""
 
     if TYPE_CHECKING:
         # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a

@@ -27,10 +27,10 @@ __all__ = [
     "MessageToolMessageContentTextContentPartArray",
     "ChatTemplateKwargs",
     "ResponseFormat",
-    "ResponseFormatResponseFormatText",
-    "ResponseFormatResponseFormatJsonObject",
     "ResponseFormatResponseFormatJsonSchema",
     "ResponseFormatResponseFormatJsonSchemaJsonSchema",
+    "ResponseFormatResponseFormatJsonObject",
+    "ResponseFormatResponseFormatText",
     "StreamOptions",
     "ToolChoice",
     "ToolChoiceToolChoiceObject",
@@ -138,7 +138,10 @@ class CompletionCreateParamsBase(TypedDict, total=False):
     """
 
     parallel_tool_calls: Optional[bool]
-    """Whether to enable parallel function calling during tool use."""
+    """
+    Whether to enable parallel function calling during tool use, This is not yet
+    supported by our models.
+    """
 
     presence_penalty: Optional[float]
     """Number between -2.0 and 2.0.
@@ -433,26 +436,6 @@ class ChatTemplateKwargsTyped(TypedDict, total=False):
 ChatTemplateKwargs: TypeAlias = Union[ChatTemplateKwargsTyped, Dict[str, object]]
 
 
-class ResponseFormatResponseFormatTextTyped(TypedDict, total=False):
-    """Specifies that the model should produce output as plain text."""
-
-    type: Required[Literal["text"]]
-
-
-ResponseFormatResponseFormatText: TypeAlias = Union[ResponseFormatResponseFormatTextTyped, Dict[str, object]]
-
-
-class ResponseFormatResponseFormatJsonObjectTyped(TypedDict, total=False):
-    """Specifies that the model should produce output as a raw JSON object."""
-
-    type: Required[Literal["json_object"]]
-
-
-ResponseFormatResponseFormatJsonObject: TypeAlias = Union[
-    ResponseFormatResponseFormatJsonObjectTyped, Dict[str, object]
-]
-
-
 class ResponseFormatResponseFormatJsonSchemaJsonSchemaTyped(TypedDict, total=False):
     """A JSON Schema definition the model's structured output.
 
@@ -495,8 +478,31 @@ ResponseFormatResponseFormatJsonSchema: TypeAlias = Union[
     ResponseFormatResponseFormatJsonSchemaTyped, Dict[str, object]
 ]
 
+
+class ResponseFormatResponseFormatJsonObjectTyped(TypedDict, total=False):
+    """Specifies that the model should produce output as a raw JSON object."""
+
+    type: Required[Literal["json_object"]]
+
+
+ResponseFormatResponseFormatJsonObject: TypeAlias = Union[
+    ResponseFormatResponseFormatJsonObjectTyped, Dict[str, object]
+]
+
+
+class ResponseFormatResponseFormatTextTyped(TypedDict, total=False):
+    """Specifies that the model should produce output as plain text.
+
+    This value is not supported yet in the chat compeltions api, if this behavior is desired do not set response format.
+    """
+
+    type: Required[Literal["text"]]
+
+
+ResponseFormatResponseFormatText: TypeAlias = Union[ResponseFormatResponseFormatTextTyped, Dict[str, object]]
+
 ResponseFormat: TypeAlias = Union[
-    ResponseFormatResponseFormatText, ResponseFormatResponseFormatJsonObject, ResponseFormatResponseFormatJsonSchema
+    ResponseFormatResponseFormatJsonSchema, ResponseFormatResponseFormatJsonObject, ResponseFormatResponseFormatText
 ]
 
 

@@ -75,6 +75,8 @@ class ChoiceMessageToolCall(BaseModel):
 
 
 class ChoiceMessage(BaseModel):
+    """completion response message object"""
+
     content: Optional[str] = None
     """The contents of the assistant message."""
 
@@ -170,6 +172,7 @@ class Choice(BaseModel):
     """The index of the choice in the list of choices"""
 
     message: ChoiceMessage
+    """completion response message object"""
 
     logprobs: Optional[ChoiceLogprobs] = None
     """Completion Log Probs object"""
