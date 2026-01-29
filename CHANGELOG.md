@@ -1,5 +1,39 @@
 # Changelog
 
+## 1.3.0 (2026-01-23)
+
+Full Changelog: [v1.2.0...v1.3.0](https://github.com/sambanova/sambanova-python/compare/v1.2.0...v1.3.0)
+
+### Features
+
+* **client:** add support for binary request streaming ([fd6244a](https://github.com/sambanova/sambanova-python/commit/fd6244ae60fe2df91a2b465cc06b2256407bc38c))
+
+
+### Bug Fixes
+
+* **api:** minor openAPI spec fixes ([5e39cbb](https://github.com/sambanova/sambanova-python/commit/5e39cbb4c4ca8fbc35133a9b6553ad7ca55dfae9))
+* compat with Python 3.14 ([f8d0a17](https://github.com/sambanova/sambanova-python/commit/f8d0a17b8d285ffb31c1241ff4c0ed966115d237))
+* **compat:** update signatures of `model_dump` and `model_dump_json` for Pydantic v1 ([80b2f0e](https://github.com/sambanova/sambanova-python/commit/80b2f0ebd03e43a4e5d97392c474a7a57179cb94))
+* ensure streams are always closed ([b057502](https://github.com/sambanova/sambanova-python/commit/b057502367a9313b396068b33cdcf42925bdec9a))
+* **types:** allow pyright to infer TypedDict types within SequenceNotStr ([7f5d893](https://github.com/sambanova/sambanova-python/commit/7f5d8930d54299226a83ebaeff192739da87c98a))
+* use async_to_httpx_files in patch method ([d33246e](https://github.com/sambanova/sambanova-python/commit/d33246edf84f1ec15a52bea24725f0f84a148d16))
+
+
+### Chores
+
+* add missing docstrings ([019eba0](https://github.com/sambanova/sambanova-python/commit/019eba07481acc8717f40a10c3109e494d2e4eac))
+* **ci:** upgrade `actions/github-script` ([77ed781](https://github.com/sambanova/sambanova-python/commit/77ed7817c1f0a6179e63d141fcc97b79f971af5d))
+* **deps:** mypy 1.18.1 has a regression, pin to 1.17 ([fce9064](https://github.com/sambanova/sambanova-python/commit/fce906481b815306c766baf5cb326a01d5ddb5b8))
+* **docs:** use environment variables for authentication in code snippets ([83ff043](https://github.com/sambanova/sambanova-python/commit/83ff0430dac4e91173d28bedfb3af1daa13106bb))
+* **internal:** add `--fix` argument to lint script ([a8f92ca](https://github.com/sambanova/sambanova-python/commit/a8f92ca4dade631b727d2e8111291080e632b7f3))
+* **internal:** add missing files argument to base client ([c4d570a](https://github.com/sambanova/sambanova-python/commit/c4d570afae505d0e06b3f946dd5f3360fd208fb2))
+* **internal:** codegen related update ([89dd766](https://github.com/sambanova/sambanova-python/commit/89dd7669d6a52745dbed8bb926ac30aa016480b3))
+* **internal:** codegen related update ([ba4cbb9](https://github.com/sambanova/sambanova-python/commit/ba4cbb9f303518c0c7d7349830da344be9d38e01))
+* **internal:** update `actions/checkout` version ([ec75715](https://github.com/sambanova/sambanova-python/commit/ec757150c5f6a458a6c35445cf0c5767439a1b17))
+* **package:** drop Python 3.8 support ([e619e7d](https://github.com/sambanova/sambanova-python/commit/e619e7d79ca78487c85d0f22708590582821e547))
+* speedup initial import ([4de61f3](https://github.com/sambanova/sambanova-python/commit/4de61f39aef0af76cc79c03622b8fad19c14a439))
+* update lockfile ([0b2e4c4](https://github.com/sambanova/sambanova-python/commit/0b2e4c493d6aecd212fbb3d504cd4f5301a829cb))
+
 ## 1.2.0 (2025-11-07)
 
 Full Changelog: [v1.1.6...v1.2.0](https://github.com/sambanova/sambanova-python/compare/v1.1.6...v1.2.0)

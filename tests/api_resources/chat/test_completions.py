@@ -51,7 +51,28 @@ class TestCompletions:
             parallel_tool_calls=True,
             presence_penalty=-2,
             reasoning_effort="low",
-            response_format={"type": "text"},
+            response_format={
+                "json_schema": {
+                    "name": "User",
+                    "description": "JSON schema for a simple user object",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string",
+                                "description": "Unique identifier for the user",
+                            },
+                            "name": {
+                                "type": "string",
+                                "description": "Full name of the user",
+                            },
+                        },
+                        "required": ["id", "name"],
+                    },
+                    "strict": False,
+                },
+                "type": "json_schema",
+            },
             seed=0,
             stop="\n",
             stream=False,
@@ -146,7 +167,28 @@ class TestCompletions:
             parallel_tool_calls=True,
             presence_penalty=-2,
             reasoning_effort="low",
-            response_format={"type": "text"},
+            response_format={
+                "json_schema": {
+                    "name": "User",
+                    "description": "JSON schema for a simple user object",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string",
+                                "description": "Unique identifier for the user",
+                            },
+                            "name": {
+                                "type": "string",
+                                "description": "Full name of the user",
+                            },
+                        },
+                        "required": ["id", "name"],
+                    },
+                    "strict": False,
+                },
+                "type": "json_schema",
+            },
             seed=0,
             stop="\n",
             stream_options={"include_usage": True},
@@ -245,7 +287,28 @@ class TestAsyncCompletions:
             parallel_tool_calls=True,
             presence_penalty=-2,
             reasoning_effort="low",
-            response_format={"type": "text"},
+            response_format={
+                "json_schema": {
+                    "name": "User",
+                    "description": "JSON schema for a simple user object",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string",
+                                "description": "Unique identifier for the user",
+                            },
+                            "name": {
+                                "type": "string",
+                                "description": "Full name of the user",
+                            },
+                        },
+                        "required": ["id", "name"],
+                    },
+                    "strict": False,
+                },
+                "type": "json_schema",
+            },
             seed=0,
             stop="\n",
             stream=False,
@@ -340,7 +403,28 @@ class TestAsyncCompletions:
             parallel_tool_calls=True,
             presence_penalty=-2,
             reasoning_effort="low",
-            response_format={"type": "text"},
+            response_format={
+                "json_schema": {
+                    "name": "User",
+                    "description": "JSON schema for a simple user object",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string",
+                                "description": "Unique identifier for the user",
+                            },
+                            "name": {
+                                "type": "string",
+                                "description": "Full name of the user",
+                            },
+                        },
+                        "required": ["id", "name"],
+                    },
+                    "strict": False,
+                },
+                "type": "json_schema",
+            },
             seed=0,
             stop="\n",
             stream_options={"include_usage": True},

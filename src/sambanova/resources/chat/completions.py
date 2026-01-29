@@ -147,7 +147,8 @@ class CompletionsResource(SyncAPIResource):
           n: This is not yet supported by our models. How many chat completion choices to
               generate for each input message.
 
-          parallel_tool_calls: Whether to enable parallel function calling during tool use.
+          parallel_tool_calls: Whether to enable parallel function calling during tool use, This is not yet
+              supported by our models.
 
           presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on
               whether they appear in the text so far, increasing the model's likelihood to
@@ -325,7 +326,8 @@ class CompletionsResource(SyncAPIResource):
           n: This is not yet supported by our models. How many chat completion choices to
               generate for each input message.
 
-          parallel_tool_calls: Whether to enable parallel function calling during tool use.
+          parallel_tool_calls: Whether to enable parallel function calling during tool use, This is not yet
+              supported by our models.
 
           presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on
               whether they appear in the text so far, increasing the model's likelihood to
@@ -498,7 +500,8 @@ class CompletionsResource(SyncAPIResource):
           n: This is not yet supported by our models. How many chat completion choices to
               generate for each input message.
 
-          parallel_tool_calls: Whether to enable parallel function calling during tool use.
+          parallel_tool_calls: Whether to enable parallel function calling during tool use, This is not yet
+              supported by our models.
 
           presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on
               whether they appear in the text so far, increasing the model's likelihood to
@@ -793,7 +796,8 @@ class AsyncCompletionsResource(AsyncAPIResource):
           n: This is not yet supported by our models. How many chat completion choices to
               generate for each input message.
 
-          parallel_tool_calls: Whether to enable parallel function calling during tool use.
+          parallel_tool_calls: Whether to enable parallel function calling during tool use, This is not yet
+              supported by our models.
 
           presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on
               whether they appear in the text so far, increasing the model's likelihood to
@@ -971,7 +975,8 @@ class AsyncCompletionsResource(AsyncAPIResource):
           n: This is not yet supported by our models. How many chat completion choices to
               generate for each input message.
 
-          parallel_tool_calls: Whether to enable parallel function calling during tool use.
+          parallel_tool_calls: Whether to enable parallel function calling during tool use, This is not yet
+              supported by our models.
 
           presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on
               whether they appear in the text so far, increasing the model's likelihood to
@@ -1144,7 +1149,8 @@ class AsyncCompletionsResource(AsyncAPIResource):
           n: This is not yet supported by our models. How many chat completion choices to
               generate for each input message.
 
-          parallel_tool_calls: Whether to enable parallel function calling during tool use.
+          parallel_tool_calls: Whether to enable parallel function calling during tool use, This is not yet
+              supported by our models.
 
           presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on
               whether they appear in the text so far, increasing the model's likelihood to

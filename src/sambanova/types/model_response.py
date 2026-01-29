@@ -12,6 +12,8 @@ __all__ = ["ModelResponse", "Pricing"]
 
 
 class Pricing(BaseModel):
+    """pricing details"""
+
     completion: Optional[float] = None
     """price per completion token in USD"""
 
@@ -35,6 +37,8 @@ class Pricing(BaseModel):
 
 
 class ModelResponse(BaseModel):
+    """model metadata"""
+
     id: str
     """model id"""
 

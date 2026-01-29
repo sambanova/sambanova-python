@@ -62,6 +62,8 @@ class ChoiceLogprobsContent(BaseModel):
 
 
 class ChoiceLogprobs(BaseModel):
+    """Completion Log Probs object"""
+
     content: ChoiceLogprobsContent
 
     if TYPE_CHECKING:
@@ -109,6 +111,8 @@ class Choice(BaseModel):
 
 
 class UsagePromptTokensDetails(BaseModel):
+    """Extra tokens details"""
+
     cached_tokens: Optional[int] = None
     """amount of cached tokens"""
 
@@ -126,6 +130,10 @@ class UsagePromptTokensDetails(BaseModel):
 
 
 class Usage(BaseModel):
+    """
+    Usage metrics for the completion, embeddings,transcription or translation request
+    """
+
     acceptance_rate: Optional[float] = None
     """acceptance rate"""
 
@@ -185,6 +193,8 @@ class Usage(BaseModel):
 
 
 class CompletionStreamResponse(BaseModel):
+    """streamed chunk of a completion response returned by the model"""
+
     id: str
     """A unique identifier for the chat completion."""
 

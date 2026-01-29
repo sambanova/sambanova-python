@@ -3,7 +3,7 @@
 <!-- prettier-ignore -->
 [![PyPI version](https://img.shields.io/pypi/v/sambanova.svg?label=pypi%20(stable))](https://pypi.org/project/sambanova/)
 
-The Samba Nova Python library provides convenient access to the Samba Nova REST API from any Python 3.8+
+The Samba Nova Python library provides convenient access to the Samba Nova REST API from any Python 3.9+
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
 
@@ -93,6 +93,7 @@ pip install sambanova[aiohttp]
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
 
 ```python
+import os
 import asyncio
 from sambanova import DefaultAioHttpClient
 from sambanova import AsyncSambaNova
@@ -100,7 +101,7 @@ from sambanova import AsyncSambaNova
 
 async def main() -> None:
     async with AsyncSambaNova(
-        api_key="My API Key",
+        api_key=os.environ.get("SAMBANOVA_API_KEY"),  # This is the default and can be omitted
         http_client=DefaultAioHttpClient(),
     ) as client:
         completion = await client.chat.completions.create(
@@ -499,7 +500,7 @@ print(sambanova.__version__)
 
 ## Requirements
 
-Python 3.8 or higher.
+Python 3.9 or higher.
 
 ## Contributing
 
