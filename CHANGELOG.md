@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.4.0 (2026-01-30)
+
+Full Changelog: [v1.3.0...v1.4.0](https://github.com/sambanova/sambanova-python/compare/v1.3.0...v1.4.0)
+
+### Features
+
+* **api:** add optional custom integration_source param ([7a3ec89](https://github.com/sambanova/sambanova-python/commit/7a3ec896f0d54965f65c89881bc60d10d68c990f))
+* **client:** add custom JSON encoder for extended type support ([9968c9b](https://github.com/sambanova/sambanova-python/commit/9968c9b09343560d3de76478d2ded9b122bc7940))
+
 ## 1.3.0 (2026-01-23)
 
 Full Changelog: [v1.2.0...v1.3.0](https://github.com/sambanova/sambanova-python/compare/v1.2.0...v1.3.0)

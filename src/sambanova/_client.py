@@ -53,11 +53,13 @@ __all__ = [
 class SambaNova(SyncAPIClient):
     # client options
     api_key: str
+    integration_source: str | None
 
     def __init__(
         self,
         *,
         api_key: str | None = None,
+        integration_source: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -79,7 +81,9 @@ class SambaNova(SyncAPIClient):
     ) -> None:
         """Construct a new synchronous SambaNova client instance.
 
-        This automatically infers the `api_key` argument from the `SAMBANOVA_API_KEY` environment variable if it is not provided.
+        This automatically infers the following arguments from their corresponding environment variables if they are not provided:
+        - `api_key` from `SAMBANOVA_API_KEY`
+        - `integration_source` from `SAMBANOVA_INTEGRATION_SOURCE`
         """
         if api_key is None:
             api_key = os.environ.get("SAMBANOVA_API_KEY")
@@ -88,6 +92,10 @@ class SambaNova(SyncAPIClient):
                 "The api_key client option must be set either by passing api_key to the client or by setting the SAMBANOVA_API_KEY environment variable"
             )
         self.api_key = api_key
+
+        if integration_source is None:
+            integration_source = os.environ.get("SAMBANOVA_INTEGRATION_SOURCE")
+        self.integration_source = integration_source
 
         if base_url is None:
             base_url = os.environ.get("SAMBA_NOVA_BASE_URL")
@@ -162,6 +170,7 @@ class SambaNova(SyncAPIClient):
         return {
             **super().default_headers,
             "X-Stainless-Async": "false",
+            "X-Integration-Source": self.integration_source if self.integration_source is not None else Omit(),
             **self._custom_headers,
         }
 
@@ -169,6 +178,7 @@ class SambaNova(SyncAPIClient):
         self,
         *,
         api_key: str | None = None,
+        integration_source: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
         http_client: httpx.Client | None = None,
@@ -203,6 +213,7 @@ class SambaNova(SyncAPIClient):
         http_client = http_client or self._client
         return self.__class__(
             api_key=api_key or self.api_key,
+            integration_source=integration_source or self.integration_source,
             base_url=base_url or self.base_url,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             http_client=http_client,
@@ -253,11 +264,13 @@ class SambaNova(SyncAPIClient):
 class AsyncSambaNova(AsyncAPIClient):
     # client options
     api_key: str
+    integration_source: str | None
 
     def __init__(
         self,
         *,
         api_key: str | None = None,
+        integration_source: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -279,7 +292,9 @@ class AsyncSambaNova(AsyncAPIClient):
     ) -> None:
         """Construct a new async AsyncSambaNova client instance.
 
-        This automatically infers the `api_key` argument from the `SAMBANOVA_API_KEY` environment variable if it is not provided.
+        This automatically infers the following arguments from their corresponding environment variables if they are not provided:
+        - `api_key` from `SAMBANOVA_API_KEY`
+        - `integration_source` from `SAMBANOVA_INTEGRATION_SOURCE`
         """
         if api_key is None:
             api_key = os.environ.get("SAMBANOVA_API_KEY")
@@ -288,6 +303,10 @@ class AsyncSambaNova(AsyncAPIClient):
                 "The api_key client option must be set either by passing api_key to the client or by setting the SAMBANOVA_API_KEY environment variable"
             )
         self.api_key = api_key
+
+        if integration_source is None:
+            integration_source = os.environ.get("SAMBANOVA_INTEGRATION_SOURCE")
+        self.integration_source = integration_source
 
         if base_url is None:
             base_url = os.environ.get("SAMBA_NOVA_BASE_URL")
@@ -362,6 +381,7 @@ class AsyncSambaNova(AsyncAPIClient):
         return {
             **super().default_headers,
             "X-Stainless-Async": f"async:{get_async_library()}",
+            "X-Integration-Source": self.integration_source if self.integration_source is not None else Omit(),
             **self._custom_headers,
         }
 
@@ -369,6 +389,7 @@ class AsyncSambaNova(AsyncAPIClient):
         self,
         *,
         api_key: str | None = None,
+        integration_source: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
         http_client: httpx.AsyncClient | None = None,
@@ -403,6 +424,7 @@ class AsyncSambaNova(AsyncAPIClient):
         http_client = http_client or self._client
         return self.__class__(
             api_key=api_key or self.api_key,
+            integration_source=integration_source or self.integration_source,
             base_url=base_url or self.base_url,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             http_client=http_client,
