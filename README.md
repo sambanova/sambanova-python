@@ -1,26 +1,24 @@
-# Sambanova Python API library
+# Samba Nova Python API library
 
-[![PyPI version](https://img.shields.io/pypi/v/sambanova.svg)](https://pypi.org/project/sambanova/)
+<!-- prettier-ignore -->
+[![PyPI version](https://img.shields.io/pypi/v/sambanova.svg?label=pypi%20(stable))](https://pypi.org/project/sambanova/)
 
-The Sambanova Python library provides convenient access to the Sambanova REST API from any Python 3.8+
+The Samba Nova Python library provides convenient access to the Samba Nova REST API from any Python 3.9+
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
 
-It is generated with [Stainless](https://www.stainlessapi.com/).
+It is generated with [Stainless](https://www.stainless.com/).
 
 ## Documentation
 
-The REST API documentation can be found on [community.sambanova.ai](https://community.sambanova.ai/c/docs/11). The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found on [docs.sambanova.ai](https://docs.sambanova.ai/cloud/). The full API of this library can be found in [api.md](api.md).
 
 ## Installation
 
 ```sh
-# install from this staging repo
-pip install git+ssh://git@github.com/stainless-sdks/sambanova-python.git
+# install from PyPI
+pip install '--pre sambanova'
 ```
-
-> [!NOTE]
-> Once this package is [published to PyPI](https://app.stainlessapi.com/docs/guides/publish), this will become: `pip install --pre sambanova`
 
 ## Usage
 
@@ -28,38 +26,52 @@ The full API of this library can be found in [api.md](api.md).
 
 ```python
 import os
-from sambanova import Sambanova
+from sambanova import SambaNova
 
-client = Sambanova(
-    bearer_token=os.environ.get("BEARER_TOKEN"),  # This is the default and can be omitted
+client = SambaNova(
+    api_key=os.environ.get("SAMBANOVA_API_KEY"),  # This is the default and can be omitted
 )
 
-chat_completion = client.chat_completions.create()
-print(chat_completion.id)
+completion = client.chat.completions.create(
+    messages=[
+        {
+            "content": "create a poem using palindromes",
+            "role": "user",
+        }
+    ],
+    model="string",
+)
 ```
 
-While you can provide a `bearer_token` keyword argument,
+While you can provide an `api_key` keyword argument,
 we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
-to add `BEARER_TOKEN="My Bearer Token"` to your `.env` file
-so that your Bearer Token is not stored in source control.
+to add `SAMBANOVA_API_KEY="My API Key"` to your `.env` file
+so that your API Key is not stored in source control.
 
 ## Async usage
 
-Simply import `AsyncSambanova` instead of `Sambanova` and use `await` with each API call:
+Simply import `AsyncSambaNova` instead of `SambaNova` and use `await` with each API call:
 
 ```python
 import os
 import asyncio
-from sambanova import AsyncSambanova
+from sambanova import AsyncSambaNova
 
-client = AsyncSambanova(
-    bearer_token=os.environ.get("BEARER_TOKEN"),  # This is the default and can be omitted
+client = AsyncSambaNova(
+    api_key=os.environ.get("SAMBANOVA_API_KEY"),  # This is the default and can be omitted
 )
 
 
 async def main() -> None:
-    chat_completion = await client.chat_completions.create()
-    print(chat_completion.id)
+    completion = await client.chat.completions.create(
+        messages=[
+            {
+                "content": "create a poem using palindromes",
+                "role": "user",
+            }
+        ],
+        model="string",
+    )
 
 
 asyncio.run(main())
@@ -67,34 +79,87 @@ asyncio.run(main())
 
 Functionality between the synchronous and asynchronous clients is otherwise identical.
 
+### With aiohttp
+
+By default, the async client uses `httpx` for HTTP requests. However, for improved concurrency performance you may also use `aiohttp` as the HTTP backend.
+
+You can enable this by installing `aiohttp`:
+
+```sh
+# install from PyPI
+pip install '--pre sambanova[aiohttp]'
+```
+
+Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
+
+```python
+import os
+import asyncio
+from sambanova import DefaultAioHttpClient
+from sambanova import AsyncSambaNova
+
+
+async def main() -> None:
+    async with AsyncSambaNova(
+        api_key=os.environ.get("SAMBANOVA_API_KEY"),  # This is the default and can be omitted
+        http_client=DefaultAioHttpClient(),
+    ) as client:
+        completion = await client.chat.completions.create(
+            messages=[
+                {
+                    "content": "create a poem using palindromes",
+                    "role": "user",
+                }
+            ],
+            model="string",
+        )
+
+
+asyncio.run(main())
+```
+
 ## Streaming responses
 
 We provide support for streaming responses using Server Side Events (SSE).
 
 ```python
-from sambanova import Sambanova
+from sambanova import SambaNova
 
-client = Sambanova()
+client = SambaNova()
 
-stream = client.chat_completions.create(
+stream = client.chat.completions.create(
+    messages=[
+        {
+            "content": "create a poem using palindromes",
+            "role": "user",
+        }
+    ],
+    model="string",
     stream=True,
 )
-for chat_completion in stream:
-    print(chat_completion.id)
+for completion in stream:
+    print(completion)
 ```
 
 The async client uses the exact same interface.
 
 ```python
-from sambanova import AsyncSambanova
+from sambanova import AsyncSambaNova
 
-client = AsyncSambanova()
+client = AsyncSambaNova()
 
-stream = await client.chat_completions.create(
+stream = await client.chat.completions.create(
+    messages=[
+        {
+            "content": "create a poem using palindromes",
+            "role": "user",
+        }
+    ],
+    model="string",
     stream=True,
 )
-async for chat_completion in stream:
-    print(chat_completion.id)
+async for completion in stream:
+    print(completion)
 ```
 
 ## Using types
@@ -105,6 +170,46 @@ Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typ
 - Converting to a dictionary, `model.to_dict()`
 
 Typed requests and responses provide autocomplete and documentation within your editor. If you would like to see type errors in VS Code to help catch bugs earlier, set `python.analysis.typeCheckingMode` to `basic`.
+
+## Nested params
+
+Nested parameters are dictionaries, typed using `TypedDict`, for example:
+
+```python
+from sambanova import SambaNova
+
+client = SambaNova()
+
+completion = client.chat.completions.create(
+    messages=[
+        {
+            "content": "create a poem using palindromes",
+            "role": "user",
+        }
+    ],
+    model="string",
+    chat_template_kwargs={"enable_thinking": True},
+)
+print(completion.chat_template_kwargs)
+```
+
+## File uploads
+
+Request parameters that correspond to file uploads can be passed as `bytes`, or a [`PathLike`](https://docs.python.org/3/library/os.html#os.PathLike) instance or a tuple of `(filename, contents, media type)`.
+
+```python
+from pathlib import Path
+from sambanova import SambaNova
+
+client = SambaNova()
+
+client.audio.transcriptions.create(
+    file=Path("/path/to/file"),
+    model="Whisper-Large-v3",
+)
+```
+
+The async client uses the exact same interface. If you pass a [`PathLike`](https://docs.python.org/3/library/os.html#os.PathLike) instance, the file contents will be read asynchronously automatically.
 
 ## Handling errors
 
@@ -117,12 +222,20 @@ All errors inherit from `sambanova.APIError`.
 
 ```python
 import sambanova
-from sambanova import Sambanova
+from sambanova import SambaNova
 
-client = Sambanova()
+client = SambaNova()
 
 try:
-    client.chat_completions.create()
+    client.chat.completions.create(
+        messages=[
+            {
+                "content": "create a poem using palindromes",
+                "role": "user",
+            }
+        ],
+        model="string",
+    )
 except sambanova.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
@@ -156,39 +269,55 @@ Connection errors (for example, due to a network connectivity problem), 408 Requ
 You can use the `max_retries` option to configure or disable retry settings:
 
 ```python
-from sambanova import Sambanova
+from sambanova import SambaNova
 
 # Configure the default for all requests:
-client = Sambanova(
+client = SambaNova(
     # default is 2
     max_retries=0,
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).chat_completions.create()
+client.with_options(max_retries=5).chat.completions.create(
+    messages=[
+        {
+            "content": "create a poem using palindromes",
+            "role": "user",
+        }
+    ],
+    model="string",
+)
 ```
 
 ### Timeouts
 
-By default requests time out after 1 minute. You can configure this with a `timeout` option,
-which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/#fine-tuning-the-configuration) object:
+By default requests time out after 10 minutes. You can configure this with a `timeout` option,
+which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/timeouts/#fine-tuning-the-configuration) object:
 
 ```python
-from sambanova import Sambanova
+from sambanova import SambaNova
 
 # Configure the default for all requests:
-client = Sambanova(
-    # 20 seconds (default is 1 minute)
+client = SambaNova(
+    # 20 seconds (default is 10 minutes)
     timeout=20.0,
 )
 
 # More granular control:
-client = Sambanova(
+client = SambaNova(
     timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).chat_completions.create()
+client.with_options(timeout=5.0).chat.completions.create(
+    messages=[
+        {
+            "content": "create a poem using palindromes",
+            "role": "user",
+        }
+    ],
+    model="string",
+)
 ```
 
 On timeout, an `APITimeoutError` is thrown.
@@ -201,10 +330,10 @@ Note that requests that time out are [retried twice by default](#retries).
 
 We use the standard library [`logging`](https://docs.python.org/3/library/logging.html) module.
 
-You can enable logging by setting the environment variable `SAMBANOVA_LOG` to `info`.
+You can enable logging by setting the environment variable `SAMBA_NOVA_LOG` to `info`.
 
 ```shell
-$ export SAMBANOVA_LOG=info
+$ export SAMBA_NOVA_LOG=info
 ```
 
 Or to `debug` for more verbose logging.
@@ -226,19 +355,25 @@ if response.my_field is None:
 The "raw" Response object can be accessed by prefixing `.with_raw_response.` to any HTTP method call, e.g.,
 
 ```py
-from sambanova import Sambanova
+from sambanova import SambaNova
 
-client = Sambanova()
-response = client.chat_completions.with_raw_response.create()
+client = SambaNova()
+response = client.chat.completions.with_raw_response.create(
+    messages=[{
+        "content": "create a poem using palindromes",
+        "role": "user",
+    }],
+    model="string",
+)
 print(response.headers.get('X-My-Header'))
 
-chat_completion = response.parse()  # get the object that `chat_completions.create()` would have returned
-print(chat_completion.id)
+completion = response.parse()  # get the object that `chat.completions.create()` would have returned
+print(completion)
 ```
 
-These methods return an [`APIResponse`](https://github.com/stainless-sdks/sambanova-python/tree/main/src/sambanova/_response.py) object.
+These methods return an [`APIResponse`](https://github.com/sambanova/sambanova-python/tree/main/src/sambanova/_response.py) object.
 
-The async client returns an [`AsyncAPIResponse`](https://github.com/stainless-sdks/sambanova-python/tree/main/src/sambanova/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
+The async client returns an [`AsyncAPIResponse`](https://github.com/sambanova/sambanova-python/tree/main/src/sambanova/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
 
 #### `.with_streaming_response`
 
@@ -247,7 +382,15 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.chat_completions.with_streaming_response.create() as response:
+with client.chat.completions.with_streaming_response.create(
+    messages=[
+        {
+            "content": "create a poem using palindromes",
+            "role": "user",
+        }
+    ],
+    model="string",
+) as response:
     print(response.headers.get("X-My-Header"))
 
     for line in response.iter_lines():
@@ -300,10 +443,10 @@ You can directly override the [httpx client](https://www.python-httpx.org/api/#c
 
 ```python
 import httpx
-from sambanova import Sambanova, DefaultHttpxClient
+from sambanova import SambaNova, DefaultHttpxClient
 
-client = Sambanova(
-    # Or use the `SAMBANOVA_BASE_URL` env var
+client = SambaNova(
+    # Or use the `SAMBA_NOVA_BASE_URL` env var
     base_url="http://my.test.server.example.com:8083",
     http_client=DefaultHttpxClient(
         proxy="http://my.test.proxy.example.com",
@@ -323,9 +466,9 @@ client.with_options(http_client=DefaultHttpxClient(...))
 By default the library closes underlying HTTP connections whenever the client is [garbage collected](https://docs.python.org/3/reference/datamodel.html#object.__del__). You can manually close the client using the `.close()` method if desired, or with a context manager that closes when exiting.
 
 ```py
-from sambanova import Sambanova
+from sambanova import SambaNova
 
-with Sambanova() as client:
+with SambaNova() as client:
   # make requests here
   ...
 
@@ -342,7 +485,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/sambanova-python/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/sambanova/sambanova-python/issues) with questions, bugs, or suggestions.
 
 ### Determining the installed version
 
@@ -357,7 +500,7 @@ print(sambanova.__version__)
 
 ## Requirements
 
-Python 3.8 or higher.
+Python 3.9 or higher.
 
 ## Contributing
 

@@ -12,7 +12,7 @@ import httpx
 from ._utils import extract_type_var_from_base
 
 if TYPE_CHECKING:
-    from ._client import Sambanova, AsyncSambanova
+    from ._client import SambaNova, AsyncSambaNova
 
 
 _T = TypeVar("_T")
@@ -30,7 +30,7 @@ class Stream(Generic[_T]):
         *,
         cast_to: type[_T],
         response: httpx.Response,
-        client: Sambanova,
+        client: SambaNova,
     ) -> None:
         self.response = response
         self._cast_to = cast_to
@@ -54,31 +54,31 @@ class Stream(Generic[_T]):
         process_data = self._client._process_response_data
         iterator = self._iter_events()
 
-        for sse in iterator:
-            if sse.data.startswith("[DONE]"):
-                break
+        try:
+            for sse in iterator:
+                if sse.data.startswith("[DONE]"):
+                    break
 
-            if sse.event is None:
-                yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+                if sse.event is None:
+                    yield process_data(data=sse.json(), cast_to=cast_to, response=response)
 
-            if sse.event == "error":
-                body = sse.data
+                if sse.event == "error":
+                    body = sse.data
 
-                try:
-                    body = sse.json()
-                    err_msg = f"{body}"
-                except Exception:
-                    err_msg = sse.data or f"Error code: {response.status_code}"
+                    try:
+                        body = sse.json()
+                        err_msg = f"{body}"
+                    except Exception:
+                        err_msg = sse.data or f"Error code: {response.status_code}"
 
-                raise self._client._make_status_error(
-                    err_msg,
-                    body=body,
-                    response=self.response,
-                )
-
-        # Ensure the entire stream is consumed
-        for _sse in iterator:
-            ...
+                    raise self._client._make_status_error(
+                        err_msg,
+                        body=body,
+                        response=self.response,
+                    )
+        finally:
+            # Ensure the response is closed even if the consumer doesn't read all data
+            response.close()
 
     def __enter__(self) -> Self:
         return self
@@ -112,7 +112,7 @@ class AsyncStream(Generic[_T]):
         *,
         cast_to: type[_T],
         response: httpx.Response,
-        client: AsyncSambanova,
+        client: AsyncSambaNova,
     ) -> None:
         self.response = response
         self._cast_to = cast_to
@@ -137,31 +137,31 @@ class AsyncStream(Generic[_T]):
         process_data = self._client._process_response_data
         iterator = self._iter_events()
 
-        async for sse in iterator:
-            if sse.data.startswith("[DONE]"):
-                break
+        try:
+            async for sse in iterator:
+                if sse.data.startswith("[DONE]"):
+                    break
 
-            if sse.event is None:
-                yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+                if sse.event is None:
+                    yield process_data(data=sse.json(), cast_to=cast_to, response=response)
 
-            if sse.event == "error":
-                body = sse.data
+                if sse.event == "error":
+                    body = sse.data
 
-                try:
-                    body = sse.json()
-                    err_msg = f"{body}"
-                except Exception:
-                    err_msg = sse.data or f"Error code: {response.status_code}"
+                    try:
+                        body = sse.json()
+                        err_msg = f"{body}"
+                    except Exception:
+                        err_msg = sse.data or f"Error code: {response.status_code}"
 
-                raise self._client._make_status_error(
-                    err_msg,
-                    body=body,
-                    response=self.response,
-                )
-
-        # Ensure the entire stream is consumed
-        async for _sse in iterator:
-            ...
+                    raise self._client._make_status_error(
+                        err_msg,
+                        body=body,
+                        response=self.response,
+                    )
+        finally:
+            # Ensure the response is closed even if the consumer doesn't read all data
+            await response.aclose()
 
     async def __aenter__(self) -> Self:
         return self

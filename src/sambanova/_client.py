@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Union, Mapping
+from typing import TYPE_CHECKING, Any, Mapping
 from typing_extensions import Self, override
 
 import httpx
@@ -11,54 +11,57 @@ import httpx
 from . import _exceptions
 from ._qs import Querystring
 from ._types import (
-    NOT_GIVEN,
     Omit,
     Timeout,
     NotGiven,
     Transport,
     ProxiesTypes,
     RequestOptions,
+    not_given,
 )
-from ._utils import (
-    is_given,
-    get_async_library,
-)
+from ._utils import is_given, get_async_library
+from ._compat import cached_property
 from ._version import __version__
-from .resources import chat_completions
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
-from ._exceptions import APIStatusError, SambanovaError
+from ._exceptions import APIStatusError, SambaNovaError
 from ._base_client import (
     DEFAULT_MAX_RETRIES,
     SyncAPIClient,
     AsyncAPIClient,
 )
 
+if TYPE_CHECKING:
+    from .resources import chat, audio, models, embeddings, completions
+    from .resources.models import ModelsResource, AsyncModelsResource
+    from .resources.chat.chat import ChatResource, AsyncChatResource
+    from .resources.embeddings import EmbeddingsResource, AsyncEmbeddingsResource
+    from .resources.audio.audio import AudioResource, AsyncAudioResource
+    from .resources.completions import CompletionsResource, AsyncCompletionsResource
+
 __all__ = [
     "Timeout",
     "Transport",
     "ProxiesTypes",
     "RequestOptions",
-    "Sambanova",
-    "AsyncSambanova",
+    "SambaNova",
+    "AsyncSambaNova",
     "Client",
     "AsyncClient",
 ]
 
 
-class Sambanova(SyncAPIClient):
-    chat_completions: chat_completions.ChatCompletionsResource
-    with_raw_response: SambanovaWithRawResponse
-    with_streaming_response: SambanovaWithStreamedResponse
-
+class SambaNova(SyncAPIClient):
     # client options
-    bearer_token: str
+    api_key: str
+    integration_source: str | None
 
     def __init__(
         self,
         *,
-        bearer_token: str | None = None,
+        api_key: str | None = None,
+        integration_source: str | None = None,
         base_url: str | httpx.URL | None = None,
-        timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN,
+        timeout: float | Timeout | None | NotGiven = not_given,
         max_retries: int = DEFAULT_MAX_RETRIES,
         default_headers: Mapping[str, str] | None = None,
         default_query: Mapping[str, object] | None = None,
@@ -76,22 +79,28 @@ class Sambanova(SyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new synchronous sambanova client instance.
+        """Construct a new synchronous SambaNova client instance.
 
-        This automatically infers the `bearer_token` argument from the `BEARER_TOKEN` environment variable if it is not provided.
+        This automatically infers the following arguments from their corresponding environment variables if they are not provided:
+        - `api_key` from `SAMBANOVA_API_KEY`
+        - `integration_source` from `SAMBANOVA_INTEGRATION_SOURCE`
         """
-        if bearer_token is None:
-            bearer_token = os.environ.get("BEARER_TOKEN")
-        if bearer_token is None:
-            raise SambanovaError(
-                "The bearer_token client option must be set either by passing bearer_token to the client or by setting the BEARER_TOKEN environment variable"
+        if api_key is None:
+            api_key = os.environ.get("SAMBANOVA_API_KEY")
+        if api_key is None:
+            raise SambaNovaError(
+                "The api_key client option must be set either by passing api_key to the client or by setting the SAMBANOVA_API_KEY environment variable"
             )
-        self.bearer_token = bearer_token
+        self.api_key = api_key
+
+        if integration_source is None:
+            integration_source = os.environ.get("SAMBANOVA_INTEGRATION_SOURCE")
+        self.integration_source = integration_source
 
         if base_url is None:
-            base_url = os.environ.get("SAMBANOVA_BASE_URL")
+            base_url = os.environ.get("SAMBA_NOVA_BASE_URL")
         if base_url is None:
-            base_url = f"https://api.sambanova.ai"
+            base_url = f"https://api.sambanova.ai/v1"
 
         super().__init__(
             version=__version__,
@@ -106,9 +115,43 @@ class Sambanova(SyncAPIClient):
 
         self._default_stream_cls = Stream
 
-        self.chat_completions = chat_completions.ChatCompletionsResource(self)
-        self.with_raw_response = SambanovaWithRawResponse(self)
-        self.with_streaming_response = SambanovaWithStreamedResponse(self)
+    @cached_property
+    def chat(self) -> ChatResource:
+        from .resources.chat import ChatResource
+
+        return ChatResource(self)
+
+    @cached_property
+    def completions(self) -> CompletionsResource:
+        from .resources.completions import CompletionsResource
+
+        return CompletionsResource(self)
+
+    @cached_property
+    def embeddings(self) -> EmbeddingsResource:
+        from .resources.embeddings import EmbeddingsResource
+
+        return EmbeddingsResource(self)
+
+    @cached_property
+    def audio(self) -> AudioResource:
+        from .resources.audio import AudioResource
+
+        return AudioResource(self)
+
+    @cached_property
+    def models(self) -> ModelsResource:
+        from .resources.models import ModelsResource
+
+        return ModelsResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> SambaNovaWithRawResponse:
+        return SambaNovaWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> SambaNovaWithStreamedResponse:
+        return SambaNovaWithStreamedResponse(self)
 
     @property
     @override
@@ -118,8 +161,8 @@ class Sambanova(SyncAPIClient):
     @property
     @override
     def auth_headers(self) -> dict[str, str]:
-        bearer_token = self.bearer_token
-        return {"Authorization": f"Bearer {bearer_token}"}
+        api_key = self.api_key
+        return {"Authorization": f"Bearer {api_key}"}
 
     @property
     @override
@@ -127,17 +170,19 @@ class Sambanova(SyncAPIClient):
         return {
             **super().default_headers,
             "X-Stainless-Async": "false",
+            "X-Integration-Source": self.integration_source if self.integration_source is not None else Omit(),
             **self._custom_headers,
         }
 
     def copy(
         self,
         *,
-        bearer_token: str | None = None,
+        api_key: str | None = None,
+        integration_source: str | None = None,
         base_url: str | httpx.URL | None = None,
-        timeout: float | Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | Timeout | None | NotGiven = not_given,
         http_client: httpx.Client | None = None,
-        max_retries: int | NotGiven = NOT_GIVEN,
+        max_retries: int | NotGiven = not_given,
         default_headers: Mapping[str, str] | None = None,
         set_default_headers: Mapping[str, str] | None = None,
         default_query: Mapping[str, object] | None = None,
@@ -167,7 +212,8 @@ class Sambanova(SyncAPIClient):
 
         http_client = http_client or self._client
         return self.__class__(
-            bearer_token=bearer_token or self.bearer_token,
+            api_key=api_key or self.api_key,
+            integration_source=integration_source or self.integration_source,
             base_url=base_url or self.base_url,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             http_client=http_client,
@@ -215,20 +261,18 @@ class Sambanova(SyncAPIClient):
         return APIStatusError(err_msg, response=response, body=body)
 
 
-class AsyncSambanova(AsyncAPIClient):
-    chat_completions: chat_completions.AsyncChatCompletionsResource
-    with_raw_response: AsyncSambanovaWithRawResponse
-    with_streaming_response: AsyncSambanovaWithStreamedResponse
-
+class AsyncSambaNova(AsyncAPIClient):
     # client options
-    bearer_token: str
+    api_key: str
+    integration_source: str | None
 
     def __init__(
         self,
         *,
-        bearer_token: str | None = None,
+        api_key: str | None = None,
+        integration_source: str | None = None,
         base_url: str | httpx.URL | None = None,
-        timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN,
+        timeout: float | Timeout | None | NotGiven = not_given,
         max_retries: int = DEFAULT_MAX_RETRIES,
         default_headers: Mapping[str, str] | None = None,
         default_query: Mapping[str, object] | None = None,
@@ -246,22 +290,28 @@ class AsyncSambanova(AsyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new async sambanova client instance.
+        """Construct a new async AsyncSambaNova client instance.
 
-        This automatically infers the `bearer_token` argument from the `BEARER_TOKEN` environment variable if it is not provided.
+        This automatically infers the following arguments from their corresponding environment variables if they are not provided:
+        - `api_key` from `SAMBANOVA_API_KEY`
+        - `integration_source` from `SAMBANOVA_INTEGRATION_SOURCE`
         """
-        if bearer_token is None:
-            bearer_token = os.environ.get("BEARER_TOKEN")
-        if bearer_token is None:
-            raise SambanovaError(
-                "The bearer_token client option must be set either by passing bearer_token to the client or by setting the BEARER_TOKEN environment variable"
+        if api_key is None:
+            api_key = os.environ.get("SAMBANOVA_API_KEY")
+        if api_key is None:
+            raise SambaNovaError(
+                "The api_key client option must be set either by passing api_key to the client or by setting the SAMBANOVA_API_KEY environment variable"
             )
-        self.bearer_token = bearer_token
+        self.api_key = api_key
+
+        if integration_source is None:
+            integration_source = os.environ.get("SAMBANOVA_INTEGRATION_SOURCE")
+        self.integration_source = integration_source
 
         if base_url is None:
-            base_url = os.environ.get("SAMBANOVA_BASE_URL")
+            base_url = os.environ.get("SAMBA_NOVA_BASE_URL")
         if base_url is None:
-            base_url = f"https://api.sambanova.ai"
+            base_url = f"https://api.sambanova.ai/v1"
 
         super().__init__(
             version=__version__,
@@ -276,9 +326,43 @@ class AsyncSambanova(AsyncAPIClient):
 
         self._default_stream_cls = AsyncStream
 
-        self.chat_completions = chat_completions.AsyncChatCompletionsResource(self)
-        self.with_raw_response = AsyncSambanovaWithRawResponse(self)
-        self.with_streaming_response = AsyncSambanovaWithStreamedResponse(self)
+    @cached_property
+    def chat(self) -> AsyncChatResource:
+        from .resources.chat import AsyncChatResource
+
+        return AsyncChatResource(self)
+
+    @cached_property
+    def completions(self) -> AsyncCompletionsResource:
+        from .resources.completions import AsyncCompletionsResource
+
+        return AsyncCompletionsResource(self)
+
+    @cached_property
+    def embeddings(self) -> AsyncEmbeddingsResource:
+        from .resources.embeddings import AsyncEmbeddingsResource
+
+        return AsyncEmbeddingsResource(self)
+
+    @cached_property
+    def audio(self) -> AsyncAudioResource:
+        from .resources.audio import AsyncAudioResource
+
+        return AsyncAudioResource(self)
+
+    @cached_property
+    def models(self) -> AsyncModelsResource:
+        from .resources.models import AsyncModelsResource
+
+        return AsyncModelsResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> AsyncSambaNovaWithRawResponse:
+        return AsyncSambaNovaWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> AsyncSambaNovaWithStreamedResponse:
+        return AsyncSambaNovaWithStreamedResponse(self)
 
     @property
     @override
@@ -288,8 +372,8 @@ class AsyncSambanova(AsyncAPIClient):
     @property
     @override
     def auth_headers(self) -> dict[str, str]:
-        bearer_token = self.bearer_token
-        return {"Authorization": f"Bearer {bearer_token}"}
+        api_key = self.api_key
+        return {"Authorization": f"Bearer {api_key}"}
 
     @property
     @override
@@ -297,17 +381,19 @@ class AsyncSambanova(AsyncAPIClient):
         return {
             **super().default_headers,
             "X-Stainless-Async": f"async:{get_async_library()}",
+            "X-Integration-Source": self.integration_source if self.integration_source is not None else Omit(),
             **self._custom_headers,
         }
 
     def copy(
         self,
         *,
-        bearer_token: str | None = None,
+        api_key: str | None = None,
+        integration_source: str | None = None,
         base_url: str | httpx.URL | None = None,
-        timeout: float | Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | Timeout | None | NotGiven = not_given,
         http_client: httpx.AsyncClient | None = None,
-        max_retries: int | NotGiven = NOT_GIVEN,
+        max_retries: int | NotGiven = not_given,
         default_headers: Mapping[str, str] | None = None,
         set_default_headers: Mapping[str, str] | None = None,
         default_query: Mapping[str, object] | None = None,
@@ -337,7 +423,8 @@ class AsyncSambanova(AsyncAPIClient):
 
         http_client = http_client or self._client
         return self.__class__(
-            bearer_token=bearer_token or self.bearer_token,
+            api_key=api_key or self.api_key,
+            integration_source=integration_source or self.integration_source,
             base_url=base_url or self.base_url,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             http_client=http_client,
@@ -385,28 +472,154 @@ class AsyncSambanova(AsyncAPIClient):
         return APIStatusError(err_msg, response=response, body=body)
 
 
-class SambanovaWithRawResponse:
-    def __init__(self, client: Sambanova) -> None:
-        self.chat_completions = chat_completions.ChatCompletionsResourceWithRawResponse(client.chat_completions)
+class SambaNovaWithRawResponse:
+    _client: SambaNova
+
+    def __init__(self, client: SambaNova) -> None:
+        self._client = client
+
+    @cached_property
+    def chat(self) -> chat.ChatResourceWithRawResponse:
+        from .resources.chat import ChatResourceWithRawResponse
+
+        return ChatResourceWithRawResponse(self._client.chat)
+
+    @cached_property
+    def completions(self) -> completions.CompletionsResourceWithRawResponse:
+        from .resources.completions import CompletionsResourceWithRawResponse
+
+        return CompletionsResourceWithRawResponse(self._client.completions)
+
+    @cached_property
+    def embeddings(self) -> embeddings.EmbeddingsResourceWithRawResponse:
+        from .resources.embeddings import EmbeddingsResourceWithRawResponse
+
+        return EmbeddingsResourceWithRawResponse(self._client.embeddings)
+
+    @cached_property
+    def audio(self) -> audio.AudioResourceWithRawResponse:
+        from .resources.audio import AudioResourceWithRawResponse
+
+        return AudioResourceWithRawResponse(self._client.audio)
+
+    @cached_property
+    def models(self) -> models.ModelsResourceWithRawResponse:
+        from .resources.models import ModelsResourceWithRawResponse
+
+        return ModelsResourceWithRawResponse(self._client.models)
 
 
-class AsyncSambanovaWithRawResponse:
-    def __init__(self, client: AsyncSambanova) -> None:
-        self.chat_completions = chat_completions.AsyncChatCompletionsResourceWithRawResponse(client.chat_completions)
+class AsyncSambaNovaWithRawResponse:
+    _client: AsyncSambaNova
+
+    def __init__(self, client: AsyncSambaNova) -> None:
+        self._client = client
+
+    @cached_property
+    def chat(self) -> chat.AsyncChatResourceWithRawResponse:
+        from .resources.chat import AsyncChatResourceWithRawResponse
+
+        return AsyncChatResourceWithRawResponse(self._client.chat)
+
+    @cached_property
+    def completions(self) -> completions.AsyncCompletionsResourceWithRawResponse:
+        from .resources.completions import AsyncCompletionsResourceWithRawResponse
+
+        return AsyncCompletionsResourceWithRawResponse(self._client.completions)
+
+    @cached_property
+    def embeddings(self) -> embeddings.AsyncEmbeddingsResourceWithRawResponse:
+        from .resources.embeddings import AsyncEmbeddingsResourceWithRawResponse
+
+        return AsyncEmbeddingsResourceWithRawResponse(self._client.embeddings)
+
+    @cached_property
+    def audio(self) -> audio.AsyncAudioResourceWithRawResponse:
+        from .resources.audio import AsyncAudioResourceWithRawResponse
+
+        return AsyncAudioResourceWithRawResponse(self._client.audio)
+
+    @cached_property
+    def models(self) -> models.AsyncModelsResourceWithRawResponse:
+        from .resources.models import AsyncModelsResourceWithRawResponse
+
+        return AsyncModelsResourceWithRawResponse(self._client.models)
 
 
-class SambanovaWithStreamedResponse:
-    def __init__(self, client: Sambanova) -> None:
-        self.chat_completions = chat_completions.ChatCompletionsResourceWithStreamingResponse(client.chat_completions)
+class SambaNovaWithStreamedResponse:
+    _client: SambaNova
+
+    def __init__(self, client: SambaNova) -> None:
+        self._client = client
+
+    @cached_property
+    def chat(self) -> chat.ChatResourceWithStreamingResponse:
+        from .resources.chat import ChatResourceWithStreamingResponse
+
+        return ChatResourceWithStreamingResponse(self._client.chat)
+
+    @cached_property
+    def completions(self) -> completions.CompletionsResourceWithStreamingResponse:
+        from .resources.completions import CompletionsResourceWithStreamingResponse
+
+        return CompletionsResourceWithStreamingResponse(self._client.completions)
+
+    @cached_property
+    def embeddings(self) -> embeddings.EmbeddingsResourceWithStreamingResponse:
+        from .resources.embeddings import EmbeddingsResourceWithStreamingResponse
+
+        return EmbeddingsResourceWithStreamingResponse(self._client.embeddings)
+
+    @cached_property
+    def audio(self) -> audio.AudioResourceWithStreamingResponse:
+        from .resources.audio import AudioResourceWithStreamingResponse
+
+        return AudioResourceWithStreamingResponse(self._client.audio)
+
+    @cached_property
+    def models(self) -> models.ModelsResourceWithStreamingResponse:
+        from .resources.models import ModelsResourceWithStreamingResponse
+
+        return ModelsResourceWithStreamingResponse(self._client.models)
 
 
-class AsyncSambanovaWithStreamedResponse:
-    def __init__(self, client: AsyncSambanova) -> None:
-        self.chat_completions = chat_completions.AsyncChatCompletionsResourceWithStreamingResponse(
-            client.chat_completions
-        )
+class AsyncSambaNovaWithStreamedResponse:
+    _client: AsyncSambaNova
+
+    def __init__(self, client: AsyncSambaNova) -> None:
+        self._client = client
+
+    @cached_property
+    def chat(self) -> chat.AsyncChatResourceWithStreamingResponse:
+        from .resources.chat import AsyncChatResourceWithStreamingResponse
+
+        return AsyncChatResourceWithStreamingResponse(self._client.chat)
+
+    @cached_property
+    def completions(self) -> completions.AsyncCompletionsResourceWithStreamingResponse:
+        from .resources.completions import AsyncCompletionsResourceWithStreamingResponse
+
+        return AsyncCompletionsResourceWithStreamingResponse(self._client.completions)
+
+    @cached_property
+    def embeddings(self) -> embeddings.AsyncEmbeddingsResourceWithStreamingResponse:
+        from .resources.embeddings import AsyncEmbeddingsResourceWithStreamingResponse
+
+        return AsyncEmbeddingsResourceWithStreamingResponse(self._client.embeddings)
+
+    @cached_property
+    def audio(self) -> audio.AsyncAudioResourceWithStreamingResponse:
+        from .resources.audio import AsyncAudioResourceWithStreamingResponse
+
+        return AsyncAudioResourceWithStreamingResponse(self._client.audio)
+
+    @cached_property
+    def models(self) -> models.AsyncModelsResourceWithStreamingResponse:
+        from .resources.models import AsyncModelsResourceWithStreamingResponse
+
+        return AsyncModelsResourceWithStreamingResponse(self._client.models)
 
 
-Client = Sambanova
+Client = SambaNova
 
-AsyncClient = AsyncSambanova
+AsyncClient = AsyncSambaNova
