@@ -17,7 +17,7 @@ The REST API documentation can be found on [docs.sambanova.ai](https://docs.samb
 
 ```sh
 # install from PyPI
-pip install '--pre sambanova'
+pip install sambanova
 ```
 
 ## Usage
@@ -87,7 +87,7 @@ You can enable this by installing `aiohttp`:
 
 ```sh
 # install from PyPI
-pip install '--pre sambanova[aiohttp]'
+pip install sambanova[aiohttp]
 ```
 
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
