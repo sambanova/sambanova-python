@@ -1,5 +1,23 @@
 # Changelog
 
+## 1.4.1 (2026-02-13)
+
+Full Changelog: [v1.4.0...v1.4.1](https://github.com/sambanova/sambanova-python/compare/v1.4.0...v1.4.1)
+
+### Bug Fixes
+
+* **api:** update temp range ([983350a](https://github.com/sambanova/sambanova-python/commit/983350ad7b79fb900f790aacd9201f3762bd3f1f))
+
+
+### Chores
+
+* **docs:** remove www prefix ([37ac61f](https://github.com/sambanova/sambanova-python/commit/37ac61f866198df17026a42a5b3cee67295729ce))
+* **docs:** remove www prefix ([21dd38f](https://github.com/sambanova/sambanova-python/commit/21dd38f472469da92eac1e68259681ec47fa35db))
+* fix manifest ([98a213d](https://github.com/sambanova/sambanova-python/commit/98a213d7d82fe3dfc225cdf81b1ebdcd2e86f2e4))
+* format all `api.md` files ([13549a4](https://github.com/sambanova/sambanova-python/commit/13549a4034a5639bf935b074f1b002d42c231075))
+* **internal:** bump dependencies ([be1520f](https://github.com/sambanova/sambanova-python/commit/be1520f294417db9371711d3ab3576eb9d72c4f3))
+* **internal:** fix lint error on Python 3.14 ([33ba2d0](https://github.com/sambanova/sambanova-python/commit/33ba2d02d4c345211897500b2a9cd8606a2da641))
+
 ## 1.4.0 (2026-01-30)
 
 Full Changelog: [v1.3.0...v1.4.0](https://github.com/sambanova/sambanova-python/compare/v1.3.0...v1.4.0)
