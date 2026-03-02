@@ -76,7 +76,7 @@ class CompletionCreateParamsBase(TypedDict, total=False):
     """
 
     logprobs: Optional[bool]
-    """This is not yet supported by our models.
+    """This is not yet supported by our models in completions API.
 
     Whether to return log probabilities of the output tokens or not. If true,
     returns the log probabilities of each output token returned in the `content` of
@@ -140,7 +140,7 @@ class CompletionCreateParamsBase(TypedDict, total=False):
     """
 
     top_logprobs: Optional[int]
-    """This is not yet supported by our models.
+    """This is not yet supported by our models in completions API.
 
     An integer between 0 and 20 specifying the number of most likely tokens to
     return at each token position, each with an associated log probability.
