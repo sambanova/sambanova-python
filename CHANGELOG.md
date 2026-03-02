@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.5.0 (2026-03-02)
+
+Full Changelog: [v1.4.1...v1.5.0](https://github.com/sambanova/sambanova-python/compare/v1.4.1...v1.5.0)
+
+### Features
+
+* **api:** logprobs and top_logprobs in chat completions API ([60c5a73](https://github.com/sambanova/sambanova-python/commit/60c5a73a75dfcd2de76030ea1fc768777619767b))
+
+
+### Chores
+
+* **internal:** add request options to SSE classes ([8bed909](https://github.com/sambanova/sambanova-python/commit/8bed909a64bb234723e77fc5fb8f8d0a92501ff3))
+* **internal:** make `test_proxy_environment_variables` more resilient ([8180c2e](https://github.com/sambanova/sambanova-python/commit/8180c2e6f0c54c0217883b13ef178b3b6e094881))
+* **internal:** make `test_proxy_environment_variables` more resilient to env ([47cf963](https://github.com/sambanova/sambanova-python/commit/47cf963b0eaf44b022ce08e44630256b10bf8cb4))
+* update mock server docs ([e19b34c](https://github.com/sambanova/sambanova-python/commit/e19b34ca6a27e900736fb33b8628a05b39fc6ee0))
+
 ## 1.4.1 (2026-02-13)
 
 Full Changelog: [v1.4.0...v1.4.1](https://github.com/sambanova/sambanova-python/compare/v1.4.0...v1.4.1)
