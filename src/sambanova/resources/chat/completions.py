@@ -132,9 +132,9 @@ class CompletionsResource(SyncAPIResource):
           logit_bias: This is not yet supported by our models. Modify the likelihood of specified
               tokens appearing in the completion.
 
-          logprobs: This is not yet supported by our models. Whether to return log probabilities of
-              the output tokens or not. If true, returns the log probabilities of each output
-              token returned in the `content` of `message`.
+          logprobs: Whether to return log probabilities of the output tokens or not. If true,
+              returns the log probabilities of each output token returned in the `content` of
+              `message`.
 
           max_completion_tokens: The maximum number of tokens that can be generated in the chat completion. The
               total length of input tokens and generated tokens is limited by the model's
@@ -200,10 +200,9 @@ class CompletionsResource(SyncAPIResource):
               means only the first 10 tokens with higher probability are considered. Is
               recommended altering this, top_p or temperature but not more than one of these.
 
-          top_logprobs: This is not yet supported by our models. An integer between 0 and 20 specifying
-              the number of most likely tokens to return at each token position, each with an
-              associated log probability. `logprobs` must be set to `true` if this parameter
-              is used.
+          top_logprobs: An integer between 0 and 20 specifying the number of most likely tokens to
+              return at each token position, each with an associated log probability.
+              `logprobs` must be set to `true` if this parameter is used.
 
           top_p: Cumulative probability for token choices. An alternative to sampling with
               temperature, called nucleus sampling, where the model considers the results of
@@ -312,9 +311,9 @@ class CompletionsResource(SyncAPIResource):
           logit_bias: This is not yet supported by our models. Modify the likelihood of specified
               tokens appearing in the completion.
 
-          logprobs: This is not yet supported by our models. Whether to return log probabilities of
-              the output tokens or not. If true, returns the log probabilities of each output
-              token returned in the `content` of `message`.
+          logprobs: Whether to return log probabilities of the output tokens or not. If true,
+              returns the log probabilities of each output token returned in the `content` of
+              `message`.
 
           max_completion_tokens: The maximum number of tokens that can be generated in the chat completion. The
               total length of input tokens and generated tokens is limited by the model's
@@ -375,10 +374,9 @@ class CompletionsResource(SyncAPIResource):
               means only the first 10 tokens with higher probability are considered. Is
               recommended altering this, top_p or temperature but not more than one of these.
 
-          top_logprobs: This is not yet supported by our models. An integer between 0 and 20 specifying
-              the number of most likely tokens to return at each token position, each with an
-              associated log probability. `logprobs` must be set to `true` if this parameter
-              is used.
+          top_logprobs: An integer between 0 and 20 specifying the number of most likely tokens to
+              return at each token position, each with an associated log probability.
+              `logprobs` must be set to `true` if this parameter is used.
 
           top_p: Cumulative probability for token choices. An alternative to sampling with
               temperature, called nucleus sampling, where the model considers the results of
@@ -487,9 +485,9 @@ class CompletionsResource(SyncAPIResource):
           logit_bias: This is not yet supported by our models. Modify the likelihood of specified
               tokens appearing in the completion.
 
-          logprobs: This is not yet supported by our models. Whether to return log probabilities of
-              the output tokens or not. If true, returns the log probabilities of each output
-              token returned in the `content` of `message`.
+          logprobs: Whether to return log probabilities of the output tokens or not. If true,
+              returns the log probabilities of each output token returned in the `content` of
+              `message`.
 
           max_completion_tokens: The maximum number of tokens that can be generated in the chat completion. The
               total length of input tokens and generated tokens is limited by the model's
@@ -550,10 +548,9 @@ class CompletionsResource(SyncAPIResource):
               means only the first 10 tokens with higher probability are considered. Is
               recommended altering this, top_p or temperature but not more than one of these.
 
-          top_logprobs: This is not yet supported by our models. An integer between 0 and 20 specifying
-              the number of most likely tokens to return at each token position, each with an
-              associated log probability. `logprobs` must be set to `true` if this parameter
-              is used.
+          top_logprobs: An integer between 0 and 20 specifying the number of most likely tokens to
+              return at each token position, each with an associated log probability.
+              `logprobs` must be set to `true` if this parameter is used.
 
           top_p: Cumulative probability for token choices. An alternative to sampling with
               temperature, called nucleus sampling, where the model considers the results of
@@ -784,9 +781,9 @@ class AsyncCompletionsResource(AsyncAPIResource):
           logit_bias: This is not yet supported by our models. Modify the likelihood of specified
               tokens appearing in the completion.
 
-          logprobs: This is not yet supported by our models. Whether to return log probabilities of
-              the output tokens or not. If true, returns the log probabilities of each output
-              token returned in the `content` of `message`.
+          logprobs: Whether to return log probabilities of the output tokens or not. If true,
+              returns the log probabilities of each output token returned in the `content` of
+              `message`.
 
           max_completion_tokens: The maximum number of tokens that can be generated in the chat completion. The
               total length of input tokens and generated tokens is limited by the model's
@@ -852,10 +849,9 @@ class AsyncCompletionsResource(AsyncAPIResource):
               means only the first 10 tokens with higher probability are considered. Is
               recommended altering this, top_p or temperature but not more than one of these.
 
-          top_logprobs: This is not yet supported by our models. An integer between 0 and 20 specifying
-              the number of most likely tokens to return at each token position, each with an
-              associated log probability. `logprobs` must be set to `true` if this parameter
-              is used.
+          top_logprobs: An integer between 0 and 20 specifying the number of most likely tokens to
+              return at each token position, each with an associated log probability.
+              `logprobs` must be set to `true` if this parameter is used.
 
           top_p: Cumulative probability for token choices. An alternative to sampling with
               temperature, called nucleus sampling, where the model considers the results of
@@ -964,9 +960,9 @@ class AsyncCompletionsResource(AsyncAPIResource):
           logit_bias: This is not yet supported by our models. Modify the likelihood of specified
               tokens appearing in the completion.
 
-          logprobs: This is not yet supported by our models. Whether to return log probabilities of
-              the output tokens or not. If true, returns the log probabilities of each output
-              token returned in the `content` of `message`.
+          logprobs: Whether to return log probabilities of the output tokens or not. If true,
+              returns the log probabilities of each output token returned in the `content` of
+              `message`.
 
           max_completion_tokens: The maximum number of tokens that can be generated in the chat completion. The
               total length of input tokens and generated tokens is limited by the model's
@@ -1027,10 +1023,9 @@ class AsyncCompletionsResource(AsyncAPIResource):
               means only the first 10 tokens with higher probability are considered. Is
               recommended altering this, top_p or temperature but not more than one of these.
 
-          top_logprobs: This is not yet supported by our models. An integer between 0 and 20 specifying
-              the number of most likely tokens to return at each token position, each with an
-              associated log probability. `logprobs` must be set to `true` if this parameter
-              is used.
+          top_logprobs: An integer between 0 and 20 specifying the number of most likely tokens to
+              return at each token position, each with an associated log probability.
+              `logprobs` must be set to `true` if this parameter is used.
 
           top_p: Cumulative probability for token choices. An alternative to sampling with
               temperature, called nucleus sampling, where the model considers the results of
@@ -1139,9 +1134,9 @@ class AsyncCompletionsResource(AsyncAPIResource):
           logit_bias: This is not yet supported by our models. Modify the likelihood of specified
               tokens appearing in the completion.
 
-          logprobs: This is not yet supported by our models. Whether to return log probabilities of
-              the output tokens or not. If true, returns the log probabilities of each output
-              token returned in the `content` of `message`.
+          logprobs: Whether to return log probabilities of the output tokens or not. If true,
+              returns the log probabilities of each output token returned in the `content` of
+              `message`.
 
           max_completion_tokens: The maximum number of tokens that can be generated in the chat completion. The
               total length of input tokens and generated tokens is limited by the model's
@@ -1202,10 +1197,9 @@ class AsyncCompletionsResource(AsyncAPIResource):
               means only the first 10 tokens with higher probability are considered. Is
               recommended altering this, top_p or temperature but not more than one of these.
 
-          top_logprobs: This is not yet supported by our models. An integer between 0 and 20 specifying
-              the number of most likely tokens to return at each token position, each with an
-              associated log probability. `logprobs` must be set to `true` if this parameter
-              is used.
+          top_logprobs: An integer between 0 and 20 specifying the number of most likely tokens to
+              return at each token position, each with an associated log probability.
+              `logprobs` must be set to `true` if this parameter is used.
 
           top_p: Cumulative probability for token choices. An alternative to sampling with
               temperature, called nucleus sampling, where the model considers the results of
