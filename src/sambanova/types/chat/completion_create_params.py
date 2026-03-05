@@ -232,7 +232,7 @@ class CompletionCreateParamsBase(TypedDict, total=False):
     """
 
 
-class MessageSystemMessageContentTextContentPartArrayTyped(TypedDict, total=False):
+class MessageSystemMessageContentTextContentPartArray(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
     text: Required[str]
     """string content of the message"""
 
@@ -240,12 +240,7 @@ class MessageSystemMessageContentTextContentPartArrayTyped(TypedDict, total=Fals
     """type of content to send. in this case `text`."""
 
 
-MessageSystemMessageContentTextContentPartArray: TypeAlias = Union[
-    MessageSystemMessageContentTextContentPartArrayTyped, Dict[str, object]
-]
-
-
-class MessageSystemMessageTyped(TypedDict, total=False):
+class MessageSystemMessage(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
     content: Required[Union[str, Iterable[MessageSystemMessageContentTextContentPartArray], None]]
     """The contents of the system message."""
 
@@ -253,20 +248,12 @@ class MessageSystemMessageTyped(TypedDict, total=False):
     """The role of the messages author, in this case `system`."""
 
 
-MessageSystemMessage: TypeAlias = Union[MessageSystemMessageTyped, Dict[str, object]]
-
-
-class MessageUserMessageContentMulticontentPartArrayTextContentTyped(TypedDict, total=False):
+class MessageUserMessageContentMulticontentPartArrayTextContent(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
     text: Required[str]
     """string content of the message"""
 
     type: Required[Literal["text"]]
     """type of content to send. in this case `text`."""
-
-
-MessageUserMessageContentMulticontentPartArrayTextContent: TypeAlias = Union[
-    MessageUserMessageContentMulticontentPartArrayTextContentTyped, Dict[str, object]
-]
 
 
 class MessageUserMessageContentMulticontentPartArrayImageContentImageURL(TypedDict, total=False):
@@ -277,16 +264,11 @@ class MessageUserMessageContentMulticontentPartArrayImageContentImageURL(TypedDi
     """
 
 
-class MessageUserMessageContentMulticontentPartArrayImageContentTyped(TypedDict, total=False):
+class MessageUserMessageContentMulticontentPartArrayImageContent(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
     image_url: Required[MessageUserMessageContentMulticontentPartArrayImageContentImageURL]
 
     type: Required[Literal["image_url"]]
     """type of content to send. in this case `image_url`."""
-
-
-MessageUserMessageContentMulticontentPartArrayImageContent: TypeAlias = Union[
-    MessageUserMessageContentMulticontentPartArrayImageContentTyped, Dict[str, object]
-]
 
 
 class MessageUserMessageContentMulticontentPartArrayAudioContentAudioContent(TypedDict, total=False):
@@ -294,16 +276,12 @@ class MessageUserMessageContentMulticontentPartArrayAudioContentAudioContent(Typ
     """the base64 encoded audio data."""
 
 
-class MessageUserMessageContentMulticontentPartArrayAudioContentTyped(TypedDict, total=False):
+class MessageUserMessageContentMulticontentPartArrayAudioContent(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
     audio_content: Required[MessageUserMessageContentMulticontentPartArrayAudioContentAudioContent]
 
     type: Required[Literal["audio_content"]]
     """type of content to send. in this case `audio_content`."""
 
-
-MessageUserMessageContentMulticontentPartArrayAudioContent: TypeAlias = Union[
-    MessageUserMessageContentMulticontentPartArrayAudioContentTyped, Dict[str, object]
-]
 
 MessageUserMessageContentMulticontentPartArray: TypeAlias = Union[
     MessageUserMessageContentMulticontentPartArrayTextContent,
@@ -312,7 +290,7 @@ MessageUserMessageContentMulticontentPartArray: TypeAlias = Union[
 ]
 
 
-class MessageUserMessageTyped(TypedDict, total=False):
+class MessageUserMessage(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
     content: Required[Union[str, Iterable[MessageUserMessageContentMulticontentPartArray], None]]
     """The contents of the user message."""
 
@@ -320,10 +298,7 @@ class MessageUserMessageTyped(TypedDict, total=False):
     """The role of the messages author, in this case `user`."""
 
 
-MessageUserMessage: TypeAlias = Union[MessageUserMessageTyped, Dict[str, object]]
-
-
-class MessageAssistantMessageContentTextContentPartArrayTyped(TypedDict, total=False):
+class MessageAssistantMessageContentTextContentPartArray(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
     text: Required[str]
     """string content of the message"""
 
@@ -331,12 +306,7 @@ class MessageAssistantMessageContentTextContentPartArrayTyped(TypedDict, total=F
     """type of content to send. in this case `text`."""
 
 
-MessageAssistantMessageContentTextContentPartArray: TypeAlias = Union[
-    MessageAssistantMessageContentTextContentPartArrayTyped, Dict[str, object]
-]
-
-
-class MessageAssistantMessageToolCallFunctionTyped(TypedDict, total=False):
+class MessageAssistantMessageToolCallFunction(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
     """The tool that the model called."""
 
     arguments: Required[str]
@@ -351,12 +321,7 @@ class MessageAssistantMessageToolCallFunctionTyped(TypedDict, total=False):
     """The name of the function to call."""
 
 
-MessageAssistantMessageToolCallFunction: TypeAlias = Union[
-    MessageAssistantMessageToolCallFunctionTyped, Dict[str, object]
-]
-
-
-class MessageAssistantMessageToolCallTyped(TypedDict, total=False):
+class MessageAssistantMessageToolCall(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
     id: Required[str]
     """ID of the tool call."""
 
@@ -370,10 +335,7 @@ class MessageAssistantMessageToolCallTyped(TypedDict, total=False):
     """index of tool call chunk only used when using streaming"""
 
 
-MessageAssistantMessageToolCall: TypeAlias = Union[MessageAssistantMessageToolCallTyped, Dict[str, object]]
-
-
-class MessageAssistantMessageTyped(TypedDict, total=False):
+class MessageAssistantMessage(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
     content: Required[Union[str, Iterable[MessageAssistantMessageContentTextContentPartArray], None]]
     """The contents of the assistant message."""
 
@@ -390,10 +352,7 @@ class MessageAssistantMessageTyped(TypedDict, total=False):
     """The tool calls generated by the model."""
 
 
-MessageAssistantMessage: TypeAlias = Union[MessageAssistantMessageTyped, Dict[str, object]]
-
-
-class MessageToolMessageContentTextContentPartArrayTyped(TypedDict, total=False):
+class MessageToolMessageContentTextContentPartArray(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
     text: Required[str]
     """string content of the message"""
 
@@ -401,12 +360,7 @@ class MessageToolMessageContentTextContentPartArrayTyped(TypedDict, total=False)
     """type of content to send. in this case `text`."""
 
 
-MessageToolMessageContentTextContentPartArray: TypeAlias = Union[
-    MessageToolMessageContentTextContentPartArrayTyped, Dict[str, object]
-]
-
-
-class MessageToolMessageTyped(TypedDict, total=False):
+class MessageToolMessage(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
     content: Required[Union[str, Iterable[MessageToolMessageContentTextContentPartArray]]]
     """The contents of the tool message."""
 
@@ -414,12 +368,10 @@ class MessageToolMessageTyped(TypedDict, total=False):
     """The role of the messages author, in this case `tool`."""
 
 
-MessageToolMessage: TypeAlias = Union[MessageToolMessageTyped, Dict[str, object]]
-
 Message: TypeAlias = Union[MessageSystemMessage, MessageUserMessage, MessageAssistantMessage, MessageToolMessage]
 
 
-class ChatTemplateKwargsTyped(TypedDict, total=False):
+class ChatTemplateKwargs(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
     """A dictionary of additional keyword arguments to pass into the chat template.
 
     Use this to provide extra context or parameters that the model's chat template  can process. Keys must be strings; values may be any valid JSON type.
@@ -432,10 +384,7 @@ class ChatTemplateKwargsTyped(TypedDict, total=False):
     """
 
 
-ChatTemplateKwargs: TypeAlias = Union[ChatTemplateKwargsTyped, Dict[str, object]]
-
-
-class ResponseFormatResponseFormatJsonSchemaJsonSchemaTyped(TypedDict, total=False):
+class ResponseFormatResponseFormatJsonSchemaJsonSchema(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
     """A JSON Schema definition the model's structured output.
 
     Follows standard JSON Schema syntax.
@@ -454,12 +403,7 @@ class ResponseFormatResponseFormatJsonSchemaJsonSchemaTyped(TypedDict, total=Fal
     """whether or not to do an strict validation of the schema"""
 
 
-ResponseFormatResponseFormatJsonSchemaJsonSchema: TypeAlias = Union[
-    ResponseFormatResponseFormatJsonSchemaJsonSchemaTyped, Dict[str, object]
-]
-
-
-class ResponseFormatResponseFormatJsonSchemaTyped(TypedDict, total=False):
+class ResponseFormatResponseFormatJsonSchema(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
     """
     Specifies that the model should produce output conforming to a given JSON schema.
     """
@@ -473,23 +417,13 @@ class ResponseFormatResponseFormatJsonSchemaTyped(TypedDict, total=False):
     type: Required[Literal["json_schema"]]
 
 
-ResponseFormatResponseFormatJsonSchema: TypeAlias = Union[
-    ResponseFormatResponseFormatJsonSchemaTyped, Dict[str, object]
-]
-
-
-class ResponseFormatResponseFormatJsonObjectTyped(TypedDict, total=False):
+class ResponseFormatResponseFormatJsonObject(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
     """Specifies that the model should produce output as a raw JSON object."""
 
     type: Required[Literal["json_object"]]
 
 
-ResponseFormatResponseFormatJsonObject: TypeAlias = Union[
-    ResponseFormatResponseFormatJsonObjectTyped, Dict[str, object]
-]
-
-
-class ResponseFormatResponseFormatTextTyped(TypedDict, total=False):
+class ResponseFormatResponseFormatText(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
     """Specifies that the model should produce output as plain text.
 
     This value is not supported yet in the chat compeltions api, if this behavior is desired do not set response format.
@@ -498,24 +432,19 @@ class ResponseFormatResponseFormatTextTyped(TypedDict, total=False):
     type: Required[Literal["text"]]
 
 
-ResponseFormatResponseFormatText: TypeAlias = Union[ResponseFormatResponseFormatTextTyped, Dict[str, object]]
-
 ResponseFormat: TypeAlias = Union[
     ResponseFormatResponseFormatJsonSchema, ResponseFormatResponseFormatJsonObject, ResponseFormatResponseFormatText
 ]
 
 
-class StreamOptionsTyped(TypedDict, total=False):
+class StreamOptions(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
     """Options for streaming response. Only set this when setting stream as true"""
 
     include_usage: Optional[bool]
     """Whether to include the usage metrics in a final chunk or not"""
 
 
-StreamOptions: TypeAlias = Union[StreamOptionsTyped, Dict[str, object]]
-
-
-class ToolChoiceToolChoiceObjectFunctionTyped(TypedDict, total=False):
+class ToolChoiceToolChoiceObjectFunction(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
     """Specifies a tool the model should use.
 
     Use it to force the model to call that specific tool.
@@ -525,10 +454,7 @@ class ToolChoiceToolChoiceObjectFunctionTyped(TypedDict, total=False):
     """the name of the tool expected to be used by the model"""
 
 
-ToolChoiceToolChoiceObjectFunction: TypeAlias = Union[ToolChoiceToolChoiceObjectFunctionTyped, Dict[str, object]]
-
-
-class ToolChoiceToolChoiceObjectTyped(TypedDict, total=False):
+class ToolChoiceToolChoiceObject(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
     function: Required[ToolChoiceToolChoiceObjectFunction]
     """Specifies a tool the model should use.
 
@@ -539,12 +465,10 @@ class ToolChoiceToolChoiceObjectTyped(TypedDict, total=False):
     """The type of the tool. only `function` is supported."""
 
 
-ToolChoiceToolChoiceObject: TypeAlias = Union[ToolChoiceToolChoiceObjectTyped, Dict[str, object]]
-
 ToolChoice: TypeAlias = Union[Literal["none", "auto", "required"], ToolChoiceToolChoiceObject]
 
 
-class ToolFunctionTyped(TypedDict, total=False):
+class ToolFunction(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
     name: Required[str]
     """The name of the function to be called.
 
@@ -567,17 +491,11 @@ class ToolFunctionTyped(TypedDict, total=False):
     """
 
 
-ToolFunction: TypeAlias = Union[ToolFunctionTyped, Dict[str, object]]
-
-
-class ToolTyped(TypedDict, total=False):
+class Tool(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
     function: Required[ToolFunction]
 
     type: Required[str]
     """The type of the tool. Currently, only `function` is supported."""
-
-
-Tool: TypeAlias = Union[ToolTyped, Dict[str, object]]
 
 
 class CompletionCreateParamsNonStreaming(CompletionCreateParamsBase, total=False):
