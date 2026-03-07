@@ -20,7 +20,7 @@ class TestTranscriptions:
     @parametrize
     def test_method_create_overload_1(self, client: SambaNova) -> None:
         transcription = client.audio.transcriptions.create(
-            file=b"raw file contents",
+            file=b"Example data",
             model="Whisper-Large-v3",
         )
         assert_matches_type(TranscriptionCreateResponse, transcription, path=["response"])
@@ -28,7 +28,7 @@ class TestTranscriptions:
     @parametrize
     def test_method_create_with_all_params_overload_1(self, client: SambaNova) -> None:
         transcription = client.audio.transcriptions.create(
-            file=b"raw file contents",
+            file=b"Example data",
             model="Whisper-Large-v3",
             language="es",
             prompt="Please transcribe carefully, including pauses and hesitations.",
@@ -41,7 +41,7 @@ class TestTranscriptions:
     @parametrize
     def test_raw_response_create_overload_1(self, client: SambaNova) -> None:
         response = client.audio.transcriptions.with_raw_response.create(
-            file=b"raw file contents",
+            file=b"Example data",
             model="Whisper-Large-v3",
         )
 
@@ -53,7 +53,7 @@ class TestTranscriptions:
     @parametrize
     def test_streaming_response_create_overload_1(self, client: SambaNova) -> None:
         with client.audio.transcriptions.with_streaming_response.create(
-            file=b"raw file contents",
+            file=b"Example data",
             model="Whisper-Large-v3",
         ) as response:
             assert not response.is_closed
@@ -67,7 +67,7 @@ class TestTranscriptions:
     @parametrize
     def test_method_create_overload_2(self, client: SambaNova) -> None:
         transcription_stream = client.audio.transcriptions.create(
-            file=b"raw file contents",
+            file=b"Example data",
             model="Whisper-Large-v3",
             stream=True,
         )
@@ -76,7 +76,7 @@ class TestTranscriptions:
     @parametrize
     def test_method_create_with_all_params_overload_2(self, client: SambaNova) -> None:
         transcription_stream = client.audio.transcriptions.create(
-            file=b"raw file contents",
+            file=b"Example data",
             model="Whisper-Large-v3",
             stream=True,
             language="es",
@@ -89,7 +89,7 @@ class TestTranscriptions:
     @parametrize
     def test_raw_response_create_overload_2(self, client: SambaNova) -> None:
         response = client.audio.transcriptions.with_raw_response.create(
-            file=b"raw file contents",
+            file=b"Example data",
             model="Whisper-Large-v3",
             stream=True,
         )
@@ -101,7 +101,7 @@ class TestTranscriptions:
     @parametrize
     def test_streaming_response_create_overload_2(self, client: SambaNova) -> None:
         with client.audio.transcriptions.with_streaming_response.create(
-            file=b"raw file contents",
+            file=b"Example data",
             model="Whisper-Large-v3",
             stream=True,
         ) as response:
@@ -122,7 +122,7 @@ class TestAsyncTranscriptions:
     @parametrize
     async def test_method_create_overload_1(self, async_client: AsyncSambaNova) -> None:
         transcription = await async_client.audio.transcriptions.create(
-            file=b"raw file contents",
+            file=b"Example data",
             model="Whisper-Large-v3",
         )
         assert_matches_type(TranscriptionCreateResponse, transcription, path=["response"])
@@ -130,7 +130,7 @@ class TestAsyncTranscriptions:
     @parametrize
     async def test_method_create_with_all_params_overload_1(self, async_client: AsyncSambaNova) -> None:
         transcription = await async_client.audio.transcriptions.create(
-            file=b"raw file contents",
+            file=b"Example data",
             model="Whisper-Large-v3",
             language="es",
             prompt="Please transcribe carefully, including pauses and hesitations.",
@@ -143,7 +143,7 @@ class TestAsyncTranscriptions:
     @parametrize
     async def test_raw_response_create_overload_1(self, async_client: AsyncSambaNova) -> None:
         response = await async_client.audio.transcriptions.with_raw_response.create(
-            file=b"raw file contents",
+            file=b"Example data",
             model="Whisper-Large-v3",
         )
 
@@ -155,7 +155,7 @@ class TestAsyncTranscriptions:
     @parametrize
     async def test_streaming_response_create_overload_1(self, async_client: AsyncSambaNova) -> None:
         async with async_client.audio.transcriptions.with_streaming_response.create(
-            file=b"raw file contents",
+            file=b"Example data",
             model="Whisper-Large-v3",
         ) as response:
             assert not response.is_closed
@@ -169,7 +169,7 @@ class TestAsyncTranscriptions:
     @parametrize
     async def test_method_create_overload_2(self, async_client: AsyncSambaNova) -> None:
         transcription_stream = await async_client.audio.transcriptions.create(
-            file=b"raw file contents",
+            file=b"Example data",
             model="Whisper-Large-v3",
             stream=True,
         )
@@ -178,7 +178,7 @@ class TestAsyncTranscriptions:
     @parametrize
     async def test_method_create_with_all_params_overload_2(self, async_client: AsyncSambaNova) -> None:
         transcription_stream = await async_client.audio.transcriptions.create(
-            file=b"raw file contents",
+            file=b"Example data",
             model="Whisper-Large-v3",
             stream=True,
             language="es",
@@ -191,7 +191,7 @@ class TestAsyncTranscriptions:
     @parametrize
     async def test_raw_response_create_overload_2(self, async_client: AsyncSambaNova) -> None:
         response = await async_client.audio.transcriptions.with_raw_response.create(
-            file=b"raw file contents",
+            file=b"Example data",
             model="Whisper-Large-v3",
             stream=True,
         )
@@ -203,7 +203,7 @@ class TestAsyncTranscriptions:
     @parametrize
     async def test_streaming_response_create_overload_2(self, async_client: AsyncSambaNova) -> None:
         async with async_client.audio.transcriptions.with_streaming_response.create(
-            file=b"raw file contents",
+            file=b"Example data",
             model="Whisper-Large-v3",
             stream=True,
         ) as response:
