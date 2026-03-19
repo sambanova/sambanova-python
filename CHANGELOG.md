@@ -1,5 +1,30 @@
 # Changelog
 
+## 1.5.1 (2026-03-19)
+
+Full Changelog: [v1.5.0...v1.5.1](https://github.com/sambanova/sambanova-python/compare/v1.5.0...v1.5.1)
+
+### Bug Fixes
+
+* **api:** metadata manual updates ([db8fca1](https://github.com/sambanova/sambanova-python/commit/db8fca13f7c171a2b37ca07eab4a7c01ccd2c41c))
+* **deps:** bump minimum typing-extensions version ([65d8445](https://github.com/sambanova/sambanova-python/commit/65d8445ac65d205d1fcdfed009649eb8f50378b5))
+* **pydantic:** do not pass `by_alias` unless set ([745647d](https://github.com/sambanova/sambanova-python/commit/745647d71b75040379e3800ebefc3f957a64fb50))
+* sanitize endpoint path params ([7acd247](https://github.com/sambanova/sambanova-python/commit/7acd247245f747ef2d74046757d20c4f21055a4a))
+
+
+### Chores
+
+* **ci:** skip uploading artifacts on stainless-internal branches ([4645cb6](https://github.com/sambanova/sambanova-python/commit/4645cb644861c6c6e96d595e3148775c181be016))
+* **internal:** tweak CI branches ([f85d04c](https://github.com/sambanova/sambanova-python/commit/f85d04cde934eda2e51818b1e9927b3f529ba116))
+* **test:** do not count install time for mock server timeout ([37bb678](https://github.com/sambanova/sambanova-python/commit/37bb678b63719ce6c761bc9d6ae6a203b7e48311))
+* update placeholder string ([0cbb98e](https://github.com/sambanova/sambanova-python/commit/0cbb98e651eea8b4bcb391e2afbd5d17b7be9506))
+
+
+### Refactors
+
+* **tests:** switch from prism to steady ([9a66b7a](https://github.com/sambanova/sambanova-python/commit/9a66b7a83f3770541ebdc520f4eec3481370cd52))
+* **types:** use `extra_items` from PEP 728 ([7f0f94b](https://github.com/sambanova/sambanova-python/commit/7f0f94bc9eb9d8ca27e969897c5b7f6186964540))
+
 ## 1.5.0 (2026-03-02)
 
 Full Changelog: [v1.4.1...v1.5.0](https://github.com/sambanova/sambanova-python/compare/v1.4.1...v1.5.0)
