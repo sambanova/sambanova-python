@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Dict, Union, Optional
-from typing_extensions import Literal, Required, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, TypedDict
 
 from .._types import SequenceNotStr
 
@@ -157,14 +157,11 @@ class CompletionCreateParamsBase(TypedDict, total=False):
     """
 
 
-class StreamOptionsTyped(TypedDict, total=False):
+class StreamOptions(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
     """Options for streaming response. Only set this when setting stream as true"""
 
     include_usage: Optional[bool]
     """Whether to include the usage metrics in a final chunk or not"""
-
-
-StreamOptions: TypeAlias = Union[StreamOptionsTyped, Dict[str, object]]
 
 
 class CompletionCreateParamsNonStreaming(CompletionCreateParamsBase, total=False):
