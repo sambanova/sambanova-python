@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.6.1 (2026-04-06)
+
+Full Changelog: [v1.6.0...v1.6.1](https://github.com/sambanova/sambanova-python/compare/v1.6.0...v1.6.1)
+
+### Bug Fixes
+
+* **api:** config publish updates ([dff0781](https://github.com/sambanova/sambanova-python/commit/dff07816e637ec4bcd7f8d90a259dee283dc8d07))
+* **api:** oidc publishing ([04f0909](https://github.com/sambanova/sambanova-python/commit/04f09097520c88c163d29fe51453a85ce0e5ead6))
+
+
+### Chores
+
+* update SDK settings ([b3698b0](https://github.com/sambanova/sambanova-python/commit/b3698b07353ac0eddefb0b171d4a630fa98a040e))
+
 ## 1.6.0 (2026-04-06)
 
 Full Changelog: [v1.5.1...v1.6.0](https://github.com/sambanova/sambanova-python/compare/v1.5.1...v1.6.0)
