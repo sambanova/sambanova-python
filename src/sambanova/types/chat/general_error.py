@@ -25,3 +25,6 @@ class GeneralError(BaseModel):
     """other kind of errors"""
 
     error: Error
+
+    request_id: Optional[str] = None
+    """unique request identifier for debugging"""
