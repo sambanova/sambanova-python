@@ -1,5 +1,32 @@
 # Changelog
 
+## 1.6.0 (2026-04-06)
+
+Full Changelog: [v1.5.1...v1.6.0](https://github.com/sambanova/sambanova-python/compare/v1.5.1...v1.6.0)
+
+### Features
+
+* **internal:** implement indices array format for query and form serialization ([d5156de](https://github.com/sambanova/sambanova-python/commit/d5156de64998f45f709746ae25d59628a77ae4b1))
+
+
+### Bug Fixes
+
+* **api:** audio endpoints usage def ([0c57481](https://github.com/sambanova/sambanova-python/commit/0c57481909890e8679aaf17f0f7b47a9ca65329a))
+* **api:** audio usage schema ([78a5716](https://github.com/sambanova/sambanova-python/commit/78a571602c182af75624356ed61f5a2a46bd2a0f))
+* **api:** update error response schemas ([88aa4be](https://github.com/sambanova/sambanova-python/commit/88aa4be89f73c6faa154796355b3611ae22a0e77))
+
+
+### Chores
+
+* **ci:** skip lint on metadata-only changes ([73f448e](https://github.com/sambanova/sambanova-python/commit/73f448e253442c7dc6f1224ddba46303d2bc9c16))
+* **internal:** update gitignore ([7ee1ced](https://github.com/sambanova/sambanova-python/commit/7ee1ced8bb9a100b2331b16577f34701ccdf9926))
+* **tests:** bump steady to v0.19.4 ([e471488](https://github.com/sambanova/sambanova-python/commit/e471488c9573be1312abce4c383ea5a60980abba))
+* **tests:** bump steady to v0.19.5 ([2ad39cb](https://github.com/sambanova/sambanova-python/commit/2ad39cb42ade6428234ef2d16661f5beaafcf421))
+* **tests:** bump steady to v0.19.6 ([49486e6](https://github.com/sambanova/sambanova-python/commit/49486e6f54632fba872dcc0c701eb012e0efeb1a))
+* **tests:** bump steady to v0.19.7 ([46c9c81](https://github.com/sambanova/sambanova-python/commit/46c9c81e285a6180b596f5eaac1e60ee377f2ab1))
+* **tests:** bump steady to v0.20.1 ([6890fd3](https://github.com/sambanova/sambanova-python/commit/6890fd363d61c0d4aa15571a6d3f388382dcb877))
+* **tests:** bump steady to v0.20.2 ([07450f1](https://github.com/sambanova/sambanova-python/commit/07450f1a7c81929728da9014eb2f0950b74435b0))
+
 ## 1.5.1 (2026-03-19)
 
 Full Changelog: [v1.5.0...v1.5.1](https://github.com/sambanova/sambanova-python/compare/v1.5.0...v1.5.1)
