@@ -155,21 +155,15 @@ class TranscriptionCreateParamsBase(TypedDict, total=False):
 class StreamOptions(TypedDict, total=False):
     """Optional settings that apply when `stream` is true."""
 
-    include_usage: Optional[bool]
-    """
-    If true and `stream` is enabled, optional usage metadata will be included in the
-    last streamed response event.
-    """
+    include_usage: bool
 
 
 class TranscriptionCreateParamsNonStreaming(TranscriptionCreateParamsBase, total=False):
     stream: Literal[False]
-    """Enables streaming responses."""
 
 
 class TranscriptionCreateParamsStreaming(TranscriptionCreateParamsBase):
     stream: Required[Literal[True]]
-    """Enables streaming responses."""
 
 
 TranscriptionCreateParams = Union[TranscriptionCreateParamsNonStreaming, TranscriptionCreateParamsStreaming]

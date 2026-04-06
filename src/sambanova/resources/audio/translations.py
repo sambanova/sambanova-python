@@ -187,8 +187,6 @@ class TranslationsResource(SyncAPIResource):
 
           response_format: Output format JSON or text.
 
-          stream: Enables streaming responses.
-
           stream_options: Optional settings that apply when `stream` is true.
 
           extra_headers: Send extra headers
@@ -332,8 +330,6 @@ class TranslationsResource(SyncAPIResource):
 
           model: The model ID to use See available
               [models](https://docs.sambanova.ai/cloud/docs/get-started/supported-models)
-
-          stream: Enables streaming responses.
 
           language: Optional language of the input audio. Supplying the input language in ISO-639-1
               (e.g. en) format will improve accuracy and latency.
@@ -487,8 +483,6 @@ class TranslationsResource(SyncAPIResource):
 
           model: The model ID to use See available
               [models](https://docs.sambanova.ai/cloud/docs/get-started/supported-models)
-
-          stream: Enables streaming responses.
 
           language: Optional language of the input audio. Supplying the input language in ISO-639-1
               (e.g. en) format will improve accuracy and latency.
@@ -830,8 +824,6 @@ class AsyncTranslationsResource(AsyncAPIResource):
 
           response_format: Output format JSON or text.
 
-          stream: Enables streaming responses.
-
           stream_options: Optional settings that apply when `stream` is true.
 
           extra_headers: Send extra headers
@@ -975,8 +967,6 @@ class AsyncTranslationsResource(AsyncAPIResource):
 
           model: The model ID to use See available
               [models](https://docs.sambanova.ai/cloud/docs/get-started/supported-models)
-
-          stream: Enables streaming responses.
 
           language: Optional language of the input audio. Supplying the input language in ISO-639-1
               (e.g. en) format will improve accuracy and latency.
@@ -1130,8 +1120,6 @@ class AsyncTranslationsResource(AsyncAPIResource):
 
           model: The model ID to use See available
               [models](https://docs.sambanova.ai/cloud/docs/get-started/supported-models)
-
-          stream: Enables streaming responses.
 
           language: Optional language of the input audio. Supplying the input language in ISO-639-1
               (e.g. en) format will improve accuracy and latency.
