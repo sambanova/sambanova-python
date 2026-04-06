@@ -155,21 +155,15 @@ class TranslationCreateParamsBase(TypedDict, total=False):
 class StreamOptions(TypedDict, total=False):
     """Optional settings that apply when `stream` is true."""
 
-    include_usage: Optional[bool]
-    """
-    If true and `stream` is enabled, optional usage metadata will be included in the
-    last streamed response event.
-    """
+    include_usage: bool
 
 
 class TranslationCreateParamsNonStreaming(TranslationCreateParamsBase, total=False):
     stream: Literal[False]
-    """Enables streaming responses."""
 
 
 class TranslationCreateParamsStreaming(TranslationCreateParamsBase):
     stream: Required[Literal[True]]
-    """Enables streaming responses."""
 
 
 TranslationCreateParams = Union[TranslationCreateParamsNonStreaming, TranslationCreateParamsStreaming]
