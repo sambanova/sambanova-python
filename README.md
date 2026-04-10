@@ -39,7 +39,7 @@ completion = client.chat.completions.create(
             "role": "user",
         }
     ],
-    model="string",
+    model="Meta-Llama-3.3-70B-Instruct",
 )
 ```
 
@@ -70,7 +70,7 @@ async def main() -> None:
                 "role": "user",
             }
         ],
-        model="string",
+        model="Meta-Llama-3.3-70B-Instruct",
     )
 
 
@@ -111,7 +111,7 @@ async def main() -> None:
                     "role": "user",
                 }
             ],
-            model="string",
+            model="Meta-Llama-3.3-70B-Instruct",
         )
 
 
@@ -134,7 +134,7 @@ stream = client.chat.completions.create(
             "role": "user",
         }
     ],
-    model="string",
+    model="Meta-Llama-3.3-70B-Instruct",
     stream=True,
 )
 for completion in stream:
@@ -155,7 +155,7 @@ stream = await client.chat.completions.create(
             "role": "user",
         }
     ],
-    model="string",
+    model="Meta-Llama-3.3-70B-Instruct",
     stream=True,
 )
 async for completion in stream:
@@ -187,7 +187,7 @@ completion = client.chat.completions.create(
             "role": "user",
         }
     ],
-    model="string",
+    model="Meta-Llama-3.3-70B-Instruct",
     chat_template_kwargs={"enable_thinking": True},
 )
 print(completion.chat_template_kwargs)
@@ -234,7 +234,7 @@ try:
                 "role": "user",
             }
         ],
-        model="string",
+        model="Meta-Llama-3.3-70B-Instruct",
     )
 except sambanova.APIConnectionError as e:
     print("The server could not be reached")
@@ -285,7 +285,7 @@ client.with_options(max_retries=5).chat.completions.create(
             "role": "user",
         }
     ],
-    model="string",
+    model="Meta-Llama-3.3-70B-Instruct",
 )
 ```
 
@@ -316,7 +316,7 @@ client.with_options(timeout=5.0).chat.completions.create(
             "role": "user",
         }
     ],
-    model="string",
+    model="Meta-Llama-3.3-70B-Instruct",
 )
 ```
 
@@ -363,7 +363,7 @@ response = client.chat.completions.with_raw_response.create(
         "content": "create a poem using palindromes",
         "role": "user",
     }],
-    model="string",
+    model="Meta-Llama-3.3-70B-Instruct",
 )
 print(response.headers.get('X-My-Header'))
 
@@ -389,7 +389,7 @@ with client.chat.completions.with_streaming_response.create(
             "role": "user",
         }
     ],
-    model="string",
+    model="Meta-Llama-3.3-70B-Instruct",
 ) as response:
     print(response.headers.get("X-My-Header"))
 

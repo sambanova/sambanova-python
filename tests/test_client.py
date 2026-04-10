@@ -897,7 +897,7 @@ class TestSambaNova:
                         "role": "user",
                     }
                 ],
-                model="string",
+                model="Meta-Llama-3.3-70B-Instruct",
             ).__enter__()
 
         assert _get_open_connections(client) == 0
@@ -915,7 +915,7 @@ class TestSambaNova:
                         "role": "user",
                     }
                 ],
-                model="string",
+                model="Meta-Llama-3.3-70B-Instruct",
             ).__enter__()
         assert _get_open_connections(client) == 0
 
@@ -952,7 +952,7 @@ class TestSambaNova:
                     "role": "user",
                 }
             ],
-            model="string",
+            model="Meta-Llama-3.3-70B-Instruct",
         )
 
         assert response.retries_taken == failures_before_success
@@ -984,7 +984,7 @@ class TestSambaNova:
                     "role": "user",
                 }
             ],
-            model="string",
+            model="Meta-Llama-3.3-70B-Instruct",
             extra_headers={"x-stainless-retry-count": Omit()},
         )
 
@@ -1016,7 +1016,7 @@ class TestSambaNova:
                     "role": "user",
                 }
             ],
-            model="string",
+            model="Meta-Llama-3.3-70B-Instruct",
             extra_headers={"x-stainless-retry-count": "42"},
         )
 
@@ -1882,7 +1882,7 @@ class TestAsyncSambaNova:
                         "role": "user",
                     }
                 ],
-                model="string",
+                model="Meta-Llama-3.3-70B-Instruct",
             ).__aenter__()
 
         assert _get_open_connections(async_client) == 0
@@ -1902,7 +1902,7 @@ class TestAsyncSambaNova:
                         "role": "user",
                     }
                 ],
-                model="string",
+                model="Meta-Llama-3.3-70B-Instruct",
             ).__aenter__()
         assert _get_open_connections(async_client) == 0
 
@@ -1939,7 +1939,7 @@ class TestAsyncSambaNova:
                     "role": "user",
                 }
             ],
-            model="string",
+            model="Meta-Llama-3.3-70B-Instruct",
         )
 
         assert response.retries_taken == failures_before_success
@@ -1971,7 +1971,7 @@ class TestAsyncSambaNova:
                     "role": "user",
                 }
             ],
-            model="string",
+            model="Meta-Llama-3.3-70B-Instruct",
             extra_headers={"x-stainless-retry-count": Omit()},
         )
 
@@ -2003,7 +2003,7 @@ class TestAsyncSambaNova:
                     "role": "user",
                 }
             ],
-            model="string",
+            model="Meta-Llama-3.3-70B-Instruct",
             extra_headers={"x-stainless-retry-count": "42"},
         )
 
