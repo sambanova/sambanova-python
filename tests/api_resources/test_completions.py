@@ -21,7 +21,7 @@ class TestCompletions:
     def test_method_create_overload_1(self, client: SambaNova) -> None:
         completion = client.completions.create(
             model="Meta-Llama-3.3-70B-Instruct",
-            prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|>\nYou are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>\ncreate a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n",
+            prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|> You are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|> create a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>",
         )
         assert_matches_type(CompletionCreateResponse, completion, path=["response"])
 
@@ -29,7 +29,7 @@ class TestCompletions:
     def test_method_create_with_all_params_overload_1(self, client: SambaNova) -> None:
         completion = client.completions.create(
             model="Meta-Llama-3.3-70B-Instruct",
-            prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|>\nYou are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>\ncreate a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n",
+            prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|> You are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|> create a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>",
             do_sample=True,
             frequency_penalty=-2,
             logit_bias={"foo": 0},
@@ -53,7 +53,7 @@ class TestCompletions:
     def test_raw_response_create_overload_1(self, client: SambaNova) -> None:
         response = client.completions.with_raw_response.create(
             model="Meta-Llama-3.3-70B-Instruct",
-            prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|>\nYou are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>\ncreate a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n",
+            prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|> You are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|> create a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>",
         )
 
         assert response.is_closed is True
@@ -65,7 +65,7 @@ class TestCompletions:
     def test_streaming_response_create_overload_1(self, client: SambaNova) -> None:
         with client.completions.with_streaming_response.create(
             model="Meta-Llama-3.3-70B-Instruct",
-            prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|>\nYou are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>\ncreate a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n",
+            prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|> You are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|> create a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -79,7 +79,7 @@ class TestCompletions:
     def test_method_create_overload_2(self, client: SambaNova) -> None:
         completion_stream = client.completions.create(
             model="Meta-Llama-3.3-70B-Instruct",
-            prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|>\nYou are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>\ncreate a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n",
+            prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|> You are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|> create a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>",
             stream=True,
         )
         completion_stream.response.close()
@@ -88,7 +88,7 @@ class TestCompletions:
     def test_method_create_with_all_params_overload_2(self, client: SambaNova) -> None:
         completion_stream = client.completions.create(
             model="Meta-Llama-3.3-70B-Instruct",
-            prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|>\nYou are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>\ncreate a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n",
+            prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|> You are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|> create a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>",
             stream=True,
             do_sample=True,
             frequency_penalty=-2,
@@ -112,7 +112,7 @@ class TestCompletions:
     def test_raw_response_create_overload_2(self, client: SambaNova) -> None:
         response = client.completions.with_raw_response.create(
             model="Meta-Llama-3.3-70B-Instruct",
-            prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|>\nYou are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>\ncreate a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n",
+            prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|> You are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|> create a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>",
             stream=True,
         )
 
@@ -124,7 +124,7 @@ class TestCompletions:
     def test_streaming_response_create_overload_2(self, client: SambaNova) -> None:
         with client.completions.with_streaming_response.create(
             model="Meta-Llama-3.3-70B-Instruct",
-            prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|>\nYou are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>\ncreate a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n",
+            prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|> You are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|> create a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>",
             stream=True,
         ) as response:
             assert not response.is_closed
@@ -145,7 +145,7 @@ class TestAsyncCompletions:
     async def test_method_create_overload_1(self, async_client: AsyncSambaNova) -> None:
         completion = await async_client.completions.create(
             model="Meta-Llama-3.3-70B-Instruct",
-            prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|>\nYou are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>\ncreate a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n",
+            prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|> You are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|> create a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>",
         )
         assert_matches_type(CompletionCreateResponse, completion, path=["response"])
 
@@ -153,7 +153,7 @@ class TestAsyncCompletions:
     async def test_method_create_with_all_params_overload_1(self, async_client: AsyncSambaNova) -> None:
         completion = await async_client.completions.create(
             model="Meta-Llama-3.3-70B-Instruct",
-            prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|>\nYou are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>\ncreate a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n",
+            prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|> You are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|> create a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>",
             do_sample=True,
             frequency_penalty=-2,
             logit_bias={"foo": 0},
@@ -177,7 +177,7 @@ class TestAsyncCompletions:
     async def test_raw_response_create_overload_1(self, async_client: AsyncSambaNova) -> None:
         response = await async_client.completions.with_raw_response.create(
             model="Meta-Llama-3.3-70B-Instruct",
-            prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|>\nYou are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>\ncreate a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n",
+            prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|> You are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|> create a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>",
         )
 
         assert response.is_closed is True
@@ -189,7 +189,7 @@ class TestAsyncCompletions:
     async def test_streaming_response_create_overload_1(self, async_client: AsyncSambaNova) -> None:
         async with async_client.completions.with_streaming_response.create(
             model="Meta-Llama-3.3-70B-Instruct",
-            prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|>\nYou are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>\ncreate a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n",
+            prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|> You are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|> create a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -203,7 +203,7 @@ class TestAsyncCompletions:
     async def test_method_create_overload_2(self, async_client: AsyncSambaNova) -> None:
         completion_stream = await async_client.completions.create(
             model="Meta-Llama-3.3-70B-Instruct",
-            prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|>\nYou are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>\ncreate a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n",
+            prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|> You are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|> create a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>",
             stream=True,
         )
         await completion_stream.response.aclose()
@@ -212,7 +212,7 @@ class TestAsyncCompletions:
     async def test_method_create_with_all_params_overload_2(self, async_client: AsyncSambaNova) -> None:
         completion_stream = await async_client.completions.create(
             model="Meta-Llama-3.3-70B-Instruct",
-            prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|>\nYou are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>\ncreate a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n",
+            prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|> You are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|> create a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>",
             stream=True,
             do_sample=True,
             frequency_penalty=-2,
@@ -236,7 +236,7 @@ class TestAsyncCompletions:
     async def test_raw_response_create_overload_2(self, async_client: AsyncSambaNova) -> None:
         response = await async_client.completions.with_raw_response.create(
             model="Meta-Llama-3.3-70B-Instruct",
-            prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|>\nYou are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>\ncreate a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n",
+            prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|> You are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|> create a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>",
             stream=True,
         )
 
@@ -248,7 +248,7 @@ class TestAsyncCompletions:
     async def test_streaming_response_create_overload_2(self, async_client: AsyncSambaNova) -> None:
         async with async_client.completions.with_streaming_response.create(
             model="Meta-Llama-3.3-70B-Instruct",
-            prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|>\nYou are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>\ncreate a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n",
+            prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|> You are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|> create a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>",
             stream=True,
         ) as response:
             assert not response.is_closed
