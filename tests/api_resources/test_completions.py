@@ -20,7 +20,7 @@ class TestCompletions:
     @parametrize
     def test_method_create_overload_1(self, client: SambaNova) -> None:
         completion = client.completions.create(
-            model="string",
+            model="Meta-Llama-3.3-70B-Instruct",
             prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|>\nYou are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>\ncreate a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n",
         )
         assert_matches_type(CompletionCreateResponse, completion, path=["response"])
@@ -28,7 +28,7 @@ class TestCompletions:
     @parametrize
     def test_method_create_with_all_params_overload_1(self, client: SambaNova) -> None:
         completion = client.completions.create(
-            model="string",
+            model="Meta-Llama-3.3-70B-Instruct",
             prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|>\nYou are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>\ncreate a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n",
             do_sample=True,
             frequency_penalty=-2,
@@ -52,7 +52,7 @@ class TestCompletions:
     @parametrize
     def test_raw_response_create_overload_1(self, client: SambaNova) -> None:
         response = client.completions.with_raw_response.create(
-            model="string",
+            model="Meta-Llama-3.3-70B-Instruct",
             prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|>\nYou are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>\ncreate a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n",
         )
 
@@ -64,7 +64,7 @@ class TestCompletions:
     @parametrize
     def test_streaming_response_create_overload_1(self, client: SambaNova) -> None:
         with client.completions.with_streaming_response.create(
-            model="string",
+            model="Meta-Llama-3.3-70B-Instruct",
             prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|>\nYou are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>\ncreate a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n",
         ) as response:
             assert not response.is_closed
@@ -78,7 +78,7 @@ class TestCompletions:
     @parametrize
     def test_method_create_overload_2(self, client: SambaNova) -> None:
         completion_stream = client.completions.create(
-            model="string",
+            model="Meta-Llama-3.3-70B-Instruct",
             prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|>\nYou are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>\ncreate a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n",
             stream=True,
         )
@@ -87,7 +87,7 @@ class TestCompletions:
     @parametrize
     def test_method_create_with_all_params_overload_2(self, client: SambaNova) -> None:
         completion_stream = client.completions.create(
-            model="string",
+            model="Meta-Llama-3.3-70B-Instruct",
             prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|>\nYou are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>\ncreate a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n",
             stream=True,
             do_sample=True,
@@ -111,7 +111,7 @@ class TestCompletions:
     @parametrize
     def test_raw_response_create_overload_2(self, client: SambaNova) -> None:
         response = client.completions.with_raw_response.create(
-            model="string",
+            model="Meta-Llama-3.3-70B-Instruct",
             prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|>\nYou are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>\ncreate a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n",
             stream=True,
         )
@@ -123,7 +123,7 @@ class TestCompletions:
     @parametrize
     def test_streaming_response_create_overload_2(self, client: SambaNova) -> None:
         with client.completions.with_streaming_response.create(
-            model="string",
+            model="Meta-Llama-3.3-70B-Instruct",
             prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|>\nYou are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>\ncreate a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n",
             stream=True,
         ) as response:
@@ -144,7 +144,7 @@ class TestAsyncCompletions:
     @parametrize
     async def test_method_create_overload_1(self, async_client: AsyncSambaNova) -> None:
         completion = await async_client.completions.create(
-            model="string",
+            model="Meta-Llama-3.3-70B-Instruct",
             prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|>\nYou are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>\ncreate a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n",
         )
         assert_matches_type(CompletionCreateResponse, completion, path=["response"])
@@ -152,7 +152,7 @@ class TestAsyncCompletions:
     @parametrize
     async def test_method_create_with_all_params_overload_1(self, async_client: AsyncSambaNova) -> None:
         completion = await async_client.completions.create(
-            model="string",
+            model="Meta-Llama-3.3-70B-Instruct",
             prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|>\nYou are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>\ncreate a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n",
             do_sample=True,
             frequency_penalty=-2,
@@ -176,7 +176,7 @@ class TestAsyncCompletions:
     @parametrize
     async def test_raw_response_create_overload_1(self, async_client: AsyncSambaNova) -> None:
         response = await async_client.completions.with_raw_response.create(
-            model="string",
+            model="Meta-Llama-3.3-70B-Instruct",
             prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|>\nYou are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>\ncreate a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n",
         )
 
@@ -188,7 +188,7 @@ class TestAsyncCompletions:
     @parametrize
     async def test_streaming_response_create_overload_1(self, async_client: AsyncSambaNova) -> None:
         async with async_client.completions.with_streaming_response.create(
-            model="string",
+            model="Meta-Llama-3.3-70B-Instruct",
             prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|>\nYou are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>\ncreate a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n",
         ) as response:
             assert not response.is_closed
@@ -202,7 +202,7 @@ class TestAsyncCompletions:
     @parametrize
     async def test_method_create_overload_2(self, async_client: AsyncSambaNova) -> None:
         completion_stream = await async_client.completions.create(
-            model="string",
+            model="Meta-Llama-3.3-70B-Instruct",
             prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|>\nYou are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>\ncreate a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n",
             stream=True,
         )
@@ -211,7 +211,7 @@ class TestAsyncCompletions:
     @parametrize
     async def test_method_create_with_all_params_overload_2(self, async_client: AsyncSambaNova) -> None:
         completion_stream = await async_client.completions.create(
-            model="string",
+            model="Meta-Llama-3.3-70B-Instruct",
             prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|>\nYou are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>\ncreate a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n",
             stream=True,
             do_sample=True,
@@ -235,7 +235,7 @@ class TestAsyncCompletions:
     @parametrize
     async def test_raw_response_create_overload_2(self, async_client: AsyncSambaNova) -> None:
         response = await async_client.completions.with_raw_response.create(
-            model="string",
+            model="Meta-Llama-3.3-70B-Instruct",
             prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|>\nYou are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>\ncreate a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n",
             stream=True,
         )
@@ -247,7 +247,7 @@ class TestAsyncCompletions:
     @parametrize
     async def test_streaming_response_create_overload_2(self, async_client: AsyncSambaNova) -> None:
         async with async_client.completions.with_streaming_response.create(
-            model="string",
+            model="Meta-Llama-3.3-70B-Instruct",
             prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|>\nYou are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>\ncreate a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n",
             stream=True,
         ) as response:
