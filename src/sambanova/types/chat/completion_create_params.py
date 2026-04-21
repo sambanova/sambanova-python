@@ -84,7 +84,7 @@ class CompletionCreateParamsBase(TypedDict, total=False):
     ]
     """The model ID to use (e.g.
 
-    Meta-Llama-3.3-70B-Instruct). See available
+    gpt-oss-120b). See available
     [models](https://docs.sambanova.ai/cloud/docs/get-started/supported-models)
     """
 
@@ -106,6 +106,7 @@ class CompletionCreateParamsBase(TypedDict, total=False):
 
     Positive values penalize new tokens based on their existing frequency in the
     text so far, decreasing the model's likelihood to repeat the same line verbatim.
+    Not currently implemented; accepted for API compatibility
     """
 
     logit_bias: Optional[Dict[str, int]]
@@ -151,7 +152,8 @@ class CompletionCreateParamsBase(TypedDict, total=False):
     """Number between -2.0 and 2.0.
 
     Positive values penalize new tokens based on whether they appear in the text so
-    far, increasing the model's likelihood to talk about new topics.
+    far, increasing the model's likelihood to talk about new topics. Not currently
+    implemented; accepted for API compatibility
     """
 
     reasoning_effort: Optional[Literal["low", "medium", "high"]]

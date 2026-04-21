@@ -31,9 +31,10 @@ from ._base_client import (
 )
 
 if TYPE_CHECKING:
-    from .resources import chat, audio, models, embeddings, completions
+    from .resources import chat, audio, models, responses, embeddings, completions
     from .resources.models import ModelsResource, AsyncModelsResource
     from .resources.chat.chat import ChatResource, AsyncChatResource
+    from .resources.responses import ResponsesResource, AsyncResponsesResource
     from .resources.embeddings import EmbeddingsResource, AsyncEmbeddingsResource
     from .resources.audio.audio import AudioResource, AsyncAudioResource
     from .resources.completions import CompletionsResource, AsyncCompletionsResource
@@ -138,6 +139,12 @@ class SambaNova(SyncAPIClient):
         from .resources.audio import AudioResource
 
         return AudioResource(self)
+
+    @cached_property
+    def responses(self) -> ResponsesResource:
+        from .resources.responses import ResponsesResource
+
+        return ResponsesResource(self)
 
     @cached_property
     def models(self) -> ModelsResource:
@@ -351,6 +358,12 @@ class AsyncSambaNova(AsyncAPIClient):
         return AsyncAudioResource(self)
 
     @cached_property
+    def responses(self) -> AsyncResponsesResource:
+        from .resources.responses import AsyncResponsesResource
+
+        return AsyncResponsesResource(self)
+
+    @cached_property
     def models(self) -> AsyncModelsResource:
         from .resources.models import AsyncModelsResource
 
@@ -503,6 +516,12 @@ class SambaNovaWithRawResponse:
         return AudioResourceWithRawResponse(self._client.audio)
 
     @cached_property
+    def responses(self) -> responses.ResponsesResourceWithRawResponse:
+        from .resources.responses import ResponsesResourceWithRawResponse
+
+        return ResponsesResourceWithRawResponse(self._client.responses)
+
+    @cached_property
     def models(self) -> models.ModelsResourceWithRawResponse:
         from .resources.models import ModelsResourceWithRawResponse
 
@@ -538,6 +557,12 @@ class AsyncSambaNovaWithRawResponse:
         from .resources.audio import AsyncAudioResourceWithRawResponse
 
         return AsyncAudioResourceWithRawResponse(self._client.audio)
+
+    @cached_property
+    def responses(self) -> responses.AsyncResponsesResourceWithRawResponse:
+        from .resources.responses import AsyncResponsesResourceWithRawResponse
+
+        return AsyncResponsesResourceWithRawResponse(self._client.responses)
 
     @cached_property
     def models(self) -> models.AsyncModelsResourceWithRawResponse:
@@ -577,6 +602,12 @@ class SambaNovaWithStreamedResponse:
         return AudioResourceWithStreamingResponse(self._client.audio)
 
     @cached_property
+    def responses(self) -> responses.ResponsesResourceWithStreamingResponse:
+        from .resources.responses import ResponsesResourceWithStreamingResponse
+
+        return ResponsesResourceWithStreamingResponse(self._client.responses)
+
+    @cached_property
     def models(self) -> models.ModelsResourceWithStreamingResponse:
         from .resources.models import ModelsResourceWithStreamingResponse
 
@@ -612,6 +643,12 @@ class AsyncSambaNovaWithStreamedResponse:
         from .resources.audio import AsyncAudioResourceWithStreamingResponse
 
         return AsyncAudioResourceWithStreamingResponse(self._client.audio)
+
+    @cached_property
+    def responses(self) -> responses.AsyncResponsesResourceWithStreamingResponse:
+        from .resources.responses import AsyncResponsesResourceWithStreamingResponse
+
+        return AsyncResponsesResourceWithStreamingResponse(self._client.responses)
 
     @cached_property
     def models(self) -> models.AsyncModelsResourceWithStreamingResponse:

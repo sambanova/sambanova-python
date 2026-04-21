@@ -113,7 +113,7 @@ class CompletionsResource(SyncAPIResource):
         Args:
           model: The model ID to use (e.g.
 
-        Meta-Llama-3.3-70B-Instruct). See available
+        gpt-oss-120b). See available
               [models](https://docs.sambanova.ai/cloud/docs/get-started/supported-models)
 
           prompt: Prompt to send to the model.
@@ -123,7 +123,8 @@ class CompletionsResource(SyncAPIResource):
 
           frequency_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on their
               existing frequency in the text so far, decreasing the model's likelihood to
-              repeat the same line verbatim.
+              repeat the same line verbatim. Not currently implemented; accepted for API
+              compatibility
 
           logit_bias: This is not yet supported by our models. Modify the likelihood of specified
               tokens appearing in the completion.
@@ -145,7 +146,7 @@ class CompletionsResource(SyncAPIResource):
 
           presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on
               whether they appear in the text so far, increasing the model's likelihood to
-              talk about new topics.
+              talk about new topics. Not currently implemented; accepted for API compatibility
 
           seed: This is not yet supported by our models.
 
@@ -257,7 +258,7 @@ class CompletionsResource(SyncAPIResource):
         Args:
           model: The model ID to use (e.g.
 
-        Meta-Llama-3.3-70B-Instruct). See available
+        gpt-oss-120b). See available
               [models](https://docs.sambanova.ai/cloud/docs/get-started/supported-models)
 
           prompt: Prompt to send to the model.
@@ -272,7 +273,8 @@ class CompletionsResource(SyncAPIResource):
 
           frequency_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on their
               existing frequency in the text so far, decreasing the model's likelihood to
-              repeat the same line verbatim.
+              repeat the same line verbatim. Not currently implemented; accepted for API
+              compatibility
 
           logit_bias: This is not yet supported by our models. Modify the likelihood of specified
               tokens appearing in the completion.
@@ -294,7 +296,7 @@ class CompletionsResource(SyncAPIResource):
 
           presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on
               whether they appear in the text so far, increasing the model's likelihood to
-              talk about new topics.
+              talk about new topics. Not currently implemented; accepted for API compatibility
 
           seed: This is not yet supported by our models.
 
@@ -401,7 +403,7 @@ class CompletionsResource(SyncAPIResource):
         Args:
           model: The model ID to use (e.g.
 
-        Meta-Llama-3.3-70B-Instruct). See available
+        gpt-oss-120b). See available
               [models](https://docs.sambanova.ai/cloud/docs/get-started/supported-models)
 
           prompt: Prompt to send to the model.
@@ -416,7 +418,8 @@ class CompletionsResource(SyncAPIResource):
 
           frequency_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on their
               existing frequency in the text so far, decreasing the model's likelihood to
-              repeat the same line verbatim.
+              repeat the same line verbatim. Not currently implemented; accepted for API
+              compatibility
 
           logit_bias: This is not yet supported by our models. Modify the likelihood of specified
               tokens appearing in the completion.
@@ -438,7 +441,7 @@ class CompletionsResource(SyncAPIResource):
 
           presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on
               whether they appear in the text so far, increasing the model's likelihood to
-              talk about new topics.
+              talk about new topics. Not currently implemented; accepted for API compatibility
 
           seed: This is not yet supported by our models.
 
@@ -665,7 +668,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
         Args:
           model: The model ID to use (e.g.
 
-        Meta-Llama-3.3-70B-Instruct). See available
+        gpt-oss-120b). See available
               [models](https://docs.sambanova.ai/cloud/docs/get-started/supported-models)
 
           prompt: Prompt to send to the model.
@@ -675,7 +678,8 @@ class AsyncCompletionsResource(AsyncAPIResource):
 
           frequency_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on their
               existing frequency in the text so far, decreasing the model's likelihood to
-              repeat the same line verbatim.
+              repeat the same line verbatim. Not currently implemented; accepted for API
+              compatibility
 
           logit_bias: This is not yet supported by our models. Modify the likelihood of specified
               tokens appearing in the completion.
@@ -697,7 +701,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
 
           presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on
               whether they appear in the text so far, increasing the model's likelihood to
-              talk about new topics.
+              talk about new topics. Not currently implemented; accepted for API compatibility
 
           seed: This is not yet supported by our models.
 
@@ -809,7 +813,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
         Args:
           model: The model ID to use (e.g.
 
-        Meta-Llama-3.3-70B-Instruct). See available
+        gpt-oss-120b). See available
               [models](https://docs.sambanova.ai/cloud/docs/get-started/supported-models)
 
           prompt: Prompt to send to the model.
@@ -824,7 +828,8 @@ class AsyncCompletionsResource(AsyncAPIResource):
 
           frequency_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on their
               existing frequency in the text so far, decreasing the model's likelihood to
-              repeat the same line verbatim.
+              repeat the same line verbatim. Not currently implemented; accepted for API
+              compatibility
 
           logit_bias: This is not yet supported by our models. Modify the likelihood of specified
               tokens appearing in the completion.
@@ -846,7 +851,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
 
           presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on
               whether they appear in the text so far, increasing the model's likelihood to
-              talk about new topics.
+              talk about new topics. Not currently implemented; accepted for API compatibility
 
           seed: This is not yet supported by our models.
 
@@ -953,7 +958,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
         Args:
           model: The model ID to use (e.g.
 
-        Meta-Llama-3.3-70B-Instruct). See available
+        gpt-oss-120b). See available
               [models](https://docs.sambanova.ai/cloud/docs/get-started/supported-models)
 
           prompt: Prompt to send to the model.
@@ -968,7 +973,8 @@ class AsyncCompletionsResource(AsyncAPIResource):
 
           frequency_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on their
               existing frequency in the text so far, decreasing the model's likelihood to
-              repeat the same line verbatim.
+              repeat the same line verbatim. Not currently implemented; accepted for API
+              compatibility
 
           logit_bias: This is not yet supported by our models. Modify the likelihood of specified
               tokens appearing in the completion.
@@ -990,7 +996,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
 
           presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on
               whether they appear in the text so far, increasing the model's likelihood to
-              talk about new topics.
+              talk about new topics. Not currently implemented; accepted for API compatibility
 
           seed: This is not yet supported by our models.
 
