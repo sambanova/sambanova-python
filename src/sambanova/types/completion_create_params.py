@@ -104,9 +104,10 @@ class CompletionCreateParamsBase(TypedDict, total=False):
     """
 
     n: Optional[int]
-    """This is not yet supported by our models.
-
-    How many chat completion choices to generate for each input message.
+    """
+    How many completions to generate for each prompt. **Note:** Because this
+    parameter generates many completions, it can quickly consume your token quota.
+    Use carefully and ensure that you have reasonable settings for `max_tokens`.
     """
 
     presence_penalty: Optional[float]
@@ -118,7 +119,12 @@ class CompletionCreateParamsBase(TypedDict, total=False):
     """
 
     seed: Optional[int]
-    """This is not yet supported by our models."""
+    """
+    If specified, our system will make a best effort to sample deterministically,
+    such that repeated requests with the same `seed` and parameters should return
+    the same result. Determinism is not guaranteed, and you should refer to the
+    `system_fingerprint` response parameter to monitor changes in the backend.
+    """
 
     stop: Union[Optional[str], SequenceNotStr[str], None]
     """Sequences where the API will stop generating tokens.
