@@ -7,7 +7,7 @@ from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
 
-__all__ = ["EmbeddingsResponse", "Data", "Usage", "UsagePromptTokensDetails"]
+__all__ = ["EmbeddingsResponse", "Data", "Usage", "UsageCompletionTokensDetails", "UsagePromptTokensDetails"]
 
 
 class Data(BaseModel):
@@ -21,6 +21,28 @@ class Data(BaseModel):
 
     object: Literal["embedding"]
     """Object type, always embedding."""
+
+
+class UsageCompletionTokensDetails(BaseModel):
+    """Breakdown of completion token consumption."""
+
+    reasoning_tokens: Optional[int] = None
+    """Number of tokens consumed by the model's internal reasoning process.
+
+    Only present on reasoning-capable models.
+    """
+
+    if TYPE_CHECKING:
+        # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
+        # value to this field, so for compatibility we avoid doing it at runtime.
+        __pydantic_extra__: Dict[str, object] = FieldInfo(init=False)  # pyright: ignore[reportIncompatibleVariableOverride]
+
+        # Stub to indicate that arbitrary properties are accepted.
+        # To access properties that are not valid identifiers you can use `getattr`, e.g.
+        # `getattr(obj, '$type')`
+        def __getattr__(self, attr: str) -> object: ...
+    else:
+        __pydantic_extra__: Dict[str, object]
 
 
 class UsagePromptTokensDetails(BaseModel):
@@ -62,6 +84,9 @@ class Usage(BaseModel):
     completion_tokens_after_first_per_sec_graph: Optional[float] = None
     """completion tokens per second after first token generation"""
 
+    completion_tokens_details: Optional[UsageCompletionTokensDetails] = None
+    """Breakdown of completion token consumption."""
+
     completion_tokens_per_sec: Optional[float] = None
     """completion tokens per second"""
 
@@ -80,8 +105,21 @@ class Usage(BaseModel):
     start_time: Optional[float] = None
     """The Unix timestamp (in seconds) of when the generation started."""
 
+    stop_reason: Optional[str] = None
+    """The reason generation stopped (e.g.
+
+    "stop", "length"). Mirrors the choice-level finish_reason but reported at the
+    usage level.
+    """
+
     time_to_first_token: Optional[float] = None
     """also TTF, time (in seconds) taken to generate the first token"""
+
+    time_to_first_token_graph: Optional[float] = None
+    """Time (in seconds) to first token, adjusted for graph rendering.
+
+    May differ slightly from time_to_first_token.
+    """
 
     total_latency: Optional[float] = None
     """total time (in seconds) taken to generate the full generation"""

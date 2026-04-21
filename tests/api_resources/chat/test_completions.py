@@ -26,7 +26,7 @@ class TestCompletions:
                     "role": "user",
                 }
             ],
-            model="Meta-Llama-3.3-70B-Instruct",
+            model="gpt-oss-120b",
         )
         assert_matches_type(CompletionCreateResponse, completion, path=["response"])
 
@@ -39,7 +39,7 @@ class TestCompletions:
                     "role": "user",
                 }
             ],
-            model="Meta-Llama-3.3-70B-Instruct",
+            model="gpt-oss-120b",
             chat_template_kwargs={"enable_thinking": True},
             do_sample=True,
             frequency_penalty=-2,
@@ -104,7 +104,7 @@ class TestCompletions:
                     "role": "user",
                 }
             ],
-            model="Meta-Llama-3.3-70B-Instruct",
+            model="gpt-oss-120b",
         )
 
         assert response.is_closed is True
@@ -121,7 +121,7 @@ class TestCompletions:
                     "role": "user",
                 }
             ],
-            model="Meta-Llama-3.3-70B-Instruct",
+            model="gpt-oss-120b",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -140,7 +140,7 @@ class TestCompletions:
                     "role": "user",
                 }
             ],
-            model="Meta-Llama-3.3-70B-Instruct",
+            model="gpt-oss-120b",
             stream=True,
         )
         completion_stream.response.close()
@@ -154,7 +154,7 @@ class TestCompletions:
                     "role": "user",
                 }
             ],
-            model="Meta-Llama-3.3-70B-Instruct",
+            model="gpt-oss-120b",
             stream=True,
             chat_template_kwargs={"enable_thinking": True},
             do_sample=True,
@@ -219,7 +219,7 @@ class TestCompletions:
                     "role": "user",
                 }
             ],
-            model="Meta-Llama-3.3-70B-Instruct",
+            model="gpt-oss-120b",
             stream=True,
         )
 
@@ -236,7 +236,7 @@ class TestCompletions:
                     "role": "user",
                 }
             ],
-            model="Meta-Llama-3.3-70B-Instruct",
+            model="gpt-oss-120b",
             stream=True,
         ) as response:
             assert not response.is_closed
@@ -262,7 +262,7 @@ class TestAsyncCompletions:
                     "role": "user",
                 }
             ],
-            model="Meta-Llama-3.3-70B-Instruct",
+            model="gpt-oss-120b",
         )
         assert_matches_type(CompletionCreateResponse, completion, path=["response"])
 
@@ -275,7 +275,7 @@ class TestAsyncCompletions:
                     "role": "user",
                 }
             ],
-            model="Meta-Llama-3.3-70B-Instruct",
+            model="gpt-oss-120b",
             chat_template_kwargs={"enable_thinking": True},
             do_sample=True,
             frequency_penalty=-2,
@@ -340,7 +340,7 @@ class TestAsyncCompletions:
                     "role": "user",
                 }
             ],
-            model="Meta-Llama-3.3-70B-Instruct",
+            model="gpt-oss-120b",
         )
 
         assert response.is_closed is True
@@ -357,7 +357,7 @@ class TestAsyncCompletions:
                     "role": "user",
                 }
             ],
-            model="Meta-Llama-3.3-70B-Instruct",
+            model="gpt-oss-120b",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -376,7 +376,7 @@ class TestAsyncCompletions:
                     "role": "user",
                 }
             ],
-            model="Meta-Llama-3.3-70B-Instruct",
+            model="gpt-oss-120b",
             stream=True,
         )
         await completion_stream.response.aclose()
@@ -390,7 +390,7 @@ class TestAsyncCompletions:
                     "role": "user",
                 }
             ],
-            model="Meta-Llama-3.3-70B-Instruct",
+            model="gpt-oss-120b",
             stream=True,
             chat_template_kwargs={"enable_thinking": True},
             do_sample=True,
@@ -455,7 +455,7 @@ class TestAsyncCompletions:
                     "role": "user",
                 }
             ],
-            model="Meta-Llama-3.3-70B-Instruct",
+            model="gpt-oss-120b",
             stream=True,
         )
 
@@ -472,7 +472,7 @@ class TestAsyncCompletions:
                     "role": "user",
                 }
             ],
-            model="Meta-Llama-3.3-70B-Instruct",
+            model="gpt-oss-120b",
             stream=True,
         ) as response:
             assert not response.is_closed

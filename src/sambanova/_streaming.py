@@ -79,6 +79,8 @@ class Stream(Generic[_T]):
                         body=body,
                         response=self.response,
                     )
+
+                yield process_data(data=sse.json(), cast_to=cast_to, response=response)
         finally:
             # Ensure the response is closed even if the consumer doesn't read all data
             response.close()
@@ -164,6 +166,8 @@ class AsyncStream(Generic[_T]):
                         body=body,
                         response=self.response,
                     )
+
+                yield process_data(data=sse.json(), cast_to=cast_to, response=response)
         finally:
             # Ensure the response is closed even if the consumer doesn't read all data
             await response.aclose()
