@@ -1,5 +1,36 @@
 # Changelog
 
+## 1.7.0 (2026-04-21)
+
+Full Changelog: [v1.6.1...v1.7.0](https://github.com/sambanova/sambanova-python/compare/v1.6.1...v1.7.0)
+
+### Features
+
+* **api:** add n and seed chat completions parameters ([bf3c1b5](https://github.com/sambanova/sambanova-python/commit/bf3c1b54d9c2c5db97358de25e72b81542a6fa9f))
+* **api:** Responses API Support ([76c215b](https://github.com/sambanova/sambanova-python/commit/76c215ba649a76be104e466e6ea1b202a89ebf61))
+
+
+### Bug Fixes
+
+* **client:** preserve hardcoded query params when merging with user params ([b29dd32](https://github.com/sambanova/sambanova-python/commit/b29dd3268636349e0e40c618d3003739d2a070dc))
+* ensure file data are only sent as 1 parameter ([74ba3cc](https://github.com/sambanova/sambanova-python/commit/74ba3cc25421e62f3e5b1087ddeef431355b410e))
+
+
+### Performance Improvements
+
+* **client:** optimize file structure copying in multipart requests ([31410a1](https://github.com/sambanova/sambanova-python/commit/31410a1f9f3b40894d87f3b70cebf1774d50b629))
+
+
+### Chores
+
+* **tests:** bump steady to v0.22.1 ([68deab8](https://github.com/sambanova/sambanova-python/commit/68deab8cb895253503eb21ae492ac913260a9264))
+
+
+### Documentation
+
+* improve examples ([06546f4](https://github.com/sambanova/sambanova-python/commit/06546f41c4658591980f6f466488df2ff0f5e6be))
+* update examples ([a21f0fb](https://github.com/sambanova/sambanova-python/commit/a21f0fb6358a4665536ddf9b25e9c9ff81073b80))
+
 ## 1.6.1 (2026-04-06)
 
 Full Changelog: [v1.6.0...v1.6.1](https://github.com/sambanova/sambanova-python/compare/v1.6.0...v1.6.1)
