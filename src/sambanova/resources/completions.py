@@ -141,14 +141,18 @@ class CompletionsResource(SyncAPIResource):
               total length of input tokens and generated tokens is limited by the model's
               context length.
 
-          n: This is not yet supported by our models. How many chat completion choices to
-              generate for each input message.
+          n: How many completions to generate for each prompt. **Note:** Because this
+              parameter generates many completions, it can quickly consume your token quota.
+              Use carefully and ensure that you have reasonable settings for `max_tokens`.
 
           presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on
               whether they appear in the text so far, increasing the model's likelihood to
               talk about new topics. Not currently implemented; accepted for API compatibility
 
-          seed: This is not yet supported by our models.
+          seed: If specified, our system will make a best effort to sample deterministically,
+              such that repeated requests with the same `seed` and parameters should return
+              the same result. Determinism is not guaranteed, and you should refer to the
+              `system_fingerprint` response parameter to monitor changes in the backend.
 
           stop: Sequences where the API will stop generating tokens. The returned text will not
               contain the stop sequence.
@@ -291,14 +295,18 @@ class CompletionsResource(SyncAPIResource):
               total length of input tokens and generated tokens is limited by the model's
               context length.
 
-          n: This is not yet supported by our models. How many chat completion choices to
-              generate for each input message.
+          n: How many completions to generate for each prompt. **Note:** Because this
+              parameter generates many completions, it can quickly consume your token quota.
+              Use carefully and ensure that you have reasonable settings for `max_tokens`.
 
           presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on
               whether they appear in the text so far, increasing the model's likelihood to
               talk about new topics. Not currently implemented; accepted for API compatibility
 
-          seed: This is not yet supported by our models.
+          seed: If specified, our system will make a best effort to sample deterministically,
+              such that repeated requests with the same `seed` and parameters should return
+              the same result. Determinism is not guaranteed, and you should refer to the
+              `system_fingerprint` response parameter to monitor changes in the backend.
 
           stop: Sequences where the API will stop generating tokens. The returned text will not
               contain the stop sequence.
@@ -436,14 +444,18 @@ class CompletionsResource(SyncAPIResource):
               total length of input tokens and generated tokens is limited by the model's
               context length.
 
-          n: This is not yet supported by our models. How many chat completion choices to
-              generate for each input message.
+          n: How many completions to generate for each prompt. **Note:** Because this
+              parameter generates many completions, it can quickly consume your token quota.
+              Use carefully and ensure that you have reasonable settings for `max_tokens`.
 
           presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on
               whether they appear in the text so far, increasing the model's likelihood to
               talk about new topics. Not currently implemented; accepted for API compatibility
 
-          seed: This is not yet supported by our models.
+          seed: If specified, our system will make a best effort to sample deterministically,
+              such that repeated requests with the same `seed` and parameters should return
+              the same result. Determinism is not guaranteed, and you should refer to the
+              `system_fingerprint` response parameter to monitor changes in the backend.
 
           stop: Sequences where the API will stop generating tokens. The returned text will not
               contain the stop sequence.
@@ -696,14 +708,18 @@ class AsyncCompletionsResource(AsyncAPIResource):
               total length of input tokens and generated tokens is limited by the model's
               context length.
 
-          n: This is not yet supported by our models. How many chat completion choices to
-              generate for each input message.
+          n: How many completions to generate for each prompt. **Note:** Because this
+              parameter generates many completions, it can quickly consume your token quota.
+              Use carefully and ensure that you have reasonable settings for `max_tokens`.
 
           presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on
               whether they appear in the text so far, increasing the model's likelihood to
               talk about new topics. Not currently implemented; accepted for API compatibility
 
-          seed: This is not yet supported by our models.
+          seed: If specified, our system will make a best effort to sample deterministically,
+              such that repeated requests with the same `seed` and parameters should return
+              the same result. Determinism is not guaranteed, and you should refer to the
+              `system_fingerprint` response parameter to monitor changes in the backend.
 
           stop: Sequences where the API will stop generating tokens. The returned text will not
               contain the stop sequence.
@@ -846,14 +862,18 @@ class AsyncCompletionsResource(AsyncAPIResource):
               total length of input tokens and generated tokens is limited by the model's
               context length.
 
-          n: This is not yet supported by our models. How many chat completion choices to
-              generate for each input message.
+          n: How many completions to generate for each prompt. **Note:** Because this
+              parameter generates many completions, it can quickly consume your token quota.
+              Use carefully and ensure that you have reasonable settings for `max_tokens`.
 
           presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on
               whether they appear in the text so far, increasing the model's likelihood to
               talk about new topics. Not currently implemented; accepted for API compatibility
 
-          seed: This is not yet supported by our models.
+          seed: If specified, our system will make a best effort to sample deterministically,
+              such that repeated requests with the same `seed` and parameters should return
+              the same result. Determinism is not guaranteed, and you should refer to the
+              `system_fingerprint` response parameter to monitor changes in the backend.
 
           stop: Sequences where the API will stop generating tokens. The returned text will not
               contain the stop sequence.
@@ -991,14 +1011,18 @@ class AsyncCompletionsResource(AsyncAPIResource):
               total length of input tokens and generated tokens is limited by the model's
               context length.
 
-          n: This is not yet supported by our models. How many chat completion choices to
-              generate for each input message.
+          n: How many completions to generate for each prompt. **Note:** Because this
+              parameter generates many completions, it can quickly consume your token quota.
+              Use carefully and ensure that you have reasonable settings for `max_tokens`.
 
           presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on
               whether they appear in the text so far, increasing the model's likelihood to
               talk about new topics. Not currently implemented; accepted for API compatibility
 
-          seed: This is not yet supported by our models.
+          seed: If specified, our system will make a best effort to sample deterministically,
+              such that repeated requests with the same `seed` and parameters should return
+              the same result. Determinism is not guaranteed, and you should refer to the
+              `system_fingerprint` response parameter to monitor changes in the backend.
 
           stop: Sequences where the API will stop generating tokens. The returned text will not
               contain the stop sequence.
