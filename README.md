@@ -39,8 +39,25 @@ completion = client.chat.completions.create(
             "role": "user",
         }
     ],
-    model="string",
+    model="gpt-oss-120b",
 )
+```
+
+## Responses API
+
+```python
+import os
+from sambanova import SambaNova
+
+client = SambaNova(
+    api_key=os.environ.get("SAMBANOVA_API_KEY"),
+)
+
+response = client.responses.create(
+    model="gpt-oss-120b",
+    input="Explain disestablishmentarianism to a smart five year old.",
+)
+print(response.output_text)
 ```
 
 While you can provide an `api_key` keyword argument,
@@ -70,7 +87,7 @@ async def main() -> None:
                 "role": "user",
             }
         ],
-        model="string",
+        model="gpt-oss-120b",
     )
 
 
@@ -111,7 +128,7 @@ async def main() -> None:
                     "role": "user",
                 }
             ],
-            model="string",
+            model="gpt-oss-120b",
         )
 
 
@@ -134,7 +151,7 @@ stream = client.chat.completions.create(
             "role": "user",
         }
     ],
-    model="string",
+    model="gpt-oss-120b",
     stream=True,
 )
 for completion in stream:
@@ -155,7 +172,7 @@ stream = await client.chat.completions.create(
             "role": "user",
         }
     ],
-    model="string",
+    model="gpt-oss-120b",
     stream=True,
 )
 async for completion in stream:
@@ -187,7 +204,7 @@ completion = client.chat.completions.create(
             "role": "user",
         }
     ],
-    model="string",
+    model="gpt-oss-120b",
     chat_template_kwargs={"enable_thinking": True},
 )
 print(completion.chat_template_kwargs)
@@ -234,7 +251,7 @@ try:
                 "role": "user",
             }
         ],
-        model="string",
+        model="gpt-oss-120b",
     )
 except sambanova.APIConnectionError as e:
     print("The server could not be reached")
@@ -285,7 +302,7 @@ client.with_options(max_retries=5).chat.completions.create(
             "role": "user",
         }
     ],
-    model="string",
+    model="gpt-oss-120b",
 )
 ```
 
@@ -316,7 +333,7 @@ client.with_options(timeout=5.0).chat.completions.create(
             "role": "user",
         }
     ],
-    model="string",
+    model="gpt-oss-120b",
 )
 ```
 
@@ -363,7 +380,7 @@ response = client.chat.completions.with_raw_response.create(
         "content": "create a poem using palindromes",
         "role": "user",
     }],
-    model="string",
+    model="gpt-oss-120b",
 )
 print(response.headers.get('X-My-Header'))
 
@@ -389,7 +406,7 @@ with client.chat.completions.with_streaming_response.create(
             "role": "user",
         }
     ],
-    model="string",
+    model="gpt-oss-120b",
 ) as response:
     print(response.headers.get("X-My-Header"))
 

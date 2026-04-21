@@ -113,7 +113,7 @@ class CompletionsResource(SyncAPIResource):
         Args:
           model: The model ID to use (e.g.
 
-        Meta-Llama-3.3-70B-Instruct). See available
+        gpt-oss-120b). See available
               [models](https://docs.sambanova.ai/cloud/docs/get-started/supported-models)
 
           prompt: Prompt to send to the model.
@@ -123,7 +123,8 @@ class CompletionsResource(SyncAPIResource):
 
           frequency_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on their
               existing frequency in the text so far, decreasing the model's likelihood to
-              repeat the same line verbatim.
+              repeat the same line verbatim. Not currently implemented; accepted for API
+              compatibility
 
           logit_bias: This is not yet supported by our models. Modify the likelihood of specified
               tokens appearing in the completion.
@@ -140,14 +141,18 @@ class CompletionsResource(SyncAPIResource):
               total length of input tokens and generated tokens is limited by the model's
               context length.
 
-          n: This is not yet supported by our models. How many chat completion choices to
-              generate for each input message.
+          n: How many completions to generate for each prompt. **Note:** Because this
+              parameter generates many completions, it can quickly consume your token quota.
+              Use carefully and ensure that you have reasonable settings for `max_tokens`.
 
           presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on
               whether they appear in the text so far, increasing the model's likelihood to
-              talk about new topics.
+              talk about new topics. Not currently implemented; accepted for API compatibility
 
-          seed: This is not yet supported by our models.
+          seed: If specified, our system will make a best effort to sample deterministically,
+              such that repeated requests with the same `seed` and parameters should return
+              the same result. Determinism is not guaranteed, and you should refer to the
+              `system_fingerprint` response parameter to monitor changes in the backend.
 
           stop: Sequences where the API will stop generating tokens. The returned text will not
               contain the stop sequence.
@@ -257,7 +262,7 @@ class CompletionsResource(SyncAPIResource):
         Args:
           model: The model ID to use (e.g.
 
-        Meta-Llama-3.3-70B-Instruct). See available
+        gpt-oss-120b). See available
               [models](https://docs.sambanova.ai/cloud/docs/get-started/supported-models)
 
           prompt: Prompt to send to the model.
@@ -272,7 +277,8 @@ class CompletionsResource(SyncAPIResource):
 
           frequency_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on their
               existing frequency in the text so far, decreasing the model's likelihood to
-              repeat the same line verbatim.
+              repeat the same line verbatim. Not currently implemented; accepted for API
+              compatibility
 
           logit_bias: This is not yet supported by our models. Modify the likelihood of specified
               tokens appearing in the completion.
@@ -289,14 +295,18 @@ class CompletionsResource(SyncAPIResource):
               total length of input tokens and generated tokens is limited by the model's
               context length.
 
-          n: This is not yet supported by our models. How many chat completion choices to
-              generate for each input message.
+          n: How many completions to generate for each prompt. **Note:** Because this
+              parameter generates many completions, it can quickly consume your token quota.
+              Use carefully and ensure that you have reasonable settings for `max_tokens`.
 
           presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on
               whether they appear in the text so far, increasing the model's likelihood to
-              talk about new topics.
+              talk about new topics. Not currently implemented; accepted for API compatibility
 
-          seed: This is not yet supported by our models.
+          seed: If specified, our system will make a best effort to sample deterministically,
+              such that repeated requests with the same `seed` and parameters should return
+              the same result. Determinism is not guaranteed, and you should refer to the
+              `system_fingerprint` response parameter to monitor changes in the backend.
 
           stop: Sequences where the API will stop generating tokens. The returned text will not
               contain the stop sequence.
@@ -401,7 +411,7 @@ class CompletionsResource(SyncAPIResource):
         Args:
           model: The model ID to use (e.g.
 
-        Meta-Llama-3.3-70B-Instruct). See available
+        gpt-oss-120b). See available
               [models](https://docs.sambanova.ai/cloud/docs/get-started/supported-models)
 
           prompt: Prompt to send to the model.
@@ -416,7 +426,8 @@ class CompletionsResource(SyncAPIResource):
 
           frequency_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on their
               existing frequency in the text so far, decreasing the model's likelihood to
-              repeat the same line verbatim.
+              repeat the same line verbatim. Not currently implemented; accepted for API
+              compatibility
 
           logit_bias: This is not yet supported by our models. Modify the likelihood of specified
               tokens appearing in the completion.
@@ -433,14 +444,18 @@ class CompletionsResource(SyncAPIResource):
               total length of input tokens and generated tokens is limited by the model's
               context length.
 
-          n: This is not yet supported by our models. How many chat completion choices to
-              generate for each input message.
+          n: How many completions to generate for each prompt. **Note:** Because this
+              parameter generates many completions, it can quickly consume your token quota.
+              Use carefully and ensure that you have reasonable settings for `max_tokens`.
 
           presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on
               whether they appear in the text so far, increasing the model's likelihood to
-              talk about new topics.
+              talk about new topics. Not currently implemented; accepted for API compatibility
 
-          seed: This is not yet supported by our models.
+          seed: If specified, our system will make a best effort to sample deterministically,
+              such that repeated requests with the same `seed` and parameters should return
+              the same result. Determinism is not guaranteed, and you should refer to the
+              `system_fingerprint` response parameter to monitor changes in the backend.
 
           stop: Sequences where the API will stop generating tokens. The returned text will not
               contain the stop sequence.
@@ -665,7 +680,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
         Args:
           model: The model ID to use (e.g.
 
-        Meta-Llama-3.3-70B-Instruct). See available
+        gpt-oss-120b). See available
               [models](https://docs.sambanova.ai/cloud/docs/get-started/supported-models)
 
           prompt: Prompt to send to the model.
@@ -675,7 +690,8 @@ class AsyncCompletionsResource(AsyncAPIResource):
 
           frequency_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on their
               existing frequency in the text so far, decreasing the model's likelihood to
-              repeat the same line verbatim.
+              repeat the same line verbatim. Not currently implemented; accepted for API
+              compatibility
 
           logit_bias: This is not yet supported by our models. Modify the likelihood of specified
               tokens appearing in the completion.
@@ -692,14 +708,18 @@ class AsyncCompletionsResource(AsyncAPIResource):
               total length of input tokens and generated tokens is limited by the model's
               context length.
 
-          n: This is not yet supported by our models. How many chat completion choices to
-              generate for each input message.
+          n: How many completions to generate for each prompt. **Note:** Because this
+              parameter generates many completions, it can quickly consume your token quota.
+              Use carefully and ensure that you have reasonable settings for `max_tokens`.
 
           presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on
               whether they appear in the text so far, increasing the model's likelihood to
-              talk about new topics.
+              talk about new topics. Not currently implemented; accepted for API compatibility
 
-          seed: This is not yet supported by our models.
+          seed: If specified, our system will make a best effort to sample deterministically,
+              such that repeated requests with the same `seed` and parameters should return
+              the same result. Determinism is not guaranteed, and you should refer to the
+              `system_fingerprint` response parameter to monitor changes in the backend.
 
           stop: Sequences where the API will stop generating tokens. The returned text will not
               contain the stop sequence.
@@ -809,7 +829,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
         Args:
           model: The model ID to use (e.g.
 
-        Meta-Llama-3.3-70B-Instruct). See available
+        gpt-oss-120b). See available
               [models](https://docs.sambanova.ai/cloud/docs/get-started/supported-models)
 
           prompt: Prompt to send to the model.
@@ -824,7 +844,8 @@ class AsyncCompletionsResource(AsyncAPIResource):
 
           frequency_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on their
               existing frequency in the text so far, decreasing the model's likelihood to
-              repeat the same line verbatim.
+              repeat the same line verbatim. Not currently implemented; accepted for API
+              compatibility
 
           logit_bias: This is not yet supported by our models. Modify the likelihood of specified
               tokens appearing in the completion.
@@ -841,14 +862,18 @@ class AsyncCompletionsResource(AsyncAPIResource):
               total length of input tokens and generated tokens is limited by the model's
               context length.
 
-          n: This is not yet supported by our models. How many chat completion choices to
-              generate for each input message.
+          n: How many completions to generate for each prompt. **Note:** Because this
+              parameter generates many completions, it can quickly consume your token quota.
+              Use carefully and ensure that you have reasonable settings for `max_tokens`.
 
           presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on
               whether they appear in the text so far, increasing the model's likelihood to
-              talk about new topics.
+              talk about new topics. Not currently implemented; accepted for API compatibility
 
-          seed: This is not yet supported by our models.
+          seed: If specified, our system will make a best effort to sample deterministically,
+              such that repeated requests with the same `seed` and parameters should return
+              the same result. Determinism is not guaranteed, and you should refer to the
+              `system_fingerprint` response parameter to monitor changes in the backend.
 
           stop: Sequences where the API will stop generating tokens. The returned text will not
               contain the stop sequence.
@@ -953,7 +978,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
         Args:
           model: The model ID to use (e.g.
 
-        Meta-Llama-3.3-70B-Instruct). See available
+        gpt-oss-120b). See available
               [models](https://docs.sambanova.ai/cloud/docs/get-started/supported-models)
 
           prompt: Prompt to send to the model.
@@ -968,7 +993,8 @@ class AsyncCompletionsResource(AsyncAPIResource):
 
           frequency_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on their
               existing frequency in the text so far, decreasing the model's likelihood to
-              repeat the same line verbatim.
+              repeat the same line verbatim. Not currently implemented; accepted for API
+              compatibility
 
           logit_bias: This is not yet supported by our models. Modify the likelihood of specified
               tokens appearing in the completion.
@@ -985,14 +1011,18 @@ class AsyncCompletionsResource(AsyncAPIResource):
               total length of input tokens and generated tokens is limited by the model's
               context length.
 
-          n: This is not yet supported by our models. How many chat completion choices to
-              generate for each input message.
+          n: How many completions to generate for each prompt. **Note:** Because this
+              parameter generates many completions, it can quickly consume your token quota.
+              Use carefully and ensure that you have reasonable settings for `max_tokens`.
 
           presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on
               whether they appear in the text so far, increasing the model's likelihood to
-              talk about new topics.
+              talk about new topics. Not currently implemented; accepted for API compatibility
 
-          seed: This is not yet supported by our models.
+          seed: If specified, our system will make a best effort to sample deterministically,
+              such that repeated requests with the same `seed` and parameters should return
+              the same result. Determinism is not guaranteed, and you should refer to the
+              `system_fingerprint` response parameter to monitor changes in the backend.
 
           stop: Sequences where the API will stop generating tokens. The returned text will not
               contain the stop sequence.

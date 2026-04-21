@@ -76,6 +76,18 @@ Methods:
 
 - <code title="post /audio/translations">client.audio.translations.<a href="./src/sambanova/resources/audio/translations.py">create</a>(\*\*<a href="src/sambanova/types/audio/translation_create_params.py">params</a>) -> <a href="./src/sambanova/types/audio/translation_create_response.py">TranslationCreateResponse</a></code>
 
+# Responses
+
+Types:
+
+```python
+from sambanova.types import ResponseResponse, ResponseStreamEvent, ResponseCreateResponse
+```
+
+Methods:
+
+- <code title="post /responses">client.responses.<a href="./src/sambanova/resources/responses.py">create</a>(\*\*<a href="src/sambanova/types/response_create_params.py">params</a>) -> <a href="./src/sambanova/types/response_create_response.py">ResponseCreateResponse</a></code>
+
 # Models
 
 Types:

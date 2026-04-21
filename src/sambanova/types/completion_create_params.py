@@ -54,7 +54,7 @@ class CompletionCreateParamsBase(TypedDict, total=False):
     ]
     """The model ID to use (e.g.
 
-    Meta-Llama-3.3-70B-Instruct). See available
+    gpt-oss-120b). See available
     [models](https://docs.sambanova.ai/cloud/docs/get-started/supported-models)
     """
 
@@ -72,6 +72,7 @@ class CompletionCreateParamsBase(TypedDict, total=False):
 
     Positive values penalize new tokens based on their existing frequency in the
     text so far, decreasing the model's likelihood to repeat the same line verbatim.
+    Not currently implemented; accepted for API compatibility
     """
 
     logit_bias: Optional[Dict[str, int]]
@@ -103,20 +104,27 @@ class CompletionCreateParamsBase(TypedDict, total=False):
     """
 
     n: Optional[int]
-    """This is not yet supported by our models.
-
-    How many chat completion choices to generate for each input message.
+    """
+    How many completions to generate for each prompt. **Note:** Because this
+    parameter generates many completions, it can quickly consume your token quota.
+    Use carefully and ensure that you have reasonable settings for `max_tokens`.
     """
 
     presence_penalty: Optional[float]
     """Number between -2.0 and 2.0.
 
     Positive values penalize new tokens based on whether they appear in the text so
-    far, increasing the model's likelihood to talk about new topics.
+    far, increasing the model's likelihood to talk about new topics. Not currently
+    implemented; accepted for API compatibility
     """
 
     seed: Optional[int]
-    """This is not yet supported by our models."""
+    """
+    If specified, our system will make a best effort to sample deterministically,
+    such that repeated requests with the same `seed` and parameters should return
+    the same result. Determinism is not guaranteed, and you should refer to the
+    `system_fingerprint` response parameter to monitor changes in the backend.
+    """
 
     stop: Union[Optional[str], SequenceNotStr[str], None]
     """Sequences where the API will stop generating tokens.
