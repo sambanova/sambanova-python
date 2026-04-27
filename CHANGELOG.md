@@ -1,5 +1,23 @@
 # Changelog
 
+## 1.8.0 (2026-04-27)
+
+Full Changelog: [v1.7.0...v1.8.0](https://github.com/sambanova/sambanova-python/compare/v1.7.0...v1.8.0)
+
+### Features
+
+* support setting headers via env ([53d9388](https://github.com/sambanova/sambanova-python/commit/53d938820de4ab66bedb8f40b16c81d55efa94c7))
+
+
+### Bug Fixes
+
+* use correct field name format for multipart file arrays ([88f3cf0](https://github.com/sambanova/sambanova-python/commit/88f3cf06d57a26cc6a686b49b8d0cb77bafb5b39))
+
+
+### Chores
+
+* **internal:** more robust bootstrap script ([128b4a4](https://github.com/sambanova/sambanova-python/commit/128b4a4d955288961d5cd1ee4bfdfd9fc110aecd))
+
 ## 1.7.0 (2026-04-21)
 
 Full Changelog: [v1.6.1...v1.7.0](https://github.com/sambanova/sambanova-python/compare/v1.6.1...v1.7.0)
