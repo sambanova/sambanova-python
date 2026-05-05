@@ -81,7 +81,8 @@ class CompletionsResource(SyncAPIResource):
                 "Llama-3.3-Swallow-70B-Instruct-v0.4",
                 "gpt-oss-120b",
                 "ALLaM-7B-Instruct-preview",
-                "MiniMax-M2.5M",
+                "MiniMax-M2.5",
+                "MiniMax-M2.7",
                 "gemma-3-12b-it",
             ],
         ],
@@ -121,7 +122,7 @@ class CompletionsResource(SyncAPIResource):
           messages: A list of messages comprising the conversation so far.
 
           model: The model ID to use (e.g. gpt-oss-120b). See available
-              [models](https://docs.sambanova.ai/cloud/docs/get-started/supported-models)
+              [models](https://docs.sambanova.ai/docs/en/models/sambacloud-models)
 
           chat_template_kwargs: A dictionary of additional keyword arguments to pass into the chat template. Use
               this to provide extra context or parameters that the model's chat template can
@@ -265,7 +266,8 @@ class CompletionsResource(SyncAPIResource):
                 "Llama-3.3-Swallow-70B-Instruct-v0.4",
                 "gpt-oss-120b",
                 "ALLaM-7B-Instruct-preview",
-                "MiniMax-M2.5M",
+                "MiniMax-M2.5",
+                "MiniMax-M2.7",
                 "gemma-3-12b-it",
             ],
         ],
@@ -305,7 +307,7 @@ class CompletionsResource(SyncAPIResource):
           messages: A list of messages comprising the conversation so far.
 
           model: The model ID to use (e.g. gpt-oss-120b). See available
-              [models](https://docs.sambanova.ai/cloud/docs/get-started/supported-models)
+              [models](https://docs.sambanova.ai/docs/en/models/sambacloud-models)
 
           stream: If set, partial message deltas will be sent. Tokens will be sent as data-only
               [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format)
@@ -449,7 +451,8 @@ class CompletionsResource(SyncAPIResource):
                 "Llama-3.3-Swallow-70B-Instruct-v0.4",
                 "gpt-oss-120b",
                 "ALLaM-7B-Instruct-preview",
-                "MiniMax-M2.5M",
+                "MiniMax-M2.5",
+                "MiniMax-M2.7",
                 "gemma-3-12b-it",
             ],
         ],
@@ -489,7 +492,7 @@ class CompletionsResource(SyncAPIResource):
           messages: A list of messages comprising the conversation so far.
 
           model: The model ID to use (e.g. gpt-oss-120b). See available
-              [models](https://docs.sambanova.ai/cloud/docs/get-started/supported-models)
+              [models](https://docs.sambanova.ai/docs/en/models/sambacloud-models)
 
           stream: If set, partial message deltas will be sent. Tokens will be sent as data-only
               [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format)
@@ -633,7 +636,8 @@ class CompletionsResource(SyncAPIResource):
                 "Llama-3.3-Swallow-70B-Instruct-v0.4",
                 "gpt-oss-120b",
                 "ALLaM-7B-Instruct-preview",
-                "MiniMax-M2.5M",
+                "MiniMax-M2.5",
+                "MiniMax-M2.7",
                 "gemma-3-12b-it",
             ],
         ],
@@ -765,7 +769,8 @@ class AsyncCompletionsResource(AsyncAPIResource):
                 "Llama-3.3-Swallow-70B-Instruct-v0.4",
                 "gpt-oss-120b",
                 "ALLaM-7B-Instruct-preview",
-                "MiniMax-M2.5M",
+                "MiniMax-M2.5",
+                "MiniMax-M2.7",
                 "gemma-3-12b-it",
             ],
         ],
@@ -805,7 +810,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
           messages: A list of messages comprising the conversation so far.
 
           model: The model ID to use (e.g. gpt-oss-120b). See available
-              [models](https://docs.sambanova.ai/cloud/docs/get-started/supported-models)
+              [models](https://docs.sambanova.ai/docs/en/models/sambacloud-models)
 
           chat_template_kwargs: A dictionary of additional keyword arguments to pass into the chat template. Use
               this to provide extra context or parameters that the model's chat template can
@@ -949,7 +954,8 @@ class AsyncCompletionsResource(AsyncAPIResource):
                 "Llama-3.3-Swallow-70B-Instruct-v0.4",
                 "gpt-oss-120b",
                 "ALLaM-7B-Instruct-preview",
-                "MiniMax-M2.5M",
+                "MiniMax-M2.5",
+                "MiniMax-M2.7",
                 "gemma-3-12b-it",
             ],
         ],
@@ -989,7 +995,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
           messages: A list of messages comprising the conversation so far.
 
           model: The model ID to use (e.g. gpt-oss-120b). See available
-              [models](https://docs.sambanova.ai/cloud/docs/get-started/supported-models)
+              [models](https://docs.sambanova.ai/docs/en/models/sambacloud-models)
 
           stream: If set, partial message deltas will be sent. Tokens will be sent as data-only
               [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format)
@@ -1133,7 +1139,8 @@ class AsyncCompletionsResource(AsyncAPIResource):
                 "Llama-3.3-Swallow-70B-Instruct-v0.4",
                 "gpt-oss-120b",
                 "ALLaM-7B-Instruct-preview",
-                "MiniMax-M2.5M",
+                "MiniMax-M2.5",
+                "MiniMax-M2.7",
                 "gemma-3-12b-it",
             ],
         ],
@@ -1173,7 +1180,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
           messages: A list of messages comprising the conversation so far.
 
           model: The model ID to use (e.g. gpt-oss-120b). See available
-              [models](https://docs.sambanova.ai/cloud/docs/get-started/supported-models)
+              [models](https://docs.sambanova.ai/docs/en/models/sambacloud-models)
 
           stream: If set, partial message deltas will be sent. Tokens will be sent as data-only
               [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format)
@@ -1317,7 +1324,8 @@ class AsyncCompletionsResource(AsyncAPIResource):
                 "Llama-3.3-Swallow-70B-Instruct-v0.4",
                 "gpt-oss-120b",
                 "ALLaM-7B-Instruct-preview",
-                "MiniMax-M2.5M",
+                "MiniMax-M2.5",
+                "MiniMax-M2.7",
                 "gemma-3-12b-it",
             ],
         ],

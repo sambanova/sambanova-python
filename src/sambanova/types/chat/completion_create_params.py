@@ -77,7 +77,8 @@ class CompletionCreateParamsBase(TypedDict, total=False):
                 "Llama-3.3-Swallow-70B-Instruct-v0.4",
                 "gpt-oss-120b",
                 "ALLaM-7B-Instruct-preview",
-                "MiniMax-M2.5M",
+                "MiniMax-M2.5",
+                "MiniMax-M2.7",
                 "gemma-3-12b-it",
             ],
         ]
@@ -85,7 +86,7 @@ class CompletionCreateParamsBase(TypedDict, total=False):
     """The model ID to use (e.g.
 
     gpt-oss-120b). See available
-    [models](https://docs.sambanova.ai/cloud/docs/get-started/supported-models)
+    [models](https://docs.sambanova.ai/docs/en/models/sambacloud-models)
     """
 
     chat_template_kwargs: Optional[ChatTemplateKwargs]
