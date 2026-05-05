@@ -25,7 +25,7 @@ class TranslationCreateParamsBase(TypedDict, total=False):
     model: Required[Union[str, Literal["Whisper-Large-v3"]]]
     """
     The model ID to use See available
-    [models](https://docs.sambanova.ai/cloud/docs/get-started/supported-models)
+    [models](https://docs.sambanova.ai/docs/en/models/sambacloud-models)
     """
 
     language: Optional[

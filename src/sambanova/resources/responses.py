@@ -92,7 +92,7 @@ class ResponsesResource(SyncAPIResource):
               full conversation turn. A plain string is equivalent to a single user message.
 
           model: The model ID to use (e.g. gpt-oss-120b). See available
-              [models](https://docs.sambanova.ai/cloud/docs/get-started/supported-models)
+              [models](https://docs.sambanova.ai/docs/en/models/sambacloud-models)
 
           background: Accepted for API compatibility and echoed back in the response. Has no effect on
               server behavior.
@@ -218,7 +218,7 @@ class ResponsesResource(SyncAPIResource):
               full conversation turn. A plain string is equivalent to a single user message.
 
           model: The model ID to use (e.g. gpt-oss-120b). See available
-              [models](https://docs.sambanova.ai/cloud/docs/get-started/supported-models)
+              [models](https://docs.sambanova.ai/docs/en/models/sambacloud-models)
 
           stream: If true, the response is delivered as server-sent events (SSE).
 
@@ -344,7 +344,7 @@ class ResponsesResource(SyncAPIResource):
               full conversation turn. A plain string is equivalent to a single user message.
 
           model: The model ID to use (e.g. gpt-oss-120b). See available
-              [models](https://docs.sambanova.ai/cloud/docs/get-started/supported-models)
+              [models](https://docs.sambanova.ai/docs/en/models/sambacloud-models)
 
           stream: If true, the response is delivered as server-sent events (SSE).
 
@@ -569,7 +569,7 @@ class AsyncResponsesResource(AsyncAPIResource):
               full conversation turn. A plain string is equivalent to a single user message.
 
           model: The model ID to use (e.g. gpt-oss-120b). See available
-              [models](https://docs.sambanova.ai/cloud/docs/get-started/supported-models)
+              [models](https://docs.sambanova.ai/docs/en/models/sambacloud-models)
 
           background: Accepted for API compatibility and echoed back in the response. Has no effect on
               server behavior.
@@ -695,7 +695,7 @@ class AsyncResponsesResource(AsyncAPIResource):
               full conversation turn. A plain string is equivalent to a single user message.
 
           model: The model ID to use (e.g. gpt-oss-120b). See available
-              [models](https://docs.sambanova.ai/cloud/docs/get-started/supported-models)
+              [models](https://docs.sambanova.ai/docs/en/models/sambacloud-models)
 
           stream: If true, the response is delivered as server-sent events (SSE).
 
@@ -821,7 +821,7 @@ class AsyncResponsesResource(AsyncAPIResource):
               full conversation turn. A plain string is equivalent to a single user message.
 
           model: The model ID to use (e.g. gpt-oss-120b). See available
-              [models](https://docs.sambanova.ai/cloud/docs/get-started/supported-models)
+              [models](https://docs.sambanova.ai/docs/en/models/sambacloud-models)
 
           stream: If true, the response is delivered as server-sent events (SSE).
 
