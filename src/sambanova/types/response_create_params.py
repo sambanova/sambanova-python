@@ -44,7 +44,7 @@ class ResponseCreateParamsBase(TypedDict, total=False):
     full conversation turn. A plain string is equivalent to a single user message.
     """
 
-    model: Required[Union[str, Literal["gpt-oss-120b"]]]
+    model: Required[Union[str, Literal["gpt-oss-120b", "MiniMax-M2.5", "MiniMax-M2.7"]]]
     """The model ID to use (e.g.
 
     gpt-oss-120b). See available

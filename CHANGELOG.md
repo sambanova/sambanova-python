@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.8.1 (2026-05-05)
+
+Full Changelog: [v1.8.0...v1.8.1](https://github.com/sambanova/sambanova-python/compare/v1.8.0...v1.8.1)
+
+### Bug Fixes
+
+* **api:** update responses supported models ([2c88654](https://github.com/sambanova/sambanova-python/commit/2c88654bd09b107ff1e26ff0bfb338f31afb000d))
+
 ## 1.8.0 (2026-05-05)
 
 Full Changelog: [v1.7.0...v1.8.0](https://github.com/sambanova/sambanova-python/compare/v1.7.0...v1.8.0)
