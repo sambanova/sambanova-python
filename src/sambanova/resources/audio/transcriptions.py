@@ -177,7 +177,7 @@ class TranscriptionsResource(SyncAPIResource):
               MP3, MP4, MPEG, MPGA, M4A, Ogg, WAV, or WebM format. File size limit is 25MB.
 
           model: The model ID to use See available
-              [models](https://docs.sambanova.ai/cloud/docs/get-started/supported-models)
+              [models](https://docs.sambanova.ai/docs/en/models/sambacloud-models)
 
           language: Optional language of the input audio. Supplying the input language in ISO-639-1
               (e.g. en) format will improve accuracy and latency.
@@ -330,7 +330,7 @@ class TranscriptionsResource(SyncAPIResource):
               MP3, MP4, MPEG, MPGA, M4A, Ogg, WAV, or WebM format. File size limit is 25MB.
 
           model: The model ID to use See available
-              [models](https://docs.sambanova.ai/cloud/docs/get-started/supported-models)
+              [models](https://docs.sambanova.ai/docs/en/models/sambacloud-models)
 
           language: Optional language of the input audio. Supplying the input language in ISO-639-1
               (e.g. en) format will improve accuracy and latency.
@@ -483,7 +483,7 @@ class TranscriptionsResource(SyncAPIResource):
               MP3, MP4, MPEG, MPGA, M4A, Ogg, WAV, or WebM format. File size limit is 25MB.
 
           model: The model ID to use See available
-              [models](https://docs.sambanova.ai/cloud/docs/get-started/supported-models)
+              [models](https://docs.sambanova.ai/docs/en/models/sambacloud-models)
 
           language: Optional language of the input audio. Supplying the input language in ISO-639-1
               (e.g. en) format will improve accuracy and latency.
@@ -815,7 +815,7 @@ class AsyncTranscriptionsResource(AsyncAPIResource):
               MP3, MP4, MPEG, MPGA, M4A, Ogg, WAV, or WebM format. File size limit is 25MB.
 
           model: The model ID to use See available
-              [models](https://docs.sambanova.ai/cloud/docs/get-started/supported-models)
+              [models](https://docs.sambanova.ai/docs/en/models/sambacloud-models)
 
           language: Optional language of the input audio. Supplying the input language in ISO-639-1
               (e.g. en) format will improve accuracy and latency.
@@ -968,7 +968,7 @@ class AsyncTranscriptionsResource(AsyncAPIResource):
               MP3, MP4, MPEG, MPGA, M4A, Ogg, WAV, or WebM format. File size limit is 25MB.
 
           model: The model ID to use See available
-              [models](https://docs.sambanova.ai/cloud/docs/get-started/supported-models)
+              [models](https://docs.sambanova.ai/docs/en/models/sambacloud-models)
 
           language: Optional language of the input audio. Supplying the input language in ISO-639-1
               (e.g. en) format will improve accuracy and latency.
@@ -1121,7 +1121,7 @@ class AsyncTranscriptionsResource(AsyncAPIResource):
               MP3, MP4, MPEG, MPGA, M4A, Ogg, WAV, or WebM format. File size limit is 25MB.
 
           model: The model ID to use See available
-              [models](https://docs.sambanova.ai/cloud/docs/get-started/supported-models)
+              [models](https://docs.sambanova.ai/docs/en/models/sambacloud-models)
 
           language: Optional language of the input audio. Supplying the input language in ISO-639-1
               (e.g. en) format will improve accuracy and latency.
