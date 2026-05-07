@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.8.2 (2026-05-07)
+
+Full Changelog: [v1.8.1...v1.8.2](https://github.com/sambanova/sambanova-python/compare/v1.8.1...v1.8.2)
+
+### Documentation
+
+* **api:** logit bias support ([0336d6e](https://github.com/sambanova/sambanova-python/commit/0336d6ec1605eda6127a678601a8d9ef97cef41a))
+
 ## 1.8.1 (2026-05-05)
 
 Full Changelog: [v1.8.0...v1.8.1](https://github.com/sambanova/sambanova-python/compare/v1.8.0...v1.8.1)
