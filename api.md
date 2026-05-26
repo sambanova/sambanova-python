@@ -88,6 +88,25 @@ Methods:
 
 - <code title="post /responses">client.responses.<a href="./src/sambanova/resources/responses.py">create</a>(\*\*<a href="src/sambanova/types/response_create_params.py">params</a>) -> <a href="./src/sambanova/types/response_create_response.py">ResponseCreateResponse</a></code>
 
+# Messages
+
+Types:
+
+```python
+from sambanova.types import (
+    Message,
+    MessageCountTokensResponse,
+    MessageErrorResponse,
+    MessageStreamEvent,
+    MessageCreateResponse,
+)
+```
+
+Methods:
+
+- <code title="post /messages">client.messages.<a href="./src/sambanova/resources/messages.py">create</a>(\*\*<a href="src/sambanova/types/message_create_params.py">params</a>) -> <a href="./src/sambanova/types/message_create_response.py">MessageCreateResponse</a></code>
+- <code title="post /messages/count_tokens">client.messages.<a href="./src/sambanova/resources/messages.py">count_tokens</a>(\*\*<a href="src/sambanova/types/message_count_tokens_params.py">params</a>) -> <a href="./src/sambanova/types/message_count_tokens_response.py">MessageCountTokensResponse</a></code>
+
 # Models
 
 Types:
