@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.9.0 (2026-05-26)
+
+Full Changelog: [v1.8.2...v1.9.0](https://github.com/sambanova/sambanova-python/compare/v1.8.2...v1.9.0)
+
+### Features
+
+* **api:** add anthropic compatible messages api support ([0ddfd33](https://github.com/sambanova/sambanova-python/commit/0ddfd334decc86831f840cd8c0de2c3a73e378a2))
+* **internal/types:** support eagerly validating pydantic iterators ([cc4aade](https://github.com/sambanova/sambanova-python/commit/cc4aade45c484980fafacf2e315ca6f1564e0ace))
+
+
+### Bug Fixes
+
+* **client:** add missing f-string prefix in file type error message ([c6b84e8](https://github.com/sambanova/sambanova-python/commit/c6b84e853be657a330e6754894911bdaac07dc67))
+
 ## 1.8.2 (2026-05-07)
 
 Full Changelog: [v1.8.1...v1.8.2](https://github.com/sambanova/sambanova-python/compare/v1.8.1...v1.8.2)
