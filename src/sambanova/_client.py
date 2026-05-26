@@ -35,8 +35,9 @@ from ._base_client import (
 )
 
 if TYPE_CHECKING:
-    from .resources import chat, audio, models, responses, embeddings, completions
+    from .resources import chat, audio, models, messages, responses, embeddings, completions
     from .resources.models import ModelsResource, AsyncModelsResource
+    from .resources.messages import MessagesResource, AsyncMessagesResource
     from .resources.chat.chat import ChatResource, AsyncChatResource
     from .resources.responses import ResponsesResource, AsyncResponsesResource
     from .resources.embeddings import EmbeddingsResource, AsyncEmbeddingsResource
@@ -58,12 +59,14 @@ __all__ = [
 class SambaNova(SyncAPIClient):
     # client options
     api_key: str
+    x_api_key: str | None
     integration_source: str | None
 
     def __init__(
         self,
         *,
         api_key: str | None = None,
+        x_api_key: str | None = None,
         integration_source: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
@@ -88,6 +91,7 @@ class SambaNova(SyncAPIClient):
 
         This automatically infers the following arguments from their corresponding environment variables if they are not provided:
         - `api_key` from `SAMBANOVA_API_KEY`
+        - `x_api_key` from `SAMBANOVA_API_KEY`
         - `integration_source` from `SAMBANOVA_INTEGRATION_SOURCE`
         """
         if api_key is None:
@@ -97,6 +101,10 @@ class SambaNova(SyncAPIClient):
                 "The api_key client option must be set either by passing api_key to the client or by setting the SAMBANOVA_API_KEY environment variable"
             )
         self.api_key = api_key
+
+        if x_api_key is None:
+            x_api_key = os.environ.get("SAMBANOVA_API_KEY")
+        self.x_api_key = x_api_key
 
         if integration_source is None:
             integration_source = os.environ.get("SAMBANOVA_INTEGRATION_SOURCE")
@@ -160,6 +168,12 @@ class SambaNova(SyncAPIClient):
         return ResponsesResource(self)
 
     @cached_property
+    def messages(self) -> MessagesResource:
+        from .resources.messages import MessagesResource
+
+        return MessagesResource(self)
+
+    @cached_property
     def models(self) -> ModelsResource:
         from .resources.models import ModelsResource
 
@@ -181,8 +195,19 @@ class SambaNova(SyncAPIClient):
     @property
     @override
     def auth_headers(self) -> dict[str, str]:
+        return {**self._api_key, **self._x_api_key}
+
+    @property
+    def _api_key(self) -> dict[str, str]:
         api_key = self.api_key
         return {"Authorization": f"Bearer {api_key}"}
+
+    @property
+    def _x_api_key(self) -> dict[str, str]:
+        x_api_key = self.x_api_key
+        if x_api_key is None:
+            return {}
+        return {"x-api-key": x_api_key}
 
     @property
     @override
@@ -198,6 +223,7 @@ class SambaNova(SyncAPIClient):
         self,
         *,
         api_key: str | None = None,
+        x_api_key: str | None = None,
         integration_source: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
@@ -233,6 +259,7 @@ class SambaNova(SyncAPIClient):
         http_client = http_client or self._client
         return self.__class__(
             api_key=api_key or self.api_key,
+            x_api_key=x_api_key or self.x_api_key,
             integration_source=integration_source or self.integration_source,
             base_url=base_url or self.base_url,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
@@ -284,12 +311,14 @@ class SambaNova(SyncAPIClient):
 class AsyncSambaNova(AsyncAPIClient):
     # client options
     api_key: str
+    x_api_key: str | None
     integration_source: str | None
 
     def __init__(
         self,
         *,
         api_key: str | None = None,
+        x_api_key: str | None = None,
         integration_source: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
@@ -314,6 +343,7 @@ class AsyncSambaNova(AsyncAPIClient):
 
         This automatically infers the following arguments from their corresponding environment variables if they are not provided:
         - `api_key` from `SAMBANOVA_API_KEY`
+        - `x_api_key` from `SAMBANOVA_API_KEY`
         - `integration_source` from `SAMBANOVA_INTEGRATION_SOURCE`
         """
         if api_key is None:
@@ -323,6 +353,10 @@ class AsyncSambaNova(AsyncAPIClient):
                 "The api_key client option must be set either by passing api_key to the client or by setting the SAMBANOVA_API_KEY environment variable"
             )
         self.api_key = api_key
+
+        if x_api_key is None:
+            x_api_key = os.environ.get("SAMBANOVA_API_KEY")
+        self.x_api_key = x_api_key
 
         if integration_source is None:
             integration_source = os.environ.get("SAMBANOVA_INTEGRATION_SOURCE")
@@ -386,6 +420,12 @@ class AsyncSambaNova(AsyncAPIClient):
         return AsyncResponsesResource(self)
 
     @cached_property
+    def messages(self) -> AsyncMessagesResource:
+        from .resources.messages import AsyncMessagesResource
+
+        return AsyncMessagesResource(self)
+
+    @cached_property
     def models(self) -> AsyncModelsResource:
         from .resources.models import AsyncModelsResource
 
@@ -407,8 +447,19 @@ class AsyncSambaNova(AsyncAPIClient):
     @property
     @override
     def auth_headers(self) -> dict[str, str]:
+        return {**self._api_key, **self._x_api_key}
+
+    @property
+    def _api_key(self) -> dict[str, str]:
         api_key = self.api_key
         return {"Authorization": f"Bearer {api_key}"}
+
+    @property
+    def _x_api_key(self) -> dict[str, str]:
+        x_api_key = self.x_api_key
+        if x_api_key is None:
+            return {}
+        return {"x-api-key": x_api_key}
 
     @property
     @override
@@ -424,6 +475,7 @@ class AsyncSambaNova(AsyncAPIClient):
         self,
         *,
         api_key: str | None = None,
+        x_api_key: str | None = None,
         integration_source: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
@@ -459,6 +511,7 @@ class AsyncSambaNova(AsyncAPIClient):
         http_client = http_client or self._client
         return self.__class__(
             api_key=api_key or self.api_key,
+            x_api_key=x_api_key or self.x_api_key,
             integration_source=integration_source or self.integration_source,
             base_url=base_url or self.base_url,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
@@ -544,6 +597,12 @@ class SambaNovaWithRawResponse:
         return ResponsesResourceWithRawResponse(self._client.responses)
 
     @cached_property
+    def messages(self) -> messages.MessagesResourceWithRawResponse:
+        from .resources.messages import MessagesResourceWithRawResponse
+
+        return MessagesResourceWithRawResponse(self._client.messages)
+
+    @cached_property
     def models(self) -> models.ModelsResourceWithRawResponse:
         from .resources.models import ModelsResourceWithRawResponse
 
@@ -585,6 +644,12 @@ class AsyncSambaNovaWithRawResponse:
         from .resources.responses import AsyncResponsesResourceWithRawResponse
 
         return AsyncResponsesResourceWithRawResponse(self._client.responses)
+
+    @cached_property
+    def messages(self) -> messages.AsyncMessagesResourceWithRawResponse:
+        from .resources.messages import AsyncMessagesResourceWithRawResponse
+
+        return AsyncMessagesResourceWithRawResponse(self._client.messages)
 
     @cached_property
     def models(self) -> models.AsyncModelsResourceWithRawResponse:
@@ -630,6 +695,12 @@ class SambaNovaWithStreamedResponse:
         return ResponsesResourceWithStreamingResponse(self._client.responses)
 
     @cached_property
+    def messages(self) -> messages.MessagesResourceWithStreamingResponse:
+        from .resources.messages import MessagesResourceWithStreamingResponse
+
+        return MessagesResourceWithStreamingResponse(self._client.messages)
+
+    @cached_property
     def models(self) -> models.ModelsResourceWithStreamingResponse:
         from .resources.models import ModelsResourceWithStreamingResponse
 
@@ -671,6 +742,12 @@ class AsyncSambaNovaWithStreamedResponse:
         from .resources.responses import AsyncResponsesResourceWithStreamingResponse
 
         return AsyncResponsesResourceWithStreamingResponse(self._client.responses)
+
+    @cached_property
+    def messages(self) -> messages.AsyncMessagesResourceWithStreamingResponse:
+        from .resources.messages import AsyncMessagesResourceWithStreamingResponse
+
+        return AsyncMessagesResourceWithStreamingResponse(self._client.messages)
 
     @cached_property
     def models(self) -> models.AsyncModelsResourceWithStreamingResponse:
