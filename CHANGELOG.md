@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.9.1 (2026-06-17)
+
+Full Changelog: [v1.9.0...v1.9.1](https://github.com/sambanova/sambanova-python/compare/v1.9.0...v1.9.1)
+
+### Bug Fixes
+
+* **streaming:** resolve duplicate chunk emission in SSE event routing ([b031ad8](https://github.com/sambanova/sambanova-python/commit/b031ad8fefebf29b7b3b7448e8db0b40d16aa910))
+
 ## 1.9.0 (2026-05-26)
 
 Full Changelog: [v1.8.2...v1.9.0](https://github.com/sambanova/sambanova-python/compare/v1.8.2...v1.9.0)
