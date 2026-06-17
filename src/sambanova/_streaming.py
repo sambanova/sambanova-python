@@ -80,7 +80,67 @@ class Stream(Generic[_T]):
                         response=self.response,
                     )
 
-                yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+                if sse.event == "response.created":
+                    yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+
+                if sse.event == "response.in_progress":
+                    yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+
+                if sse.event == "response.output_item.added":
+                    yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+
+                if sse.event == "response.content_part.added":
+                    yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+
+                if sse.event == "response.reasoning_text.delta":
+                    yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+
+                if sse.event == "response.reasoning_text.done":
+                    yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+
+                if sse.event == "response.output_text.delta":
+                    yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+
+                if sse.event == "response.output_text.done":
+                    yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+
+                if sse.event == "response.function_call_arguments.delta":
+                    yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+
+                if sse.event == "response.function_call_arguments.done":
+                    yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+
+                if sse.event == "response.content_part.done":
+                    yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+
+                if sse.event == "response.output_item.done":
+                    yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+
+                if sse.event == "response.completed":
+                    yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+
+                if sse.event == "message_start":
+                    yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+
+                if sse.event == "content_block_start":
+                    yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+
+                if sse.event == "content_block_delta":
+                    yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+
+                if sse.event == "content_block_stop":
+                    yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+
+                if sse.event == "message_delta":
+                    yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+
+                if sse.event == "message_stop":
+                    yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+
+                if sse.event == "ping":
+                    yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+
+                continue
         finally:
             # Ensure the response is closed even if the consumer doesn't read all data
             response.close()
@@ -167,7 +227,67 @@ class AsyncStream(Generic[_T]):
                         response=self.response,
                     )
 
-                yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+                if sse.event == "response.created":
+                    yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+
+                if sse.event == "response.in_progress":
+                    yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+
+                if sse.event == "response.output_item.added":
+                    yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+
+                if sse.event == "response.content_part.added":
+                    yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+
+                if sse.event == "response.reasoning_text.delta":
+                    yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+
+                if sse.event == "response.reasoning_text.done":
+                    yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+
+                if sse.event == "response.output_text.delta":
+                    yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+
+                if sse.event == "response.output_text.done":
+                    yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+
+                if sse.event == "response.function_call_arguments.delta":
+                    yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+
+                if sse.event == "response.function_call_arguments.done":
+                    yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+
+                if sse.event == "response.content_part.done":
+                    yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+
+                if sse.event == "response.output_item.done":
+                    yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+
+                if sse.event == "response.completed":
+                    yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+
+                if sse.event == "message_start":
+                    yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+
+                if sse.event == "content_block_start":
+                    yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+
+                if sse.event == "content_block_delta":
+                    yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+
+                if sse.event == "content_block_stop":
+                    yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+
+                if sse.event == "message_delta":
+                    yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+
+                if sse.event == "message_stop":
+                    yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+
+                if sse.event == "ping":
+                    yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+
+                continue
         finally:
             # Ensure the response is closed even if the consumer doesn't read all data
             await response.aclose()
