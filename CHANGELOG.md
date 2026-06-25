@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.10.0 (2026-06-25)
+
+Full Changelog: [v1.9.1...v1.10.0](https://github.com/sambanova/sambanova-python/compare/v1.9.1...v1.10.0)
+
+### Features
+
+* **api:** video input type support ([83e94bc](https://github.com/sambanova/sambanova-python/commit/83e94bc37d71878c54b0b44be5b5a4980fb2ff96))
+
+
+### Bug Fixes
+
+* **api:** loosen tool call field requirements to support streaming deltas ([b1b2d0a](https://github.com/sambanova/sambanova-python/commit/b1b2d0a7aa6953f3fe1b8d284e25cc7d58643892))
+
 ## 1.9.1 (2026-06-17)
 
 Full Changelog: [v1.9.0...v1.9.1](https://github.com/sambanova/sambanova-python/compare/v1.9.0...v1.9.1)
