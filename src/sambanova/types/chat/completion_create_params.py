@@ -19,6 +19,8 @@ __all__ = [
     "MessageUserMessageContentMulticontentPartArrayImageContentImageURL",
     "MessageUserMessageContentMulticontentPartArrayAudioContent",
     "MessageUserMessageContentMulticontentPartArrayAudioContentAudioContent",
+    "MessageUserMessageContentMulticontentPartArrayVideoContent",
+    "MessageUserMessageContentMulticontentPartArrayVideoContentVideoURL",
     "MessageAssistantMessage",
     "MessageAssistantMessageContentTextContentPartArray",
     "MessageAssistantMessageToolCall",
@@ -302,10 +304,23 @@ class MessageUserMessageContentMulticontentPartArrayAudioContent(TypedDict, tota
     """type of content to send. in this case `audio_content`."""
 
 
+class MessageUserMessageContentMulticontentPartArrayVideoContentVideoURL(TypedDict, total=False):
+    url: str
+    """Either a URL of the video or the base64 encoded video data."""
+
+
+class MessageUserMessageContentMulticontentPartArrayVideoContent(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
+    type: Required[Literal["video_url"]]
+    """type of content to send. in this case `video_url`."""
+
+    video_url: Required[MessageUserMessageContentMulticontentPartArrayVideoContentVideoURL]
+
+
 MessageUserMessageContentMulticontentPartArray: TypeAlias = Union[
     MessageUserMessageContentMulticontentPartArrayTextContent,
     MessageUserMessageContentMulticontentPartArrayImageContent,
     MessageUserMessageContentMulticontentPartArrayAudioContent,
+    MessageUserMessageContentMulticontentPartArrayVideoContent,
 ]
 
 
