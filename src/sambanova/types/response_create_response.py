@@ -26,6 +26,7 @@ __all__ = [
     "ResponseOutputItemAddedEventItemResponseMessageContentContentPartArrayResponseImageContent",
     "ResponseOutputItemAddedEventItemResponseMessageContentContentPartArrayResponseAudioContent",
     "ResponseOutputItemAddedEventItemResponseMessageContentContentPartArrayResponseAudioContentInputAudio",
+    "ResponseOutputItemAddedEventItemResponseMessageContentContentPartArrayResponseVideoContent",
     "ResponseOutputItemAddedEventItemResponseFunctionCall",
     "ResponseOutputItemAddedEventItemResponseOutputReasoning",
     "ResponseOutputItemAddedEventItemResponseOutputReasoningContent",
@@ -76,6 +77,7 @@ __all__ = [
     "ResponseOutputItemDoneEventItemResponseMessageContentContentPartArrayResponseImageContent",
     "ResponseOutputItemDoneEventItemResponseMessageContentContentPartArrayResponseAudioContent",
     "ResponseOutputItemDoneEventItemResponseMessageContentContentPartArrayResponseAudioContentInputAudio",
+    "ResponseOutputItemDoneEventItemResponseMessageContentContentPartArrayResponseVideoContent",
     "ResponseOutputItemDoneEventItemResponseFunctionCall",
     "ResponseOutputItemDoneEventItemResponseOutputReasoning",
     "ResponseOutputItemDoneEventItemResponseOutputReasoningContent",
@@ -305,10 +307,27 @@ class ResponseOutputItemAddedEventItemResponseMessageContentContentPartArrayResp
     """The type of this content part. Always "input_audio"."""
 
 
+class ResponseOutputItemAddedEventItemResponseMessageContentContentPartArrayResponseVideoContent(BaseModel):
+    """A video content part for use inside a ResponseMessage.
+
+    Supported in input messages (user role). Provide a URL or base64-encoded video data.
+    """
+
+    type: Literal["input_video"]
+    """The type of this content part. Always "input_video"."""
+
+    video_url: str
+    """A URL of the video or base64-encoded video data in data URL format (e.g.
+
+    "data:video/mp4;base64,...").
+    """
+
+
 ResponseOutputItemAddedEventItemResponseMessageContentContentPartArray: TypeAlias = Union[
     ResponseOutputItemAddedEventItemResponseMessageContentContentPartArrayResponseTextContent,
     ResponseOutputItemAddedEventItemResponseMessageContentContentPartArrayResponseImageContent,
     ResponseOutputItemAddedEventItemResponseMessageContentContentPartArrayResponseAudioContent,
+    ResponseOutputItemAddedEventItemResponseMessageContentContentPartArrayResponseVideoContent,
 ]
 
 
@@ -1331,10 +1350,27 @@ class ResponseOutputItemDoneEventItemResponseMessageContentContentPartArrayRespo
     """The type of this content part. Always "input_audio"."""
 
 
+class ResponseOutputItemDoneEventItemResponseMessageContentContentPartArrayResponseVideoContent(BaseModel):
+    """A video content part for use inside a ResponseMessage.
+
+    Supported in input messages (user role). Provide a URL or base64-encoded video data.
+    """
+
+    type: Literal["input_video"]
+    """The type of this content part. Always "input_video"."""
+
+    video_url: str
+    """A URL of the video or base64-encoded video data in data URL format (e.g.
+
+    "data:video/mp4;base64,...").
+    """
+
+
 ResponseOutputItemDoneEventItemResponseMessageContentContentPartArray: TypeAlias = Union[
     ResponseOutputItemDoneEventItemResponseMessageContentContentPartArrayResponseTextContent,
     ResponseOutputItemDoneEventItemResponseMessageContentContentPartArrayResponseImageContent,
     ResponseOutputItemDoneEventItemResponseMessageContentContentPartArrayResponseAudioContent,
+    ResponseOutputItemDoneEventItemResponseMessageContentContentPartArrayResponseVideoContent,
 ]
 
 
