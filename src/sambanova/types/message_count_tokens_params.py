@@ -19,6 +19,11 @@ __all__ = [
     "MessageContentContentBlockArrayMessageInputImageBlockSourceMessageInputImageSourceBase64",
     "MessageContentContentBlockArrayMessageInputImageBlockSourceMessageInputImageSourceURL",
     "MessageContentContentBlockArrayMessageInputImageBlockCacheControl",
+    "MessageContentContentBlockArrayMessageInputVideoBlock",
+    "MessageContentContentBlockArrayMessageInputVideoBlockSource",
+    "MessageContentContentBlockArrayMessageInputVideoBlockSourceMessageInputVideoSourceBase64",
+    "MessageContentContentBlockArrayMessageInputVideoBlockSourceMessageInputVideoSourceURL",
+    "MessageContentContentBlockArrayMessageInputVideoBlockCacheControl",
     "MessageContentContentBlockArrayMessageInputToolUseBlock",
     "MessageContentContentBlockArrayMessageInputToolUseBlockCacheControl",
     "MessageContentContentBlockArrayMessageInputToolResultBlock",
@@ -140,7 +145,7 @@ class MessageContentContentBlockArrayMessageInputImageBlockSourceMessageInputIma
     data: Required[str]
     """Base64-encoded image bytes (no `data:` URI prefix)."""
 
-    media_type: Required[Literal["image/jpeg", "image/png", "image/gif", "image/webp"]]
+    media_type: Required[Literal["image/jpeg", "image/png", "image/webp"]]
     """MIME type of the image bytes."""
 
     type: Required[Literal["base64"]]
@@ -187,6 +192,61 @@ class MessageContentContentBlockArrayMessageInputImageBlock(TypedDict, total=Fal
     type: Required[Literal["image"]]
 
     cache_control: MessageContentContentBlockArrayMessageInputImageBlockCacheControl
+    """
+    Marks the preceding content block (or system text block) as a prompt- cache
+    breakpoint. Marker positions are collected by the adapter; their wiring into the
+    router's longest-prefix matching **In v1**: position is recorded; the `ttl`
+    value is ignored.
+    """
+
+
+class MessageContentContentBlockArrayMessageInputVideoBlockSourceMessageInputVideoSourceBase64(TypedDict, total=False):
+    """Inline video data encoded as base64."""
+
+    data: Required[str]
+    """Base64-encoded video bytes (no `data:` URI prefix)."""
+
+    media_type: Required[Literal["video/mp4"]]
+    """MIME type of the video bytes."""
+
+    type: Required[Literal["base64"]]
+
+
+class MessageContentContentBlockArrayMessageInputVideoBlockSourceMessageInputVideoSourceURL(TypedDict, total=False):
+    """HTTPS URL pointing to a video."""
+
+    type: Required[Literal["url"]]
+
+    url: Required[str]
+
+
+MessageContentContentBlockArrayMessageInputVideoBlockSource: TypeAlias = Union[
+    MessageContentContentBlockArrayMessageInputVideoBlockSourceMessageInputVideoSourceBase64,
+    MessageContentContentBlockArrayMessageInputVideoBlockSourceMessageInputVideoSourceURL,
+]
+
+
+class MessageContentContentBlockArrayMessageInputVideoBlockCacheControl(TypedDict, total=False):
+    """
+    Marks the preceding content block (or system text block) as a prompt- cache breakpoint. Marker positions are collected by the adapter; their wiring into the router's longest-prefix matching **In v1**: position is recorded; the `ttl` value is ignored.
+    """
+
+    type: Required[Literal["ephemeral"]]
+    """Cache breakpoint type. Only `ephemeral` is supported by Anthropic."""
+
+    ttl: Optional[str]
+    """Optional time-to-live hint (e.g. `"5m"`, `"1h"`). **Currently ignored** in v1"""
+
+
+class MessageContentContentBlockArrayMessageInputVideoBlock(TypedDict, total=False):
+    """Video content."""
+
+    source: Required[MessageContentContentBlockArrayMessageInputVideoBlockSource]
+    """Inline video data encoded as base64."""
+
+    type: Required[Literal["video"]]
+
+    cache_control: MessageContentContentBlockArrayMessageInputVideoBlockCacheControl
     """
     Marks the preceding content block (or system text block) as a prompt- cache
     breakpoint. Marker positions are collected by the adapter; their wiring into the
@@ -284,7 +344,7 @@ class MessageContentContentBlockArrayMessageInputToolResultBlockContentToolResul
     data: Required[str]
     """Base64-encoded image bytes (no `data:` URI prefix)."""
 
-    media_type: Required[Literal["image/jpeg", "image/png", "image/gif", "image/webp"]]
+    media_type: Required[Literal["image/jpeg", "image/png", "image/webp"]]
     """MIME type of the image bytes."""
 
     type: Required[Literal["base64"]]
@@ -766,6 +826,7 @@ class MessageContentContentBlockArrayMessageInputDocumentBlock(TypedDict, total=
 MessageContentContentBlockArray: TypeAlias = Union[
     MessageContentContentBlockArrayMessageInputTextBlock,
     MessageContentContentBlockArrayMessageInputImageBlock,
+    MessageContentContentBlockArrayMessageInputVideoBlock,
     MessageContentContentBlockArrayMessageInputToolUseBlock,
     MessageContentContentBlockArrayMessageInputToolResultBlock,
     MessageContentContentBlockArrayMessageInputServerToolUseBlock,

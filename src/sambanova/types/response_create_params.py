@@ -19,6 +19,7 @@ __all__ = [
     "InputInputItemListResponseMessageContentContentPartArrayResponseImageContent",
     "InputInputItemListResponseMessageContentContentPartArrayResponseAudioContent",
     "InputInputItemListResponseMessageContentContentPartArrayResponseAudioContentInputAudio",
+    "InputInputItemListResponseMessageContentContentPartArrayResponseVideoContent",
     "InputInputItemListResponseFunctionCall",
     "InputInputItemListResponseFunctionCallOutput",
     "InputInputItemListResponseOutputReasoning",
@@ -335,10 +336,27 @@ class InputInputItemListResponseMessageContentContentPartArrayResponseAudioConte
     """The type of this content part. Always "input_audio"."""
 
 
+class InputInputItemListResponseMessageContentContentPartArrayResponseVideoContent(TypedDict, total=False):
+    """A video content part for use inside a ResponseMessage.
+
+    Supported in input messages (user role). Provide a URL or base64-encoded video data.
+    """
+
+    type: Required[Literal["input_video"]]
+    """The type of this content part. Always "input_video"."""
+
+    video_url: Required[str]
+    """A URL of the video or base64-encoded video data in data URL format (e.g.
+
+    "data:video/mp4;base64,...").
+    """
+
+
 InputInputItemListResponseMessageContentContentPartArray: TypeAlias = Union[
     InputInputItemListResponseMessageContentContentPartArrayResponseTextContent,
     InputInputItemListResponseMessageContentContentPartArrayResponseImageContent,
     InputInputItemListResponseMessageContentContentPartArrayResponseAudioContent,
+    InputInputItemListResponseMessageContentContentPartArrayResponseVideoContent,
 ]
 
 

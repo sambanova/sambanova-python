@@ -24,6 +24,7 @@ __all__ = [
     "OutputResponseMessageContentContentPartArrayResponseImageContent",
     "OutputResponseMessageContentContentPartArrayResponseAudioContent",
     "OutputResponseMessageContentContentPartArrayResponseAudioContentInputAudio",
+    "OutputResponseMessageContentContentPartArrayResponseVideoContent",
     "OutputResponseFunctionCall",
     "OutputResponseOutputReasoning",
     "OutputResponseOutputReasoningContent",
@@ -231,10 +232,27 @@ class OutputResponseMessageContentContentPartArrayResponseAudioContent(BaseModel
     """The type of this content part. Always "input_audio"."""
 
 
+class OutputResponseMessageContentContentPartArrayResponseVideoContent(BaseModel):
+    """A video content part for use inside a ResponseMessage.
+
+    Supported in input messages (user role). Provide a URL or base64-encoded video data.
+    """
+
+    type: Literal["input_video"]
+    """The type of this content part. Always "input_video"."""
+
+    video_url: str
+    """A URL of the video or base64-encoded video data in data URL format (e.g.
+
+    "data:video/mp4;base64,...").
+    """
+
+
 OutputResponseMessageContentContentPartArray: TypeAlias = Union[
     OutputResponseMessageContentContentPartArrayResponseTextContent,
     OutputResponseMessageContentContentPartArrayResponseImageContent,
     OutputResponseMessageContentContentPartArrayResponseAudioContent,
+    OutputResponseMessageContentContentPartArrayResponseVideoContent,
 ]
 
 
