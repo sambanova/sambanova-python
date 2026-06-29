@@ -176,7 +176,11 @@ class CompletionCreateParamsBase(TypedDict, total=False):
     """
 
 
-class StreamOptions(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
+class StreamOptions(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
     """Options for streaming response. Only set this when setting stream as true"""
 
     include_usage: Optional[bool]
