@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.11.0 (2026-06-30)
+
+Full Changelog: [v1.10.0...v1.11.0](https://github.com/sambanova/sambanova-python/compare/v1.10.0...v1.11.0)
+
+### Features
+
+* add stlc trigger-back-sync workflow ([#27](https://github.com/sambanova/sambanova-python/issues/27)) ([49ce2a4](https://github.com/sambanova/sambanova-python/commit/49ce2a446a0ff04cdd4a44b79cf38a9c1868bc41))
+
 ## 1.10.0 (2026-06-25)
 
 Full Changelog: [v1.9.1...v1.10.0](https://github.com/sambanova/sambanova-python/compare/v1.9.1...v1.10.0)
