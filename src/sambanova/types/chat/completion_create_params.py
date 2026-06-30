@@ -253,7 +253,11 @@ class CompletionCreateParamsBase(TypedDict, total=False):
     """
 
 
-class MessageSystemMessageContentTextContentPartArray(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
+class MessageSystemMessageContentTextContentPartArray(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
     text: Required[str]
     """string content of the message"""
 
@@ -261,7 +265,11 @@ class MessageSystemMessageContentTextContentPartArray(TypedDict, total=False, ex
     """type of content to send. in this case `text`."""
 
 
-class MessageSystemMessage(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
+class MessageSystemMessage(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
     content: Required[Union[str, Iterable[MessageSystemMessageContentTextContentPartArray], None]]
     """The contents of the system message."""
 
@@ -269,7 +277,11 @@ class MessageSystemMessage(TypedDict, total=False, extra_items=object):  # type:
     """The role of the messages author, in this case `system`."""
 
 
-class MessageUserMessageContentMulticontentPartArrayTextContent(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
+class MessageUserMessageContentMulticontentPartArrayTextContent(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
     text: Required[str]
     """string content of the message"""
 
@@ -285,7 +297,11 @@ class MessageUserMessageContentMulticontentPartArrayImageContentImageURL(TypedDi
     """
 
 
-class MessageUserMessageContentMulticontentPartArrayImageContent(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
+class MessageUserMessageContentMulticontentPartArrayImageContent(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
     image_url: Required[MessageUserMessageContentMulticontentPartArrayImageContentImageURL]
 
     type: Required[Literal["image_url"]]
@@ -297,7 +313,11 @@ class MessageUserMessageContentMulticontentPartArrayAudioContentAudioContent(Typ
     """the base64 encoded audio data."""
 
 
-class MessageUserMessageContentMulticontentPartArrayAudioContent(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
+class MessageUserMessageContentMulticontentPartArrayAudioContent(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
     audio_content: Required[MessageUserMessageContentMulticontentPartArrayAudioContentAudioContent]
 
     type: Required[Literal["audio_content"]]
@@ -309,7 +329,11 @@ class MessageUserMessageContentMulticontentPartArrayVideoContentVideoURL(TypedDi
     """Either a URL of the video or the base64 encoded video data."""
 
 
-class MessageUserMessageContentMulticontentPartArrayVideoContent(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
+class MessageUserMessageContentMulticontentPartArrayVideoContent(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
     type: Required[Literal["video_url"]]
     """type of content to send. in this case `video_url`."""
 
@@ -324,7 +348,11 @@ MessageUserMessageContentMulticontentPartArray: TypeAlias = Union[
 ]
 
 
-class MessageUserMessage(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
+class MessageUserMessage(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
     content: Required[Union[str, Iterable[MessageUserMessageContentMulticontentPartArray], None]]
     """The contents of the user message."""
 
@@ -332,7 +360,11 @@ class MessageUserMessage(TypedDict, total=False, extra_items=object):  # type: i
     """The role of the messages author, in this case `user`."""
 
 
-class MessageAssistantMessageContentTextContentPartArray(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
+class MessageAssistantMessageContentTextContentPartArray(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
     text: Required[str]
     """string content of the message"""
 
@@ -340,7 +372,11 @@ class MessageAssistantMessageContentTextContentPartArray(TypedDict, total=False,
     """type of content to send. in this case `text`."""
 
 
-class MessageAssistantMessageToolCallFunction(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
+class MessageAssistantMessageToolCallFunction(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
     """The tool that the model called."""
 
     arguments: Optional[str]
@@ -355,7 +391,11 @@ class MessageAssistantMessageToolCallFunction(TypedDict, total=False, extra_item
     """The name of the function to call."""
 
 
-class MessageAssistantMessageToolCall(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
+class MessageAssistantMessageToolCall(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
     function: Required[MessageAssistantMessageToolCallFunction]
     """The tool that the model called."""
 
@@ -369,7 +409,11 @@ class MessageAssistantMessageToolCall(TypedDict, total=False, extra_items=object
     """type of the tool cal. only `function` is supported."""
 
 
-class MessageAssistantMessage(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
+class MessageAssistantMessage(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
     content: Required[Union[str, Iterable[MessageAssistantMessageContentTextContentPartArray], None]]
     """The contents of the assistant message."""
 
@@ -386,7 +430,11 @@ class MessageAssistantMessage(TypedDict, total=False, extra_items=object):  # ty
     """The tool calls generated by the model."""
 
 
-class MessageToolMessageContentTextContentPartArray(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
+class MessageToolMessageContentTextContentPartArray(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
     text: Required[str]
     """string content of the message"""
 
@@ -394,7 +442,11 @@ class MessageToolMessageContentTextContentPartArray(TypedDict, total=False, extr
     """type of content to send. in this case `text`."""
 
 
-class MessageToolMessage(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
+class MessageToolMessage(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
     content: Required[Union[str, Iterable[MessageToolMessageContentTextContentPartArray]]]
     """The contents of the tool message."""
 
@@ -405,7 +457,11 @@ class MessageToolMessage(TypedDict, total=False, extra_items=object):  # type: i
 Message: TypeAlias = Union[MessageSystemMessage, MessageUserMessage, MessageAssistantMessage, MessageToolMessage]
 
 
-class ChatTemplateKwargs(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
+class ChatTemplateKwargs(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
     """A dictionary of additional keyword arguments to pass into the chat template.
 
     Use this to provide extra context or parameters that the model's chat template  can process. Keys must be strings; values may be any valid JSON type.
@@ -418,7 +474,11 @@ class ChatTemplateKwargs(TypedDict, total=False, extra_items=object):  # type: i
     """
 
 
-class ResponseFormatResponseFormatJsonSchemaJsonSchema(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
+class ResponseFormatResponseFormatJsonSchemaJsonSchema(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
     """A JSON Schema definition the model's structured output.
 
     Follows standard JSON Schema syntax.
@@ -437,7 +497,11 @@ class ResponseFormatResponseFormatJsonSchemaJsonSchema(TypedDict, total=False, e
     """whether or not to do an strict validation of the schema"""
 
 
-class ResponseFormatResponseFormatJsonSchema(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
+class ResponseFormatResponseFormatJsonSchema(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
     """
     Specifies that the model should produce output conforming to a given JSON schema.
     """
@@ -451,13 +515,21 @@ class ResponseFormatResponseFormatJsonSchema(TypedDict, total=False, extra_items
     type: Required[Literal["json_schema"]]
 
 
-class ResponseFormatResponseFormatJsonObject(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
+class ResponseFormatResponseFormatJsonObject(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
     """Specifies that the model should produce output as a raw JSON object."""
 
     type: Required[Literal["json_object"]]
 
 
-class ResponseFormatResponseFormatText(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
+class ResponseFormatResponseFormatText(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
     """Specifies that the model should produce output as plain text.
 
     This value is not supported yet in the chat compeltions api, if this behavior is desired do not set response format.
@@ -471,14 +543,22 @@ ResponseFormat: TypeAlias = Union[
 ]
 
 
-class StreamOptions(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
+class StreamOptions(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
     """Options for streaming response. Only set this when setting stream as true"""
 
     include_usage: Optional[bool]
     """Whether to include the usage metrics in a final chunk or not"""
 
 
-class ToolChoiceToolChoiceObjectFunction(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
+class ToolChoiceToolChoiceObjectFunction(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
     """Specifies a tool the model should use.
 
     Use it to force the model to call that specific tool.
@@ -488,7 +568,11 @@ class ToolChoiceToolChoiceObjectFunction(TypedDict, total=False, extra_items=obj
     """the name of the tool expected to be used by the model"""
 
 
-class ToolChoiceToolChoiceObject(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
+class ToolChoiceToolChoiceObject(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
     function: Required[ToolChoiceToolChoiceObjectFunction]
     """Specifies a tool the model should use.
 
@@ -502,7 +586,11 @@ class ToolChoiceToolChoiceObject(TypedDict, total=False, extra_items=object):  #
 ToolChoice: TypeAlias = Union[Literal["none", "auto", "required"], ToolChoiceToolChoiceObject]
 
 
-class ToolFunction(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
+class ToolFunction(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
     name: Required[str]
     """The name of the function to be called.
 
@@ -525,7 +613,11 @@ class ToolFunction(TypedDict, total=False, extra_items=object):  # type: ignore[
     """
 
 
-class Tool(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
+class Tool(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
     function: Required[ToolFunction]
 
     type: Required[str]
