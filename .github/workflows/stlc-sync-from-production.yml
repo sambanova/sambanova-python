@@ -40,6 +40,7 @@ jobs:
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Fetch production main
         run: |
@@ -63,7 +64,11 @@ jobs:
 
       - name: Push production main to the back-sync branch on staging
         if: steps.diff.outputs.behind == 'true'
-        run: git push origin production/main:refs/heads/stlc/from-prod --force
+        env:
+          STAGING_PUSH_TOKEN: ${{ secrets.PRODUCTION_REPO_TOKEN }}
+        run: |
+          git push "https://x-access-token:${STAGING_PUSH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" \
+            production/main:refs/heads/stlc/from-prod --force
 
       - name: Open + auto-merge the back-sync PR (merge commit)
         if: steps.diff.outputs.behind == 'true'
