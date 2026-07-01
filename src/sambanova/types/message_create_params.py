@@ -940,7 +940,11 @@ class Message(TypedDict, total=False):
     """
 
 
-class Metadata(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
+class Metadata(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
     """Free-form metadata attached to the request.
 
     Currently only `user_id` Additional fields are accepted but ignored.
