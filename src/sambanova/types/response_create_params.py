@@ -237,7 +237,9 @@ InputInputItemListResponseMessageContentContentPartArrayResponseTextContentAnnot
 
 
 class InputInputItemListResponseMessageContentContentPartArrayResponseTextContentLogprobTopLogprobs(  # type: ignore[call-arg]
-    TypedDict, total=False, extra_items=object  # pyright: ignore[reportGeneralTypeIssues]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
 ):
     token: Required[str]
 
@@ -247,7 +249,9 @@ class InputInputItemListResponseMessageContentContentPartArrayResponseTextConten
 
 
 class InputInputItemListResponseMessageContentContentPartArrayResponseTextContentLogprob(  # type: ignore[call-arg]
-    TypedDict, total=False, extra_items=object  # pyright: ignore[reportGeneralTypeIssues]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
 ):
     token: Required[str]
 
