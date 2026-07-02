@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.11.0](https://github.com/sambanova/sambanova-python/compare/v1.10.0...v1.11.0) (2026-07-02)
+
+
+### Features
+
+* add stlc promote, sync, lock, and seal-dispatch workflows ([5afbec4](https://github.com/sambanova/sambanova-python/commit/5afbec44edf0aa5eab9606ce9f59429d7630f519))
+* add stlc promote, sync, lock, and seal-dispatch workflows ([da2a1bf](https://github.com/sambanova/sambanova-python/commit/da2a1bfb44de130ea278f0e3fd37fde4d6436e54))
+* add stlc trigger-back-sync workflow ([#27](https://github.com/sambanova/sambanova-python/issues/27)) ([49ce2a4](https://github.com/sambanova/sambanova-python/commit/49ce2a446a0ff04cdd4a44b79cf38a9c1868bc41))
+* enable release-please for python and typescript ([f099245](https://github.com/sambanova/sambanova-python/commit/f09924560adbe3125932f5985a660383b848731a))
+* initial stlc build ([06ff96a](https://github.com/sambanova/sambanova-python/commit/06ff96abdb0a563106dd1dab24ee46e0b7f83cb5))
+
+
+### Bug Fixes
+
+* backsync-persist-creds ([4f432ca](https://github.com/sambanova/sambanova-python/commit/4f432ca061f8154f6ebbc758efe425d890980d9a))
+* use PRODUCTION_REPO_TOKEN for back-sync push (workflows permission) ([3d5a3ee](https://github.com/sambanova/sambanova-python/commit/3d5a3eeebd271842e45e00b829d61be3b9ac7e56))
+* use PRODUCTION_REPO_TOKEN for back-sync push (workflows permission) ([000d6a8](https://github.com/sambanova/sambanova-python/commit/000d6a82b26b8b04231b08b7579f1a3ee2ec9e98))
+
 ## 1.10.0 (2026-06-25)
 
 Full Changelog: [v1.9.1...v1.10.0](https://github.com/sambanova/sambanova-python/compare/v1.9.1...v1.10.0)
