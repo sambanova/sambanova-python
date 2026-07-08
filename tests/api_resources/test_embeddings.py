@@ -26,6 +26,15 @@ class TestEmbeddings:
         assert_matches_type(EmbeddingsResponse, embedding, path=["response"])
 
     @parametrize
+    def test_method_create_with_all_params(self, client: SambaNova) -> None:
+        embedding = client.embeddings.create(
+            input=["text to embed number 1", "text to embed number 2"],
+            model="E5-Mistral-7B-Instruct",
+            encoding_format="float",
+        )
+        assert_matches_type(EmbeddingsResponse, embedding, path=["response"])
+
+    @parametrize
     def test_raw_response_create(self, client: SambaNova) -> None:
         response = client.embeddings.with_raw_response.create(
             input=["text to embed number 1", "text to embed number 2"],
@@ -62,6 +71,15 @@ class TestAsyncEmbeddings:
         embedding = await async_client.embeddings.create(
             input=["text to embed number 1", "text to embed number 2"],
             model="E5-Mistral-7B-Instruct",
+        )
+        assert_matches_type(EmbeddingsResponse, embedding, path=["response"])
+
+    @parametrize
+    async def test_method_create_with_all_params(self, async_client: AsyncSambaNova) -> None:
+        embedding = await async_client.embeddings.create(
+            input=["text to embed number 1", "text to embed number 2"],
+            model="E5-Mistral-7B-Instruct",
+            encoding_format="float",
         )
         assert_matches_type(EmbeddingsResponse, embedding, path=["response"])
 
