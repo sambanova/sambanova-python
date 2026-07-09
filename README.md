@@ -43,6 +43,23 @@ completion = client.chat.completions.create(
 )
 ```
 
+## Responses API
+
+```python
+import os
+from sambanova import SambaNova
+
+client = SambaNova(
+    api_key=os.environ.get("SAMBANOVA_API_KEY"),
+)
+
+response = client.responses.create(
+    model="gpt-oss-120b",
+    input="Explain disestablishmentarianism to a smart five year old.",
+)
+print(response.output_text)
+```
+
 While you can provide an `api_key` keyword argument,
 we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
 to add `SAMBANOVA_API_KEY="My API Key"` to your `.env` file

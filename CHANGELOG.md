@@ -1,0 +1,527 @@
+# Changelog
+
+## 1.10.0 (2026-06-25)
+
+Full Changelog: [v1.9.1...v1.10.0](https://github.com/sambanova/sambanova-python/compare/v1.9.1...v1.10.0)
+
+### Features
+
+* **api:** video input type support ([83e94bc](https://github.com/sambanova/sambanova-python/commit/83e94bc37d71878c54b0b44be5b5a4980fb2ff96))
+
+
+### Bug Fixes
+
+* **api:** loosen tool call field requirements to support streaming deltas ([b1b2d0a](https://github.com/sambanova/sambanova-python/commit/b1b2d0a7aa6953f3fe1b8d284e25cc7d58643892))
+
+## 1.9.1 (2026-06-17)
+
+Full Changelog: [v1.9.0...v1.9.1](https://github.com/sambanova/sambanova-python/compare/v1.9.0...v1.9.1)
+
+### Bug Fixes
+
+* **streaming:** resolve duplicate chunk emission in SSE event routing ([b031ad8](https://github.com/sambanova/sambanova-python/commit/b031ad8fefebf29b7b3b7448e8db0b40d16aa910))
+
+## 1.9.0 (2026-05-26)
+
+Full Changelog: [v1.8.2...v1.9.0](https://github.com/sambanova/sambanova-python/compare/v1.8.2...v1.9.0)
+
+### Features
+
+* **api:** add anthropic compatible messages api support ([0ddfd33](https://github.com/sambanova/sambanova-python/commit/0ddfd334decc86831f840cd8c0de2c3a73e378a2))
+* **internal/types:** support eagerly validating pydantic iterators ([cc4aade](https://github.com/sambanova/sambanova-python/commit/cc4aade45c484980fafacf2e315ca6f1564e0ace))
+
+
+### Bug Fixes
+
+* **client:** add missing f-string prefix in file type error message ([c6b84e8](https://github.com/sambanova/sambanova-python/commit/c6b84e853be657a330e6754894911bdaac07dc67))
+
+## 1.8.2 (2026-05-07)
+
+Full Changelog: [v1.8.1...v1.8.2](https://github.com/sambanova/sambanova-python/compare/v1.8.1...v1.8.2)
+
+### Documentation
+
+* **api:** logit bias support ([0336d6e](https://github.com/sambanova/sambanova-python/commit/0336d6ec1605eda6127a678601a8d9ef97cef41a))
+
+## 1.8.1 (2026-05-05)
+
+Full Changelog: [v1.8.0...v1.8.1](https://github.com/sambanova/sambanova-python/compare/v1.8.0...v1.8.1)
+
+### Bug Fixes
+
+* **api:** update responses supported models ([2c88654](https://github.com/sambanova/sambanova-python/commit/2c88654bd09b107ff1e26ff0bfb338f31afb000d))
+
+## 1.8.0 (2026-05-05)
+
+Full Changelog: [v1.7.0...v1.8.0](https://github.com/sambanova/sambanova-python/compare/v1.7.0...v1.8.0)
+
+### Features
+
+* support setting headers via env ([53d9388](https://github.com/sambanova/sambanova-python/commit/53d938820de4ab66bedb8f40b16c81d55efa94c7))
+
+
+### Bug Fixes
+
+* **api:** manual updates in model lists and docs ([ab16bfd](https://github.com/sambanova/sambanova-python/commit/ab16bfd035b0f9c6f3a1513b53d44b575d7d4c71))
+* use correct field name format for multipart file arrays ([88f3cf0](https://github.com/sambanova/sambanova-python/commit/88f3cf06d57a26cc6a686b49b8d0cb77bafb5b39))
+
+
+### Chores
+
+* **internal:** more robust bootstrap script ([128b4a4](https://github.com/sambanova/sambanova-python/commit/128b4a4d955288961d5cd1ee4bfdfd9fc110aecd))
+* **internal:** reformat pyproject.toml ([c06f298](https://github.com/sambanova/sambanova-python/commit/c06f298de5643f7e10357e170ad78ef661a9085d))
+
+## 1.7.0 (2026-04-21)
+
+Full Changelog: [v1.6.1...v1.7.0](https://github.com/sambanova/sambanova-python/compare/v1.6.1...v1.7.0)
+
+### Features
+
+* **api:** add n and seed chat completions parameters ([bf3c1b5](https://github.com/sambanova/sambanova-python/commit/bf3c1b54d9c2c5db97358de25e72b81542a6fa9f))
+* **api:** Responses API Support ([76c215b](https://github.com/sambanova/sambanova-python/commit/76c215ba649a76be104e466e6ea1b202a89ebf61))
+
+
+### Bug Fixes
+
+* **client:** preserve hardcoded query params when merging with user params ([b29dd32](https://github.com/sambanova/sambanova-python/commit/b29dd3268636349e0e40c618d3003739d2a070dc))
+* ensure file data are only sent as 1 parameter ([74ba3cc](https://github.com/sambanova/sambanova-python/commit/74ba3cc25421e62f3e5b1087ddeef431355b410e))
+
+
+### Performance Improvements
+
+* **client:** optimize file structure copying in multipart requests ([31410a1](https://github.com/sambanova/sambanova-python/commit/31410a1f9f3b40894d87f3b70cebf1774d50b629))
+
+
+### Chores
+
+* **tests:** bump steady to v0.22.1 ([68deab8](https://github.com/sambanova/sambanova-python/commit/68deab8cb895253503eb21ae492ac913260a9264))
+
+
+### Documentation
+
+* improve examples ([06546f4](https://github.com/sambanova/sambanova-python/commit/06546f41c4658591980f6f466488df2ff0f5e6be))
+* update examples ([a21f0fb](https://github.com/sambanova/sambanova-python/commit/a21f0fb6358a4665536ddf9b25e9c9ff81073b80))
+
+## 1.6.1 (2026-04-06)
+
+Full Changelog: [v1.6.0...v1.6.1](https://github.com/sambanova/sambanova-python/compare/v1.6.0...v1.6.1)
+
+### Bug Fixes
+
+* **api:** config publish updates ([dff0781](https://github.com/sambanova/sambanova-python/commit/dff07816e637ec4bcd7f8d90a259dee283dc8d07))
+* **api:** oidc publishing ([04f0909](https://github.com/sambanova/sambanova-python/commit/04f09097520c88c163d29fe51453a85ce0e5ead6))
+
+
+### Chores
+
+* update SDK settings ([b3698b0](https://github.com/sambanova/sambanova-python/commit/b3698b07353ac0eddefb0b171d4a630fa98a040e))
+
+## 1.6.0 (2026-04-06)
+
+Full Changelog: [v1.5.1...v1.6.0](https://github.com/sambanova/sambanova-python/compare/v1.5.1...v1.6.0)
+
+### Features
+
+* **internal:** implement indices array format for query and form serialization ([d5156de](https://github.com/sambanova/sambanova-python/commit/d5156de64998f45f709746ae25d59628a77ae4b1))
+
+
+### Bug Fixes
+
+* **api:** audio endpoints usage def ([0c57481](https://github.com/sambanova/sambanova-python/commit/0c57481909890e8679aaf17f0f7b47a9ca65329a))
+* **api:** audio usage schema ([78a5716](https://github.com/sambanova/sambanova-python/commit/78a571602c182af75624356ed61f5a2a46bd2a0f))
+* **api:** update error response schemas ([88aa4be](https://github.com/sambanova/sambanova-python/commit/88aa4be89f73c6faa154796355b3611ae22a0e77))
+
+
+### Chores
+
+* **ci:** skip lint on metadata-only changes ([73f448e](https://github.com/sambanova/sambanova-python/commit/73f448e253442c7dc6f1224ddba46303d2bc9c16))
+* **internal:** update gitignore ([7ee1ced](https://github.com/sambanova/sambanova-python/commit/7ee1ced8bb9a100b2331b16577f34701ccdf9926))
+* **tests:** bump steady to v0.19.4 ([e471488](https://github.com/sambanova/sambanova-python/commit/e471488c9573be1312abce4c383ea5a60980abba))
+* **tests:** bump steady to v0.19.5 ([2ad39cb](https://github.com/sambanova/sambanova-python/commit/2ad39cb42ade6428234ef2d16661f5beaafcf421))
+* **tests:** bump steady to v0.19.6 ([49486e6](https://github.com/sambanova/sambanova-python/commit/49486e6f54632fba872dcc0c701eb012e0efeb1a))
+* **tests:** bump steady to v0.19.7 ([46c9c81](https://github.com/sambanova/sambanova-python/commit/46c9c81e285a6180b596f5eaac1e60ee377f2ab1))
+* **tests:** bump steady to v0.20.1 ([6890fd3](https://github.com/sambanova/sambanova-python/commit/6890fd363d61c0d4aa15571a6d3f388382dcb877))
+* **tests:** bump steady to v0.20.2 ([07450f1](https://github.com/sambanova/sambanova-python/commit/07450f1a7c81929728da9014eb2f0950b74435b0))
+
+## 1.5.1 (2026-03-19)
+
+Full Changelog: [v1.5.0...v1.5.1](https://github.com/sambanova/sambanova-python/compare/v1.5.0...v1.5.1)
+
+### Bug Fixes
+
+* **api:** metadata manual updates ([db8fca1](https://github.com/sambanova/sambanova-python/commit/db8fca13f7c171a2b37ca07eab4a7c01ccd2c41c))
+* **deps:** bump minimum typing-extensions version ([65d8445](https://github.com/sambanova/sambanova-python/commit/65d8445ac65d205d1fcdfed009649eb8f50378b5))
+* **pydantic:** do not pass `by_alias` unless set ([745647d](https://github.com/sambanova/sambanova-python/commit/745647d71b75040379e3800ebefc3f957a64fb50))
+* sanitize endpoint path params ([7acd247](https://github.com/sambanova/sambanova-python/commit/7acd247245f747ef2d74046757d20c4f21055a4a))
+
+
+### Chores
+
+* **ci:** skip uploading artifacts on stainless-internal branches ([4645cb6](https://github.com/sambanova/sambanova-python/commit/4645cb644861c6c6e96d595e3148775c181be016))
+* **internal:** tweak CI branches ([f85d04c](https://github.com/sambanova/sambanova-python/commit/f85d04cde934eda2e51818b1e9927b3f529ba116))
+* **test:** do not count install time for mock server timeout ([37bb678](https://github.com/sambanova/sambanova-python/commit/37bb678b63719ce6c761bc9d6ae6a203b7e48311))
+* update placeholder string ([0cbb98e](https://github.com/sambanova/sambanova-python/commit/0cbb98e651eea8b4bcb391e2afbd5d17b7be9506))
+
+
+### Refactors
+
+* **tests:** switch from prism to steady ([9a66b7a](https://github.com/sambanova/sambanova-python/commit/9a66b7a83f3770541ebdc520f4eec3481370cd52))
+* **types:** use `extra_items` from PEP 728 ([7f0f94b](https://github.com/sambanova/sambanova-python/commit/7f0f94bc9eb9d8ca27e969897c5b7f6186964540))
+
+## 1.5.0 (2026-03-02)
+
+Full Changelog: [v1.4.1...v1.5.0](https://github.com/sambanova/sambanova-python/compare/v1.4.1...v1.5.0)
+
+### Features
+
+* **api:** logprobs and top_logprobs in chat completions API ([60c5a73](https://github.com/sambanova/sambanova-python/commit/60c5a73a75dfcd2de76030ea1fc768777619767b))
+
+
+### Chores
+
+* **internal:** add request options to SSE classes ([8bed909](https://github.com/sambanova/sambanova-python/commit/8bed909a64bb234723e77fc5fb8f8d0a92501ff3))
+* **internal:** make `test_proxy_environment_variables` more resilient ([8180c2e](https://github.com/sambanova/sambanova-python/commit/8180c2e6f0c54c0217883b13ef178b3b6e094881))
+* **internal:** make `test_proxy_environment_variables` more resilient to env ([47cf963](https://github.com/sambanova/sambanova-python/commit/47cf963b0eaf44b022ce08e44630256b10bf8cb4))
+* update mock server docs ([e19b34c](https://github.com/sambanova/sambanova-python/commit/e19b34ca6a27e900736fb33b8628a05b39fc6ee0))
+
+## 1.4.1 (2026-02-13)
+
+Full Changelog: [v1.4.0...v1.4.1](https://github.com/sambanova/sambanova-python/compare/v1.4.0...v1.4.1)
+
+### Bug Fixes
+
+* **api:** update temp range ([983350a](https://github.com/sambanova/sambanova-python/commit/983350ad7b79fb900f790aacd9201f3762bd3f1f))
+
+
+### Chores
+
+* **docs:** remove www prefix ([37ac61f](https://github.com/sambanova/sambanova-python/commit/37ac61f866198df17026a42a5b3cee67295729ce))
+* **docs:** remove www prefix ([21dd38f](https://github.com/sambanova/sambanova-python/commit/21dd38f472469da92eac1e68259681ec47fa35db))
+* fix manifest ([98a213d](https://github.com/sambanova/sambanova-python/commit/98a213d7d82fe3dfc225cdf81b1ebdcd2e86f2e4))
+* format all `api.md` files ([13549a4](https://github.com/sambanova/sambanova-python/commit/13549a4034a5639bf935b074f1b002d42c231075))
+* **internal:** bump dependencies ([be1520f](https://github.com/sambanova/sambanova-python/commit/be1520f294417db9371711d3ab3576eb9d72c4f3))
+* **internal:** fix lint error on Python 3.14 ([33ba2d0](https://github.com/sambanova/sambanova-python/commit/33ba2d02d4c345211897500b2a9cd8606a2da641))
+
+## 1.4.0 (2026-01-30)
+
+Full Changelog: [v1.3.0...v1.4.0](https://github.com/sambanova/sambanova-python/compare/v1.3.0...v1.4.0)
+
+### Features
+
+* **api:** add optional custom integration_source param ([7a3ec89](https://github.com/sambanova/sambanova-python/commit/7a3ec896f0d54965f65c89881bc60d10d68c990f))
+* **client:** add custom JSON encoder for extended type support ([9968c9b](https://github.com/sambanova/sambanova-python/commit/9968c9b09343560d3de76478d2ded9b122bc7940))
+
+## 1.3.0 (2026-01-23)
+
+Full Changelog: [v1.2.0...v1.3.0](https://github.com/sambanova/sambanova-python/compare/v1.2.0...v1.3.0)
+
+### Features
+
+* **client:** add support for binary request streaming ([fd6244a](https://github.com/sambanova/sambanova-python/commit/fd6244ae60fe2df91a2b465cc06b2256407bc38c))
+
+
+### Bug Fixes
+
+* **api:** minor openAPI spec fixes ([5e39cbb](https://github.com/sambanova/sambanova-python/commit/5e39cbb4c4ca8fbc35133a9b6553ad7ca55dfae9))
+* compat with Python 3.14 ([f8d0a17](https://github.com/sambanova/sambanova-python/commit/f8d0a17b8d285ffb31c1241ff4c0ed966115d237))
+* **compat:** update signatures of `model_dump` and `model_dump_json` for Pydantic v1 ([80b2f0e](https://github.com/sambanova/sambanova-python/commit/80b2f0ebd03e43a4e5d97392c474a7a57179cb94))
+* ensure streams are always closed ([b057502](https://github.com/sambanova/sambanova-python/commit/b057502367a9313b396068b33cdcf42925bdec9a))
+* **types:** allow pyright to infer TypedDict types within SequenceNotStr ([7f5d893](https://github.com/sambanova/sambanova-python/commit/7f5d8930d54299226a83ebaeff192739da87c98a))
+* use async_to_httpx_files in patch method ([d33246e](https://github.com/sambanova/sambanova-python/commit/d33246edf84f1ec15a52bea24725f0f84a148d16))
+
+
+### Chores
+
+* add missing docstrings ([019eba0](https://github.com/sambanova/sambanova-python/commit/019eba07481acc8717f40a10c3109e494d2e4eac))
+* **ci:** upgrade `actions/github-script` ([77ed781](https://github.com/sambanova/sambanova-python/commit/77ed7817c1f0a6179e63d141fcc97b79f971af5d))
+* **deps:** mypy 1.18.1 has a regression, pin to 1.17 ([fce9064](https://github.com/sambanova/sambanova-python/commit/fce906481b815306c766baf5cb326a01d5ddb5b8))
+* **docs:** use environment variables for authentication in code snippets ([83ff043](https://github.com/sambanova/sambanova-python/commit/83ff0430dac4e91173d28bedfb3af1daa13106bb))
+* **internal:** add `--fix` argument to lint script ([a8f92ca](https://github.com/sambanova/sambanova-python/commit/a8f92ca4dade631b727d2e8111291080e632b7f3))
+* **internal:** add missing files argument to base client ([c4d570a](https://github.com/sambanova/sambanova-python/commit/c4d570afae505d0e06b3f946dd5f3360fd208fb2))
+* **internal:** codegen related update ([89dd766](https://github.com/sambanova/sambanova-python/commit/89dd7669d6a52745dbed8bb926ac30aa016480b3))
+* **internal:** codegen related update ([ba4cbb9](https://github.com/sambanova/sambanova-python/commit/ba4cbb9f303518c0c7d7349830da344be9d38e01))
+* **internal:** update `actions/checkout` version ([ec75715](https://github.com/sambanova/sambanova-python/commit/ec757150c5f6a458a6c35445cf0c5767439a1b17))
+* **package:** drop Python 3.8 support ([e619e7d](https://github.com/sambanova/sambanova-python/commit/e619e7d79ca78487c85d0f22708590582821e547))
+* speedup initial import ([4de61f3](https://github.com/sambanova/sambanova-python/commit/4de61f39aef0af76cc79c03622b8fad19c14a439))
+* update lockfile ([0b2e4c4](https://github.com/sambanova/sambanova-python/commit/0b2e4c493d6aecd212fbb3d504cd4f5301a829cb))
+
+## 1.2.0 (2025-11-07)
+
+Full Changelog: [v1.1.6...v1.2.0](https://github.com/sambanova/sambanova-python/compare/v1.1.6...v1.2.0)
+
+### Features
+
+* **api:** add completions support ([1c56851](https://github.com/sambanova/sambanova-python/commit/1c56851e5e320b4aceddb1e607345908d828dcf8))
+
+## 1.1.6 (2025-11-07)
+
+Full Changelog: [v1.1.5...v1.1.6](https://github.com/sambanova/sambanova-python/compare/v1.1.5...v1.1.6)
+
+### Bug Fixes
+
+* **api:** add missing chat_template_kwargs chat completions argument ([b9f5815](https://github.com/sambanova/sambanova-python/commit/b9f58153394bc87cae1448613ec55ff33f266625))
+* **api:** update deafault models ([b08b3b4](https://github.com/sambanova/sambanova-python/commit/b08b3b4cd44b9d8afb2490f2e361b57b038d89dc))
+* **client:** close streams without requiring full consumption ([6f6a574](https://github.com/sambanova/sambanova-python/commit/6f6a574d497b0c7c0812c628a4b96d6474d991ba))
+
+
+### Chores
+
+* **internal/tests:** avoid race condition with implicit client cleanup ([4975c18](https://github.com/sambanova/sambanova-python/commit/4975c18ced8834a22c29e34e6938de08ca3cd8dd))
+* **internal:** grammar fix (it's -&gt; its) ([a4cb7c0](https://github.com/sambanova/sambanova-python/commit/a4cb7c0572d25c532d25096ecaf3603539730527))
+
+## 1.1.5 (2025-10-24)
+
+Full Changelog: [v1.1.4...v1.1.5](https://github.com/sambanova/sambanova-python/compare/v1.1.4...v1.1.5)
+
+### Bug Fixes
+
+* **api:** increase default timeouts ([5b4435e](https://github.com/sambanova/sambanova-python/commit/5b4435e3a77b4e5ebb6ab75060d02577720a7776))
+
+
+### Chores
+
+* bump `httpx-aiohttp` version to 0.1.9 ([e0aa167](https://github.com/sambanova/sambanova-python/commit/e0aa1677250d207aad2d8ed05519f81faee6910a))
+
+## 1.1.4 (2025-10-10)
+
+Full Changelog: [v1.1.3...v1.1.4](https://github.com/sambanova/sambanova-python/compare/v1.1.3...v1.1.4)
+
+### Bug Fixes
+
+* **api:** embeddings summary ([a745c20](https://github.com/sambanova/sambanova-python/commit/a745c20e4416839818213431c59255add2c81951))
+
+
+### Chores
+
+* **internal:** detect missing future annotations with ruff ([859704e](https://github.com/sambanova/sambanova-python/commit/859704e90d1e620e3075b1c62759b08effb6279f))
+
+## 1.1.3 (2025-10-03)
+
+Full Changelog: [v1.1.2...v1.1.3](https://github.com/sambanova/sambanova-python/compare/v1.1.2...v1.1.3)
+
+### Features
+
+* **api:** update created field type ([c1107e9](https://github.com/sambanova/sambanova-python/commit/c1107e9f1b0543d73e96ce1037fb4d6e9fd40439))
+
+## 1.1.2 (2025-09-27)
+
+Full Changelog: [v1.1.1...v1.1.2](https://github.com/sambanova/sambanova-python/compare/v1.1.1...v1.1.2)
+
+### Features
+
+* **api:** fix delta dict structure ([ae249ac](https://github.com/sambanova/sambanova-python/commit/ae249ac8250d2fac41586ef4a4097b34465d4639))
+* **api:** fix delta object type for chat completions ([92c5870](https://github.com/sambanova/sambanova-python/commit/92c58701837f0122494fe55172669a0e5d61a92a))
+* **api:** fix streaming event models ([c974b4c](https://github.com/sambanova/sambanova-python/commit/c974b4ccafa74399ad155ab2e1036d304796addd))
+* **api:** keep additional properties for streaming and pricing object ([73fd5d8](https://github.com/sambanova/sambanova-python/commit/73fd5d8a6c43a350aff1abaf1755da9b41469b0a))
+* **api:** update prod-url ([03bf9be](https://github.com/sambanova/sambanova-python/commit/03bf9bef4b745f778af4a6f9a42351d7bd0e9660))
+
+## 1.1.1 (2025-09-24)
+
+Full Changelog: [v1.1.0...v1.1.1](https://github.com/sambanova/sambanova-python/compare/v1.1.0...v1.1.1)
+
+### Bug Fixes
+
+* **compat:** compat with `pydantic&lt;2.8.0` when using additional fields ([3e62306](https://github.com/sambanova/sambanova-python/commit/3e6230676555a1f0c75e158014a035d337126f5d))
+
+## 1.1.0 (2025-09-22)
+
+Full Changelog: [v0.1.0-alpha.2...v1.1.0](https://github.com/sambanova/sambanova-python/compare/v0.1.0-alpha.2...v1.1.0)
+
+### Chores
+
+* **internal:** trigger CI ([c83c129](https://github.com/sambanova/sambanova-python/commit/c83c129f4cdc60e2940fe9f87edb3e082c70ad72))
+
+## 0.1.0-alpha.2 (2025-09-19)
+
+Full Changelog: [v0.1.0-alpha.1...v0.1.0-alpha.2](https://github.com/sambanova/sambanova-python/compare/v0.1.0-alpha.1...v0.1.0-alpha.2)
+
+### Features
+
+* **api:** add reasoning and channel param to messages delta ([73fe8e2](https://github.com/sambanova/sambanova-python/commit/73fe8e21c776b789a963c9659b1ac94b02e0cb08))
+
+
+### Chores
+
+* do not install brew dependencies in ./scripts/bootstrap by default ([c574a29](https://github.com/sambanova/sambanova-python/commit/c574a2976746c38ad9b1b50b4a0bedc70a873fe6))
+* **types:** change optional parameter type from NotGiven to Omit ([ac23420](https://github.com/sambanova/sambanova-python/commit/ac23420d9e64ec7a26f15c3c783d7d3c3df139b2))
+
+## 0.1.0-alpha.2 (2025-09-19)
+
+Full Changelog: [v0.1.0-alpha.1...v0.1.0-alpha.2](https://github.com/sambanova/sambanova-python/compare/v0.1.0-alpha.1...v0.1.0-alpha.2)
+
+### Features
+
+* **api:** add reasoning and channel param to messages delta ([73fe8e2](https://github.com/sambanova/sambanova-python/commit/73fe8e21c776b789a963c9659b1ac94b02e0cb08))
+
+
+### Chores
+
+* do not install brew dependencies in ./scripts/bootstrap by default ([c574a29](https://github.com/sambanova/sambanova-python/commit/c574a2976746c38ad9b1b50b4a0bedc70a873fe6))
+* **types:** change optional parameter type from NotGiven to Omit ([ac23420](https://github.com/sambanova/sambanova-python/commit/ac23420d9e64ec7a26f15c3c783d7d3c3df139b2))
+
+## 0.1.0-alpha.1 (2025-09-17)
+
+Full Changelog: [v0.0.1-alpha.0...v0.1.0-alpha.1](https://github.com/sambanova/sambanova-python/compare/v0.0.1-alpha.0...v0.1.0-alpha.1)
+
+### Features
+
+* **api:** change node to typescript ([2552d5e](https://github.com/sambanova/sambanova-python/commit/2552d5e2daae2263d99307cde4d3f058153211cf))
+* **api:** manual updates ([fdbd823](https://github.com/sambanova/sambanova-python/commit/fdbd823045f43402827297097916e6247c6596ca))
+* **api:** manual updates ([f0f2160](https://github.com/sambanova/sambanova-python/commit/f0f216027624092409135c42977fb6f815e95d6c))
+* **api:** manual updates ([23d52e7](https://github.com/sambanova/sambanova-python/commit/23d52e77e7ba3e7d314dd377ee5e659b8febe818))
+* **api:** manual updates ([306c90c](https://github.com/sambanova/sambanova-python/commit/306c90c550acf034f7fb38f8f8e67ec69a4cbdbf))
+* **api:** manual updates ([9dfa1d7](https://github.com/sambanova/sambanova-python/commit/9dfa1d7411263d04f8a6448e083d39e217649ddb))
+* **api:** manual updates ([e50fb23](https://github.com/sambanova/sambanova-python/commit/e50fb23bebc439fb2efd09c014850e788b14c3c1))
+* **api:** open api spec updates ([826d672](https://github.com/sambanova/sambanova-python/commit/826d672b25a46c2897592e48be22445a95998dfb))
+* **api:** update via SDK Studio ([e9c6a0e](https://github.com/sambanova/sambanova-python/commit/e9c6a0e80de4d5f072ca1d382a3b7fc33f600e28))
+* **api:** update via SDK Studio ([5ee5dd8](https://github.com/sambanova/sambanova-python/commit/5ee5dd825f71219dced539ea3f566fc0256250ba))
+* **api:** update via SDK Studio ([73334bf](https://github.com/sambanova/sambanova-python/commit/73334bfd811365bbbd09b10fbd62a230d723dc39))
+* **api:** update via SDK Studio ([2093bbe](https://github.com/sambanova/sambanova-python/commit/2093bbeb3c87a656035c2d74da513b8cae9b590b))
+* **api:** update via SDK Studio ([1cf68b9](https://github.com/sambanova/sambanova-python/commit/1cf68b982dc3c5c7821cd5add0ad6d295249f43b))
+* **api:** update via SDK Studio ([0515080](https://github.com/sambanova/sambanova-python/commit/05150807187adaed498e1121790b0928009b4e39))
+* **api:** update via SDK Studio ([34ab046](https://github.com/sambanova/sambanova-python/commit/34ab046f08fd5741500a2cc9c03eadc0c68d33b6))
+* **api:** update via SDK Studio ([aa371cc](https://github.com/sambanova/sambanova-python/commit/aa371cc7b6698444b6419a66c4cc32f4b5f50bf3))
+* **api:** update via SDK Studio ([a9100e2](https://github.com/sambanova/sambanova-python/commit/a9100e2023b7ebc59e015bb47f145f2cc22cb407))
+* **api:** update via SDK Studio ([b7bba05](https://github.com/sambanova/sambanova-python/commit/b7bba0533b592ec321aa77ea6b927182fbda9ed7))
+* **api:** update via SDK Studio ([d122f73](https://github.com/sambanova/sambanova-python/commit/d122f73439a72d292958651bfc1a0d4fec7804a4))
+* **api:** update via SDK Studio ([55ca36f](https://github.com/sambanova/sambanova-python/commit/55ca36f550faf7488440c523ec925b524becc2ea))
+* **api:** update via SDK Studio ([e45ce5f](https://github.com/sambanova/sambanova-python/commit/e45ce5f02eed6f9633a17e51892990e5571157a7))
+* **api:** update via SDK Studio ([6210c92](https://github.com/sambanova/sambanova-python/commit/6210c921a1c4acdae409abde7221b64edda16c67))
+* **api:** update via SDK Studio ([7e164eb](https://github.com/sambanova/sambanova-python/commit/7e164ebea0e0609262038e569e5a504801123104))
+* **api:** update via SDK Studio ([9c2c104](https://github.com/sambanova/sambanova-python/commit/9c2c104ca6b5e57e8e588fccaab9f2365bb774fa))
+* **api:** update via SDK Studio ([65cbc5c](https://github.com/sambanova/sambanova-python/commit/65cbc5c6372d928967e0ac96c12e55a02ed1c42c))
+* **api:** update via SDK Studio ([33065e7](https://github.com/sambanova/sambanova-python/commit/33065e7be5770a4f5ef8692cdb4643c78929f392))
+* **api:** update via SDK Studio ([08ff259](https://github.com/sambanova/sambanova-python/commit/08ff25934c37203e6bc9993de84b7166a21afa9c))
+* **api:** update via SDK Studio ([9c0a628](https://github.com/sambanova/sambanova-python/commit/9c0a628ab8ff16c950e36f0b0860496c6e9d4446))
+* **api:** update via SDK Studio ([2270bc9](https://github.com/sambanova/sambanova-python/commit/2270bc96e2cab8c6929d979e3eef75acdf3dbaa5))
+* **api:** update via SDK Studio ([71a1bf7](https://github.com/sambanova/sambanova-python/commit/71a1bf7d84ef0b777d4542f593c5903e73632791))
+* **api:** update via SDK Studio ([c5748bc](https://github.com/sambanova/sambanova-python/commit/c5748bc23e59df9e9c45162758936d0ba13815fb))
+* **api:** update via SDK Studio ([952bf54](https://github.com/sambanova/sambanova-python/commit/952bf548175e2871198d660d44459918cf6fdc36))
+* **api:** update via SDK Studio ([8822e0b](https://github.com/sambanova/sambanova-python/commit/8822e0b26baab120f2199b2c636dc4cafb30b770))
+* **api:** update via SDK Studio ([4f7092e](https://github.com/sambanova/sambanova-python/commit/4f7092e5a12425fe9184dbf6edccae21fa7bd7fc))
+* **api:** update via SDK Studio ([613abda](https://github.com/sambanova/sambanova-python/commit/613abda51d8f885b9822e3e4e921fccc65115431))
+* **api:** update via SDK Studio ([0dec779](https://github.com/sambanova/sambanova-python/commit/0dec779c76da02d76e1685e266d22bbd51379fbb))
+* **api:** update via SDK Studio ([d2b1f86](https://github.com/sambanova/sambanova-python/commit/d2b1f8629143fd1ff289ea353a0b93be100d41d7))
+* **api:** update via SDK Studio ([3095abc](https://github.com/sambanova/sambanova-python/commit/3095abc566a557e7b716d684cfda72d9997e615a))
+* **api:** update via SDK Studio ([19ad118](https://github.com/sambanova/sambanova-python/commit/19ad1188e500ad433eeffb6351757b4c1c1116fd))
+* **api:** update via SDK Studio ([a22fb31](https://github.com/sambanova/sambanova-python/commit/a22fb312aefc6faad4e46968b2a1a58eca13e819))
+* **api:** update via SDK Studio ([7fe7008](https://github.com/sambanova/sambanova-python/commit/7fe7008ac280e3ca6474293ab3f6a809e3ccb8f0))
+* **client:** allow passing `NotGiven` for body ([e9310ba](https://github.com/sambanova/sambanova-python/commit/e9310bab7d7bc916985ea0a028af57b6f1f5b97d))
+* **client:** send `X-Stainless-Read-Timeout` header ([38bd3ec](https://github.com/sambanova/sambanova-python/commit/38bd3ecf20abc00bf88c4e6ed82e3dc844eb27de))
+* improve future compat with pydantic v3 ([4be00eb](https://github.com/sambanova/sambanova-python/commit/4be00ebfcaefd63874fefc876ec50287fef2cdba))
+* **types:** replace List[str] with SequenceNotStr in params ([f587357](https://github.com/sambanova/sambanova-python/commit/f58735725265084d3477b24227796adba47993d9))
+
+
+### Bug Fixes
+
+* asyncify on non-asyncio runtimes ([4d0856a](https://github.com/sambanova/sambanova-python/commit/4d0856aed81c7fe307f25191e5a4d0da8904b3c2))
+* avoid newer type syntax ([0f20a0a](https://github.com/sambanova/sambanova-python/commit/0f20a0a2a04f88dc57a690b6a2c9b3d1e20c1c69))
+* **client:** mark some request bodies as optional ([e9310ba](https://github.com/sambanova/sambanova-python/commit/e9310bab7d7bc916985ea0a028af57b6f1f5b97d))
+
+
+### Chores
+
+* configure new SDK language ([a462fba](https://github.com/sambanova/sambanova-python/commit/a462fba43c387f99d256a6f72df3ad738439480a))
+* configure new SDK language ([b4db4e7](https://github.com/sambanova/sambanova-python/commit/b4db4e7d829e070df4cd86863dbef5fdb279a74a))
+* **internal:** add Sequence related utils ([873a2ab](https://github.com/sambanova/sambanova-python/commit/873a2ab7dd0c6d1062445a4a7bbf1341493aae5b))
+* **internal:** bummp ruff dependency ([970e911](https://github.com/sambanova/sambanova-python/commit/970e91128b2aef6eb5123faeedb4f9530883e831))
+* **internal:** change ci workflow machines ([f23c02f](https://github.com/sambanova/sambanova-python/commit/f23c02f3b4e95cb812fe17b379446cc5e40d5aaf))
+* **internal:** change default timeout to an int ([c1e5298](https://github.com/sambanova/sambanova-python/commit/c1e52987d6a4e2dc608c95aa152c70c5491fa6bd))
+* **internal:** codegen related update ([515e3a2](https://github.com/sambanova/sambanova-python/commit/515e3a2921262c7ff52494e26ef8fb5b8f0d1877))
+* **internal:** fix devcontainers setup ([11a322a](https://github.com/sambanova/sambanova-python/commit/11a322a731645477af13a0087576ce831b127786))
+* **internal:** fix type traversing dictionary params ([169e92d](https://github.com/sambanova/sambanova-python/commit/169e92db7851e824ab6e2aba56507e473bf5aba4))
+* **internal:** minor formatting changes ([05a0775](https://github.com/sambanova/sambanova-python/commit/05a077509f86ae4bfea66c630dacc529996206e7))
+* **internal:** minor style changes ([9f14329](https://github.com/sambanova/sambanova-python/commit/9f14329aea382bf31c0a840c4b153e9b5fd3ebec))
+* **internal:** minor type handling changes ([13086e8](https://github.com/sambanova/sambanova-python/commit/13086e8f9c841d1d049a401028a4dc35377490e8))
+* **internal:** move mypy configurations to `pyproject.toml` file ([af366fc](https://github.com/sambanova/sambanova-python/commit/af366fc27fe22101a0cdddd7379ae0184f0ce863))
+* **internal:** update client tests ([e477af8](https://github.com/sambanova/sambanova-python/commit/e477af825ab8b8a134b22064a9e44010fa0ef750))
+* **internal:** update pydantic dependency ([c99b555](https://github.com/sambanova/sambanova-python/commit/c99b555ec8fb5a61377cf48b7b3443020971e8ff))
+* **internal:** update pyright exclude list ([afbaa11](https://github.com/sambanova/sambanova-python/commit/afbaa11a56ed756c46d542fc6281e8a96ba9f356))
+* minor change to tests ([a211488](https://github.com/sambanova/sambanova-python/commit/a211488edf0dcbb55905a4e428debb522b3896da))
+* **tests:** simplify `get_platform` test ([60da351](https://github.com/sambanova/sambanova-python/commit/60da35196a75dfe1bb5faa960cc510ae9b544330))
+* update github action ([96f6fc9](https://github.com/sambanova/sambanova-python/commit/96f6fc9c8789b3f516075cfb3ddd371764affdb5))
+* update SDK settings ([9083f8f](https://github.com/sambanova/sambanova-python/commit/9083f8fdb7833964798a113c236c2ee1bc433410))
+* update SDK settings ([045d9e5](https://github.com/sambanova/sambanova-python/commit/045d9e57b4f54031e08125f1b47147058c9673e6))
+
+## 0.1.0-alpha.1 (2025-09-17)
+
+Full Changelog: [v0.0.1-alpha.0...v0.1.0-alpha.1](https://github.com/sambanova/sambanova-python/compare/v0.0.1-alpha.0...v0.1.0-alpha.1)
+
+### Features
+
+* **api:** change node to typescript ([2552d5e](https://github.com/sambanova/sambanova-python/commit/2552d5e2daae2263d99307cde4d3f058153211cf))
+* **api:** manual updates ([fdbd823](https://github.com/sambanova/sambanova-python/commit/fdbd823045f43402827297097916e6247c6596ca))
+* **api:** manual updates ([f0f2160](https://github.com/sambanova/sambanova-python/commit/f0f216027624092409135c42977fb6f815e95d6c))
+* **api:** manual updates ([23d52e7](https://github.com/sambanova/sambanova-python/commit/23d52e77e7ba3e7d314dd377ee5e659b8febe818))
+* **api:** manual updates ([306c90c](https://github.com/sambanova/sambanova-python/commit/306c90c550acf034f7fb38f8f8e67ec69a4cbdbf))
+* **api:** manual updates ([9dfa1d7](https://github.com/sambanova/sambanova-python/commit/9dfa1d7411263d04f8a6448e083d39e217649ddb))
+* **api:** manual updates ([e50fb23](https://github.com/sambanova/sambanova-python/commit/e50fb23bebc439fb2efd09c014850e788b14c3c1))
+* **api:** open api spec updates ([826d672](https://github.com/sambanova/sambanova-python/commit/826d672b25a46c2897592e48be22445a95998dfb))
+* **api:** update via SDK Studio ([e9c6a0e](https://github.com/sambanova/sambanova-python/commit/e9c6a0e80de4d5f072ca1d382a3b7fc33f600e28))
+* **api:** update via SDK Studio ([5ee5dd8](https://github.com/sambanova/sambanova-python/commit/5ee5dd825f71219dced539ea3f566fc0256250ba))
+* **api:** update via SDK Studio ([73334bf](https://github.com/sambanova/sambanova-python/commit/73334bfd811365bbbd09b10fbd62a230d723dc39))
+* **api:** update via SDK Studio ([2093bbe](https://github.com/sambanova/sambanova-python/commit/2093bbeb3c87a656035c2d74da513b8cae9b590b))
+* **api:** update via SDK Studio ([1cf68b9](https://github.com/sambanova/sambanova-python/commit/1cf68b982dc3c5c7821cd5add0ad6d295249f43b))
+* **api:** update via SDK Studio ([0515080](https://github.com/sambanova/sambanova-python/commit/05150807187adaed498e1121790b0928009b4e39))
+* **api:** update via SDK Studio ([34ab046](https://github.com/sambanova/sambanova-python/commit/34ab046f08fd5741500a2cc9c03eadc0c68d33b6))
+* **api:** update via SDK Studio ([aa371cc](https://github.com/sambanova/sambanova-python/commit/aa371cc7b6698444b6419a66c4cc32f4b5f50bf3))
+* **api:** update via SDK Studio ([a9100e2](https://github.com/sambanova/sambanova-python/commit/a9100e2023b7ebc59e015bb47f145f2cc22cb407))
+* **api:** update via SDK Studio ([b7bba05](https://github.com/sambanova/sambanova-python/commit/b7bba0533b592ec321aa77ea6b927182fbda9ed7))
+* **api:** update via SDK Studio ([d122f73](https://github.com/sambanova/sambanova-python/commit/d122f73439a72d292958651bfc1a0d4fec7804a4))
+* **api:** update via SDK Studio ([55ca36f](https://github.com/sambanova/sambanova-python/commit/55ca36f550faf7488440c523ec925b524becc2ea))
+* **api:** update via SDK Studio ([e45ce5f](https://github.com/sambanova/sambanova-python/commit/e45ce5f02eed6f9633a17e51892990e5571157a7))
+* **api:** update via SDK Studio ([6210c92](https://github.com/sambanova/sambanova-python/commit/6210c921a1c4acdae409abde7221b64edda16c67))
+* **api:** update via SDK Studio ([7e164eb](https://github.com/sambanova/sambanova-python/commit/7e164ebea0e0609262038e569e5a504801123104))
+* **api:** update via SDK Studio ([9c2c104](https://github.com/sambanova/sambanova-python/commit/9c2c104ca6b5e57e8e588fccaab9f2365bb774fa))
+* **api:** update via SDK Studio ([65cbc5c](https://github.com/sambanova/sambanova-python/commit/65cbc5c6372d928967e0ac96c12e55a02ed1c42c))
+* **api:** update via SDK Studio ([33065e7](https://github.com/sambanova/sambanova-python/commit/33065e7be5770a4f5ef8692cdb4643c78929f392))
+* **api:** update via SDK Studio ([08ff259](https://github.com/sambanova/sambanova-python/commit/08ff25934c37203e6bc9993de84b7166a21afa9c))
+* **api:** update via SDK Studio ([9c0a628](https://github.com/sambanova/sambanova-python/commit/9c0a628ab8ff16c950e36f0b0860496c6e9d4446))
+* **api:** update via SDK Studio ([2270bc9](https://github.com/sambanova/sambanova-python/commit/2270bc96e2cab8c6929d979e3eef75acdf3dbaa5))
+* **api:** update via SDK Studio ([71a1bf7](https://github.com/sambanova/sambanova-python/commit/71a1bf7d84ef0b777d4542f593c5903e73632791))
+* **api:** update via SDK Studio ([c5748bc](https://github.com/sambanova/sambanova-python/commit/c5748bc23e59df9e9c45162758936d0ba13815fb))
+* **api:** update via SDK Studio ([952bf54](https://github.com/sambanova/sambanova-python/commit/952bf548175e2871198d660d44459918cf6fdc36))
+* **api:** update via SDK Studio ([8822e0b](https://github.com/sambanova/sambanova-python/commit/8822e0b26baab120f2199b2c636dc4cafb30b770))
+* **api:** update via SDK Studio ([4f7092e](https://github.com/sambanova/sambanova-python/commit/4f7092e5a12425fe9184dbf6edccae21fa7bd7fc))
+* **api:** update via SDK Studio ([613abda](https://github.com/sambanova/sambanova-python/commit/613abda51d8f885b9822e3e4e921fccc65115431))
+* **api:** update via SDK Studio ([0dec779](https://github.com/sambanova/sambanova-python/commit/0dec779c76da02d76e1685e266d22bbd51379fbb))
+* **api:** update via SDK Studio ([d2b1f86](https://github.com/sambanova/sambanova-python/commit/d2b1f8629143fd1ff289ea353a0b93be100d41d7))
+* **api:** update via SDK Studio ([3095abc](https://github.com/sambanova/sambanova-python/commit/3095abc566a557e7b716d684cfda72d9997e615a))
+* **api:** update via SDK Studio ([19ad118](https://github.com/sambanova/sambanova-python/commit/19ad1188e500ad433eeffb6351757b4c1c1116fd))
+* **api:** update via SDK Studio ([a22fb31](https://github.com/sambanova/sambanova-python/commit/a22fb312aefc6faad4e46968b2a1a58eca13e819))
+* **api:** update via SDK Studio ([7fe7008](https://github.com/sambanova/sambanova-python/commit/7fe7008ac280e3ca6474293ab3f6a809e3ccb8f0))
+* **client:** allow passing `NotGiven` for body ([e9310ba](https://github.com/sambanova/sambanova-python/commit/e9310bab7d7bc916985ea0a028af57b6f1f5b97d))
+* **client:** send `X-Stainless-Read-Timeout` header ([38bd3ec](https://github.com/sambanova/sambanova-python/commit/38bd3ecf20abc00bf88c4e6ed82e3dc844eb27de))
+* improve future compat with pydantic v3 ([4be00eb](https://github.com/sambanova/sambanova-python/commit/4be00ebfcaefd63874fefc876ec50287fef2cdba))
+* **types:** replace List[str] with SequenceNotStr in params ([f587357](https://github.com/sambanova/sambanova-python/commit/f58735725265084d3477b24227796adba47993d9))
+
+
+### Bug Fixes
+
+* asyncify on non-asyncio runtimes ([4d0856a](https://github.com/sambanova/sambanova-python/commit/4d0856aed81c7fe307f25191e5a4d0da8904b3c2))
+* avoid newer type syntax ([0f20a0a](https://github.com/sambanova/sambanova-python/commit/0f20a0a2a04f88dc57a690b6a2c9b3d1e20c1c69))
+* **client:** mark some request bodies as optional ([e9310ba](https://github.com/sambanova/sambanova-python/commit/e9310bab7d7bc916985ea0a028af57b6f1f5b97d))
+
+
+### Chores
+
+* configure new SDK language ([a462fba](https://github.com/sambanova/sambanova-python/commit/a462fba43c387f99d256a6f72df3ad738439480a))
+* configure new SDK language ([b4db4e7](https://github.com/sambanova/sambanova-python/commit/b4db4e7d829e070df4cd86863dbef5fdb279a74a))
+* **internal:** add Sequence related utils ([873a2ab](https://github.com/sambanova/sambanova-python/commit/873a2ab7dd0c6d1062445a4a7bbf1341493aae5b))
+* **internal:** bummp ruff dependency ([970e911](https://github.com/sambanova/sambanova-python/commit/970e91128b2aef6eb5123faeedb4f9530883e831))
+* **internal:** change ci workflow machines ([f23c02f](https://github.com/sambanova/sambanova-python/commit/f23c02f3b4e95cb812fe17b379446cc5e40d5aaf))
+* **internal:** change default timeout to an int ([c1e5298](https://github.com/sambanova/sambanova-python/commit/c1e52987d6a4e2dc608c95aa152c70c5491fa6bd))
+* **internal:** codegen related update ([515e3a2](https://github.com/sambanova/sambanova-python/commit/515e3a2921262c7ff52494e26ef8fb5b8f0d1877))
+* **internal:** fix devcontainers setup ([11a322a](https://github.com/sambanova/sambanova-python/commit/11a322a731645477af13a0087576ce831b127786))
+* **internal:** fix type traversing dictionary params ([169e92d](https://github.com/sambanova/sambanova-python/commit/169e92db7851e824ab6e2aba56507e473bf5aba4))
+* **internal:** minor formatting changes ([05a0775](https://github.com/sambanova/sambanova-python/commit/05a077509f86ae4bfea66c630dacc529996206e7))
+* **internal:** minor style changes ([9f14329](https://github.com/sambanova/sambanova-python/commit/9f14329aea382bf31c0a840c4b153e9b5fd3ebec))
+* **internal:** minor type handling changes ([13086e8](https://github.com/sambanova/sambanova-python/commit/13086e8f9c841d1d049a401028a4dc35377490e8))
+* **internal:** move mypy configurations to `pyproject.toml` file ([af366fc](https://github.com/sambanova/sambanova-python/commit/af366fc27fe22101a0cdddd7379ae0184f0ce863))
+* **internal:** update client tests ([e477af8](https://github.com/sambanova/sambanova-python/commit/e477af825ab8b8a134b22064a9e44010fa0ef750))
+* **internal:** update pydantic dependency ([c99b555](https://github.com/sambanova/sambanova-python/commit/c99b555ec8fb5a61377cf48b7b3443020971e8ff))
+* **internal:** update pyright exclude list ([afbaa11](https://github.com/sambanova/sambanova-python/commit/afbaa11a56ed756c46d542fc6281e8a96ba9f356))
+* minor change to tests ([a211488](https://github.com/sambanova/sambanova-python/commit/a211488edf0dcbb55905a4e428debb522b3896da))
+* **tests:** simplify `get_platform` test ([60da351](https://github.com/sambanova/sambanova-python/commit/60da35196a75dfe1bb5faa960cc510ae9b544330))
+* update github action ([96f6fc9](https://github.com/sambanova/sambanova-python/commit/96f6fc9c8789b3f516075cfb3ddd371764affdb5))
+* update SDK settings ([045d9e5](https://github.com/sambanova/sambanova-python/commit/045d9e57b4f54031e08125f1b47147058c9673e6))
