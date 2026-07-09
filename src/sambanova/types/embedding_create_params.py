@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union
+from typing import Union, Optional
 from typing_extensions import Literal, Required, TypedDict
 
 from .._types import SequenceNotStr
@@ -22,4 +22,10 @@ class EmbeddingCreateParams(TypedDict, total=False):
     """
     The model ID to use See available
     [models](https://docs.sambanova.ai/docs/en/models/sambacloud-models)
+    """
+
+    encoding_format: Optional[Literal["float", "base64"]]
+    """The format to return the embeddings in.
+
+    Can be either `float` or `base64`. Omitted from the request when not set.
     """
