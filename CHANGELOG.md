@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.12.0](https://github.com/sambanova/sambanova-python/compare/v1.11.0...v1.12.0) (2026-07-17)
+
+
+### Features
+
+* add output_text helper for OpenAI compat ([bc17a36](https://github.com/sambanova/sambanova-python/commit/bc17a36598a8729be00084ac9b12fc3f4925edad))
+
 ## [1.11.0](https://github.com/sambanova/sambanova-python/compare/v1.10.0...v1.11.0) (2026-07-08)
 
 
