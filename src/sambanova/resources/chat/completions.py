@@ -160,8 +160,7 @@ class CompletionsResource(SyncAPIResource):
               parameter generates many completions, it can quickly consume your token quota.
               Use carefully and ensure that you have reasonable settings for `max_tokens`.
 
-          parallel_tool_calls: Whether to enable parallel function calling during tool use, This is not yet
-              supported by our models.
+          parallel_tool_calls: Whether to enable parallel function calling during tool use.
 
           presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on
               whether they appear in the text so far, increasing the model's likelihood to
@@ -355,8 +354,7 @@ class CompletionsResource(SyncAPIResource):
               parameter generates many completions, it can quickly consume your token quota.
               Use carefully and ensure that you have reasonable settings for `max_tokens`.
 
-          parallel_tool_calls: Whether to enable parallel function calling during tool use, This is not yet
-              supported by our models.
+          parallel_tool_calls: Whether to enable parallel function calling during tool use.
 
           presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on
               whether they appear in the text so far, increasing the model's likelihood to
@@ -545,8 +543,7 @@ class CompletionsResource(SyncAPIResource):
               parameter generates many completions, it can quickly consume your token quota.
               Use carefully and ensure that you have reasonable settings for `max_tokens`.
 
-          parallel_tool_calls: Whether to enable parallel function calling during tool use, This is not yet
-              supported by our models.
+          parallel_tool_calls: Whether to enable parallel function calling during tool use.
 
           presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on
               whether they appear in the text so far, increasing the model's likelihood to
@@ -863,8 +860,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
               parameter generates many completions, it can quickly consume your token quota.
               Use carefully and ensure that you have reasonable settings for `max_tokens`.
 
-          parallel_tool_calls: Whether to enable parallel function calling during tool use, This is not yet
-              supported by our models.
+          parallel_tool_calls: Whether to enable parallel function calling during tool use.
 
           presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on
               whether they appear in the text so far, increasing the model's likelihood to
@@ -1058,8 +1054,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
               parameter generates many completions, it can quickly consume your token quota.
               Use carefully and ensure that you have reasonable settings for `max_tokens`.
 
-          parallel_tool_calls: Whether to enable parallel function calling during tool use, This is not yet
-              supported by our models.
+          parallel_tool_calls: Whether to enable parallel function calling during tool use.
 
           presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on
               whether they appear in the text so far, increasing the model's likelihood to
@@ -1248,8 +1243,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
               parameter generates many completions, it can quickly consume your token quota.
               Use carefully and ensure that you have reasonable settings for `max_tokens`.
 
-          parallel_tool_calls: Whether to enable parallel function calling during tool use, This is not yet
-              supported by our models.
+          parallel_tool_calls: Whether to enable parallel function calling during tool use.
 
           presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on
               whether they appear in the text so far, increasing the model's likelihood to
