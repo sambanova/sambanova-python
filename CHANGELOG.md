@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.12.1](https://github.com/sambanova/sambanova-python/compare/v1.12.0...v1.12.1) (2026-07-20)
+
+
+### Chores
+
+* verify service-account token swap ([89a2ab6](https://github.com/sambanova/sambanova-python/commit/89a2ab62e450d130a3b91fbfe6589d7f40dcc44a))
+
 ## [1.12.0](https://github.com/sambanova/sambanova-python/compare/v1.11.0...v1.12.0) (2026-07-17)
 
 
