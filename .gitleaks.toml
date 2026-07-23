@@ -1,0 +1,11 @@
+# Gitleaks config for sambanova-python. Extends the built-in default ruleset.
+title = "sambanova-python gitleaks config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Stainless-generated SDK metadata (not credentials)"
+paths = [
+  '''\.stats\.yml$''',
+]
