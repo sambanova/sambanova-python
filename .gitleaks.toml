@@ -1,0 +1,11 @@
+# Gitleaks config for sambanova-python-staging.
+# Extends the built-in default ruleset. Add [allowlist] entries here
+# as false positives surface during the non-blocking rollout. Example:
+#
+# [allowlist]
+# description = "Known-safe paths"
+# paths = ['''docs/.*\.md$''']
+title = "sambanova-python-staging gitleaks config"
+
+[extend]
+useDefault = true
