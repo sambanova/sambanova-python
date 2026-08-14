@@ -9,9 +9,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 0            # full history so the scan is complete
       - name: Install and run gitleaks (non-blocking)
-        continue-on-error: true
+        continue-on-error: true     # reports findings, does not fail the PR yet
         run: |
           VERSION=8.28.0
           curl -sSfL "https://github.com/gitleaks/gitleaks/releases/download/v${VERSION}/gitleaks_${VERSION}_linux_x64.tar.gz" | tar -xz gitleaks
@@ -28,7 +28,7 @@ jobs:
               echo "| --- | --- | --- | --- |"
               jq -r '.[] | "| \(.RuleID) | \(.File) | \(.StartLine) | \(.Commit[0:8]) |"' gitleaks-report.json
               echo ""
-              echo "_Secrets redacted. Findings are historical — clean up rather than delete. Non-blocking during rollout._"
+              echo "_Secrets redacted. Findings are historical — clean up rather than just delete. Non-blocking during rollout._"
             else
               echo "No findings."
             fi
