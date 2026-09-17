@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.13.0](https://github.com/sambanova/sambanova-python/compare/v1.12.1...v1.13.0) (2026-09-17)
+
+
+### Features
+
+* add repetition penalty ([2157dae](https://github.com/sambanova/sambanova-python/commit/2157dae0e67bd501c0a083180a86c6ffc7101c43))
+
 ## [1.12.1](https://github.com/sambanova/sambanova-python/compare/v1.12.0...v1.12.1) (2026-07-20)
 
 
