@@ -82,6 +82,7 @@ class CompletionsResource(SyncAPIResource):
                 "ALLaM-7B-Instruct-preview",
                 "MiniMax-M2.5",
                 "MiniMax-M2.7",
+                "MiniMax-M3",
                 "gemma-3-12b-it",
             ],
         ],
@@ -94,6 +95,7 @@ class CompletionsResource(SyncAPIResource):
         max_tokens: Optional[int] | Omit = omit,
         n: Optional[int] | Omit = omit,
         presence_penalty: Optional[float] | Omit = omit,
+        repetition_penalty: Optional[float] | Omit = omit,
         seed: Optional[int] | Omit = omit,
         stop: Union[Optional[str], SequenceNotStr[str], None] | Omit = omit,
         stream: Optional[Literal[False]] | Omit = omit,
@@ -154,6 +156,10 @@ class CompletionsResource(SyncAPIResource):
           presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on
               whether they appear in the text so far, increasing the model's likelihood to
               talk about new topics. Not currently implemented; accepted for API compatibility
+
+          repetition_penalty: Penalizes repeated tokens. A value of 1.0 applies no penalty; values above 1.0
+              discourage repetition. Only supported for some models (currently MiniMax and
+              gpt-oss models); silently ignored on models that do not support it.
 
           seed: If specified, our system will make a best effort to sample deterministically,
               such that repeated requests with the same `seed` and parameters should return
@@ -237,6 +243,7 @@ class CompletionsResource(SyncAPIResource):
                 "ALLaM-7B-Instruct-preview",
                 "MiniMax-M2.5",
                 "MiniMax-M2.7",
+                "MiniMax-M3",
                 "gemma-3-12b-it",
             ],
         ],
@@ -250,6 +257,7 @@ class CompletionsResource(SyncAPIResource):
         max_tokens: Optional[int] | Omit = omit,
         n: Optional[int] | Omit = omit,
         presence_penalty: Optional[float] | Omit = omit,
+        repetition_penalty: Optional[float] | Omit = omit,
         seed: Optional[int] | Omit = omit,
         stop: Union[Optional[str], SequenceNotStr[str], None] | Omit = omit,
         stream_options: Optional[completion_create_params.StreamOptions] | Omit = omit,
@@ -315,6 +323,10 @@ class CompletionsResource(SyncAPIResource):
               whether they appear in the text so far, increasing the model's likelihood to
               talk about new topics. Not currently implemented; accepted for API compatibility
 
+          repetition_penalty: Penalizes repeated tokens. A value of 1.0 applies no penalty; values above 1.0
+              discourage repetition. Only supported for some models (currently MiniMax and
+              gpt-oss models); silently ignored on models that do not support it.
+
           seed: If specified, our system will make a best effort to sample deterministically,
               such that repeated requests with the same `seed` and parameters should return
               the same result. Determinism is not guaranteed, and you should refer to the
@@ -392,6 +404,7 @@ class CompletionsResource(SyncAPIResource):
                 "ALLaM-7B-Instruct-preview",
                 "MiniMax-M2.5",
                 "MiniMax-M2.7",
+                "MiniMax-M3",
                 "gemma-3-12b-it",
             ],
         ],
@@ -405,6 +418,7 @@ class CompletionsResource(SyncAPIResource):
         max_tokens: Optional[int] | Omit = omit,
         n: Optional[int] | Omit = omit,
         presence_penalty: Optional[float] | Omit = omit,
+        repetition_penalty: Optional[float] | Omit = omit,
         seed: Optional[int] | Omit = omit,
         stop: Union[Optional[str], SequenceNotStr[str], None] | Omit = omit,
         stream_options: Optional[completion_create_params.StreamOptions] | Omit = omit,
@@ -469,6 +483,10 @@ class CompletionsResource(SyncAPIResource):
           presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on
               whether they appear in the text so far, increasing the model's likelihood to
               talk about new topics. Not currently implemented; accepted for API compatibility
+
+          repetition_penalty: Penalizes repeated tokens. A value of 1.0 applies no penalty; values above 1.0
+              discourage repetition. Only supported for some models (currently MiniMax and
+              gpt-oss models); silently ignored on models that do not support it.
 
           seed: If specified, our system will make a best effort to sample deterministically,
               such that repeated requests with the same `seed` and parameters should return
@@ -547,6 +565,7 @@ class CompletionsResource(SyncAPIResource):
                 "ALLaM-7B-Instruct-preview",
                 "MiniMax-M2.5",
                 "MiniMax-M2.7",
+                "MiniMax-M3",
                 "gemma-3-12b-it",
             ],
         ],
@@ -559,6 +578,7 @@ class CompletionsResource(SyncAPIResource):
         max_tokens: Optional[int] | Omit = omit,
         n: Optional[int] | Omit = omit,
         presence_penalty: Optional[float] | Omit = omit,
+        repetition_penalty: Optional[float] | Omit = omit,
         seed: Optional[int] | Omit = omit,
         stop: Union[Optional[str], SequenceNotStr[str], None] | Omit = omit,
         stream: Optional[Literal[False]] | Literal[True] | Omit = omit,
@@ -588,6 +608,7 @@ class CompletionsResource(SyncAPIResource):
                     "max_tokens": max_tokens,
                     "n": n,
                     "presence_penalty": presence_penalty,
+                    "repetition_penalty": repetition_penalty,
                     "seed": seed,
                     "stop": stop,
                     "stream": stream,
@@ -668,6 +689,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
                 "ALLaM-7B-Instruct-preview",
                 "MiniMax-M2.5",
                 "MiniMax-M2.7",
+                "MiniMax-M3",
                 "gemma-3-12b-it",
             ],
         ],
@@ -680,6 +702,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
         max_tokens: Optional[int] | Omit = omit,
         n: Optional[int] | Omit = omit,
         presence_penalty: Optional[float] | Omit = omit,
+        repetition_penalty: Optional[float] | Omit = omit,
         seed: Optional[int] | Omit = omit,
         stop: Union[Optional[str], SequenceNotStr[str], None] | Omit = omit,
         stream: Optional[Literal[False]] | Omit = omit,
@@ -740,6 +763,10 @@ class AsyncCompletionsResource(AsyncAPIResource):
           presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on
               whether they appear in the text so far, increasing the model's likelihood to
               talk about new topics. Not currently implemented; accepted for API compatibility
+
+          repetition_penalty: Penalizes repeated tokens. A value of 1.0 applies no penalty; values above 1.0
+              discourage repetition. Only supported for some models (currently MiniMax and
+              gpt-oss models); silently ignored on models that do not support it.
 
           seed: If specified, our system will make a best effort to sample deterministically,
               such that repeated requests with the same `seed` and parameters should return
@@ -823,6 +850,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
                 "ALLaM-7B-Instruct-preview",
                 "MiniMax-M2.5",
                 "MiniMax-M2.7",
+                "MiniMax-M3",
                 "gemma-3-12b-it",
             ],
         ],
@@ -836,6 +864,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
         max_tokens: Optional[int] | Omit = omit,
         n: Optional[int] | Omit = omit,
         presence_penalty: Optional[float] | Omit = omit,
+        repetition_penalty: Optional[float] | Omit = omit,
         seed: Optional[int] | Omit = omit,
         stop: Union[Optional[str], SequenceNotStr[str], None] | Omit = omit,
         stream_options: Optional[completion_create_params.StreamOptions] | Omit = omit,
@@ -901,6 +930,10 @@ class AsyncCompletionsResource(AsyncAPIResource):
               whether they appear in the text so far, increasing the model's likelihood to
               talk about new topics. Not currently implemented; accepted for API compatibility
 
+          repetition_penalty: Penalizes repeated tokens. A value of 1.0 applies no penalty; values above 1.0
+              discourage repetition. Only supported for some models (currently MiniMax and
+              gpt-oss models); silently ignored on models that do not support it.
+
           seed: If specified, our system will make a best effort to sample deterministically,
               such that repeated requests with the same `seed` and parameters should return
               the same result. Determinism is not guaranteed, and you should refer to the
@@ -978,6 +1011,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
                 "ALLaM-7B-Instruct-preview",
                 "MiniMax-M2.5",
                 "MiniMax-M2.7",
+                "MiniMax-M3",
                 "gemma-3-12b-it",
             ],
         ],
@@ -991,6 +1025,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
         max_tokens: Optional[int] | Omit = omit,
         n: Optional[int] | Omit = omit,
         presence_penalty: Optional[float] | Omit = omit,
+        repetition_penalty: Optional[float] | Omit = omit,
         seed: Optional[int] | Omit = omit,
         stop: Union[Optional[str], SequenceNotStr[str], None] | Omit = omit,
         stream_options: Optional[completion_create_params.StreamOptions] | Omit = omit,
@@ -1055,6 +1090,10 @@ class AsyncCompletionsResource(AsyncAPIResource):
           presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on
               whether they appear in the text so far, increasing the model's likelihood to
               talk about new topics. Not currently implemented; accepted for API compatibility
+
+          repetition_penalty: Penalizes repeated tokens. A value of 1.0 applies no penalty; values above 1.0
+              discourage repetition. Only supported for some models (currently MiniMax and
+              gpt-oss models); silently ignored on models that do not support it.
 
           seed: If specified, our system will make a best effort to sample deterministically,
               such that repeated requests with the same `seed` and parameters should return
@@ -1133,6 +1172,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
                 "ALLaM-7B-Instruct-preview",
                 "MiniMax-M2.5",
                 "MiniMax-M2.7",
+                "MiniMax-M3",
                 "gemma-3-12b-it",
             ],
         ],
@@ -1145,6 +1185,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
         max_tokens: Optional[int] | Omit = omit,
         n: Optional[int] | Omit = omit,
         presence_penalty: Optional[float] | Omit = omit,
+        repetition_penalty: Optional[float] | Omit = omit,
         seed: Optional[int] | Omit = omit,
         stop: Union[Optional[str], SequenceNotStr[str], None] | Omit = omit,
         stream: Optional[Literal[False]] | Literal[True] | Omit = omit,
@@ -1174,6 +1215,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
                     "max_tokens": max_tokens,
                     "n": n,
                     "presence_penalty": presence_penalty,
+                    "repetition_penalty": repetition_penalty,
                     "seed": seed,
                     "stop": stop,
                     "stream": stream,

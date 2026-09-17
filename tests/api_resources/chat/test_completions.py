@@ -51,6 +51,7 @@ class TestCompletions:
             parallel_tool_calls=True,
             presence_penalty=-2,
             reasoning_effort="low",
+            repetition_penalty=1,
             response_format={
                 "json_schema": {
                     "name": "User",
@@ -167,6 +168,7 @@ class TestCompletions:
             parallel_tool_calls=True,
             presence_penalty=-2,
             reasoning_effort="low",
+            repetition_penalty=1,
             response_format={
                 "json_schema": {
                     "name": "User",
@@ -287,6 +289,7 @@ class TestAsyncCompletions:
             parallel_tool_calls=True,
             presence_penalty=-2,
             reasoning_effort="low",
+            repetition_penalty=1,
             response_format={
                 "json_schema": {
                     "name": "User",
@@ -403,6 +406,7 @@ class TestAsyncCompletions:
             parallel_tool_calls=True,
             presence_penalty=-2,
             reasoning_effort="low",
+            repetition_penalty=1,
             response_format={
                 "json_schema": {
                     "name": "User",
