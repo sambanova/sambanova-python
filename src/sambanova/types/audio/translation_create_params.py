@@ -2,20 +2,15 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import List, Union, Optional
 from typing_extensions import Literal, Required, TypedDict
 
 from ..._types import FileTypes
 
-__all__ = [
-    "TranslationCreateParamsBase",
-    "StreamOptions",
-    "TranslationCreateParamsNonStreaming",
-    "TranslationCreateParamsStreaming",
-]
+__all__ = ["TranslationCreateParams"]
 
 
-class TranslationCreateParamsBase(TypedDict, total=False):
+class TranslationCreateParams(TypedDict, total=False):
     file: Required[FileTypes]
     """
     The audio file object to transcribe or translate, in one of these formats: FLAC,
@@ -145,25 +140,17 @@ class TranslationCreateParamsBase(TypedDict, total=False):
     hesitations.”
     """
 
-    response_format: Literal["json", "text"]
-    """Output format JSON or text."""
+    response_format: Literal["json", "text", "verbose_json", "srt", "vtt"]
+    """The format of the output.
 
-    stream_options: Optional[StreamOptions]
-    """Optional settings that apply when `stream` is true."""
+    `json` and `verbose_json` return a JSON object (`verbose_json` adds `task`,
+    `language`, `duration` and `segments`); `text`, `srt` and `vtt` return plain
+    text.
+    """
 
+    timestamp_granularities: List[Literal["segment"]]
+    """The timestamp granularities to populate.
 
-class StreamOptions(TypedDict, total=False):
-    """Optional settings that apply when `stream` is true."""
-
-    include_usage: bool
-
-
-class TranslationCreateParamsNonStreaming(TranslationCreateParamsBase, total=False):
-    stream: Literal[False]
-
-
-class TranslationCreateParamsStreaming(TranslationCreateParamsBase):
-    stream: Required[Literal[True]]
-
-
-TranslationCreateParams = Union[TranslationCreateParamsNonStreaming, TranslationCreateParamsStreaming]
+    Requires `response_format` set to `verbose_json`. Only `segment` is supported;
+    segment timings are approximate within each 30-second audio chunk.
+    """

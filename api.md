@@ -44,37 +44,35 @@ Methods:
 
 # Audio
 
+Types:
+
+```python
+from sambanova.types import TranscriptionSegment
+```
+
 ## Transcriptions
 
 Types:
 
 ```python
-from sambanova.types.audio import (
-    TranscriptionResponse,
-    TranscriptionStreamResponse,
-    TranscriptionCreateResponse,
-)
+from sambanova.types.audio import TranscriptionResponse
 ```
 
 Methods:
 
-- <code title="post /audio/transcriptions">client.audio.transcriptions.<a href="./src/sambanova/resources/audio/transcriptions.py">create</a>(\*\*<a href="src/sambanova/types/audio/transcription_create_params.py">params</a>) -> <a href="./src/sambanova/types/audio/transcription_create_response.py">TranscriptionCreateResponse</a></code>
+- <code title="post /audio/transcriptions">client.audio.transcriptions.<a href="./src/sambanova/resources/audio/transcriptions.py">create</a>(\*\*<a href="src/sambanova/types/audio/transcription_create_params.py">params</a>) -> <a href="./src/sambanova/types/audio/transcription_response.py">TranscriptionResponse</a></code>
 
 ## Translations
 
 Types:
 
 ```python
-from sambanova.types.audio import (
-    TranslationResponse,
-    TranslationStreamResponse,
-    TranslationCreateResponse,
-)
+from sambanova.types.audio import TranslationResponse
 ```
 
 Methods:
 
-- <code title="post /audio/translations">client.audio.translations.<a href="./src/sambanova/resources/audio/translations.py">create</a>(\*\*<a href="src/sambanova/types/audio/translation_create_params.py">params</a>) -> <a href="./src/sambanova/types/audio/translation_create_response.py">TranslationCreateResponse</a></code>
+- <code title="post /audio/translations">client.audio.translations.<a href="./src/sambanova/resources/audio/translations.py">create</a>(\*\*<a href="src/sambanova/types/audio/translation_create_params.py">params</a>) -> <a href="./src/sambanova/types/audio/translation_response.py">TranslationResponse</a></code>
 
 # Responses
 

@@ -42,7 +42,7 @@ class TestResponses:
                     "type": "message",
                 },
             ],
-            model="gpt-oss-120b",
+            model="MiniMax-M3",
         )
         assert_matches_type(ResponseCreateResponse, response, path=["response"])
 
@@ -98,7 +98,7 @@ class TestResponses:
                     "status": "in_progress",
                 },
             ],
-            model="gpt-oss-120b",
+            model="MiniMax-M3",
             background=True,
             frequency_penalty=-2,
             instructions="instructions",
@@ -165,7 +165,7 @@ class TestResponses:
                     "type": "message",
                 },
             ],
-            model="gpt-oss-120b",
+            model="MiniMax-M3",
         )
 
         assert http_response.is_closed is True
@@ -198,7 +198,7 @@ class TestResponses:
                     "type": "message",
                 },
             ],
-            model="gpt-oss-120b",
+            model="MiniMax-M3",
         ) as http_response:
             assert not http_response.is_closed
             assert http_response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -233,7 +233,7 @@ class TestResponses:
                     "type": "message",
                 },
             ],
-            model="gpt-oss-120b",
+            model="MiniMax-M3",
             stream=True,
         )
         response_stream.response.close()
@@ -290,7 +290,7 @@ class TestResponses:
                     "status": "in_progress",
                 },
             ],
-            model="gpt-oss-120b",
+            model="MiniMax-M3",
             stream=True,
             background=True,
             frequency_penalty=-2,
@@ -357,7 +357,7 @@ class TestResponses:
                     "type": "message",
                 },
             ],
-            model="gpt-oss-120b",
+            model="MiniMax-M3",
             stream=True,
         )
 
@@ -390,7 +390,7 @@ class TestResponses:
                     "type": "message",
                 },
             ],
-            model="gpt-oss-120b",
+            model="MiniMax-M3",
             stream=True,
         ) as response:
             assert not response.is_closed
@@ -432,7 +432,7 @@ class TestAsyncResponses:
                     "type": "message",
                 },
             ],
-            model="gpt-oss-120b",
+            model="MiniMax-M3",
         )
         assert_matches_type(ResponseCreateResponse, response, path=["response"])
 
@@ -488,7 +488,7 @@ class TestAsyncResponses:
                     "status": "in_progress",
                 },
             ],
-            model="gpt-oss-120b",
+            model="MiniMax-M3",
             background=True,
             frequency_penalty=-2,
             instructions="instructions",
@@ -555,7 +555,7 @@ class TestAsyncResponses:
                     "type": "message",
                 },
             ],
-            model="gpt-oss-120b",
+            model="MiniMax-M3",
         )
 
         assert http_response.is_closed is True
@@ -588,7 +588,7 @@ class TestAsyncResponses:
                     "type": "message",
                 },
             ],
-            model="gpt-oss-120b",
+            model="MiniMax-M3",
         ) as http_response:
             assert not http_response.is_closed
             assert http_response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -623,7 +623,7 @@ class TestAsyncResponses:
                     "type": "message",
                 },
             ],
-            model="gpt-oss-120b",
+            model="MiniMax-M3",
             stream=True,
         )
         await response_stream.response.aclose()
@@ -680,7 +680,7 @@ class TestAsyncResponses:
                     "status": "in_progress",
                 },
             ],
-            model="gpt-oss-120b",
+            model="MiniMax-M3",
             stream=True,
             background=True,
             frequency_penalty=-2,
@@ -747,7 +747,7 @@ class TestAsyncResponses:
                     "type": "message",
                 },
             ],
-            model="gpt-oss-120b",
+            model="MiniMax-M3",
             stream=True,
         )
 
@@ -780,7 +780,7 @@ class TestAsyncResponses:
                     "type": "message",
                 },
             ],
-            model="gpt-oss-120b",
+            model="MiniMax-M3",
             stream=True,
         ) as response:
             assert not response.is_closed

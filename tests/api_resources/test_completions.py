@@ -30,7 +30,6 @@ class TestCompletions:
         completion = client.completions.create(
             model="gpt-oss-120b",
             prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|> You are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|> create a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>",
-            do_sample=True,
             frequency_penalty=-2,
             logit_bias={},
             logprobs=True,
@@ -91,7 +90,6 @@ class TestCompletions:
             model="gpt-oss-120b",
             prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|> You are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|> create a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>",
             stream=True,
-            do_sample=True,
             frequency_penalty=-2,
             logit_bias={},
             logprobs=True,
@@ -156,7 +154,6 @@ class TestAsyncCompletions:
         completion = await async_client.completions.create(
             model="gpt-oss-120b",
             prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|> You are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|> create a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>",
-            do_sample=True,
             frequency_penalty=-2,
             logit_bias={},
             logprobs=True,
@@ -217,7 +214,6 @@ class TestAsyncCompletions:
             model="gpt-oss-120b",
             prompt="<|begin_of_text|><|start_header_id|>system<|end_header_id|> You are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|> create a poem using palindromes<|eot_id|><|start_header_id|>assistant<|end_header_id|>",
             stream=True,
-            do_sample=True,
             frequency_penalty=-2,
             logit_bias={},
             logprobs=True,
