@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.14.0](https://github.com/sambanova/sambanova-python/compare/v1.13.0...v1.14.0) (2026-10-27)
+
+
+### Features
+
+* strict request params, verbose_json audio formats, drop audio streaming ([8b7cc8b](https://github.com/sambanova/sambanova-python/commit/8b7cc8b44a82726ff1e759c65f4541adbebb464e))
+
 ## [1.13.0](https://github.com/sambanova/sambanova-python/compare/v1.12.1...v1.13.0) (2026-09-17)
 
 
