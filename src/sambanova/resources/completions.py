@@ -53,41 +53,15 @@ class CompletionsResource(SyncAPIResource):
         model: Union[
             str,
             Literal[
-                "Meta-Llama-3.3-70B-Instruct",
-                "Meta-Llama-3.2-1B-Instruct",
-                "Meta-Llama-3.2-3B-Instruct",
-                "Llama-3.2-11B-Vision-Instruct",
-                "Llama-3.2-90B-Vision-Instruct",
-                "Meta-Llama-3.1-8B-Instruct",
-                "Meta-Llama-3.1-70B-Instruct",
-                "Meta-Llama-3.1-405B-Instruct",
-                "Qwen2.5-Coder-32B-Instruct",
-                "Qwen2.5-72B-Instruct",
-                "QwQ-32B-Preview",
-                "Meta-Llama-Guard-3-8B",
-                "DeepSeek-R1",
-                "DeepSeek-R1-0528",
-                "DeepSeek-V3-0324",
                 "DeepSeek-V3.1",
-                "DeepSeek-V3.1-cb",
-                "DeepSeek-V3.1-Terminus",
                 "DeepSeek-V3.2",
-                "DeepSeek-R1-Distill-Llama-70B",
-                "Llama-4-Maverick-17B-128E-Instruct",
-                "Llama-4-Scout-17B-16E-Instruct",
-                "Qwen3-32B",
-                "Qwen3-235B",
-                "Llama-3.3-Swallow-70B-Instruct-v0.4",
-                "gpt-oss-120b",
-                "ALLaM-7B-Instruct-preview",
-                "MiniMax-M2.5",
-                "MiniMax-M2.7",
+                "Meta-Llama-3.3-70B-Instruct",
                 "MiniMax-M3",
-                "gemma-3-12b-it",
+                "MiniMax-M3.1-Flash",
+                "gpt-oss-120b",
             ],
         ],
         prompt: str,
-        do_sample: Optional[bool] | Omit = omit,
         frequency_penalty: float | Omit = omit,
         logit_bias: Optional[object] | Omit = omit,
         logprobs: Optional[bool] | Omit = omit,
@@ -120,9 +94,6 @@ class CompletionsResource(SyncAPIResource):
               [models](https://docs.sambanova.ai/docs/en/models/sambacloud-models)
 
           prompt: Prompt to send to the model.
-
-          do_sample: If true, sampling is enabled during output generation. If false, deterministic
-              decoding is used.
 
           frequency_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on their
               existing frequency in the text so far, decreasing the model's likelihood to
@@ -214,42 +185,16 @@ class CompletionsResource(SyncAPIResource):
         model: Union[
             str,
             Literal[
-                "Meta-Llama-3.3-70B-Instruct",
-                "Meta-Llama-3.2-1B-Instruct",
-                "Meta-Llama-3.2-3B-Instruct",
-                "Llama-3.2-11B-Vision-Instruct",
-                "Llama-3.2-90B-Vision-Instruct",
-                "Meta-Llama-3.1-8B-Instruct",
-                "Meta-Llama-3.1-70B-Instruct",
-                "Meta-Llama-3.1-405B-Instruct",
-                "Qwen2.5-Coder-32B-Instruct",
-                "Qwen2.5-72B-Instruct",
-                "QwQ-32B-Preview",
-                "Meta-Llama-Guard-3-8B",
-                "DeepSeek-R1",
-                "DeepSeek-R1-0528",
-                "DeepSeek-V3-0324",
                 "DeepSeek-V3.1",
-                "DeepSeek-V3.1-cb",
-                "DeepSeek-V3.1-Terminus",
                 "DeepSeek-V3.2",
-                "DeepSeek-R1-Distill-Llama-70B",
-                "Llama-4-Maverick-17B-128E-Instruct",
-                "Llama-4-Scout-17B-16E-Instruct",
-                "Qwen3-32B",
-                "Qwen3-235B",
-                "Llama-3.3-Swallow-70B-Instruct-v0.4",
-                "gpt-oss-120b",
-                "ALLaM-7B-Instruct-preview",
-                "MiniMax-M2.5",
-                "MiniMax-M2.7",
+                "Meta-Llama-3.3-70B-Instruct",
                 "MiniMax-M3",
-                "gemma-3-12b-it",
+                "MiniMax-M3.1-Flash",
+                "gpt-oss-120b",
             ],
         ],
         prompt: str,
         stream: Literal[True],
-        do_sample: Optional[bool] | Omit = omit,
         frequency_penalty: float | Omit = omit,
         logit_bias: Optional[object] | Omit = omit,
         logprobs: Optional[bool] | Omit = omit,
@@ -287,9 +232,6 @@ class CompletionsResource(SyncAPIResource):
               as they become available, with the stream terminated by a `data: [DONE]`
               message.
 
-          do_sample: If true, sampling is enabled during output generation. If false, deterministic
-              decoding is used.
-
           frequency_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on their
               existing frequency in the text so far, decreasing the model's likelihood to
               repeat the same line verbatim. Not currently implemented; accepted for API
@@ -375,42 +317,16 @@ class CompletionsResource(SyncAPIResource):
         model: Union[
             str,
             Literal[
-                "Meta-Llama-3.3-70B-Instruct",
-                "Meta-Llama-3.2-1B-Instruct",
-                "Meta-Llama-3.2-3B-Instruct",
-                "Llama-3.2-11B-Vision-Instruct",
-                "Llama-3.2-90B-Vision-Instruct",
-                "Meta-Llama-3.1-8B-Instruct",
-                "Meta-Llama-3.1-70B-Instruct",
-                "Meta-Llama-3.1-405B-Instruct",
-                "Qwen2.5-Coder-32B-Instruct",
-                "Qwen2.5-72B-Instruct",
-                "QwQ-32B-Preview",
-                "Meta-Llama-Guard-3-8B",
-                "DeepSeek-R1",
-                "DeepSeek-R1-0528",
-                "DeepSeek-V3-0324",
                 "DeepSeek-V3.1",
-                "DeepSeek-V3.1-cb",
-                "DeepSeek-V3.1-Terminus",
                 "DeepSeek-V3.2",
-                "DeepSeek-R1-Distill-Llama-70B",
-                "Llama-4-Maverick-17B-128E-Instruct",
-                "Llama-4-Scout-17B-16E-Instruct",
-                "Qwen3-32B",
-                "Qwen3-235B",
-                "Llama-3.3-Swallow-70B-Instruct-v0.4",
-                "gpt-oss-120b",
-                "ALLaM-7B-Instruct-preview",
-                "MiniMax-M2.5",
-                "MiniMax-M2.7",
+                "Meta-Llama-3.3-70B-Instruct",
                 "MiniMax-M3",
-                "gemma-3-12b-it",
+                "MiniMax-M3.1-Flash",
+                "gpt-oss-120b",
             ],
         ],
         prompt: str,
         stream: bool,
-        do_sample: Optional[bool] | Omit = omit,
         frequency_penalty: float | Omit = omit,
         logit_bias: Optional[object] | Omit = omit,
         logprobs: Optional[bool] | Omit = omit,
@@ -447,9 +363,6 @@ class CompletionsResource(SyncAPIResource):
               [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format)
               as they become available, with the stream terminated by a `data: [DONE]`
               message.
-
-          do_sample: If true, sampling is enabled during output generation. If false, deterministic
-              decoding is used.
 
           frequency_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on their
               existing frequency in the text so far, decreasing the model's likelihood to
@@ -536,41 +449,15 @@ class CompletionsResource(SyncAPIResource):
         model: Union[
             str,
             Literal[
-                "Meta-Llama-3.3-70B-Instruct",
-                "Meta-Llama-3.2-1B-Instruct",
-                "Meta-Llama-3.2-3B-Instruct",
-                "Llama-3.2-11B-Vision-Instruct",
-                "Llama-3.2-90B-Vision-Instruct",
-                "Meta-Llama-3.1-8B-Instruct",
-                "Meta-Llama-3.1-70B-Instruct",
-                "Meta-Llama-3.1-405B-Instruct",
-                "Qwen2.5-Coder-32B-Instruct",
-                "Qwen2.5-72B-Instruct",
-                "QwQ-32B-Preview",
-                "Meta-Llama-Guard-3-8B",
-                "DeepSeek-R1",
-                "DeepSeek-R1-0528",
-                "DeepSeek-V3-0324",
                 "DeepSeek-V3.1",
-                "DeepSeek-V3.1-cb",
-                "DeepSeek-V3.1-Terminus",
                 "DeepSeek-V3.2",
-                "DeepSeek-R1-Distill-Llama-70B",
-                "Llama-4-Maverick-17B-128E-Instruct",
-                "Llama-4-Scout-17B-16E-Instruct",
-                "Qwen3-32B",
-                "Qwen3-235B",
-                "Llama-3.3-Swallow-70B-Instruct-v0.4",
-                "gpt-oss-120b",
-                "ALLaM-7B-Instruct-preview",
-                "MiniMax-M2.5",
-                "MiniMax-M2.7",
+                "Meta-Llama-3.3-70B-Instruct",
                 "MiniMax-M3",
-                "gemma-3-12b-it",
+                "MiniMax-M3.1-Flash",
+                "gpt-oss-120b",
             ],
         ],
         prompt: str,
-        do_sample: Optional[bool] | Omit = omit,
         frequency_penalty: float | Omit = omit,
         logit_bias: Optional[object] | Omit = omit,
         logprobs: Optional[bool] | Omit = omit,
@@ -600,7 +487,6 @@ class CompletionsResource(SyncAPIResource):
                 {
                     "model": model,
                     "prompt": prompt,
-                    "do_sample": do_sample,
                     "frequency_penalty": frequency_penalty,
                     "logit_bias": logit_bias,
                     "logprobs": logprobs,
@@ -660,41 +546,15 @@ class AsyncCompletionsResource(AsyncAPIResource):
         model: Union[
             str,
             Literal[
-                "Meta-Llama-3.3-70B-Instruct",
-                "Meta-Llama-3.2-1B-Instruct",
-                "Meta-Llama-3.2-3B-Instruct",
-                "Llama-3.2-11B-Vision-Instruct",
-                "Llama-3.2-90B-Vision-Instruct",
-                "Meta-Llama-3.1-8B-Instruct",
-                "Meta-Llama-3.1-70B-Instruct",
-                "Meta-Llama-3.1-405B-Instruct",
-                "Qwen2.5-Coder-32B-Instruct",
-                "Qwen2.5-72B-Instruct",
-                "QwQ-32B-Preview",
-                "Meta-Llama-Guard-3-8B",
-                "DeepSeek-R1",
-                "DeepSeek-R1-0528",
-                "DeepSeek-V3-0324",
                 "DeepSeek-V3.1",
-                "DeepSeek-V3.1-cb",
-                "DeepSeek-V3.1-Terminus",
                 "DeepSeek-V3.2",
-                "DeepSeek-R1-Distill-Llama-70B",
-                "Llama-4-Maverick-17B-128E-Instruct",
-                "Llama-4-Scout-17B-16E-Instruct",
-                "Qwen3-32B",
-                "Qwen3-235B",
-                "Llama-3.3-Swallow-70B-Instruct-v0.4",
-                "gpt-oss-120b",
-                "ALLaM-7B-Instruct-preview",
-                "MiniMax-M2.5",
-                "MiniMax-M2.7",
+                "Meta-Llama-3.3-70B-Instruct",
                 "MiniMax-M3",
-                "gemma-3-12b-it",
+                "MiniMax-M3.1-Flash",
+                "gpt-oss-120b",
             ],
         ],
         prompt: str,
-        do_sample: Optional[bool] | Omit = omit,
         frequency_penalty: float | Omit = omit,
         logit_bias: Optional[object] | Omit = omit,
         logprobs: Optional[bool] | Omit = omit,
@@ -727,9 +587,6 @@ class AsyncCompletionsResource(AsyncAPIResource):
               [models](https://docs.sambanova.ai/docs/en/models/sambacloud-models)
 
           prompt: Prompt to send to the model.
-
-          do_sample: If true, sampling is enabled during output generation. If false, deterministic
-              decoding is used.
 
           frequency_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on their
               existing frequency in the text so far, decreasing the model's likelihood to
@@ -821,42 +678,16 @@ class AsyncCompletionsResource(AsyncAPIResource):
         model: Union[
             str,
             Literal[
-                "Meta-Llama-3.3-70B-Instruct",
-                "Meta-Llama-3.2-1B-Instruct",
-                "Meta-Llama-3.2-3B-Instruct",
-                "Llama-3.2-11B-Vision-Instruct",
-                "Llama-3.2-90B-Vision-Instruct",
-                "Meta-Llama-3.1-8B-Instruct",
-                "Meta-Llama-3.1-70B-Instruct",
-                "Meta-Llama-3.1-405B-Instruct",
-                "Qwen2.5-Coder-32B-Instruct",
-                "Qwen2.5-72B-Instruct",
-                "QwQ-32B-Preview",
-                "Meta-Llama-Guard-3-8B",
-                "DeepSeek-R1",
-                "DeepSeek-R1-0528",
-                "DeepSeek-V3-0324",
                 "DeepSeek-V3.1",
-                "DeepSeek-V3.1-cb",
-                "DeepSeek-V3.1-Terminus",
                 "DeepSeek-V3.2",
-                "DeepSeek-R1-Distill-Llama-70B",
-                "Llama-4-Maverick-17B-128E-Instruct",
-                "Llama-4-Scout-17B-16E-Instruct",
-                "Qwen3-32B",
-                "Qwen3-235B",
-                "Llama-3.3-Swallow-70B-Instruct-v0.4",
-                "gpt-oss-120b",
-                "ALLaM-7B-Instruct-preview",
-                "MiniMax-M2.5",
-                "MiniMax-M2.7",
+                "Meta-Llama-3.3-70B-Instruct",
                 "MiniMax-M3",
-                "gemma-3-12b-it",
+                "MiniMax-M3.1-Flash",
+                "gpt-oss-120b",
             ],
         ],
         prompt: str,
         stream: Literal[True],
-        do_sample: Optional[bool] | Omit = omit,
         frequency_penalty: float | Omit = omit,
         logit_bias: Optional[object] | Omit = omit,
         logprobs: Optional[bool] | Omit = omit,
@@ -894,9 +725,6 @@ class AsyncCompletionsResource(AsyncAPIResource):
               as they become available, with the stream terminated by a `data: [DONE]`
               message.
 
-          do_sample: If true, sampling is enabled during output generation. If false, deterministic
-              decoding is used.
-
           frequency_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on their
               existing frequency in the text so far, decreasing the model's likelihood to
               repeat the same line verbatim. Not currently implemented; accepted for API
@@ -982,42 +810,16 @@ class AsyncCompletionsResource(AsyncAPIResource):
         model: Union[
             str,
             Literal[
-                "Meta-Llama-3.3-70B-Instruct",
-                "Meta-Llama-3.2-1B-Instruct",
-                "Meta-Llama-3.2-3B-Instruct",
-                "Llama-3.2-11B-Vision-Instruct",
-                "Llama-3.2-90B-Vision-Instruct",
-                "Meta-Llama-3.1-8B-Instruct",
-                "Meta-Llama-3.1-70B-Instruct",
-                "Meta-Llama-3.1-405B-Instruct",
-                "Qwen2.5-Coder-32B-Instruct",
-                "Qwen2.5-72B-Instruct",
-                "QwQ-32B-Preview",
-                "Meta-Llama-Guard-3-8B",
-                "DeepSeek-R1",
-                "DeepSeek-R1-0528",
-                "DeepSeek-V3-0324",
                 "DeepSeek-V3.1",
-                "DeepSeek-V3.1-cb",
-                "DeepSeek-V3.1-Terminus",
                 "DeepSeek-V3.2",
-                "DeepSeek-R1-Distill-Llama-70B",
-                "Llama-4-Maverick-17B-128E-Instruct",
-                "Llama-4-Scout-17B-16E-Instruct",
-                "Qwen3-32B",
-                "Qwen3-235B",
-                "Llama-3.3-Swallow-70B-Instruct-v0.4",
-                "gpt-oss-120b",
-                "ALLaM-7B-Instruct-preview",
-                "MiniMax-M2.5",
-                "MiniMax-M2.7",
+                "Meta-Llama-3.3-70B-Instruct",
                 "MiniMax-M3",
-                "gemma-3-12b-it",
+                "MiniMax-M3.1-Flash",
+                "gpt-oss-120b",
             ],
         ],
         prompt: str,
         stream: bool,
-        do_sample: Optional[bool] | Omit = omit,
         frequency_penalty: float | Omit = omit,
         logit_bias: Optional[object] | Omit = omit,
         logprobs: Optional[bool] | Omit = omit,
@@ -1054,9 +856,6 @@ class AsyncCompletionsResource(AsyncAPIResource):
               [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format)
               as they become available, with the stream terminated by a `data: [DONE]`
               message.
-
-          do_sample: If true, sampling is enabled during output generation. If false, deterministic
-              decoding is used.
 
           frequency_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on their
               existing frequency in the text so far, decreasing the model's likelihood to
@@ -1143,41 +942,15 @@ class AsyncCompletionsResource(AsyncAPIResource):
         model: Union[
             str,
             Literal[
-                "Meta-Llama-3.3-70B-Instruct",
-                "Meta-Llama-3.2-1B-Instruct",
-                "Meta-Llama-3.2-3B-Instruct",
-                "Llama-3.2-11B-Vision-Instruct",
-                "Llama-3.2-90B-Vision-Instruct",
-                "Meta-Llama-3.1-8B-Instruct",
-                "Meta-Llama-3.1-70B-Instruct",
-                "Meta-Llama-3.1-405B-Instruct",
-                "Qwen2.5-Coder-32B-Instruct",
-                "Qwen2.5-72B-Instruct",
-                "QwQ-32B-Preview",
-                "Meta-Llama-Guard-3-8B",
-                "DeepSeek-R1",
-                "DeepSeek-R1-0528",
-                "DeepSeek-V3-0324",
                 "DeepSeek-V3.1",
-                "DeepSeek-V3.1-cb",
-                "DeepSeek-V3.1-Terminus",
                 "DeepSeek-V3.2",
-                "DeepSeek-R1-Distill-Llama-70B",
-                "Llama-4-Maverick-17B-128E-Instruct",
-                "Llama-4-Scout-17B-16E-Instruct",
-                "Qwen3-32B",
-                "Qwen3-235B",
-                "Llama-3.3-Swallow-70B-Instruct-v0.4",
-                "gpt-oss-120b",
-                "ALLaM-7B-Instruct-preview",
-                "MiniMax-M2.5",
-                "MiniMax-M2.7",
+                "Meta-Llama-3.3-70B-Instruct",
                 "MiniMax-M3",
-                "gemma-3-12b-it",
+                "MiniMax-M3.1-Flash",
+                "gpt-oss-120b",
             ],
         ],
         prompt: str,
-        do_sample: Optional[bool] | Omit = omit,
         frequency_penalty: float | Omit = omit,
         logit_bias: Optional[object] | Omit = omit,
         logprobs: Optional[bool] | Omit = omit,
@@ -1207,7 +980,6 @@ class AsyncCompletionsResource(AsyncAPIResource):
                 {
                     "model": model,
                     "prompt": prompt,
-                    "do_sample": do_sample,
                     "frequency_penalty": frequency_penalty,
                     "logit_bias": logit_bias,
                     "logprobs": logprobs,

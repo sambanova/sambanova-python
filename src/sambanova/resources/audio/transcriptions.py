@@ -2,14 +2,14 @@
 
 from __future__ import annotations
 
-from typing import Any, Union, Mapping, Optional, cast
-from typing_extensions import Literal, overload
+from typing import List, Union, Mapping, Optional, cast
+from typing_extensions import Literal
 
 import httpx
 
 from ..._files import deepcopy_with_paths
 from ..._types import Body, Omit, Query, Headers, NotGiven, FileTypes, omit, not_given
-from ..._utils import extract_files, required_args, maybe_transform, async_maybe_transform
+from ..._utils import extract_files, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -18,11 +18,9 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..._streaming import Stream, AsyncStream
 from ...types.audio import transcription_create_params
 from ..._base_client import make_request_options
-from ...types.audio.transcription_create_response import TranscriptionCreateResponse
-from ...types.audio.transcription_stream_response import TranscriptionStreamResponse
+from ...types.audio.transcription_response import TranscriptionResponse
 
 __all__ = ["TranscriptionsResource", "AsyncTranscriptionsResource"]
 
@@ -47,7 +45,6 @@ class TranscriptionsResource(SyncAPIResource):
         """
         return TranscriptionsResourceWithStreamingResponse(self)
 
-    @overload
     def create(
         self,
         *,
@@ -159,16 +156,15 @@ class TranscriptionsResource(SyncAPIResource):
         ]
         | Omit = omit,
         prompt: Optional[str] | Omit = omit,
-        response_format: Literal["json", "text"] | Omit = omit,
-        stream: Literal[False] | Omit = omit,
-        stream_options: Optional[transcription_create_params.StreamOptions] | Omit = omit,
+        response_format: Literal["json", "text", "verbose_json", "srt", "vtt"] | Omit = omit,
+        timestamp_granularities: List[Literal["segment"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TranscriptionCreateResponse:
+    ) -> TranscriptionResponse:
         """
         Transcribes audio into the input language.
 
@@ -186,162 +182,13 @@ class TranscriptionsResource(SyncAPIResource):
               vocabulary. Example: “Please transcribe carefully, including pauses and
               hesitations.”
 
-          response_format: Output format JSON or text.
+          response_format: The format of the output. `json` and `verbose_json` return a JSON object
+              (`verbose_json` adds `task`, `language`, `duration` and `segments`); `text`,
+              `srt` and `vtt` return plain text.
 
-          stream_options: Optional settings that apply when `stream` is true.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
-    def create(
-        self,
-        *,
-        file: FileTypes,
-        model: Union[str, Literal["Whisper-Large-v3"]],
-        stream: Literal[True],
-        language: Optional[
-            Literal[
-                "en",
-                "zh",
-                "de",
-                "es",
-                "ru",
-                "ko",
-                "fr",
-                "ja",
-                "pt",
-                "tr",
-                "pl",
-                "ca",
-                "nl",
-                "ar",
-                "sv",
-                "it",
-                "id",
-                "hi",
-                "fi",
-                "vi",
-                "he",
-                "uk",
-                "el",
-                "ms",
-                "cs",
-                "ro",
-                "da",
-                "hu",
-                "ta",
-                "no",
-                "th",
-                "ur",
-                "hr",
-                "bg",
-                "lt",
-                "la",
-                "mi",
-                "ml",
-                "cy",
-                "sk",
-                "te",
-                "fa",
-                "lv",
-                "bn",
-                "sr",
-                "az",
-                "sl",
-                "kn",
-                "et",
-                "mk",
-                "br",
-                "eu",
-                "is",
-                "hy",
-                "ne",
-                "mn",
-                "bs",
-                "kk",
-                "sq",
-                "sw",
-                "gl",
-                "mr",
-                "pa",
-                "si",
-                "km",
-                "sn",
-                "yo",
-                "so",
-                "af",
-                "oc",
-                "ka",
-                "be",
-                "tg",
-                "sd",
-                "gu",
-                "am",
-                "yi",
-                "lo",
-                "uz",
-                "fo",
-                "ht",
-                "ps",
-                "tk",
-                "nn",
-                "mt",
-                "sa",
-                "lb",
-                "my",
-                "bo",
-                "tl",
-                "mg",
-                "as",
-                "tt",
-                "haw",
-                "ln",
-                "ha",
-                "ba",
-                "jw",
-                "su",
-                "yue",
-            ]
-        ]
-        | Omit = omit,
-        prompt: Optional[str] | Omit = omit,
-        response_format: Literal["json", "text"] | Omit = omit,
-        stream_options: Optional[transcription_create_params.StreamOptions] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Stream[TranscriptionStreamResponse]:
-        """
-        Transcribes audio into the input language.
-
-        Args:
-          file: The audio file object to transcribe or translate, in one of these formats: FLAC,
-              MP3, MP4, MPEG, MPGA, M4A, Ogg, WAV, or WebM format. File size limit is 25MB.
-
-          model: The model ID to use See available
-              [models](https://docs.sambanova.ai/docs/en/models/sambacloud-models)
-
-          language: Optional language of the input audio. Supplying the input language in ISO-639-1
-              (e.g. en) format will improve accuracy and latency.
-
-          prompt: Optional text prompt provided to influence transcription Translation style or
-              vocabulary. Example: “Please transcribe carefully, including pauses and
-              hesitations.”
-
-          response_format: Output format JSON or text.
-
-          stream_options: Optional settings that apply when `stream` is true.
+          timestamp_granularities: The timestamp granularities to populate. Requires `response_format` set to
+              `verbose_json`. Only `segment` is supported; segment timings are approximate
+              within each 30-second audio chunk.
 
           extra_headers: Send extra headers
 
@@ -351,283 +198,6 @@ class TranscriptionsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        ...
-
-    @overload
-    def create(
-        self,
-        *,
-        file: FileTypes,
-        model: Union[str, Literal["Whisper-Large-v3"]],
-        stream: bool,
-        language: Optional[
-            Literal[
-                "en",
-                "zh",
-                "de",
-                "es",
-                "ru",
-                "ko",
-                "fr",
-                "ja",
-                "pt",
-                "tr",
-                "pl",
-                "ca",
-                "nl",
-                "ar",
-                "sv",
-                "it",
-                "id",
-                "hi",
-                "fi",
-                "vi",
-                "he",
-                "uk",
-                "el",
-                "ms",
-                "cs",
-                "ro",
-                "da",
-                "hu",
-                "ta",
-                "no",
-                "th",
-                "ur",
-                "hr",
-                "bg",
-                "lt",
-                "la",
-                "mi",
-                "ml",
-                "cy",
-                "sk",
-                "te",
-                "fa",
-                "lv",
-                "bn",
-                "sr",
-                "az",
-                "sl",
-                "kn",
-                "et",
-                "mk",
-                "br",
-                "eu",
-                "is",
-                "hy",
-                "ne",
-                "mn",
-                "bs",
-                "kk",
-                "sq",
-                "sw",
-                "gl",
-                "mr",
-                "pa",
-                "si",
-                "km",
-                "sn",
-                "yo",
-                "so",
-                "af",
-                "oc",
-                "ka",
-                "be",
-                "tg",
-                "sd",
-                "gu",
-                "am",
-                "yi",
-                "lo",
-                "uz",
-                "fo",
-                "ht",
-                "ps",
-                "tk",
-                "nn",
-                "mt",
-                "sa",
-                "lb",
-                "my",
-                "bo",
-                "tl",
-                "mg",
-                "as",
-                "tt",
-                "haw",
-                "ln",
-                "ha",
-                "ba",
-                "jw",
-                "su",
-                "yue",
-            ]
-        ]
-        | Omit = omit,
-        prompt: Optional[str] | Omit = omit,
-        response_format: Literal["json", "text"] | Omit = omit,
-        stream_options: Optional[transcription_create_params.StreamOptions] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TranscriptionCreateResponse | Stream[TranscriptionStreamResponse]:
-        """
-        Transcribes audio into the input language.
-
-        Args:
-          file: The audio file object to transcribe or translate, in one of these formats: FLAC,
-              MP3, MP4, MPEG, MPGA, M4A, Ogg, WAV, or WebM format. File size limit is 25MB.
-
-          model: The model ID to use See available
-              [models](https://docs.sambanova.ai/docs/en/models/sambacloud-models)
-
-          language: Optional language of the input audio. Supplying the input language in ISO-639-1
-              (e.g. en) format will improve accuracy and latency.
-
-          prompt: Optional text prompt provided to influence transcription Translation style or
-              vocabulary. Example: “Please transcribe carefully, including pauses and
-              hesitations.”
-
-          response_format: Output format JSON or text.
-
-          stream_options: Optional settings that apply when `stream` is true.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @required_args(["file", "model"], ["file", "model", "stream"])
-    def create(
-        self,
-        *,
-        file: FileTypes,
-        model: Union[str, Literal["Whisper-Large-v3"]],
-        language: Optional[
-            Literal[
-                "en",
-                "zh",
-                "de",
-                "es",
-                "ru",
-                "ko",
-                "fr",
-                "ja",
-                "pt",
-                "tr",
-                "pl",
-                "ca",
-                "nl",
-                "ar",
-                "sv",
-                "it",
-                "id",
-                "hi",
-                "fi",
-                "vi",
-                "he",
-                "uk",
-                "el",
-                "ms",
-                "cs",
-                "ro",
-                "da",
-                "hu",
-                "ta",
-                "no",
-                "th",
-                "ur",
-                "hr",
-                "bg",
-                "lt",
-                "la",
-                "mi",
-                "ml",
-                "cy",
-                "sk",
-                "te",
-                "fa",
-                "lv",
-                "bn",
-                "sr",
-                "az",
-                "sl",
-                "kn",
-                "et",
-                "mk",
-                "br",
-                "eu",
-                "is",
-                "hy",
-                "ne",
-                "mn",
-                "bs",
-                "kk",
-                "sq",
-                "sw",
-                "gl",
-                "mr",
-                "pa",
-                "si",
-                "km",
-                "sn",
-                "yo",
-                "so",
-                "af",
-                "oc",
-                "ka",
-                "be",
-                "tg",
-                "sd",
-                "gu",
-                "am",
-                "yi",
-                "lo",
-                "uz",
-                "fo",
-                "ht",
-                "ps",
-                "tk",
-                "nn",
-                "mt",
-                "sa",
-                "lb",
-                "my",
-                "bo",
-                "tl",
-                "mg",
-                "as",
-                "tt",
-                "haw",
-                "ln",
-                "ha",
-                "ba",
-                "jw",
-                "su",
-                "yue",
-            ]
-        ]
-        | Omit = omit,
-        prompt: Optional[str] | Omit = omit,
-        response_format: Literal["json", "text"] | Omit = omit,
-        stream: Literal[False] | Literal[True] | Omit = omit,
-        stream_options: Optional[transcription_create_params.StreamOptions] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TranscriptionCreateResponse | Stream[TranscriptionStreamResponse]:
         body = deepcopy_with_paths(
             {
                 "file": file,
@@ -635,8 +205,7 @@ class TranscriptionsResource(SyncAPIResource):
                 "language": language,
                 "prompt": prompt,
                 "response_format": response_format,
-                "stream": stream,
-                "stream_options": stream_options,
+                "timestamp_granularities": timestamp_granularities,
             },
             [["file"]],
         )
@@ -647,21 +216,12 @@ class TranscriptionsResource(SyncAPIResource):
         extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
         return self._post(
             "/audio/transcriptions",
-            body=maybe_transform(
-                body,
-                transcription_create_params.TranscriptionCreateParamsStreaming
-                if stream
-                else transcription_create_params.TranscriptionCreateParamsNonStreaming,
-            ),
+            body=maybe_transform(body, transcription_create_params.TranscriptionCreateParams),
             files=files,
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=cast(
-                Any, TranscriptionCreateResponse
-            ),  # Union types cannot be passed in as arguments in the type system
-            stream=stream or False,
-            stream_cls=Stream[TranscriptionStreamResponse],
+            cast_to=TranscriptionResponse,
         )
 
 
@@ -685,7 +245,6 @@ class AsyncTranscriptionsResource(AsyncAPIResource):
         """
         return AsyncTranscriptionsResourceWithStreamingResponse(self)
 
-    @overload
     async def create(
         self,
         *,
@@ -797,16 +356,15 @@ class AsyncTranscriptionsResource(AsyncAPIResource):
         ]
         | Omit = omit,
         prompt: Optional[str] | Omit = omit,
-        response_format: Literal["json", "text"] | Omit = omit,
-        stream: Literal[False] | Omit = omit,
-        stream_options: Optional[transcription_create_params.StreamOptions] | Omit = omit,
+        response_format: Literal["json", "text", "verbose_json", "srt", "vtt"] | Omit = omit,
+        timestamp_granularities: List[Literal["segment"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TranscriptionCreateResponse:
+    ) -> TranscriptionResponse:
         """
         Transcribes audio into the input language.
 
@@ -824,162 +382,13 @@ class AsyncTranscriptionsResource(AsyncAPIResource):
               vocabulary. Example: “Please transcribe carefully, including pauses and
               hesitations.”
 
-          response_format: Output format JSON or text.
+          response_format: The format of the output. `json` and `verbose_json` return a JSON object
+              (`verbose_json` adds `task`, `language`, `duration` and `segments`); `text`,
+              `srt` and `vtt` return plain text.
 
-          stream_options: Optional settings that apply when `stream` is true.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
-    async def create(
-        self,
-        *,
-        file: FileTypes,
-        model: Union[str, Literal["Whisper-Large-v3"]],
-        stream: Literal[True],
-        language: Optional[
-            Literal[
-                "en",
-                "zh",
-                "de",
-                "es",
-                "ru",
-                "ko",
-                "fr",
-                "ja",
-                "pt",
-                "tr",
-                "pl",
-                "ca",
-                "nl",
-                "ar",
-                "sv",
-                "it",
-                "id",
-                "hi",
-                "fi",
-                "vi",
-                "he",
-                "uk",
-                "el",
-                "ms",
-                "cs",
-                "ro",
-                "da",
-                "hu",
-                "ta",
-                "no",
-                "th",
-                "ur",
-                "hr",
-                "bg",
-                "lt",
-                "la",
-                "mi",
-                "ml",
-                "cy",
-                "sk",
-                "te",
-                "fa",
-                "lv",
-                "bn",
-                "sr",
-                "az",
-                "sl",
-                "kn",
-                "et",
-                "mk",
-                "br",
-                "eu",
-                "is",
-                "hy",
-                "ne",
-                "mn",
-                "bs",
-                "kk",
-                "sq",
-                "sw",
-                "gl",
-                "mr",
-                "pa",
-                "si",
-                "km",
-                "sn",
-                "yo",
-                "so",
-                "af",
-                "oc",
-                "ka",
-                "be",
-                "tg",
-                "sd",
-                "gu",
-                "am",
-                "yi",
-                "lo",
-                "uz",
-                "fo",
-                "ht",
-                "ps",
-                "tk",
-                "nn",
-                "mt",
-                "sa",
-                "lb",
-                "my",
-                "bo",
-                "tl",
-                "mg",
-                "as",
-                "tt",
-                "haw",
-                "ln",
-                "ha",
-                "ba",
-                "jw",
-                "su",
-                "yue",
-            ]
-        ]
-        | Omit = omit,
-        prompt: Optional[str] | Omit = omit,
-        response_format: Literal["json", "text"] | Omit = omit,
-        stream_options: Optional[transcription_create_params.StreamOptions] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncStream[TranscriptionStreamResponse]:
-        """
-        Transcribes audio into the input language.
-
-        Args:
-          file: The audio file object to transcribe or translate, in one of these formats: FLAC,
-              MP3, MP4, MPEG, MPGA, M4A, Ogg, WAV, or WebM format. File size limit is 25MB.
-
-          model: The model ID to use See available
-              [models](https://docs.sambanova.ai/docs/en/models/sambacloud-models)
-
-          language: Optional language of the input audio. Supplying the input language in ISO-639-1
-              (e.g. en) format will improve accuracy and latency.
-
-          prompt: Optional text prompt provided to influence transcription Translation style or
-              vocabulary. Example: “Please transcribe carefully, including pauses and
-              hesitations.”
-
-          response_format: Output format JSON or text.
-
-          stream_options: Optional settings that apply when `stream` is true.
+          timestamp_granularities: The timestamp granularities to populate. Requires `response_format` set to
+              `verbose_json`. Only `segment` is supported; segment timings are approximate
+              within each 30-second audio chunk.
 
           extra_headers: Send extra headers
 
@@ -989,283 +398,6 @@ class AsyncTranscriptionsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        ...
-
-    @overload
-    async def create(
-        self,
-        *,
-        file: FileTypes,
-        model: Union[str, Literal["Whisper-Large-v3"]],
-        stream: bool,
-        language: Optional[
-            Literal[
-                "en",
-                "zh",
-                "de",
-                "es",
-                "ru",
-                "ko",
-                "fr",
-                "ja",
-                "pt",
-                "tr",
-                "pl",
-                "ca",
-                "nl",
-                "ar",
-                "sv",
-                "it",
-                "id",
-                "hi",
-                "fi",
-                "vi",
-                "he",
-                "uk",
-                "el",
-                "ms",
-                "cs",
-                "ro",
-                "da",
-                "hu",
-                "ta",
-                "no",
-                "th",
-                "ur",
-                "hr",
-                "bg",
-                "lt",
-                "la",
-                "mi",
-                "ml",
-                "cy",
-                "sk",
-                "te",
-                "fa",
-                "lv",
-                "bn",
-                "sr",
-                "az",
-                "sl",
-                "kn",
-                "et",
-                "mk",
-                "br",
-                "eu",
-                "is",
-                "hy",
-                "ne",
-                "mn",
-                "bs",
-                "kk",
-                "sq",
-                "sw",
-                "gl",
-                "mr",
-                "pa",
-                "si",
-                "km",
-                "sn",
-                "yo",
-                "so",
-                "af",
-                "oc",
-                "ka",
-                "be",
-                "tg",
-                "sd",
-                "gu",
-                "am",
-                "yi",
-                "lo",
-                "uz",
-                "fo",
-                "ht",
-                "ps",
-                "tk",
-                "nn",
-                "mt",
-                "sa",
-                "lb",
-                "my",
-                "bo",
-                "tl",
-                "mg",
-                "as",
-                "tt",
-                "haw",
-                "ln",
-                "ha",
-                "ba",
-                "jw",
-                "su",
-                "yue",
-            ]
-        ]
-        | Omit = omit,
-        prompt: Optional[str] | Omit = omit,
-        response_format: Literal["json", "text"] | Omit = omit,
-        stream_options: Optional[transcription_create_params.StreamOptions] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TranscriptionCreateResponse | AsyncStream[TranscriptionStreamResponse]:
-        """
-        Transcribes audio into the input language.
-
-        Args:
-          file: The audio file object to transcribe or translate, in one of these formats: FLAC,
-              MP3, MP4, MPEG, MPGA, M4A, Ogg, WAV, or WebM format. File size limit is 25MB.
-
-          model: The model ID to use See available
-              [models](https://docs.sambanova.ai/docs/en/models/sambacloud-models)
-
-          language: Optional language of the input audio. Supplying the input language in ISO-639-1
-              (e.g. en) format will improve accuracy and latency.
-
-          prompt: Optional text prompt provided to influence transcription Translation style or
-              vocabulary. Example: “Please transcribe carefully, including pauses and
-              hesitations.”
-
-          response_format: Output format JSON or text.
-
-          stream_options: Optional settings that apply when `stream` is true.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @required_args(["file", "model"], ["file", "model", "stream"])
-    async def create(
-        self,
-        *,
-        file: FileTypes,
-        model: Union[str, Literal["Whisper-Large-v3"]],
-        language: Optional[
-            Literal[
-                "en",
-                "zh",
-                "de",
-                "es",
-                "ru",
-                "ko",
-                "fr",
-                "ja",
-                "pt",
-                "tr",
-                "pl",
-                "ca",
-                "nl",
-                "ar",
-                "sv",
-                "it",
-                "id",
-                "hi",
-                "fi",
-                "vi",
-                "he",
-                "uk",
-                "el",
-                "ms",
-                "cs",
-                "ro",
-                "da",
-                "hu",
-                "ta",
-                "no",
-                "th",
-                "ur",
-                "hr",
-                "bg",
-                "lt",
-                "la",
-                "mi",
-                "ml",
-                "cy",
-                "sk",
-                "te",
-                "fa",
-                "lv",
-                "bn",
-                "sr",
-                "az",
-                "sl",
-                "kn",
-                "et",
-                "mk",
-                "br",
-                "eu",
-                "is",
-                "hy",
-                "ne",
-                "mn",
-                "bs",
-                "kk",
-                "sq",
-                "sw",
-                "gl",
-                "mr",
-                "pa",
-                "si",
-                "km",
-                "sn",
-                "yo",
-                "so",
-                "af",
-                "oc",
-                "ka",
-                "be",
-                "tg",
-                "sd",
-                "gu",
-                "am",
-                "yi",
-                "lo",
-                "uz",
-                "fo",
-                "ht",
-                "ps",
-                "tk",
-                "nn",
-                "mt",
-                "sa",
-                "lb",
-                "my",
-                "bo",
-                "tl",
-                "mg",
-                "as",
-                "tt",
-                "haw",
-                "ln",
-                "ha",
-                "ba",
-                "jw",
-                "su",
-                "yue",
-            ]
-        ]
-        | Omit = omit,
-        prompt: Optional[str] | Omit = omit,
-        response_format: Literal["json", "text"] | Omit = omit,
-        stream: Literal[False] | Literal[True] | Omit = omit,
-        stream_options: Optional[transcription_create_params.StreamOptions] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TranscriptionCreateResponse | AsyncStream[TranscriptionStreamResponse]:
         body = deepcopy_with_paths(
             {
                 "file": file,
@@ -1273,8 +405,7 @@ class AsyncTranscriptionsResource(AsyncAPIResource):
                 "language": language,
                 "prompt": prompt,
                 "response_format": response_format,
-                "stream": stream,
-                "stream_options": stream_options,
+                "timestamp_granularities": timestamp_granularities,
             },
             [["file"]],
         )
@@ -1285,21 +416,12 @@ class AsyncTranscriptionsResource(AsyncAPIResource):
         extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
         return await self._post(
             "/audio/transcriptions",
-            body=await async_maybe_transform(
-                body,
-                transcription_create_params.TranscriptionCreateParamsStreaming
-                if stream
-                else transcription_create_params.TranscriptionCreateParamsNonStreaming,
-            ),
+            body=await async_maybe_transform(body, transcription_create_params.TranscriptionCreateParams),
             files=files,
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=cast(
-                Any, TranscriptionCreateResponse
-            ),  # Union types cannot be passed in as arguments in the type system
-            stream=stream or False,
-            stream_cls=AsyncStream[TranscriptionStreamResponse],
+            cast_to=TranscriptionResponse,
         )
 
 

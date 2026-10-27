@@ -11,6 +11,7 @@ from .embeddings_response import EmbeddingsResponse as EmbeddingsResponse
 from .message_stream_event import MessageStreamEvent as MessageStreamEvent
 from .message_create_params import MessageCreateParams as MessageCreateParams
 from .response_stream_event import ResponseStreamEvent as ResponseStreamEvent
+from .transcription_segment import TranscriptionSegment as TranscriptionSegment
 from .response_create_params import ResponseCreateParams as ResponseCreateParams
 from .embedding_create_params import EmbeddingCreateParams as EmbeddingCreateParams
 from .message_create_response import MessageCreateResponse as MessageCreateResponse
