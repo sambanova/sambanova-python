@@ -74,7 +74,7 @@ class TestMessages:
                     "type": "custom",
                 }
             ],
-            top_k=0,
+            top_k=1,
             top_p=0,
             anthropic_version="2023-06-01",
         )
@@ -173,7 +173,7 @@ class TestMessages:
                     "type": "custom",
                 }
             ],
-            top_k=0,
+            top_k=1,
             top_p=0,
             anthropic_version="2023-06-01",
         )
@@ -364,7 +364,7 @@ class TestAsyncMessages:
                     "type": "custom",
                 }
             ],
-            top_k=0,
+            top_k=1,
             top_p=0,
             anthropic_version="2023-06-01",
         )
@@ -463,7 +463,7 @@ class TestAsyncMessages:
                     "type": "custom",
                 }
             ],
-            top_k=0,
+            top_k=1,
             top_p=0,
             anthropic_version="2023-06-01",
         )

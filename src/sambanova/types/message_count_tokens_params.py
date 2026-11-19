@@ -100,10 +100,10 @@ class MessageCountTokensParams(TypedDict, total=False):
     (`unsupported_parameter`).
     """
 
-    tool_choice: Optional[ToolChoice]
+    tool_choice: ToolChoice
     """How the model should choose from the provided tools."""
 
-    tools: Optional[Iterable[Tool]]
+    tools: Iterable[Tool]
     """Tool definitions the model may call."""
 
     anthropic_version: Annotated[str, PropertyInfo(alias="anthropic-version")]

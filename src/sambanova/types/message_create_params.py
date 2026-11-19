@@ -96,6 +96,7 @@ class MessageCreateParamsBase(TypedDict, total=False):
             Literal[
                 "DeepSeek-V3.1",
                 "DeepSeek-V3.2",
+                "GLM-5.3",
                 "Meta-Llama-3.3-70B-Instruct",
                 "MiniMax-M3",
                 "MiniMax-M3.1-Flash",
@@ -158,7 +159,7 @@ class MessageCreateParamsBase(TypedDict, total=False):
     top_k: Optional[int]
     """Top-k sampling.
 
-    Considers only the K most likely tokens at each step. Set to 0 to disable.
+    Considers only the K most likely tokens at each step. Must be at least 1.
     """
 
     top_p: Optional[float]

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Dict, Union, Iterable, Optional, cast
+from typing import Any, Union, Iterable, Optional, cast
 from typing_extensions import Literal, overload
 
 import httpx
@@ -51,16 +51,13 @@ class ResponsesResource(SyncAPIResource):
         self,
         *,
         input: Union[str, Iterable[response_create_params.InputInputItemList]],
-        model: Union[str, Literal["MiniMax-M3", "MiniMax-M3.1-Flash", "gemma-4-31B-it", "gpt-oss-120b"]],
-        background: Optional[bool] | Omit = omit,
-        frequency_penalty: Optional[float] | Omit = omit,
+        model: Union[str, Literal["GLM-5.3", "MiniMax-M3", "MiniMax-M3.1-Flash", "gemma-4-31B-it", "gpt-oss-120b"]],
+        frequency_penalty: Optional[Literal[0]] | Omit = omit,
         instructions: Optional[str] | Omit = omit,
         max_output_tokens: Optional[int] | Omit = omit,
         max_tool_calls: Optional[int] | Omit = omit,
-        metadata: Optional[Dict[str, str]] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
-        presence_penalty: Optional[float] | Omit = omit,
-        previous_response_id: Optional[str] | Omit = omit,
+        presence_penalty: Optional[Literal[0]] | Omit = omit,
         reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
         service_tier: Optional[str] | Omit = omit,
         store: Optional[bool] | Omit = omit,
@@ -68,7 +65,7 @@ class ResponsesResource(SyncAPIResource):
         temperature: Optional[float] | Omit = omit,
         text: response_create_params.Text | Omit = omit,
         tool_choice: response_create_params.ToolChoice | Omit = omit,
-        tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
+        tools: Iterable[response_create_params.Tool] | Omit = omit,
         top_k: Optional[int] | Omit = omit,
         top_logprobs: Optional[int] | Omit = omit,
         top_p: Optional[float] | Omit = omit,
@@ -94,13 +91,10 @@ class ResponsesResource(SyncAPIResource):
           model: The model ID to use (e.g. gpt-oss-120b). See available
               [models](https://docs.sambanova.ai/docs/en/models/sambacloud-models)
 
-          background: Accepted for API compatibility and echoed back in the response. Has no effect on
-              server behavior.
-
           frequency_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on their
               existing frequency in the text so far, decreasing the model's likelihood to
-              repeat the same line verbatim. Not currently implemented; accepted for API
-              compatibility and echoed in the response.
+              repeat the same line verbatim. Not currently implemented; only `0` is accepted
+              and any other value returns a `400` error. Echoed in the response.
 
           instructions: Inserts a system (or developer) message as the first item in the model's
               context. Equivalent to a system-role message prepended to input[].
@@ -111,18 +105,12 @@ class ResponsesResource(SyncAPIResource):
           max_tool_calls: Maximum number of tool calls the model may make in a single response turn. Not
               currently implemented; accepted for API compatibility.
 
-          metadata: Included for API compatibility, but not supported
-
           parallel_tool_calls: Whether the model may issue multiple tool calls in parallel within one turn.
 
           presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on
               whether they appear in the text so far, increasing the model's likelihood to
-              talk about new topics. Not currently implemented; accepted for API compatibility
-              and echoed in the response.
-
-          previous_response_id: Not supported. SambaNova is stateless and does not maintain server-side
-              conversation state. Accepted for API compatibility but ignored; clients must
-              supply the full conversation history in input[].
+              talk about new topics. Not currently implemented; only `0` is accepted and any
+              other value returns a `400` error. Echoed in the response.
 
           reasoning: Reasoning configuration for models that support it. Ignored on non-reasoning
               models.
@@ -177,24 +165,21 @@ class ResponsesResource(SyncAPIResource):
         self,
         *,
         input: Union[str, Iterable[response_create_params.InputInputItemList]],
-        model: Union[str, Literal["MiniMax-M3", "MiniMax-M3.1-Flash", "gemma-4-31B-it", "gpt-oss-120b"]],
+        model: Union[str, Literal["GLM-5.3", "MiniMax-M3", "MiniMax-M3.1-Flash", "gemma-4-31B-it", "gpt-oss-120b"]],
         stream: Literal[True],
-        background: Optional[bool] | Omit = omit,
-        frequency_penalty: Optional[float] | Omit = omit,
+        frequency_penalty: Optional[Literal[0]] | Omit = omit,
         instructions: Optional[str] | Omit = omit,
         max_output_tokens: Optional[int] | Omit = omit,
         max_tool_calls: Optional[int] | Omit = omit,
-        metadata: Optional[Dict[str, str]] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
-        presence_penalty: Optional[float] | Omit = omit,
-        previous_response_id: Optional[str] | Omit = omit,
+        presence_penalty: Optional[Literal[0]] | Omit = omit,
         reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
         service_tier: Optional[str] | Omit = omit,
         store: Optional[bool] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: response_create_params.Text | Omit = omit,
         tool_choice: response_create_params.ToolChoice | Omit = omit,
-        tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
+        tools: Iterable[response_create_params.Tool] | Omit = omit,
         top_k: Optional[int] | Omit = omit,
         top_logprobs: Optional[int] | Omit = omit,
         top_p: Optional[float] | Omit = omit,
@@ -222,13 +207,10 @@ class ResponsesResource(SyncAPIResource):
 
           stream: If true, the response is delivered as server-sent events (SSE).
 
-          background: Accepted for API compatibility and echoed back in the response. Has no effect on
-              server behavior.
-
           frequency_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on their
               existing frequency in the text so far, decreasing the model's likelihood to
-              repeat the same line verbatim. Not currently implemented; accepted for API
-              compatibility and echoed in the response.
+              repeat the same line verbatim. Not currently implemented; only `0` is accepted
+              and any other value returns a `400` error. Echoed in the response.
 
           instructions: Inserts a system (or developer) message as the first item in the model's
               context. Equivalent to a system-role message prepended to input[].
@@ -239,18 +221,12 @@ class ResponsesResource(SyncAPIResource):
           max_tool_calls: Maximum number of tool calls the model may make in a single response turn. Not
               currently implemented; accepted for API compatibility.
 
-          metadata: Included for API compatibility, but not supported
-
           parallel_tool_calls: Whether the model may issue multiple tool calls in parallel within one turn.
 
           presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on
               whether they appear in the text so far, increasing the model's likelihood to
-              talk about new topics. Not currently implemented; accepted for API compatibility
-              and echoed in the response.
-
-          previous_response_id: Not supported. SambaNova is stateless and does not maintain server-side
-              conversation state. Accepted for API compatibility but ignored; clients must
-              supply the full conversation history in input[].
+              talk about new topics. Not currently implemented; only `0` is accepted and any
+              other value returns a `400` error. Echoed in the response.
 
           reasoning: Reasoning configuration for models that support it. Ignored on non-reasoning
               models.
@@ -303,24 +279,21 @@ class ResponsesResource(SyncAPIResource):
         self,
         *,
         input: Union[str, Iterable[response_create_params.InputInputItemList]],
-        model: Union[str, Literal["MiniMax-M3", "MiniMax-M3.1-Flash", "gemma-4-31B-it", "gpt-oss-120b"]],
+        model: Union[str, Literal["GLM-5.3", "MiniMax-M3", "MiniMax-M3.1-Flash", "gemma-4-31B-it", "gpt-oss-120b"]],
         stream: bool,
-        background: Optional[bool] | Omit = omit,
-        frequency_penalty: Optional[float] | Omit = omit,
+        frequency_penalty: Optional[Literal[0]] | Omit = omit,
         instructions: Optional[str] | Omit = omit,
         max_output_tokens: Optional[int] | Omit = omit,
         max_tool_calls: Optional[int] | Omit = omit,
-        metadata: Optional[Dict[str, str]] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
-        presence_penalty: Optional[float] | Omit = omit,
-        previous_response_id: Optional[str] | Omit = omit,
+        presence_penalty: Optional[Literal[0]] | Omit = omit,
         reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
         service_tier: Optional[str] | Omit = omit,
         store: Optional[bool] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: response_create_params.Text | Omit = omit,
         tool_choice: response_create_params.ToolChoice | Omit = omit,
-        tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
+        tools: Iterable[response_create_params.Tool] | Omit = omit,
         top_k: Optional[int] | Omit = omit,
         top_logprobs: Optional[int] | Omit = omit,
         top_p: Optional[float] | Omit = omit,
@@ -348,13 +321,10 @@ class ResponsesResource(SyncAPIResource):
 
           stream: If true, the response is delivered as server-sent events (SSE).
 
-          background: Accepted for API compatibility and echoed back in the response. Has no effect on
-              server behavior.
-
           frequency_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on their
               existing frequency in the text so far, decreasing the model's likelihood to
-              repeat the same line verbatim. Not currently implemented; accepted for API
-              compatibility and echoed in the response.
+              repeat the same line verbatim. Not currently implemented; only `0` is accepted
+              and any other value returns a `400` error. Echoed in the response.
 
           instructions: Inserts a system (or developer) message as the first item in the model's
               context. Equivalent to a system-role message prepended to input[].
@@ -365,18 +335,12 @@ class ResponsesResource(SyncAPIResource):
           max_tool_calls: Maximum number of tool calls the model may make in a single response turn. Not
               currently implemented; accepted for API compatibility.
 
-          metadata: Included for API compatibility, but not supported
-
           parallel_tool_calls: Whether the model may issue multiple tool calls in parallel within one turn.
 
           presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on
               whether they appear in the text so far, increasing the model's likelihood to
-              talk about new topics. Not currently implemented; accepted for API compatibility
-              and echoed in the response.
-
-          previous_response_id: Not supported. SambaNova is stateless and does not maintain server-side
-              conversation state. Accepted for API compatibility but ignored; clients must
-              supply the full conversation history in input[].
+              talk about new topics. Not currently implemented; only `0` is accepted and any
+              other value returns a `400` error. Echoed in the response.
 
           reasoning: Reasoning configuration for models that support it. Ignored on non-reasoning
               models.
@@ -429,16 +393,13 @@ class ResponsesResource(SyncAPIResource):
         self,
         *,
         input: Union[str, Iterable[response_create_params.InputInputItemList]],
-        model: Union[str, Literal["MiniMax-M3", "MiniMax-M3.1-Flash", "gemma-4-31B-it", "gpt-oss-120b"]],
-        background: Optional[bool] | Omit = omit,
-        frequency_penalty: Optional[float] | Omit = omit,
+        model: Union[str, Literal["GLM-5.3", "MiniMax-M3", "MiniMax-M3.1-Flash", "gemma-4-31B-it", "gpt-oss-120b"]],
+        frequency_penalty: Optional[Literal[0]] | Omit = omit,
         instructions: Optional[str] | Omit = omit,
         max_output_tokens: Optional[int] | Omit = omit,
         max_tool_calls: Optional[int] | Omit = omit,
-        metadata: Optional[Dict[str, str]] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
-        presence_penalty: Optional[float] | Omit = omit,
-        previous_response_id: Optional[str] | Omit = omit,
+        presence_penalty: Optional[Literal[0]] | Omit = omit,
         reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
         service_tier: Optional[str] | Omit = omit,
         store: Optional[bool] | Omit = omit,
@@ -446,7 +407,7 @@ class ResponsesResource(SyncAPIResource):
         temperature: Optional[float] | Omit = omit,
         text: response_create_params.Text | Omit = omit,
         tool_choice: response_create_params.ToolChoice | Omit = omit,
-        tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
+        tools: Iterable[response_create_params.Tool] | Omit = omit,
         top_k: Optional[int] | Omit = omit,
         top_logprobs: Optional[int] | Omit = omit,
         top_p: Optional[float] | Omit = omit,
@@ -465,15 +426,12 @@ class ResponsesResource(SyncAPIResource):
                 {
                     "input": input,
                     "model": model,
-                    "background": background,
                     "frequency_penalty": frequency_penalty,
                     "instructions": instructions,
                     "max_output_tokens": max_output_tokens,
                     "max_tool_calls": max_tool_calls,
-                    "metadata": metadata,
                     "parallel_tool_calls": parallel_tool_calls,
                     "presence_penalty": presence_penalty,
-                    "previous_response_id": previous_response_id,
                     "reasoning": reasoning,
                     "service_tier": service_tier,
                     "store": store,
@@ -528,16 +486,13 @@ class AsyncResponsesResource(AsyncAPIResource):
         self,
         *,
         input: Union[str, Iterable[response_create_params.InputInputItemList]],
-        model: Union[str, Literal["MiniMax-M3", "MiniMax-M3.1-Flash", "gemma-4-31B-it", "gpt-oss-120b"]],
-        background: Optional[bool] | Omit = omit,
-        frequency_penalty: Optional[float] | Omit = omit,
+        model: Union[str, Literal["GLM-5.3", "MiniMax-M3", "MiniMax-M3.1-Flash", "gemma-4-31B-it", "gpt-oss-120b"]],
+        frequency_penalty: Optional[Literal[0]] | Omit = omit,
         instructions: Optional[str] | Omit = omit,
         max_output_tokens: Optional[int] | Omit = omit,
         max_tool_calls: Optional[int] | Omit = omit,
-        metadata: Optional[Dict[str, str]] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
-        presence_penalty: Optional[float] | Omit = omit,
-        previous_response_id: Optional[str] | Omit = omit,
+        presence_penalty: Optional[Literal[0]] | Omit = omit,
         reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
         service_tier: Optional[str] | Omit = omit,
         store: Optional[bool] | Omit = omit,
@@ -545,7 +500,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         temperature: Optional[float] | Omit = omit,
         text: response_create_params.Text | Omit = omit,
         tool_choice: response_create_params.ToolChoice | Omit = omit,
-        tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
+        tools: Iterable[response_create_params.Tool] | Omit = omit,
         top_k: Optional[int] | Omit = omit,
         top_logprobs: Optional[int] | Omit = omit,
         top_p: Optional[float] | Omit = omit,
@@ -571,13 +526,10 @@ class AsyncResponsesResource(AsyncAPIResource):
           model: The model ID to use (e.g. gpt-oss-120b). See available
               [models](https://docs.sambanova.ai/docs/en/models/sambacloud-models)
 
-          background: Accepted for API compatibility and echoed back in the response. Has no effect on
-              server behavior.
-
           frequency_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on their
               existing frequency in the text so far, decreasing the model's likelihood to
-              repeat the same line verbatim. Not currently implemented; accepted for API
-              compatibility and echoed in the response.
+              repeat the same line verbatim. Not currently implemented; only `0` is accepted
+              and any other value returns a `400` error. Echoed in the response.
 
           instructions: Inserts a system (or developer) message as the first item in the model's
               context. Equivalent to a system-role message prepended to input[].
@@ -588,18 +540,12 @@ class AsyncResponsesResource(AsyncAPIResource):
           max_tool_calls: Maximum number of tool calls the model may make in a single response turn. Not
               currently implemented; accepted for API compatibility.
 
-          metadata: Included for API compatibility, but not supported
-
           parallel_tool_calls: Whether the model may issue multiple tool calls in parallel within one turn.
 
           presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on
               whether they appear in the text so far, increasing the model's likelihood to
-              talk about new topics. Not currently implemented; accepted for API compatibility
-              and echoed in the response.
-
-          previous_response_id: Not supported. SambaNova is stateless and does not maintain server-side
-              conversation state. Accepted for API compatibility but ignored; clients must
-              supply the full conversation history in input[].
+              talk about new topics. Not currently implemented; only `0` is accepted and any
+              other value returns a `400` error. Echoed in the response.
 
           reasoning: Reasoning configuration for models that support it. Ignored on non-reasoning
               models.
@@ -654,24 +600,21 @@ class AsyncResponsesResource(AsyncAPIResource):
         self,
         *,
         input: Union[str, Iterable[response_create_params.InputInputItemList]],
-        model: Union[str, Literal["MiniMax-M3", "MiniMax-M3.1-Flash", "gemma-4-31B-it", "gpt-oss-120b"]],
+        model: Union[str, Literal["GLM-5.3", "MiniMax-M3", "MiniMax-M3.1-Flash", "gemma-4-31B-it", "gpt-oss-120b"]],
         stream: Literal[True],
-        background: Optional[bool] | Omit = omit,
-        frequency_penalty: Optional[float] | Omit = omit,
+        frequency_penalty: Optional[Literal[0]] | Omit = omit,
         instructions: Optional[str] | Omit = omit,
         max_output_tokens: Optional[int] | Omit = omit,
         max_tool_calls: Optional[int] | Omit = omit,
-        metadata: Optional[Dict[str, str]] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
-        presence_penalty: Optional[float] | Omit = omit,
-        previous_response_id: Optional[str] | Omit = omit,
+        presence_penalty: Optional[Literal[0]] | Omit = omit,
         reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
         service_tier: Optional[str] | Omit = omit,
         store: Optional[bool] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: response_create_params.Text | Omit = omit,
         tool_choice: response_create_params.ToolChoice | Omit = omit,
-        tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
+        tools: Iterable[response_create_params.Tool] | Omit = omit,
         top_k: Optional[int] | Omit = omit,
         top_logprobs: Optional[int] | Omit = omit,
         top_p: Optional[float] | Omit = omit,
@@ -699,13 +642,10 @@ class AsyncResponsesResource(AsyncAPIResource):
 
           stream: If true, the response is delivered as server-sent events (SSE).
 
-          background: Accepted for API compatibility and echoed back in the response. Has no effect on
-              server behavior.
-
           frequency_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on their
               existing frequency in the text so far, decreasing the model's likelihood to
-              repeat the same line verbatim. Not currently implemented; accepted for API
-              compatibility and echoed in the response.
+              repeat the same line verbatim. Not currently implemented; only `0` is accepted
+              and any other value returns a `400` error. Echoed in the response.
 
           instructions: Inserts a system (or developer) message as the first item in the model's
               context. Equivalent to a system-role message prepended to input[].
@@ -716,18 +656,12 @@ class AsyncResponsesResource(AsyncAPIResource):
           max_tool_calls: Maximum number of tool calls the model may make in a single response turn. Not
               currently implemented; accepted for API compatibility.
 
-          metadata: Included for API compatibility, but not supported
-
           parallel_tool_calls: Whether the model may issue multiple tool calls in parallel within one turn.
 
           presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on
               whether they appear in the text so far, increasing the model's likelihood to
-              talk about new topics. Not currently implemented; accepted for API compatibility
-              and echoed in the response.
-
-          previous_response_id: Not supported. SambaNova is stateless and does not maintain server-side
-              conversation state. Accepted for API compatibility but ignored; clients must
-              supply the full conversation history in input[].
+              talk about new topics. Not currently implemented; only `0` is accepted and any
+              other value returns a `400` error. Echoed in the response.
 
           reasoning: Reasoning configuration for models that support it. Ignored on non-reasoning
               models.
@@ -780,24 +714,21 @@ class AsyncResponsesResource(AsyncAPIResource):
         self,
         *,
         input: Union[str, Iterable[response_create_params.InputInputItemList]],
-        model: Union[str, Literal["MiniMax-M3", "MiniMax-M3.1-Flash", "gemma-4-31B-it", "gpt-oss-120b"]],
+        model: Union[str, Literal["GLM-5.3", "MiniMax-M3", "MiniMax-M3.1-Flash", "gemma-4-31B-it", "gpt-oss-120b"]],
         stream: bool,
-        background: Optional[bool] | Omit = omit,
-        frequency_penalty: Optional[float] | Omit = omit,
+        frequency_penalty: Optional[Literal[0]] | Omit = omit,
         instructions: Optional[str] | Omit = omit,
         max_output_tokens: Optional[int] | Omit = omit,
         max_tool_calls: Optional[int] | Omit = omit,
-        metadata: Optional[Dict[str, str]] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
-        presence_penalty: Optional[float] | Omit = omit,
-        previous_response_id: Optional[str] | Omit = omit,
+        presence_penalty: Optional[Literal[0]] | Omit = omit,
         reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
         service_tier: Optional[str] | Omit = omit,
         store: Optional[bool] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: response_create_params.Text | Omit = omit,
         tool_choice: response_create_params.ToolChoice | Omit = omit,
-        tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
+        tools: Iterable[response_create_params.Tool] | Omit = omit,
         top_k: Optional[int] | Omit = omit,
         top_logprobs: Optional[int] | Omit = omit,
         top_p: Optional[float] | Omit = omit,
@@ -825,13 +756,10 @@ class AsyncResponsesResource(AsyncAPIResource):
 
           stream: If true, the response is delivered as server-sent events (SSE).
 
-          background: Accepted for API compatibility and echoed back in the response. Has no effect on
-              server behavior.
-
           frequency_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on their
               existing frequency in the text so far, decreasing the model's likelihood to
-              repeat the same line verbatim. Not currently implemented; accepted for API
-              compatibility and echoed in the response.
+              repeat the same line verbatim. Not currently implemented; only `0` is accepted
+              and any other value returns a `400` error. Echoed in the response.
 
           instructions: Inserts a system (or developer) message as the first item in the model's
               context. Equivalent to a system-role message prepended to input[].
@@ -842,18 +770,12 @@ class AsyncResponsesResource(AsyncAPIResource):
           max_tool_calls: Maximum number of tool calls the model may make in a single response turn. Not
               currently implemented; accepted for API compatibility.
 
-          metadata: Included for API compatibility, but not supported
-
           parallel_tool_calls: Whether the model may issue multiple tool calls in parallel within one turn.
 
           presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on
               whether they appear in the text so far, increasing the model's likelihood to
-              talk about new topics. Not currently implemented; accepted for API compatibility
-              and echoed in the response.
-
-          previous_response_id: Not supported. SambaNova is stateless and does not maintain server-side
-              conversation state. Accepted for API compatibility but ignored; clients must
-              supply the full conversation history in input[].
+              talk about new topics. Not currently implemented; only `0` is accepted and any
+              other value returns a `400` error. Echoed in the response.
 
           reasoning: Reasoning configuration for models that support it. Ignored on non-reasoning
               models.
@@ -906,16 +828,13 @@ class AsyncResponsesResource(AsyncAPIResource):
         self,
         *,
         input: Union[str, Iterable[response_create_params.InputInputItemList]],
-        model: Union[str, Literal["MiniMax-M3", "MiniMax-M3.1-Flash", "gemma-4-31B-it", "gpt-oss-120b"]],
-        background: Optional[bool] | Omit = omit,
-        frequency_penalty: Optional[float] | Omit = omit,
+        model: Union[str, Literal["GLM-5.3", "MiniMax-M3", "MiniMax-M3.1-Flash", "gemma-4-31B-it", "gpt-oss-120b"]],
+        frequency_penalty: Optional[Literal[0]] | Omit = omit,
         instructions: Optional[str] | Omit = omit,
         max_output_tokens: Optional[int] | Omit = omit,
         max_tool_calls: Optional[int] | Omit = omit,
-        metadata: Optional[Dict[str, str]] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
-        presence_penalty: Optional[float] | Omit = omit,
-        previous_response_id: Optional[str] | Omit = omit,
+        presence_penalty: Optional[Literal[0]] | Omit = omit,
         reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
         service_tier: Optional[str] | Omit = omit,
         store: Optional[bool] | Omit = omit,
@@ -923,7 +842,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         temperature: Optional[float] | Omit = omit,
         text: response_create_params.Text | Omit = omit,
         tool_choice: response_create_params.ToolChoice | Omit = omit,
-        tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
+        tools: Iterable[response_create_params.Tool] | Omit = omit,
         top_k: Optional[int] | Omit = omit,
         top_logprobs: Optional[int] | Omit = omit,
         top_p: Optional[float] | Omit = omit,
@@ -942,15 +861,12 @@ class AsyncResponsesResource(AsyncAPIResource):
                 {
                     "input": input,
                     "model": model,
-                    "background": background,
                     "frequency_penalty": frequency_penalty,
                     "instructions": instructions,
                     "max_output_tokens": max_output_tokens,
                     "max_tool_calls": max_tool_calls,
-                    "metadata": metadata,
                     "parallel_tool_calls": parallel_tool_calls,
                     "presence_penalty": presence_penalty,
-                    "previous_response_id": previous_response_id,
                     "reasoning": reasoning,
                     "service_tier": service_tier,
                     "store": store,
