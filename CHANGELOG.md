@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.14.1](https://github.com/sambanova/sambanova-python/compare/v1.14.0...v1.14.1) (2026-11-19)
+
+
+### Bug Fixes
+
+* **api:** align request schemas with live API validation (DOC-2918) ([2b7574a](https://github.com/sambanova/sambanova-python/commit/2b7574ac455bc0948c4b511cde70252826368205))
+
 ## [1.14.0](https://github.com/sambanova/sambanova-python/compare/v1.13.0...v1.14.0) (2026-10-27)
 
 
