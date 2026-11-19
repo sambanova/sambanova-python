@@ -58,6 +58,7 @@ class MessagesResource(SyncAPIResource):
             Literal[
                 "DeepSeek-V3.1",
                 "DeepSeek-V3.2",
+                "GLM-5.3",
                 "Meta-Llama-3.3-70B-Instruct",
                 "MiniMax-M3",
                 "MiniMax-M3.1-Flash",
@@ -133,8 +134,8 @@ class MessagesResource(SyncAPIResource):
 
           tools: Tool definitions the model may call.
 
-          top_k: Top-k sampling. Considers only the K most likely tokens at each step. Set to 0
-              to disable.
+          top_k: Top-k sampling. Considers only the K most likely tokens at each step. Must be at
+              least 1.
 
           top_p: Nucleus sampling. Considers tokens with cumulative probability mass up to
               `top_p`.
@@ -160,6 +161,7 @@ class MessagesResource(SyncAPIResource):
             Literal[
                 "DeepSeek-V3.1",
                 "DeepSeek-V3.2",
+                "GLM-5.3",
                 "Meta-Llama-3.3-70B-Instruct",
                 "MiniMax-M3",
                 "MiniMax-M3.1-Flash",
@@ -235,8 +237,8 @@ class MessagesResource(SyncAPIResource):
 
           tools: Tool definitions the model may call.
 
-          top_k: Top-k sampling. Considers only the K most likely tokens at each step. Set to 0
-              to disable.
+          top_k: Top-k sampling. Considers only the K most likely tokens at each step. Must be at
+              least 1.
 
           top_p: Nucleus sampling. Considers tokens with cumulative probability mass up to
               `top_p`.
@@ -262,6 +264,7 @@ class MessagesResource(SyncAPIResource):
             Literal[
                 "DeepSeek-V3.1",
                 "DeepSeek-V3.2",
+                "GLM-5.3",
                 "Meta-Llama-3.3-70B-Instruct",
                 "MiniMax-M3",
                 "MiniMax-M3.1-Flash",
@@ -337,8 +340,8 @@ class MessagesResource(SyncAPIResource):
 
           tools: Tool definitions the model may call.
 
-          top_k: Top-k sampling. Considers only the K most likely tokens at each step. Set to 0
-              to disable.
+          top_k: Top-k sampling. Considers only the K most likely tokens at each step. Must be at
+              least 1.
 
           top_p: Nucleus sampling. Considers tokens with cumulative probability mass up to
               `top_p`.
@@ -364,6 +367,7 @@ class MessagesResource(SyncAPIResource):
             Literal[
                 "DeepSeek-V3.1",
                 "DeepSeek-V3.2",
+                "GLM-5.3",
                 "Meta-Llama-3.3-70B-Instruct",
                 "MiniMax-M3",
                 "MiniMax-M3.1-Flash",
@@ -431,8 +435,8 @@ class MessagesResource(SyncAPIResource):
         model: str,
         system: Union[str, Iterable[message_count_tokens_params.SystemSystemTextBlockArray]] | Omit = omit,
         thinking: message_count_tokens_params.Thinking | Omit = omit,
-        tool_choice: Optional[message_count_tokens_params.ToolChoice] | Omit = omit,
-        tools: Optional[Iterable[message_count_tokens_params.Tool]] | Omit = omit,
+        tool_choice: message_count_tokens_params.ToolChoice | Omit = omit,
+        tools: Iterable[message_count_tokens_params.Tool] | Omit = omit,
         anthropic_version: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -527,6 +531,7 @@ class AsyncMessagesResource(AsyncAPIResource):
             Literal[
                 "DeepSeek-V3.1",
                 "DeepSeek-V3.2",
+                "GLM-5.3",
                 "Meta-Llama-3.3-70B-Instruct",
                 "MiniMax-M3",
                 "MiniMax-M3.1-Flash",
@@ -602,8 +607,8 @@ class AsyncMessagesResource(AsyncAPIResource):
 
           tools: Tool definitions the model may call.
 
-          top_k: Top-k sampling. Considers only the K most likely tokens at each step. Set to 0
-              to disable.
+          top_k: Top-k sampling. Considers only the K most likely tokens at each step. Must be at
+              least 1.
 
           top_p: Nucleus sampling. Considers tokens with cumulative probability mass up to
               `top_p`.
@@ -629,6 +634,7 @@ class AsyncMessagesResource(AsyncAPIResource):
             Literal[
                 "DeepSeek-V3.1",
                 "DeepSeek-V3.2",
+                "GLM-5.3",
                 "Meta-Llama-3.3-70B-Instruct",
                 "MiniMax-M3",
                 "MiniMax-M3.1-Flash",
@@ -704,8 +710,8 @@ class AsyncMessagesResource(AsyncAPIResource):
 
           tools: Tool definitions the model may call.
 
-          top_k: Top-k sampling. Considers only the K most likely tokens at each step. Set to 0
-              to disable.
+          top_k: Top-k sampling. Considers only the K most likely tokens at each step. Must be at
+              least 1.
 
           top_p: Nucleus sampling. Considers tokens with cumulative probability mass up to
               `top_p`.
@@ -731,6 +737,7 @@ class AsyncMessagesResource(AsyncAPIResource):
             Literal[
                 "DeepSeek-V3.1",
                 "DeepSeek-V3.2",
+                "GLM-5.3",
                 "Meta-Llama-3.3-70B-Instruct",
                 "MiniMax-M3",
                 "MiniMax-M3.1-Flash",
@@ -806,8 +813,8 @@ class AsyncMessagesResource(AsyncAPIResource):
 
           tools: Tool definitions the model may call.
 
-          top_k: Top-k sampling. Considers only the K most likely tokens at each step. Set to 0
-              to disable.
+          top_k: Top-k sampling. Considers only the K most likely tokens at each step. Must be at
+              least 1.
 
           top_p: Nucleus sampling. Considers tokens with cumulative probability mass up to
               `top_p`.
@@ -833,6 +840,7 @@ class AsyncMessagesResource(AsyncAPIResource):
             Literal[
                 "DeepSeek-V3.1",
                 "DeepSeek-V3.2",
+                "GLM-5.3",
                 "Meta-Llama-3.3-70B-Instruct",
                 "MiniMax-M3",
                 "MiniMax-M3.1-Flash",
@@ -900,8 +908,8 @@ class AsyncMessagesResource(AsyncAPIResource):
         model: str,
         system: Union[str, Iterable[message_count_tokens_params.SystemSystemTextBlockArray]] | Omit = omit,
         thinking: message_count_tokens_params.Thinking | Omit = omit,
-        tool_choice: Optional[message_count_tokens_params.ToolChoice] | Omit = omit,
-        tools: Optional[Iterable[message_count_tokens_params.Tool]] | Omit = omit,
+        tool_choice: message_count_tokens_params.ToolChoice | Omit = omit,
+        tools: Iterable[message_count_tokens_params.Tool] | Omit = omit,
         anthropic_version: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.

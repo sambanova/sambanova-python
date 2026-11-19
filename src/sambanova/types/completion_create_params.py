@@ -22,6 +22,7 @@ class CompletionCreateParamsBase(TypedDict, total=False):
             Literal[
                 "DeepSeek-V3.1",
                 "DeepSeek-V3.2",
+                "GLM-5.3",
                 "Meta-Llama-3.3-70B-Instruct",
                 "MiniMax-M3",
                 "MiniMax-M3.1-Flash",
