@@ -148,7 +148,7 @@ class ResponsesResource(SyncAPIResource):
           truncation: Accepted for API compatibility and echoed in the response. Context truncation
               behavior is not currently configurable via this field in SambaNova.
 
-          user: Included for API compatibility, but only echoed back in response
+          user: Included for API compatibility. Only echoed back in the response.
 
           extra_headers: Send extra headers
 
@@ -262,7 +262,7 @@ class ResponsesResource(SyncAPIResource):
           truncation: Accepted for API compatibility and echoed in the response. Context truncation
               behavior is not currently configurable via this field in SambaNova.
 
-          user: Included for API compatibility, but only echoed back in response
+          user: Included for API compatibility. Only echoed back in the response.
 
           extra_headers: Send extra headers
 
@@ -376,7 +376,7 @@ class ResponsesResource(SyncAPIResource):
           truncation: Accepted for API compatibility and echoed in the response. Context truncation
               behavior is not currently configurable via this field in SambaNova.
 
-          user: Included for API compatibility, but only echoed back in response
+          user: Included for API compatibility. Only echoed back in the response.
 
           extra_headers: Send extra headers
 
@@ -583,7 +583,7 @@ class AsyncResponsesResource(AsyncAPIResource):
           truncation: Accepted for API compatibility and echoed in the response. Context truncation
               behavior is not currently configurable via this field in SambaNova.
 
-          user: Included for API compatibility, but only echoed back in response
+          user: Included for API compatibility. Only echoed back in the response.
 
           extra_headers: Send extra headers
 
@@ -697,7 +697,7 @@ class AsyncResponsesResource(AsyncAPIResource):
           truncation: Accepted for API compatibility and echoed in the response. Context truncation
               behavior is not currently configurable via this field in SambaNova.
 
-          user: Included for API compatibility, but only echoed back in response
+          user: Included for API compatibility. Only echoed back in the response.
 
           extra_headers: Send extra headers
 
@@ -811,7 +811,7 @@ class AsyncResponsesResource(AsyncAPIResource):
           truncation: Accepted for API compatibility and echoed in the response. Context truncation
               behavior is not currently configurable via this field in SambaNova.
 
-          user: Included for API compatibility, but only echoed back in response
+          user: Included for API compatibility. Only echoed back in the response.
 
           extra_headers: Send extra headers
 
